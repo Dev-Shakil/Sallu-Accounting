@@ -17,34 +17,40 @@
                     </div>
                 </div>
     
-                <button type="submit" class="px-8 py-2 bg-indigo-700 rounded-xl text-white">Submit</button>
+                <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
             </form>
         </div>
 
-        <div class="bg-white shadow-md p-6 my-3">
-            <table class="table table-striped table-bordered table-hover no-wrap" id="typetable">
-                <thead>
+        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%] mx-auto">
+            <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
+                <div class="flex items-center gap-3">
+                    <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
+                    <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
+                </div>
+            </form>
+            <table class="table table-striped table-hover no-wrap " id="typetable">
+                <thead class="bg-[#5dc8cc]">
                     <tr>
-                        <th scope="col" class="px-4 py-2 border border-gray-300">Serial</th>
-                        <th scope="col" class="px-4 py-2 border border-gray-300">Name</th>
+                        <th scope="col" class="px-4 py-2 ">Serial</th>
+                        <th scope="col" class="px-4 py-2 ">Name</th>
                         
-                        <th scope="col" class="px-4 py-2 border border-gray-300">Action</th>
+                        <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($types as $index => $type)
                         <tr>
-                            <th scope="row" class="px-4 py-2 border border-gray-300">{{ $index + 1 }}</th>
-                            <td class="px-4 py-2 border border-gray-300">{{ $type->name }}</td>
-                            <td class="px-4 py-2 border border-gray-300">
-                                <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ route('type.delete', ['id' => $type->id]) }}" class="btn btn-danger">Delete</a>
+                            <th scope="row" class="px-4 py-2">{{ $type->id}}</th>
+                            <td class="px-4 py-2 ">{{ $type->name }}</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class=""><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                <a href="{{ route('type.delete', ['id' => $type->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            
+            {{ $types->links() }}
         </div>
 
     </div>
@@ -58,7 +64,7 @@
                 theme:'classic',
             });
 
-            $('#typetable').DataTable();
+            // $('#typetable').DataTable();
 
         
         });

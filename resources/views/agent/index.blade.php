@@ -102,10 +102,10 @@
         @endif
         <h1 class="mb-4 text-3xl w-[60%] mx-auto font-bold">Add Agent</h1>
     
-        <div class="addagent w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
-            <form action="/addagent" method="post">
+        <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
+            <form action="/addagent" method="POST">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="grid grid-cols-2 gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
                         <input type="text" id="name" name="name" class="mt-1 p-2 w-full border " placeholder="Enter your name" required>
@@ -116,7 +116,7 @@
                         <input type="tel" id="phone" name="phone" class="mt-1 p-2 w-full border " placeholder="Enter your phone number" required>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
                         <input type="text" id="email" name="email" class="mt-1 p-2 w-full border " placeholder="Enter an Email" required>
@@ -127,7 +127,7 @@
                         <input type="text" id="district" name="district" class="mt-1 p-2 w-full border " placeholder="Enter a district" required>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                     <div class="mb-4">
                         <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
                         <textarea id="address" name="address" class="mt-1 p-2 w-full border " placeholder="Enter an address" required></textarea>
@@ -138,17 +138,17 @@
                         <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country" required>
                     </div>
                 </div>
-                <div class="mb-4">
+                <div class="mb-4 w-[100%] md:w-[48%]">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
                     <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" required></textarea>
                 </div>
     
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Submit</button>
+                <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
             </form>
         </div>
     
         <div class="allagents mt-8 shadow-lg bg-white p-3 rounded-lg">
-            <table class="table table-bordered  table-hover no-wrap" id="agenttable">
+            <table class="table table-striped table-hover no-wrap" id="agenttable">
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2">Serial</th>
@@ -162,7 +162,7 @@
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-sm">
                     @foreach($agents as $index => $agent)
                         <tr>
                             <td class="px-4 py-2">{{ $index + 1 }}</td>
@@ -173,9 +173,9 @@
                             <td class="px-4 py-2">{{ $agent->district }}</td>
                             <td class="px-4 py-2">{{ $agent->country }}</td>
                             <td class="px-4 py-2">{{ $agent->description }}</td>
-                            <td class="px-4 py-2">
-                                <a href="{{ route('agent.edit', ['id' => encrypt($agent->id)]) }}" class="bg-blue-500 text-white px-2 py-1 rounded-md">Edit</a>
-                                <a href="{{ route('agent.delete', ['id' => $agent->id]) }}" class="bg-red-500 text-white px-2 py-1 rounded-md">Delete</a>
+                            <td class="px-4 py-2 flex">
+                                <a href="{{ route('agent.edit', ['id' => encrypt($agent->id)]) }}" class=" text-green-800 px-2 py-1 rounded-md"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                <a href="{{ route('agent.delete', ['id' => $agent->id]) }}" class=" text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         </tr>
                     @endforeach

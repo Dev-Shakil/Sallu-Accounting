@@ -21,10 +21,10 @@ class AgentController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'country' => 'required|string|max:20',
-            'address' => 'required|string|max:20',
-            'district' => 'required|string|max:20',
-            'email' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
         $validatedData['user'] = Auth::id();

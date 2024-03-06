@@ -1,41 +1,14 @@
 <div id="sideNav"
-    class="text-white lg:block hidden w-64 h-screen fixed rounded-none border-none overflow-y-scroll no-scrollbar z-50 bg-gray-800">
-    <!-- Items -->
-    {{-- <div class="p-4 space-y-4">
-        <!-- Inicio -->
-        <a href="#" aria-label="dashboard"
-            class="relative px-4 py-3 flex items-center space-x-4 rounded-lg text-white bg-gradient-to-r from-sky-600 to-cyan-400">
-            <i class="fas fa-home text-white"></i>
-            <span class="-mr-1 font-medium">Inicio</span>
-        </a>
+    class="text-white lg:block hidden w-64 min-h-screen h-auto rounded-none border-none overflow-y-scroll no-scrollbar bg-gray-800">
+    
 
-        <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
-            <i class="fas fa-wallet"></i>
-            <span>Billetera</span>
-        </a>
-        <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
-            <i class="fas fa-exchange-alt"></i>
-            <span>Transacciones</span>
-        </a>
-        <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
-            <i class="fas fa-user"></i>
-            <span>Mi cuenta</span>
-        </a>
-        <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Cerrar sesión</span>
-        </a>
-    </div> --}}
-
-    <a class="flex items-center justify-between w-full px-3 mt-3" href="#">
+    <div class="flex items-center flex-wrap  justify-between w-full px-3 mt-3" href="#">
         <div class="flex items-center flex-col justify-center w-full">
-            <svg class="w-20 h-20 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path
-                    d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-            </svg>
-            <span class="ml-2 text-sm font-bold">Sallu Air Services</span>
+            <img src="{{ url('storage/'.Auth::user()->company_logo) }}" alt="logo" width="100px" height="70px"/>
+            <span class="ml-2 text-sm font-bold">{{ Auth::user()->name }}</span>
+            {{-- <p class="ml-2 text-sm font-bold w-full">{{ Auth::user()->company_logo }}</p> --}}
         </div>
-    </a>
+    </div>
 
     <div class="w-full px-2">
 
@@ -65,7 +38,15 @@
                 </svg>
                 {{ __('Supplier') }}
             </x-nav-link>
-            <x-nav-link :href="route('type.view')" :active="request()->routeIs('type.view')">
+            <x-nav-link :href="route('transaction.view')" :active="request()->routeIs('transaction.view')">
+                <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                {{ __('Add Transaction Method') }}
+            </x-nav-link>
+            <x-nav-link :href="route('type.index')" :active="request()->routeIs('type.index')">
                 <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -80,6 +61,14 @@
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 {{ __('Invoice Entry') }}
+            </x-nav-link>
+            <x-nav-link :href="route('receive_payment.index')" :active="request()->routeIs('receive_payment.index')">
+                <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                {{ __('Receive Payment') }}
             </x-nav-link>
             {{-- <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-indigo-700"
@@ -151,7 +140,7 @@
                             {{ __('Transaction') }}
                         </x-nav-link>
                     </li>
-                    <li class="text-black font-semibold flex items-center">
+                    {{-- <li class="text-black font-semibold flex items-center">
                         <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +149,7 @@
                             </svg>
                             {{ __('Received Voucher') }}
                         </x-nav-link>
-                    </li>
+                    </li> --}}
                     <li class="text-black font-semibold">
                         <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -182,7 +171,7 @@
                         </x-nav-link>
                     </li>
                     <li class="text-black font-semibold">
-                        <x-nav-link :href="route('deportee.view')" :active="request()->routeIs('deportee.view')">
+                        <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -277,7 +266,7 @@
                             {{ __('New Tickets Invoicing') }}
                         </x-nav-link>
                     </li>
-                    <li class="text-black font-semibold flex items-center">
+                    {{-- <li class="text-black font-semibold flex items-center">
                         <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -286,9 +275,29 @@
                             </svg>
                             {{ __('Ticket Refund') }}
                         </x-nav-link>
+                    </li> --}}
+                    <li class="text-black font-semibold">
+                        <x-nav-link :href="route('refund_ticket')" :active="request()->routeIs('refund_ticket')">
+                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            {{ __('Refund') }}
+                        </x-nav-link>
                     </li>
                     <li class="text-black font-semibold">
-                        <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                        <x-nav-link :href="route('reissue.view')" :active="request()->routeIs('reissue.view')">
+                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            {{ __('Reissue') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="text-black font-semibold">
+                        <x-nav-link :href="route('void.view')" :active="request()->routeIs('void.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -298,7 +307,7 @@
                         </x-nav-link>
                     </li>
                     <li class="text-black font-semibold">
-                        <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                        <x-nav-link :href="route('adm.view')" :active="request()->routeIs('adm.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -308,7 +317,7 @@
                         </x-nav-link>
                     </li>
                     <li class="text-black font-semibold">
-                        <x-nav-link :href="route('deportee.view')" :active="request()->routeIs('deportee.view')">
+                        <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -368,7 +377,7 @@
                         </p>
                         <ul id="dropdown-sales_report" class="hidden divide-y-2 text-white bg-black rounded-lg">
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <x-nav-link :href="route('sales_ticket')" :active="request()->routeIs('sales_ticket')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -377,7 +386,27 @@
                                     {{ __('Sales Report(Ticket)') }}
                                 </x-nav-link>
                             </li>
-                            <li class="text-white font-semibold flex items-center">
+                            <li class="text-white font-semibold">
+                                <x-nav-link :href="route('sales_exicutive_stuff')" :active="request()->routeIs('sales_exicutive_stuff')">
+                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    {{ __('Sales Exicutive Report') }}
+                                </x-nav-link>
+                            </li>
+                            <li class="text-white font-semibold">
+                                <x-nav-link :href="route('sales_analysis')" :active="request()->routeIs('sales_analysis')">
+                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    {{ __('Sales Analysis Report') }}
+                                </x-nav-link>
+                            </li>
+                            {{-- <li class="text-white font-semibold flex items-center">
                                 <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -386,7 +415,7 @@
                                     </svg>
                                     {{ __('Refund Report(Ticket)') }}
                                 </x-nav-link>
-                            </li>
+                            </li> --}}
                             <li class="text-white font-semibold">
                                 <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -408,7 +437,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('deportee.view')" :active="request()->routeIs('deportee.view')">
+                                <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -428,7 +457,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <x-nav-link :href="route('ait_report_index')" :active="request()->routeIs('ait_report_index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -458,7 +487,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <x-nav-link :href="route('payment_report_index')" :active="request()->routeIs('payment_report_index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -468,7 +497,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <x-nav-link :href="route('receive_report_index')" :active="request()->routeIs('receive_report_index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -509,7 +538,7 @@
                         </p>
                         <ul id="dropdown-finance_report" class="hidden divide-y-2 text-white bg-black rounded-lg">
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <x-nav-link :href="route('general_ledger')" :active="request()->routeIs('general_ledger')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -518,7 +547,7 @@
                                     {{ __('General Ledger') }}
                                 </x-nav-link>
                             </li>
-                            <li class="text-white font-semibold flex items-center">
+                            {{-- <li class="text-white font-semibold flex items-center">
                                 <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -527,7 +556,7 @@
                                     </svg>
                                     {{ __('Group Wise Tril Balance') }}
                                 </x-nav-link>
-                            </li>
+                            </li> --}}
                             <li class="text-white font-semibold">
                                 <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -549,7 +578,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('deportee.view')" :active="request()->routeIs('deportee.view')">
+                                <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -623,7 +652,7 @@
                 </svg>
                 {{ __('Reports') }}
             </x-nav-link> --}}
-            <x-nav-link :href="route('umrah.view')" :active="request()->routeIs('umrah.view')">
+            <x-nav-link :href="route('due_reminder')" :active="request()->routeIs('due_reminder')">
                 <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -636,7 +665,7 @@
 
 
         </div>
-        <div class="flex flex-col items-center w-full mt-2 border-t border-gray-700">
+        {{-- <div class="flex flex-col items-center w-full mt-2 border-t border-gray-700">
 
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-indigo-700" href="#">
                 <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -655,7 +684,7 @@
                 <span class="ml-2 text-sm font-medium">Messages</span>
                 <span class="absolute top-0 left-0 w-2 h-2 mt-2 ml-2 bg-indigo-500 rounded-full"></span>
             </a>
-        </div>
+        </div> --}}
     </div>
 
 </div>

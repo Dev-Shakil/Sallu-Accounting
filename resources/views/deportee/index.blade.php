@@ -6,205 +6,184 @@
     </h2>
     <div class="flex bg-gray-50 flex-col justify-center items-center p-6 rounded-lg shadow-lg lg:w-3/4 w-full mx-auto my-2">
       
-        <form class="w-full" id="ticket_form">
-            @csrf
-          <div class="flex flex-wrap gap-x-6 mb-4">
+      <form class="w-full " id="ticket_form">
+        @csrf
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="invoice_no" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Invoice No.</label>
-              <input type="text" id="invoice_no" class="text-center text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="invoice_no">
+                <label for="invoice_no" class="block w-[50%]">Invoice No.</label>
+                <input type="text" id="invoice_no"
+                    class="text-center text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    name="invoice_no" readonly>
             </div>
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="agent_name" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent Name</label>
-            
-                <select name="agent" id="agent" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1">
+                <label for="agent_name" class="block w-[50%]">Agent
+                    Name</label>
+
+                <select name="agent" id="agent"
+                    class="bg-gray-50 border select2 border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-[60%] p-1">
                     <option value="">Select Agent</option>
-                    @foreach($agents as $agent)
-                        <option value="{{$agent->id}}">{{$agent->name}}</option>
+                    @foreach ($agents as $agent)
+                        <option value="{{ $agent->id }}">{{ $agent->name }}</option>
                     @endforeach
                 </select>
 
             </div>
-          </div>
-      
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="invoice_date" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Invoice Date</label>
-                <input type="date" id="invoice_date" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="invoice_date">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="flight_date" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Flight Date</label>
-                <input type="date" id="flight_date" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date">
-              </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="sector" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Sector</label>
-                <input type="text" id="sector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="sector">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="flight_no" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Flight No</label>
-                <input type="text" id="flight_no" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_no">
-              </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="ticket_no" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Ticket No / PNR</label>
-                <div class="flex w-full gap-x-3">
-                    <input type="text" id="ticket_code" maxlength="3" class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1" name="ticket_code">
-                    <input type="text" id="ticket_no" maxlength="10" class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1" name="ticket_no">
-                </div>
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="number_of_tickets" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Number of Tickets</label>
-                <input type="number" id="number_of_tickets" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="number_of_tickets">
-              </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="passenger_name" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Passenger Name</label>
-                <input type="text" id="passenger_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="passenger_name">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="airline" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Airline</label>
-                <div class="flex w-full gap-x-3">
-                    <input type="text" id="airlines_name" class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name">
-                    <input type="text" id="airlines_code" maxlength="2" class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_code">
-                </div>
-              </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="stuff" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Stuff</label>
-                <input type="text" id="stuff" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="stuff">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="supplier" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
-                
-                <select name="supplier" id="supplier" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1">
-                    <option value="">Select Supplier</option> 
-                    @foreach($suppliers as $supplier)
-                        <option value="{{$supplier->id}}">{{$supplier->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="agent_price" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent Price</label>
-                <input type="text" id="agent_price_1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="agent_price">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="supplier_price" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier Price</label>
-                <input type="text" id="supplier_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="supplier_price">
-              </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Discount</label>
-                <input type="text" id="discount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="discount">
-              </div>
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Remark</label>
-                <textarea id="remark" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="remark"></textarea>
-            </div>
-              
-          </div>
-          {{-- <div class="col-span-2 flex justify-end">
-            <button type="submit" id="add_ticket" class="bg-[#922724] text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Add</button>
-          </div> --}}
-          
-        </form>
-
-        <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2">
-          Net Profit - 900
         </div>
-        {{-- <div class="flex justify-center my-4 gap-x-8">
-          <div class="font-semibold">
-            <input type="checkbox" id="addGDS" name="addGDS" onchange="toggleGdsVisibility()" />
-            <label for="addGDS">Add GDS</label>
-          </div>
+
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="invoice_date" class="block w-[50%]">Invoice
+                    Date</label>
+                <input type="date" id="invoice_date"
+                    class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="invoice_date">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="flight_date" class="w-[50%]">Flight
+                    Date</label>
+                <input type="date" id="flight_date"
+                    class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="flight_date">
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="sector" class="w-[50%]">Sector</label>
+                <input type="text" id="sector"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="sector">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="flight_no" class="w-[50%]">Flight No</label>
+                <input type="text" id="flight_no"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="flight_no">
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="ticket_no" class="w-[50%]">Ticket No /
+                    PNR</label>
+                <div class="flex w-full gap-x-4">
+                    <input type="text" id="ticket_code"
+                        class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                        name="ticket_code">
+                    <input type="text" id="ticket_no" maxlength="10"
+                        class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                        name="ticket_no">
+                </div>
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="number_of_tickets" class="w-[50%]">Number of
+                    Tickets</label>
+                <input type="number" id="number_of_tickets"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="number_of_tickets">
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="passenger_name" class="w-[50%]">Passenger
+                    Name</label>
+                <input type="text" id="passenger_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="passenger_name">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="airline" class="w-[50%]">Airline</label>
+                <div class="flex w-full gap-x-3">
+                    <input type="text" id="airlines_name"
+                        class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                        name="airlines_name">
+                    <input type="text" id="airlines_code"
+                        class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                        name="airlines_code">
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="stuff" class="w-[50%]">Stuff</label>
+                <input type="text" id="stuff"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="stuff">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="supplier" class="w-[50%]">Supplier</label>
+
+                <select name="supplier" id="supplier"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
+                    <option value="">Select Supplier</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="agent_price" class="w-[50%]">Agent
+                    Price</label>
+                <input type="text" id="agent_price_1"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="agent_price">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="supplier_price" class="w-[50%]">Supplier
+                    Price</label>
+                <input type="text" id="supplier_price"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="supplier_price">
+            </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="discount" class="w-[50%]">Discount</label>
+                <input type="text" id="discount"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="discount">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="remark" class="w-[50%]">Remark</label>
+                <textarea id="remark"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="remark"></textarea>
+            </div>
+
+        </div>
+        <div class=" flex-wrap gap-x-10 -mx-4 mb-4 hidden">
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
+                <input type="text" id="aitticket"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="ait">
+            </div>
+            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT
+                    Amount</label>
+                <input type="text" id="aitticket_amount"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                    name="ait_amount">
+            </div>
+
+        </div>
+        <div class="col-span-2 mx-3 flex justify-end">
+            <button type="submit" id="add_ticket"
+                class="bg-[#922724] text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
+        </div>
+
+    </form>
+
         
-          <div class="font-semibold">
-            <input type="checkbox" id="receivePayment" name="receivePayment" onchange="toggleFormVisibility()" />
-            <label for="receivePayment">Receive Payment</label>
-          </div>
-        </div>
 
-        <form class="w-full my-4" id="receive_payment"  >
-          <div class="flex flex-wrap gap-x-6 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="reff_no" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Ref No</label>
-              <input type="text" id="reff_no" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="reff_no" value="Vl-63872">
-            </div>
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Amount</label>
-              <input type="text" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="amount">
-            </div>
-          </div>
-      
-          <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="payment_mode" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Mode Of Payment</label>
-                <input type="text" id="payment_mode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="payment_mode">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Remark</label>
-                <textarea id="remark" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="remark"></textarea>
-            </div>
-          </div>
-          
-        </form>
-        <div class="my-4 w-full" id="gds">
-          <div class="flex flex-wrap gap-x-2 md:gap-x-6 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="fare" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Fare</label>
-              <input type="text" id="fare" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="fare" >
-            </div>
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="commission" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Commission</label>
-              <input type="text" id="commission" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="commission">
-            </div>
-          </div>
-      
-          <div class="flex flex-wrap gap-x-6 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="tax" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">TAX</label>
-                <input type="text" id="tax" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="tax">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="ait_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT Amount</label>
-                <input type="text" id="ait_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="ait_amount">
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="ait" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
-                <input type="text" id="ait" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="ait">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="service_charge" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Service Charge</label>
-                <input type="text" id="service_charge" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="service_charge">
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-x-6 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="agent_price" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent Price</label>
-                <input type="text" id="agent_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="agent_price">
-              </div>
-              <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="gds_payment" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">GDS Payment</label>
-                <input type="text" id="gds_payment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="gds_payment">
-            </div>
-          </div>
-        </div> --}}
-        <div class="w-full flex justify-end mx-4">
-          <button type="submit" class="bg-[#922724] mt-7 text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
-        </div>
+        
+        
+        
     </div>
 
 
 
-    <table class="table-fixed mx-4 border rounded-lg overflow-hidden">
+    {{-- <table class="table-fixed mx-4 border rounded-lg overflow-hidden">
         <thead>
           <tr class="border-b bg-gray-100">
             <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Del</th>
@@ -261,24 +240,9 @@
             <td class="px-4 py-2 text-gray-700">ABCD</td>
           </tr>
         </tbody>
-      </table>
+    </table> --}}
 
-    {{-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document" style="max-width: 1200px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="tableContainer"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    
 
       <script>
         var received_payment = document.getElementById('receive_payment');

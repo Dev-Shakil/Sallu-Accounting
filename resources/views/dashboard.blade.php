@@ -80,7 +80,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="grid grid-cols-5 gap-5">
+    <div class="grid grid-cols-3 md:grid-cols-5  gap-5">
         <button class="text-white bg-orange-600  font-bold py-5 px-4 rounded">
           New Ticket Invoice
         </button>
@@ -127,7 +127,50 @@
           Report
         </button>
       </div>
-      <
+      <div>
+        <div>
+          <table class="bg-gray-400 my-5 border rounded-lg overflow-hidden table table-striped table-hover" id="ticket_table">
+            <thead>
+              <tr class="border-b bg-gray-100">
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice Date</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Ticket No</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Airline</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Passenger</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Flight Date</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent</th>
 
+                {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th> --}}
+                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent Price</th>
+
+                {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Price</th> --}}
+              
+              </tr>
+            </thead>
+            <tbody>
+
+              @foreach($closetickets as $ticket)
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_no}}/{{$ticket->ticket_code}}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->airline_name}}/{{$ticket->airline_code}}</td>
+
+                <td class="px-4 py-2 text-gray-700">{{$ticket->passenger}}</td>
+
+                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->agent}}</td>
+
+                {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier}}</td> --}}
+                <td class="px-4 py-2 text-gray-700">{{$ticket->agent_price}}</td>
+                {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier_price}}</td> --}}
+
+              
+              
+              </tr>
+              @endforeach
+            
+            </tbody>
+          </table>
+        </div>
+      <
 
 </x-app-layout>

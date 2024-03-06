@@ -5,7 +5,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="mb-4 text-3xl font-bold w-[100%] lg:w-[85%]">Ticket Refund Invoicing</h1>
+        <h1 class="mb-4 text-3xl font-bold w-[100%] lg:w-[85%]">Ticket Refund Invoicing 2</h1>
     
         <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[75%] p-6 mb-8">
             <form action="/addsupplier" method="post">
@@ -71,23 +71,18 @@
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2 ">Serial</th>
-                        <th class="px-4 py-2 ">Name</th>
-                        <th class="px-4 py-2 ">Phone</th>
-                        <th class="px-4 py-2 ">Description</th>
-                        <th class="px-4 py-2 ">Action</th>
+                        <th class="px-4 py-2 ">Refund Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($suppliers as $index => $supplier)
+                    @foreach($refund_ticket as $index => $refund)
                         <tr>
                             <td class="px-4 py-2 ">{{ $index + 1 }}</td>
-                            <td class="px-4 py-2 ">{{ $supplier->name }}</td>
-                            <td class="px-4 py-2 ">{{ $supplier->phone }}</td>
-                            <td class="px-4 py-2 ">{{ $supplier->description }}</td>
-                            <td class="px-4 py-2 ">
+                            <td class="px-4 py-2 ">{{ $refund->refund_date }}</td>
+                            {{-- <td class="px-4 py-2 ">
                                 <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class="text-blue-500 hover:underline">Edit</a>
                                 <a href="{{ route('supplier.delete', ['id' => $supplier->id]) }}" class="text-red-500 hover:underline ml-2">Delete</a>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
@@ -105,12 +100,12 @@
             });
 
             // $('#suppliertable').DataTable();
-            new DataTable('#suppliertable', {
-            responsive: true,
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            }
-        });
+        //     new DataTable('#suppliertable', {
+        //     responsive: true,
+        //     rowReorder: {
+        //         selector: 'td:nth-child(2)'
+        //     }
+        // });
         });
 
         

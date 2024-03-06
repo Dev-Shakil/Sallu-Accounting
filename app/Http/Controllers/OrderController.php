@@ -20,11 +20,11 @@ class OrderController extends Controller
         $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         $orders = Order::where([['is_delete',0],['is_active',1],['user', $user]])->get();
-        foreach($orders as $order){
-            $order->type = Type::find($order->type)->value('name');
-            $order->agent = Agent::find($order->agent)->value('name');
-            $order->supplier = Supplier::find($order->supplier)->value('name');
-        }
+        // foreach($orders as $order){
+        //     $order->type = Type::find($order->type)->value('name');
+        //     $order->agent = Agent::find($order->agent)->value('name');
+        //     $order->supplier = Supplier::find($order->supplier)->value('name');
+        // }
         // dd($orders);
         // dd($suppliers);
         return view('order/index', compact('suppliers', 'agents', 'types', 'orders'));
@@ -37,7 +37,7 @@ class OrderController extends Controller
             'type' => 'required|integer|exists:type,id',
             'agent' => 'required|integer|exists:agent,id',
             'seller' => 'nullable|string|max:255',
-            'phone' => 'required|string|max:15',
+            'phone' => 'nullable|string|max:15',
             'name' => 'required|string|max:255',
             'passport_no' => 'required|string|max:255',
             'contact_amount' => 'required|numeric',
@@ -52,21 +52,21 @@ class OrderController extends Controller
 
         if($validatedData){
             // dd($request->all());
-            $supplier = new Order();
-            $supplier->name = $validatedData['name'];
-            $supplier->date = (new DateTime($validatedData['date']))->format('Y-m-d');
-            $supplier->type = $validatedData['type'];
-            $supplier->agent = $validatedData['agent'];
-            $supplier->seller = $validatedData['seller'];
-            $supplier->phone = $validatedData['phone'];
-            $supplier->passport_no = $validatedData['passport_no'];
-            $supplier->contact_amount = $validatedData['contact_amount'];
-            $supplier->payable_amount = $validatedData['payable_amount'];
-            $supplier->other_expense = $validatedData['other_expense'];
-            $supplier->country = $validatedData['country'];
-            $supplier->supplier = $validatedData['supplier'];
-            $supplier->remark = $validatedData['remark'];
-            $supplier->invoice = $validatedData['invoice'];
+            $order = new Order();
+            $order->name = $validatedData['name'];
+            $order->date = (new DateTime($validatedData['date']))->format('Y-m-d');
+            $order->type = $validatedData['type'];
+            $order->agent = $validatedData['agent'];
+            // $order->seller = $validatedData['seller'];
+            // $order->phone = $validatedData['phone'];
+            $order->passport_no = $validatedData['passport_no'];
+            $order->contact_amount = $validatedData['contact_amount'];
+            $order->payable_amount = $validatedData['payable_amount'];
+            // $order->other_expense = $validatedData['other_expense'];
+            $order->country = $validatedData['country'];
+            $order->supplier = $validatedData['supplier'];
+            $order->remark = $validatedData['remark'];
+            $order->invoice = $validatedData['invoice'];
 
             if (isset($validatedData['other_expense'])) {
                 $profit = $validatedData['contact_amount'] - ($validatedData['payable_amount'] + $validatedData['other_expense']);
@@ -75,9 +75,9 @@ class OrderController extends Controller
             }
             
             // Now $profit contains the calculated profit based on the conditions
-            $supplier->profit = $profit;
-            $supplier->user = Auth::id();
-            $isdone = $supplier->save();
+            $order->profit = $profit;
+            $order->user = Auth::id();
+            $isdone = $order->save();
 
             if($isdone){
                 return redirect()->route('order.view')->with('success', 'Order added successfully');
@@ -91,47 +91,83 @@ class OrderController extends Controller
     public function edit($id)
     {
         $id = decrypt($id);
-        $supplier = Supplier::findOrFail($id);
-        return view('supplier.edit', compact('supplier'));
+        $user = Auth::id();
+        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $order = Order::findOrFail($id);
+        return view('order.edit', compact('order','suppliers','types', 'agents'));
     }
         public function update(Request $request, $id)
         {
             // dd($request->all(), $id);
             $validatedData = $request->validate([
+                'date' => 'required|date',
+                'type' => 'required|integer|exists:type,id',
+                'agent' => 'required|integer|exists:agent,id',
+                'seller' => 'nullable|string|max:255',
+                'phone' => 'nullable|string|max:15',
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20',
-                'description' => 'required|string',
+                'passport_no' => 'required|string|max:255',
+                'contact_amount' => 'required|numeric',
+                'payable_amount' => 'required|numeric',
+                'other_expense' => 'nullable|numeric',
+                'country' => 'required|string',
+                'supplier' => 'required|exists:supplier,id',
+                'remark' => 'nullable|string',
+                'invoice' => 'required|string|max:255',
             ]);
 
             if($validatedData){
-                $supplier = Supplier::find($id);
-                $supplier->name = $request->name;
-                $supplier->phone = $request->phone;
-                $supplier->description = $request->description;
+                $order = Order::findOrFail($id);
+                $order->name = $validatedData['name'];
+                $order->date = (new DateTime($validatedData['date']))->format('Y-m-d');
+                $order->type = $validatedData['type'];
+                $order->agent = $validatedData['agent'];
+                // $order->seller = $validatedData['seller'];
+                // $order->phone = $validatedData['phone'];
+                $order->passport_no = $validatedData['passport_no'];
+                $order->contact_amount = $validatedData['contact_amount'];
+                $order->payable_amount = $validatedData['payable_amount'];
+                // $order->other_expense = $validatedData['other_expense'];
+                $order->country = $validatedData['country'];
+                $order->supplier = $validatedData['supplier'];
+                $order->remark = $validatedData['remark'];
+                $order->invoice = $validatedData['invoice'];
+    
+                if (isset($validatedData['other_expense'])) {
+                    $profit = $validatedData['contact_amount'] - ($validatedData['payable_amount'] + $validatedData['other_expense']);
+                } else {
+                    $profit = $validatedData['contact_amount'] - $validatedData['payable_amount'];
+                }
+                
+                // Now $profit contains the calculated profit based on the conditions
+                $order->profit = $profit;
+                $order->user = Auth::id();
                 
 
-                if($supplier->save()){
-                    return redirect()->route('supplier.view')->with('success', 'Supplier updated successfully');
+                if($order->save()){
+                    return redirect()->route('order.view')->with('success', 'Order updated successfully');
                 }
                 else{
-                    return redirect()->route('supplier.view')->with('error', 'Supplier updated failed');
+                    return redirect()->route('order.view')->with('error', 'Order updated failed');
                 }
             }         
 
-            return redirect()->route('supplier.view')->with('error', 'Supplier updated failed');
+            return redirect()->route('order.view')->with('error', 'Order updated failed');
         }
 
     public function delete($id)
     {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->is_delete = 1;
-        if($supplier->save()){
-            return redirect()->route('supplier.view')->with('success', 'Supplier deleted successfully');
+        $order = Order::findOrFail($id);
+        $order->is_delete = 1;
+        if($order->save()){
+            return redirect()->route('order.view')->with('success', 'Order deleted successfully');
         }
         else{
-            return redirect()->route('supplier.view')->with('error', 'Supplier deleted failed');
+            return redirect()->route('order.view')->with('error', 'Order deleted failed');
         }
-        return redirect()->route('supplier.view')->with('error', 'Supplier deleted failed');
+        return redirect()->route('order.view')->with('error', 'Order deleted failed');
         
     }
 }
