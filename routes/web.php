@@ -4,6 +4,7 @@ use App\Http\Controllers\ADMController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\DeporteeController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReceivePaymentController;
@@ -16,7 +17,9 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
 use App\Http\Controllers\VoidController;
+use App\Models\Deportee;
 use App\Models\Ticket;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -136,21 +139,42 @@ Route::get('/get-last-id', [TicketController::class, 'getlastid'])->name('get-la
 
 // Route::get('/refund_ticket', [RefundController::class, 'index'])->name('refund_ticket');
 Route::post('/receive_only', [TicketController::class, 'receiveAmount'])->name('receive_only');
-Route::get('/deportee/index', function () {
-    return app(TicketController::class)->deportee();
+Route::get('/deportee/index', function (Request $request) {
+    return app(DeporteeController::class)->view($request);
 })->name('deportee.index');
+Route::post('/deportee_ticket_entry', [DeporteeController::class, 'deportee_ticket_entry'])->name('deportee_ticket_entry');
+Route::get('/get-last-id-deportee', [DeporteeController::class, 'getlastiddeportee'])->name('get-last-id-deportee');
 
-Route::get('/void/view', function () {
-    return app(VoidController::class)->view();
+Route::get('/segment/view', function () {
+    return app(ReportController::class)->segment_view();
+})->name('segment.view');
+Route::post('/segment_report', [ReportController::class, 'segment_report'])->name('segment_report');
+
+Route::get('/sector_city/view', function () {
+    return app(ReportController::class)->sector_city_view();
+})->name('sector_city.view');
+Route::post('/sector_city_report', [ReportController::class, 'sector_city_report'])->name('sector_city_report');
+
+
+Route::get('/void/view', function (Request $request) {
+    return app(VoidController::class)->view($request);
 })->name('void.view');
 Route::post('/ticket_void', [VoidController::class, 'void_entry'])->name('ticket_void');
 
-Route::get('/adm/view', function () {
-    return app(ADMController::class)->view();
-})->name('adm.view');
+Route::get('/void_ticket', [ReportController::class, 'void_ticket'])->name('void_ticket');
+Route::post('/void_ticket_report', [ReportController::class, 'void_ticket_report'])->name('void_ticket_report');
 
-Route::get('/reissue/view', function () {
-    return app(ReissueController::class)->view();
+Route::get('/reissue_ticket', [ReportController::class, 'reissue_ticket'])->name('reissue_ticket');
+Route::post('/reissue_ticket_report', [ReportController::class, 'reissue_ticket_report'])->name('reissue_ticket_report');
+
+Route::get('/adm/view', function (Request $request) {
+    return app(ADMController::class)->view($request);
+})->name('adm.view');
+Route::post('/adm_entry', [ADMController::class, 'adm_entry'])->name('adm_entry');
+Route::get('/get-last-id-adm', [ADMController::class, 'getlastidadm'])->name('get-last-id-adm');
+
+Route::any('/reissue/view', function (Request $request) {
+    return app(ReissueController::class)->view($request);
 })->name('reissue.view');
 Route::post('/ticket_reissue', [ReissueController::class, 'reissue_entry'])->name('ticket_reissue');
 // 

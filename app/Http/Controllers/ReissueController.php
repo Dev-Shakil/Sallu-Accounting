@@ -17,21 +17,24 @@ use Illuminate\Support\Facades\DB;
 
 class ReissueController extends Controller
 {
-    public function view()
+    public function view(Request $request)
     {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
-        foreach($tickets as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+       
+        $query = ReissueTicket::where([['user',$user]]);
+
+        // Add search functionality
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('ticket_no', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('date', 'like', '%' . $searchTerm . '%');
+            });
         }
-        // dd($orders);
-        // dd($suppliers);
-        return view('ticket.reissue', compact('suppliers', 'agents', 'types', 'tickets'));
+
+        $reissue_tickets = $query->paginate(10);
+        
+        return view('ticket.reissue', compact('reissue_tickets'));
     }
     public function reissue_entry(Request $request)
     {
@@ -64,6 +67,8 @@ class ReissueController extends Controller
         // dd($request->all());
         $reissueticket = new ReissueTicket();
         $reissueticket->ticket_no = $request->ticket;
+        $reissueticket->ticket_code = $request->ticket_code;
+        $reissueticket->passenger_name = $request->name;
         $reissueticket->date = $request->reissue_date;
         $reissueticket->agent = $request->agent;
         $reissueticket->supplier = $request->supplier;
@@ -71,6 +76,7 @@ class ReissueController extends Controller
         $reissueticket->prev_supply_amount = $request->supplier_fare;
         $reissueticket->now_agent_fere = $request->agent_reissuefare;
         $reissueticket->now_supplier_fare = $request->supplier_reissuefare;
+        $reissueticket->user = Auth::id();
 
         $agentReissueFare = $request->input('agent_reissuefare');
         $supplierReissueFare = $request->input('supplier_reissuefare');
@@ -125,3 +131,5 @@ class ReissueController extends Controller
     }
 
 }
+
+

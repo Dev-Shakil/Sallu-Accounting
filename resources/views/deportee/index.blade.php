@@ -1,4 +1,15 @@
 <x-app-layout>
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     <h2
       class="text-4xl py-4 flex justify-center font-extrabold bg-[#01919A] text-white"
     >
@@ -6,7 +17,7 @@
     </h2>
     <div class="flex bg-gray-50 flex-col justify-center items-center p-6 rounded-lg shadow-lg lg:w-3/4 w-full mx-auto my-2">
       
-      <form class="w-full " id="ticket_form">
+    <form action="{{ route('deportee_ticket_entry') }}" method="post" class="w-full">
         @csrf
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
@@ -73,15 +84,13 @@
                         name="ticket_no">
                 </div>
             </div>
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            {{-- <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                 <label for="number_of_tickets" class="w-[50%]">Number of
                     Tickets</label>
                 <input type="number" id="number_of_tickets"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                     name="number_of_tickets">
-            </div>
-        </div>
-        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            </div> --}}
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                 <label for="passenger_name" class="w-[50%]">Passenger
                     Name</label>
@@ -89,6 +98,9 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                     name="passenger_name">
             </div>
+        </div>
+        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                 <label for="airline" class="w-[50%]">Airline</label>
                 <div class="flex w-full gap-x-3">
@@ -99,14 +111,6 @@
                         class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                         name="airlines_code">
                 </div>
-            </div>
-        </div>
-        <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="stuff" class="w-[50%]">Stuff</label>
-                <input type="text" id="stuff"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="stuff">
             </div>
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                 <label for="supplier" class="w-[50%]">Supplier</label>
@@ -120,28 +124,29 @@
                 </select>
             </div>
         </div>
+        
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="agent_price" class="w-[50%]">Agent
+                <label for="agent_price" class="w-[50%]">Agent Deportee
                     Price</label>
-                <input type="text" id="agent_price_1"
+                <input type="text" id="agent_deportee_price_1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="agent_price">
+                    name="agent_deportee_price">
             </div>
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="supplier_price" class="w-[50%]">Supplier
+                <label for="supplier_price" class="w-[50%]">Supplier Deportee
                     Price</label>
-                <input type="text" id="supplier_price"
+                <input type="text" id="supplier_deportee_price"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="supplier_price">
+                    name="supplier_deportee_price">
             </div>
         </div>
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="discount" class="w-[50%]">Discount</label>
-                <input type="text" id="discount"
+                <label for="stuff" class="w-[50%]">Stuff</label>
+                <input type="text" id="stuff"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="discount">
+                    name="stuff">
             </div>
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                 <label for="remark" class="w-[50%]">Remark</label>
@@ -151,24 +156,9 @@
             </div>
 
         </div>
-        <div class=" flex-wrap gap-x-10 -mx-4 mb-4 hidden">
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
-                <input type="text" id="aitticket"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="ait">
-            </div>
-            <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT
-                    Amount</label>
-                <input type="text" id="aitticket_amount"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                    name="ait_amount">
-            </div>
-
-        </div>
+        
         <div class="col-span-2 mx-3 flex justify-end">
-            <button type="submit" id="add_ticket"
+            <button id="add_ticket" type="submit"
                 class="bg-[#922724] text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
         </div>
 
@@ -181,67 +171,78 @@
         
     </div>
 
+    <form method="GET" action="{{ route('deportee.index') }}" class="flex justify-end mb-3">
+        <div class="flex items-center gap-3">
+            <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
+            <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
+        </div>
+    </form>
+    <table class="table-fixed mx-4 border rounded-lg overflow-hidden table table-striped table-hover"
+    id="ticket_table">
+    <thead>
+        <tr class="border-b bg-gray-100">
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice Date</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Ticket No</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Passenger</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Flight Date</th>
 
-
-    {{-- <table class="table-fixed mx-4 border rounded-lg overflow-hidden">
-        <thead>
-          <tr class="border-b bg-gray-100">
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Del</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Pax Name</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Pass. No</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Country</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Airline</th>
             <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Category</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Other Exp.</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Sales Amt.</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Pur. Amt.</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-2 text-gray-700">12/09/23</td>
-            <td class="px-4 py-2 text-gray-700">Alom Hossain</td>
-            <td class="px-4 py-2 text-gray-700">E09876545</td>
-            <td class="px-4 py-2 text-gray-700">Dubai</td>
-            <td class="px-4 py-2 text-gray-700">Kamal Sallu</td>
-            <td class="px-4 py-2 text-gray-700">Air Service</td>
-            <td class="px-4 py-2 text-gray-700">VISA</td>
-            <td class="px-4 py-2 text-gray-700">0000</td>
-            <td class="px-4 py-2 text-gray-700">80000</td>
-            <td class="px-4 py-2 text-gray-700">75000</td>
-            <td class="px-4 py-2 text-gray-700">ABCD</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-2 text-gray-700">12/09/23</td>
-            <td class="px-4 py-2 text-gray-700">Alom Hossain</td>
-            <td class="px-4 py-2 text-gray-700">E09876545</td>
-            <td class="px-4 py-2 text-gray-700">Dubai</td>
-            <td class="px-4 py-2 text-gray-700">Kamal Sallu</td>
-            <td class="px-4 py-2 text-gray-700">Air Service</td>
-            <td class="px-4 py-2 text-gray-700">VISA</td>
-            <td class="px-4 py-2 text-gray-700">0000</td>
-            <td class="px-4 py-2 text-gray-700">80000</td>
-            <td class="px-4 py-2 text-gray-700">75000</td>
-            <td class="px-4 py-2 text-gray-700">ABCD</td>
-          </tr>
-          <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-2 text-gray-700">12/09/23</td>
-            <td class="px-4 py-2 text-gray-700">Alom Hossain</td>
-            <td class="px-4 py-2 text-gray-700">E09876545</td>
-            <td class="px-4 py-2 text-gray-700">Dubai</td>
-            <td class="px-4 py-2 text-gray-700">Kamal Sallu</td>
-            <td class="px-4 py-2 text-gray-700">Air Service</td>
-            <td class="px-4 py-2 text-gray-700">VISA</td>
-            <td class="px-4 py-2 text-gray-700">0000</td>
-            <td class="px-4 py-2 text-gray-700">80000</td>
-            <td class="px-4 py-2 text-gray-700">75000</td>
-            <td class="px-4 py-2 text-gray-700">ABCD</td>
-          </tr>
-        </tbody>
-    </table> --}}
 
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent Deportee Price</th>
+
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Deportee Price</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Remark</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach ($deportee as $ticket)
+            <tr class="border-b hover:bg-gray-50">
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->invoice }}</td>
+                <td class="px-2 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}
+                </td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->ticket_code }}-{{ $ticket->ticket_no }}</td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->passenger }}</td>
+
+                <td class="px-2 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}
+                </td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->airline_code }}-{{ $ticket->airline_name }}</td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->agent }}</td>
+
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier }}</td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->agent_deportee_price }}</td>
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier_deportee_price }}</td>
+
+
+                <td class="px-2 py-2 text-gray-700">{{ $ticket->remark }}</td>
+                <td class="px-2 py-2 text-gray-700 flex items-center justify-around">
+                    <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
+                        class="text-blue-500 hover:text-blue-700 mr-1">
+                        <i class="fa fa-pencil fa-fw text-xl"></i>
+                    </a>
+                    <a href="{{ route('ticket_view', ['id' => $ticket->id]) }}"
+                        class="text-green-500 hover:text-green-700 mr-1">
+                        <i class="fa fa-eye fa-fw text-xl"></i>
+                    </a>
+                    <a href="#" onclick="confirmDelete('{{ route('ticket.delete', ['id' => $ticket->id]) }}')"
+                      class="text-red-800 hover:text-red-900 mr-1">
+                      <i class="fa fa-trash fa-fw text-xl"></i>
+                   </a>
+                    {{-- <a href="{{ route('ticket_print', ['id' => $ticket->id]) }}" class="text-red-500 hover:text-red-700">
+                <i class="fas fa-print"></i> Print
+            </a> --}}
+                </td>
+
+            </tr>
+        @endforeach
+
+    </tbody>
+    </table>
+    {{ $deportee->links() }}
     
 
       <script>
@@ -300,14 +301,74 @@
                 // autoclose: true
             });
 
+            
+        });
             function generateRandomString() {
-                const randomNumber = Math.floor(Math.random() * 900000) + 100000;
-                const formattedNumber = randomNumber.toString();
-                const randomString = `IV-${formattedNumber}`;
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: '/get-last-id-deportee', // Replace with the actual URL to fetch the last ID
+                        method: 'GET',
+                        success: function(response) {
+                            let lastId = response.lastId || 0;
+                            lastId = parseInt(lastId) + 1;
 
-                return randomString;
+                            // Format the lastId with leading zeros to make it 6 digits
+                            const formattedLastId = lastId.toString().padStart(6, '0');
+
+                            const randomString = `DP-${formattedLastId}`;
+
+                            // Resolve the promise with the generated random string
+                            resolve(randomString);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching last ID:', error);
+                            // Reject the promise with the error
+                            reject(error);
+                        }
+                    });
+                });
             }
 
+            // Example usage:
+            generateRandomString()
+                .then(randomString => {
+                    $('#invoice_no').val(randomString);
+                    // Do something with the random string here
+                })
+                .catch(error => {
+                    console.error('Failed to generate random string:', error);
+            });
+
+
+
+            $('#ticket_code').on('change', function() {
+                var ticketCodeValue = $(this).val();
+
+                // Make an AJAX call
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: ticketCodeValue
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full);
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
             $('#invoice_no').val(generateRandomString());
             var fare, commission, tax, ait, gds, service_charge;
             var ait_amount = 3830;
@@ -363,7 +424,7 @@
 
 
             $('#agent_price').on('change', function(){
-                $('#agent_price_1').val(this.value);
+                $('#agent_deportee_price').val(this.value);
             });
 
             function manipulateString(inputString, variable) {
@@ -377,113 +438,9 @@
                 }
             }
 
-            $('#add_ticket').on('click', function(event){
-                event.preventDefault();
-                var agent = $('#agent').val();
-                var supplier = $('#supplier').val();
-                var invoice_date = $('#invoice_date').val();
-                var flight_date = $('#flight_date').val();
-                var sector = $('#sector').val();
-                var flight_no = $('#flight_no').val();
-                var ticket_code = $('#ticket_code').val();
-                var ticket_no = $('#ticket_no').val();
-                var airlines_name = $('#airlines_name').val();
-                var airlines_code = $('#airlines_code').val();
-                var stuff = $('#stuff').val();
-                var agent_price_1 = $('#agent_price_1').val();
-                var supplier_price = $('#supplier_price').val();
-                var discount = $('#discount').val();
-                var remark = $('#remark').val();
-                var number_of_tickets = $('#number_of_tickets').val();
-                var invoice_no = $('#invoice_no').val();
+            
                 
-                // console.log(invoice_Date)
-                
-            if (
-                agent &&
-                supplier &&
-                invoice_date &&
-                flight_date &&
-                flight_no &&
-                (ticket_code || ticket_no) && // either ticket code or ticket no should be available
-                (airlines_name || airlines_code) && // either airlines name or code should be available
-                number_of_tickets &&
-                agent_price_1 &&
-                supplier_price && invoice_no
-            ) {
-                var csrfToken = "{{ csrf_token() }}";
-                var tableHtml = '<form id="tickets_form" method="post" action="{{ route("addticket.store") }}">';
-                tableHtml += '<input type="hidden" name="_token" value="' + csrfToken + '">';
-                tableHtml += '<table class="table">';
-                tableHtml += '<thead>';
-                tableHtml += '<tr>';
-                tableHtml += '<th>Ticket No</th>';
-                tableHtml += '<th>Invoice Date</th>';
-                tableHtml += '<th>Flight Date</th>';
-                tableHtml += '<th>Flight No</th>';
-                tableHtml += '<th>Ticket Code/No</th>';
-                tableHtml += '<th>Airlines Name/Code</th>';
-                tableHtml += '<th>Pessanger</th>';
-                tableHtml += '<th>Agent Price</th>';
-                tableHtml += '<th>Supplier Price</th>';
-                tableHtml += '<th>Invoice No</th>';
-                // Add more headers as needed
-                tableHtml += '</tr>';
-                tableHtml += '</thead>';
-                tableHtml += '<tbody>';
 
-                // Populate table rows with data
-                for (var i = 0; i < parseInt(number_of_tickets); i++) {
-                    tableHtml += '<tr>';
-                    tableHtml += '<td>' + '<input type="text" name="ticket_no[]" id="ticket_no_' + i + '" value="' + manipulateString(ticket_no, i) + '"></td>';
-                    tableHtml += '<td>' + invoice_date + '</td>';
-                    tableHtml += '<td>' + flight_date + '</td>';
-                    tableHtml += '<td>' + flight_no + '</td>';
-                    tableHtml += '<td>' + (ticket_code || ticket_no) + '</td>';
-                    tableHtml += '<td>' + (airlines_name || airlines_code) + '</td>';
-                    tableHtml += '<td>' + '<input type="text" class="form-control" name="passenger_name[]" id="passenger_name_' + i + '"></td>';  
-                    tableHtml += '<td>' + agent_price_1 + '</td>';
-                    tableHtml += '<td>' + supplier_price + '</td>';
-                    tableHtml += '<td>' + invoice_no + '</td>';
-                    // Add more cells as needed
-                    tableHtml += '</tr>';
-                }
-                tableHtml += '<input type="hidden" name="agent" value="'+ agent +'">';
-                tableHtml += '<input type="hidden" name="supplier" value="'+ supplier +'">';
-                tableHtml += '<input type="hidden" name="agent_price" value="'+ agent_price_1 +'">';
-                tableHtml += '<input type="hidden" name="supplier_price" value="'+ supplier_price +'">';
-                tableHtml += '<input type="hidden" name="invoice_date" value="'+ invoice_date +'">';
-                tableHtml += '<input type="hidden" name="flight_date" value="'+ flight_date +'">';
-                tableHtml += '<input type="hidden" name="invoice_no" value="'+ invoice_no +'">';
-                tableHtml += '<input type="hidden" name="flight_no" value="'+ flight_no +'">';
-                tableHtml += '<input type="hidden" name="ticket_code" value="'+ ticket_code +'">';
-                // tableHtml += '<input type="hidden" name="ticket_no" value="'+ ticket_no +'">';
-                tableHtml += '<input type="hidden" name="airlines_name" value="'+ airlines_name +'">';
-                tableHtml += '<input type="hidden" name="airlines_code" value="'+ airlines_code +'">';
-                tableHtml += '<input type="hidden" name="remark" value="'+ remark +'">';
-                tableHtml += '</tbody>';
-                tableHtml += '</table>';
-                tableHtml += '<td colspan="10" class="text-center">';
-                tableHtml += '<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">';
-                tableHtml += 'Submit';
-                tableHtml += '</button>';
-                tableHtml += '</td>';
-                tableHtml += '</form>';
-                // Append the table to the modal or wherever you want to display it
-                $('#tableContainer').html(tableHtml);
-
-                $('#myModal').modal('show');
-            } else {
-                console.log('Some required variables are missing.');
-            }
-
-               
-
-               
-            });
-
-
-        });
 
 
     </script>

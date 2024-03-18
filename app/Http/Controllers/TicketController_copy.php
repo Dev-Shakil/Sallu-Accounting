@@ -79,19 +79,6 @@ class TicketController extends Controller
                 $ticket->invoice = $request['invoice_no'];
                 $ticket->ticket_no = $ticketNumber;
                 $ticket->sector = $request['sector'];
-                $ticket->stuff = $request['stuff'];
-                                
-                // Split the sector into parts
-                $sector = $request['sector'];
-                $parts = explode('-', $sector);
-
-                // Extract the first and last parts
-                $firstPart = $parts[0];
-                $lastPart = end($parts);
-
-                $ticket->s_from = $firstPart;
-                $ticket->e_to = $lastPart;
-
                 $ticket->passenger = $request['passenger_name'][$index];
                 $ticket->airline_name = $request['airlines_name'];
                 $ticket->airline_code = $request['airlines_code'];
@@ -116,20 +103,6 @@ class TicketController extends Controller
                 $ticket->agent_previous_amount = $agent_previous_amount;
                 $ticket->agent_new_amount = $agent_new_amount;
 
-                $supplier = Supplier::find($request['supplier']);
-                $supplier_prev_amount = $supplier->amount;
-                $supplier_amount = $count * (float)$request['supplier_price'];
-                $supplier_new_amount = $supplier_prev_amount + $supplier_amount;
-                // $agent->amount += $agent_amount;
-                // $agent->save();
-        
-                $supplier->amount += $supplier_amount;
-                $supplier->save();
-
-                $ticket->supplier_prev_amount = $supplier_prev_amount;
-                $ticket->supplier_new_amount = $supplier_new_amount;
-
-
                 $flag = $ticket->save();
 
                 
@@ -151,7 +124,14 @@ class TicketController extends Controller
                     // $agent = Agent::find($request['agent']);
                     // $agent_amount = $count * (float)$request['agent_price'];
             
-                  
+                    $supplier = Supplier::find($request['supplier']);
+                    $supplier_amount = $count * (float)$request['supplier_price'];
+            
+                    // $agent->amount += $agent_amount;
+                    // $agent->save();
+            
+                    $supplier->amount += $supplier_amount;
+                    $supplier->save();
 
                     if($request['ait']){
 
@@ -193,11 +173,8 @@ class TicketController extends Controller
        
         try {
             // Start a database transaction
-            // dd($request->all());
-
+            
             DB::beginTransaction();
-            // dd($request->all());
-
                 
                 $ticket = new Ticket();
                 $ticket->flight_date = $request['flight_date'];
@@ -205,17 +182,6 @@ class TicketController extends Controller
                 $ticket->invoice = $request['invoice_no'];
                 $ticket->ticket_no = $request['ticket_no'];
                 $ticket->sector = $request['sector'];
-                // Split the sector into parts
-                $sector = $request['sector'];
-                $parts = explode('-', $sector);
-
-                // Extract the first and last parts
-                $firstPart = $parts[0];
-                $lastPart = end($parts);
-
-                $ticket->s_from = $firstPart;
-                $ticket->e_to = $lastPart;
-
                 $ticket->stuff = $request['stuff'];
                 $ticket->passenger = $request['passenger_name'];
                 $ticket->airline_name = $request['airlines_name'];
@@ -232,8 +198,7 @@ class TicketController extends Controller
                 $ticket->profit = $profit;
                 $ticket->user = $user;
 
-                // dd($ticket);
-
+                
                 $agent_acc = Agent::find($request['agent']);
                 $agent_previous_amount = $agent_acc->amount;
                 $agent_new_amount = floatval($agent_previous_amount) + floatval($request['agent_price_1']);
@@ -250,11 +215,9 @@ class TicketController extends Controller
                 $ticket->supplier_prev_amount = $supplier_prev_amount;
                 $ticket->supplier_new_amount = $supplier_new_amount;
 
-                // dd($ticket);
-                $flag = false;
                 $flag = $ticket->save();
 
-                dd($flag);
+                // dd($flag);
 
                 if($flag)
                 {
@@ -359,30 +322,10 @@ class TicketController extends Controller
     // public function refundindex(){
     //     return view('ticket.refund');
     // }
-    public function refundindex(Request $request)
+    public function refundindex()
     {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        
-        $query = Refund::where([]);
-
-        // Add search functionality
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where(function ($query) use ($searchTerm) {
-                $query->where('ticket_no', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('passenger_name', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('date', 'like', '%' . $searchTerm . '%');
-            });
-        }
-        $refund_ticket = $query->paginate(10);
-        foreach($refund_ticket as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
-        }
-        
+        $refund_ticket = Refund::paginate(10);
         return view('ticket.refund', compact('refund_ticket'));
     }
 
@@ -477,21 +420,7 @@ class TicketController extends Controller
             return response()->json(['error' => 'Error fetching last ID'], 500);
         }     
     }
-    public function deportee() {
-        $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
-        foreach($tickets as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
-        }
-        // dd($orders);
-        // dd($suppliers);
-        return view('deportee.index', compact('suppliers', 'agents', 'types', 'tickets'));
-    }
+    
     
     
 }

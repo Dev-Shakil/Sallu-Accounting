@@ -21,23 +21,54 @@
                 <div class="grid grid-cols-2 gap-x-14">
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="ticket" class="block text-md font-semibold text-black ">Ticket Search:</label>
-                        <input type="text" class=" mt-1 block w-[65%] border p-1" id="ticket" name="ticket" required>
+                        {{-- <input type="text" class="bg-green-50 rounded-lg shadow-lg border-2 border-green-400 mt-1 block w-[65%] p-1" id="ticket" name="ticket" required> --}}
+                        <div class="w-[65%] flex items-center border-2 border-black">
+                        <input
+                            type="text"
+                            class="block py-1 border-1 bg-gray-50 px-2 leading-1.5 outline-none transition-all duration-200 ease-linear  w-full"
+                            placeholder="Search"
+                            aria-label="Search"
+                            id="ticket"
+                            name="ticket"
+                            aria-describedby="basic-addon1" />
+                        
+                        <button
+                            class="flex items-center  bg-primary py-1.5 px-3  text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2"
+                            type="button"
+                            id="button-addon1"
+                            data-twe-ripple-init
+                            data-twe-ripple-color="light">
+                            <span class="[&>svg]:h-5 [&>svg]:w-5">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor">
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                            </span>
+                        </button>
                     </div>
+                </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="name" class="block text-md font-semibold text-black ">Passenger Name:</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="name" name="name" required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="name" name="name">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="sector" class="block text-md font-semibold text-black ">Sector</label>
-                        <input type="tel" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="sector" name="sector" required>
+                        <input type="tel" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="sector" name="sector">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="flight" class="block text-md font-semibold text-black ">Flight No</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="flight" name="flight" required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="flight" name="flight">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="flight_date" class="block text-md font-semibold text-black ">Flight Date</label>
-                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="flight_date" name="flight_date" required>
+                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="flight_date" name="flight_date">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="refund_date" class="block text-md font-semibold text-black " >Refund Date</label>
@@ -45,22 +76,22 @@
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent" class="block text-md font-semibold text-black ">Client</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="agent"  required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="agent">
                         <input type="hidden" class="form-control" name="agent" id="agent_id" required>
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="Supplier" class="block text-md font-semibold text-black " readonly>Supplier</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" id="supplier" required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" id="supplier">
                         <input type="hidden" class="form-control" name="supplier" id="supplier_id" required>
 
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent_fare" class="block text-md font-semibold text-black ">Client Fare</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="agent_fare" name="agent_fare" required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="agent_fare" name="agent_fare">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="supplier_fare" class="block text-md font-semibold text-black ">Supplier Fare</label>
-                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="supplier_fare" name="supplier_fare" required>
+                        <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" readonly id="supplier_fare" name="supplier_fare">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent_refundfare" class="block text-md font-semibold text-black ">Client Refund Fare</label>
@@ -77,15 +108,20 @@
         </div>
     
         <div class="bg-white shadow-md p-6">
+            <form method="GET" action="{{ route('refund_ticket') }}" class="flex justify-end mb-3">
+                <div class="flex items-center gap-3">
+                    <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
+                    <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
+                </div>
+            </form>
             <table class="table divide-y table-striped w-full divide-gray-200 table-hover no-wrap" id="suppliertable">
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2 ">Serial</th>
                         <th class="px-4 py-2 ">Refund Date</th>
+                        <th class="px-4 py-2 ">Passenger Name</th>
                         <th class="px-4 py-2 ">Ticket No</th>
-                        <th class="px-4 py-2 ">Agent Fare</th>
                         <th class="px-4 py-2 ">Refund Agent Fare</th>
-                        <th class="px-4 py-2 ">Supplier Fair</th>
                         <th class="px-4 py-2 ">Refund Supplier Fare</th>
                         <th class="px-4 py-2 ">Refund Profit</th>
 
@@ -96,10 +132,9 @@
                         <tr>
                             <td class="px-4 py-2 ">{{ $index + 1 }}</td>
                             <td class="px-4 py-2 ">{{ $refund->date }}</td>
+                            <td class="px-4 py-2 ">{{ $refund->passenger_name }}</td>
                             <td class="px-4 py-2 ">{{ $refund->ticket_no }}</td>
-                            <td class="px-4 py-2 ">{{ $refund->prev_agent_amount }}</td>
                             <td class="px-4 py-2 ">{{ $refund->now_agent_fere }}</td>
-                            <td class="px-4 py-2 ">{{ $refund->prev_supply_amount }}</td>
                             <td class="px-4 py-2 ">{{ $refund->now_supplier_fare }}</td>
                             <td class="px-4 py-2 ">{{ $refund->refund_profit }}</td>
                             {{-- <td class="px-4 py-2 ">
@@ -110,6 +145,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $refund_ticket->links() }}
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
