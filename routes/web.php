@@ -201,6 +201,11 @@ Route::get('/payment_report_index', [ReportController::class, 'payment_report_in
 Route::post('/payment_report_info', [ReportController::class, 'payment_report_info'])->name('payment_report_info');
 Route::get('/payment_voucher/{id}', [ReportController::class, 'payment_voucher'])->name('payment_voucher');
 
+Route::get('/profit_loss/view', function () {
+    return app(ReportController::class)->profit_loss_view();
+})->name('profit_loss.view');
+Route::post('/profit_loss_report', [ReportController::class, 'profit_loss_report'])->name('profit_loss_report');
+
 Route::get('/ait_report_index', [ReportController::class, 'ait_report_index'])->name('ait_report_index');
 Route::post('/ait_report_info', [ReportController::class, 'ait_report_info'])->name('ait_report_info');
 

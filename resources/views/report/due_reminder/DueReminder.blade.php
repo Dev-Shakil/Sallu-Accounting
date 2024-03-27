@@ -2,10 +2,11 @@
   
   <main class=" mx-auto w-[95%] ">
    
-    <div class="bg-[#23CFD3] px-7 py-3 flex flex-col gap-y-4 mb-3 shadow-2xl">
-        <h2 class="text-center font-bold text-2xl ">Due Reminder</h2>
-        <p class="text-black text-xl font-semibold">Type</p>
+    <div class=" px-7 py-3 flex flex-col gap-y-4 mb-3 shadow-2xl">
+        <h2 class="font-bold text-2xl ">Due Reminder</h2>
+        
         <div class="flex items-center gap-4">
+          <p class="text-black text-xl font-semibold">Type</p>
             <div class="flex items-center">
                 <input checked id="all" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onclick="toggleSearchbar('searchbar', false)" />
                 <label for="default-radio-1" class="ms-2 text-md font-medium text-green-700 dark:text-gray-300">All Customers</label>

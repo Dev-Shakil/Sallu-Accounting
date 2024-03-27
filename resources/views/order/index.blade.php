@@ -9,7 +9,7 @@
     </div>
     <div class="mb-2">
         <button class="py-2 px-4 bg-black text-white rounded-sm font-bold" onchange="toggleVisibility()" id="addnew">Add
-            New</button>
+            New Order</button>
     </div>
     <div >
         

@@ -5,40 +5,45 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="mb-4 text-3xl font-bold w-[100%] lg:w-[60%] mx-auto">Add Supplier</h1>
-    
-        <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[60%] mx-auto p-6 mb-8">
-            <form action="/addsupplier" method="post">
-                @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-semibold text-gray-600">Name:</label>
-                        <input type="text" class="form-input mt-1 block w-full border p-2" id="name" name="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="phone" class="block text-sm font-semibold text-gray-600">Phone:</label>
-                        <input type="tel" class="form-input mt-1 block w-full border p-2" id="phone" name="phone" placeholder="Enter your phone number" required>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-semibold text-gray-600">Email:</label>
-                        <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="company" class="block text-sm font-semibold text-gray-600">Company:</label>
-                        <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company" required>
-                    </div>
-                </div>
-                <div class="mb-4 w-[49%]">
-                    <label for="description" class="block text-sm font-semibold text-gray-600">Description:</label>
-                    <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description" required></textarea>
-                </div>
-    
-                <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
-            </form>
+        <div class="mb-2 flex items-center gap-6">
+            <p class="font-bold text-2xl">List of Suppliers</p>
+            <button class="py-2 px-4 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold " onchange="toggleVisibility()" id="addnewbtn">Add
+                New Supplier</button>
         </div>
-    
+        <div id="addSupplier" class="py-2">
+        
+            <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[60%] p-6 mb-8">
+                <form action="/addsupplier" method="post">
+                    @csrf <!-- Add this line to include CSRF protection in Laravel -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-semibold text-gray-600">Name:</label>
+                            <input type="text" class="form-input mt-1 block w-full border p-2" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-semibold text-gray-600">Phone:</label>
+                            <input type="tel" class="form-input mt-1 block w-full border p-2" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-semibold text-gray-600">Email:</label>
+                            <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="company" class="block text-sm font-semibold text-gray-600">Company:</label>
+                            <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company" required>
+                        </div>
+                    </div>
+                    <div class="mb-4 w-[49%]">
+                        <label for="description" class="block text-sm font-semibold text-gray-600">Description:</label>
+                        <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description" required></textarea>
+                    </div>
+        
+                    <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+                </form>
+            </div>
+        </div>
         <div class="bg-white shadow-md p-6 w-[100%] mx-auto">
             <table class="table divide-y divide-gray-200 table-hover table-striped" id="suppliertable">
                 <thead class="bg-[#7CB0B2]">
@@ -89,7 +94,20 @@
             }
         });
         });
+        var addnewBtn = document.getElementById('addnewbtn');
+        var addSupplier = document.getElementById('addSupplier');
+        addSupplier.style.display = 'none';
 
+        addnewBtn.addEventListener('click', function() {
+            toggleVisibility();
+        });
+        function toggleVisibility() {
+            if (addSupplier.style.display === 'none') {
+                addSupplier.style.display = 'block';
+            } else {
+                addSupplier.style.display = 'none';
+            }
+        }
         
     </script>
     

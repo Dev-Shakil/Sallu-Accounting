@@ -100,51 +100,58 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="mb-4 text-3xl w-[60%] mx-auto font-bold">Add Agent</h1>
-    
-        <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
-            <form action="/addagent" method="POST">
-                @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
-                        <input type="text" id="name" name="name" class="mt-1 p-2 w-full border " placeholder="Enter your name" required>
+        <div class="mb-2 flex items-center gap-6">
+            <p class="font-bold text-2xl">List of Agents</p>
+            <button class="py-2 px-4 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold " onchange="toggleVisibility()" id="addnewbtn">Add
+                New Agent</button>
+        </div>
+        <div id="addAgent">
+            <h1 class="mb-4 text-3xl w-[60%] mx-auto font-bold">Add Agent</h1>
+            <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
+                
+                <form action="/addagent" method="POST">
+                    @csrf <!-- Add this line to include CSRF protection in Laravel -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+                            <input type="text" id="name" name="name" class="mt-1 p-2 w-full border " placeholder="Enter your name" required>
+                        </div>
+        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone:</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 p-2 w-full border " placeholder="Enter your phone number" required>
+                        </div>
                     </div>
-    
-                    <div class="mb-4">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone:</label>
-                        <input type="tel" id="phone" name="phone" class="mt-1 p-2 w-full border " placeholder="Enter your phone number" required>
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+                            <input type="text" id="email" name="email" class="mt-1 p-2 w-full border " placeholder="Enter an Email" required>
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="district" class="block text-sm font-medium text-gray-700">District:</label>
+                            <input type="text" id="district" name="district" class="mt-1 p-2 w-full border " placeholder="Enter a district" required>
+                        </div>
                     </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
-                        <input type="text" id="email" name="email" class="mt-1 p-2 w-full border " placeholder="Enter an Email" required>
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+                        <div class="mb-4">
+                            <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
+                            <textarea id="address" name="address" class="mt-1 p-2 w-full border " placeholder="Enter an address" required></textarea>
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="country" class="block text-sm font-medium text-gray-700">Country:</label>
+                            <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country" required>
+                        </div>
+                    </div>
+                    <div class="mb-4 w-[100%] md:w-[48%]">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                        <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" required></textarea>
                     </div>
         
-                    <div class="mb-4">
-                        <label for="district" class="block text-sm font-medium text-gray-700">District:</label>
-                        <input type="text" id="district" name="district" class="mt-1 p-2 w-full border " placeholder="Enter a district" required>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                    <div class="mb-4">
-                        <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
-                        <textarea id="address" name="address" class="mt-1 p-2 w-full border " placeholder="Enter an address" required></textarea>
-                    </div>
-        
-                    <div class="mb-4">
-                        <label for="country" class="block text-sm font-medium text-gray-700">Country:</label>
-                        <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country" required>
-                    </div>
-                </div>
-                <div class="mb-4 w-[100%] md:w-[48%]">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                    <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" required></textarea>
-                </div>
-    
-                <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
-            </form>
+                    <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
+                </form>
+            </div>
         </div>
     
         <div class="allagents mt-8 shadow-lg bg-white p-3 rounded-lg">
@@ -206,7 +213,20 @@
 })
         
         });
+        var addnewBtn = document.getElementById('addnewbtn');
+        var addAgent = document.getElementById('addAgent');
+        addAgent.style.display = 'none';
 
+        addnewBtn.addEventListener('click', function() {
+            toggleVisibility();
+        });
+        function toggleVisibility() {
+            if (addAgent.style.display === 'none') {
+                addAgent.style.display = 'block';
+            } else {
+                addAgent.style.display = 'none';
+            }
+        }
         
     </script>
 </x-app-layout>

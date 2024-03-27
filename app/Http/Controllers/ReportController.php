@@ -2181,7 +2181,7 @@ class ReportController extends Controller
 
             if($show_profit != null && $show_supplier == null && $show_agent == null){
                 $htmlTable = '
-                <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
+                <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
                         <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -2234,7 +2234,7 @@ class ReportController extends Controller
 
             elseif($show_supplier != null && $show_profit == null && $show_agent != null){
                 $htmlTable = '
-                <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
+                <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
                         <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -2290,7 +2290,7 @@ class ReportController extends Controller
 
             elseif($show_supplier != null && $show_profit != null && $show_agent != null){
                 $htmlTable = '
-                <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
+                <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
                         <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -2350,7 +2350,7 @@ class ReportController extends Controller
         }
         else{
             $htmlTable = '
-            <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
+            <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
                 <div class="text-lg">
                     <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -2664,7 +2664,370 @@ class ReportController extends Controller
 
         return $htmlTable;
     }
+    public function profit_loss_report(Request $request){
 
+     
+        $start_date = $request->input('start_date') ?? null;
+        $end_date = $request->input('end_date') ?? null;
+     
+        if ($start_date) {
+            $start_date = (new DateTime($start_date))->format('Y-m-d');
+        }
+        
+        if ($end_date) {
+            $end_date = (new DateTime($end_date))->format('Y-m-d');
+        }
+        
+        $user = Auth::id();
+        
+        $query = DB::table('tickets')
+            ->where([
+                ['is_active', 1],
+                ['is_delete', 0],
+                
+                ['user', $user],
+            ]);
+
+            if ($start_date !== null && $end_date !== null) {
+                $query->whereBetween('invoice_date', [$start_date, $end_date]);
+            }
+        $tickets = $query->sum('profit');
+        $ticket_purchase = $query->sum('supplier_price');
+        $ticket_sell = $query->sum('agent_price');
+
+        $query2 = DB::table('tickets')
+            ->where([
+                ['is_active', 1],
+                ['is_delete', 0],
+                ['is_refund', 1],
+                ['user', $user],
+            ]);
+
+            if ($start_date !== null && $end_date !== null) {
+                $query2->whereBetween('invoice_date', [$start_date, $end_date]);
+            }
+        $refundticket = $query2->sum('refund_profit');
+        $refund_purchase = $query2->sum('supplier_price');
+        $refund_sell = $query2->sum('agent_price');
+
+        $query3 = DB::table('tickets')
+            ->where([
+                ['is_active', 1],
+                ['is_delete', 0],
+                ['is_void', 1],
+                ['user', $user],
+            ]);
+
+            if ($start_date !== null && $end_date !== null) {
+                $query3->whereBetween('invoice_date', [$start_date, $end_date]);
+            }
+        $voidticket = $query3->sum('void_profit');
+        $voidticket_purchase = $query3->sum('supplier_price');
+        $voidticket_sell = $query3->sum('agent_price');
+
+        $query4 = DB::table('tickets')
+            ->where([
+                ['is_active', 1],
+                ['is_delete', 0],
+                ['is_reissue', 1],
+                ['user', $user],
+            ]);
+
+            if ($start_date !== null && $end_date !== null) {
+                $query4->whereBetween('invoice_date', [$start_date, $end_date]);
+            }
+        $reissueticket = $query4->sum('reissue_profit');
+        $reissueticket_purchase = $query4->sum('supplier_price');
+        $reissueticket_sell = $query4->sum('agent_price');
+
+        $gross_profit = $tickets + $reissueticket + $refundticket + $voidticket;
+        $total_purchase = $ticket_purchase + $reissueticket_purchase + $refund_purchase + $voidticket_purchase;
+        $total_sell = $ticket_sell + $reissueticket_sell + $refund_sell + $voidticket_sell;
+
+        // dd($reissueticket_purchase, $reissueticket_sell, $voidticket_sell, $voidticket_purchase, $refund_purchase, $refund_sell, $ticket_purchase, $ticket_sell);
+        $htmlTable = '';
+       
+        $htmlTable = '
+        <!doctype html>
+            <html>
+
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
+            <script src="https://cdn.tailwindcss.com"></script>
+            <script>
+                tailwind.config = {
+                theme: {
+                    extend: {
+                    colors: {
+                        clifford: "#da373d",
+                    }
+                    }
+                }
+                }
+            </script>
+            <style>
+            
+            </style>
+            </head>
+        ';
+
+
+        $htmlTable .= '
+        <body class="flex">
+          
+          <main class=" mx-auto w-[100%] bg-white shadow-lg py-6">
+           
+            <div class=" px-7 py-3 flex flex-col gap-y-2 shadow-2xl">
+                <h2 class="text-center font-medium text-2xl ">Company Name : SALLU AIR SERVICE</h2>
+                <p class="text-center text-lg">Company Address : 291, Inner Circular Road, Fakirapool, Jomider palace Dhaka, 1000, Bangladesh</p>
+                <p class="text-center font-semibold text-xl underline">Report: Profit/Loss A/c</p>
+                <p class="text-center font-semibold text-xl">Form Date : '. $start_date.  ' To Date : '.$end_date.'</p>
+                
+            </div>
+            <div class="flex mb-10">
+            <table class="table-auto w-full ">
+                <thead>
+                  <tr class="bg-[#0E7490] text-white flex justify-between">
+                    <th class="px-4 py-2 text-left">Particular</th>
+                    <th class="px-4 py-2 text-left">Amount</th>
+                   
+                  </tr>
+                </thead>
+                <tbody id="data" class="text-lg px-2 border ">
+                  <tr class="flex justify-between px-2 border-y">
+                    <td class="px-2 py-2 font-semibold">Purchage Accounts</td>
+                    <td class="px-2 py-2 font-semibold">'.$total_purchase.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 pl-8">
+                    <td class="px-2  w-[30%]">Tickets</td>
+                    <td class="px-2 ">'.$ticket_purchase.'</td>
+                    <td class="px-2 "></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 pl-8">
+                    <td class="px-2  w-[30%]">Umra</td>
+                    <td class="px-2 "></td>
+                    <td class="px-2 "></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 pl-8">
+                    <td class="px-2  w-[30%]">Manpower</td>
+                    <td class="px-2 "></td>
+                    <td class="px-2 "></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 pl-8">
+                    <td class="px-2  w-[30%]">Visa</td>
+                    <td class="px-2 "></td>
+                    <td class="px-2 "></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Refund Purchase c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$refund_purchase.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Reissue Purchase c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$reissueticket_purchase.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Void Ticket Purchase c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$voidticket_purchase.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Ticket Profit</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$tickets.'</td>
+                    
+                    </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Refund Profit</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$refundticket.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Reissue Profit</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$reissueticket.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Void Ticket Profit</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$voidticket.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Gross Profit c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$gross_profit.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]"></td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2  font-semibold border-y border-black"></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                        
+                    <td class="px-2 w-[30%] font-semibold">Inderct Expenses</td>
+                    <td class="px-2"></td>
+                    <td class="px-2 font-semibold"></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    
+                    <td class="px-2 w-[30%]">Donations & Gifts</td>
+                    
+                    <td class="px-2 font-semibold"></td>
+                    <td class="px-2"></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    
+                    <td class="px-2 w-[30%]">Office Equipments</td>
+                    
+                    <td class="px-2 font-semibold"></td>
+                    <td class="px-2"></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    
+                    <td class="px-2 w-[30%]">Mobile Charge</td>
+                    
+                    <td class="px-2 font-semibold"></td>
+                    <td class="px-2"></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                        
+                    <td class="px-2 py-2 w-[30%]">Net Profit</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold"></td>
+                    
+                  </tr>
+                  
+                  
+                  </tbody>
+              </table>
+
+                <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-[#0E7490] text-white flex justify-between">
+                      <th class="px-4 py-2 text-left">Particular</th>
+                      <th class="px-4 py-2 text-left">Amount</th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody id="data" class="text-lg px-2 border ">
+                    <tr class="flex justify-between px-2 border-y">
+                        <td class="px-2 py-2 font-semibold">Sell Accounts</td>
+                        <td class="px-2 py-2 font-semibold">'.$total_sell.'</td>
+                    
+                    </tr>
+                    <tr class="flex justify-between px-2 pl-8">
+                      <td class="px-2 w-[30%]">Tickets</td>
+                      <td class="px-2">'.$ticket_sell.'</td>
+                      <td class="px-2"></td>
+                      
+                    </tr>
+                    <tr class="flex justify-between px-2 pl-8">
+                      <td class="px-2 w-[30%]">Umra</td>
+                      <td class="px-2"></td>
+                      <td class="px-2"></td>
+                      
+                    </tr>
+                    <tr class="flex justify-between px-2 pl-8">
+                      <td class="px-2 w-[30%]">Manpower</td>
+                      <td class="px-2"></td>
+                      <td class="px-2"></td>
+                      
+                    </tr>
+                    <tr class="flex justify-between px-2 pl-8">
+                      <td class="px-2 w-[30%]">Visa</td>
+                      <td class="px-2"></td>
+                      <td class="px-2"></td>
+                      
+                    </tr>
+                    <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Refund Sell c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$refund_sell.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Reissue Sell c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$reissueticket_sell.'</td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 py-1">
+                    <td class="px-2 py-2 w-[30%]">Void Ticket Sell c/o</td>
+                    <td class="px-2 py-2"></td>
+                    <td class="px-2 py-2 font-semibold">'.$voidticket_sell.'</td>
+                    
+                  </tr>
+                    <tr class="flex justify-between px-2 py-1">
+                        <td class="px-2 py-2 w-[30%]"></td>
+                        <td class="px-2 py-2"></td>
+                        <td class="px-2  font-semibold border-y border-black"></td>
+                        
+                        
+                      </tr>
+                      <tr class="flex justify-between px-2 py-1 mb-auto">
+                        
+                        <td class="px-2 py-2 w-[30%]">Gross Profit c/o</td>
+                        <td class="px-2 py-2"></td>
+                        <td class="px-2 py-2 font-semibold"></td>
+                        
+                      </tr>
+                      <tr class="flex justify-between px-2 py-1">
+                        
+                        <td class="px-2 py-2 w-[30%]">Net Loss</td>
+                        <td class="px-2 py-2"></td>
+                        <td class="px-2 py-2 font-semibold"></td>
+                        
+                      </tr>
+                      
+                    
+                    
+                    </tbody>
+              </table>
+            </div>
+            <div class="w-[50%] flex justify-end">
+            <p class="font-bold text-xl">Gross Profit : '.$gross_profit.'</p>
+            <p class="font-medium text-lg"></p>
+            </div>
+          </main>
+          <script type="text/javascript">
+            
+            
+          </script>
+          <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+        </body>
+        ';
+        $htmlTable .= '</html>';
+            
+
+           
+          
+      
+        return $htmlTable;
+    }
+    public function profit_loss_view(){
+        return view('report.profit_loss.index');
+    }
     public function sales_analysis(){
         return view('report.sales_analysis.index');
     }

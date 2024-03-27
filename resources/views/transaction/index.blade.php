@@ -6,28 +6,31 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <h1 class="mb-4">Add Transaction Method</h1>
+            <h1 class="mb-4 font-semibold">Add Transaction Method</h1>
     
             <div class="addagent">
-                <form action="/transaction_add" method="post">
+                <form action="/transaction_add" method="post" class="flex gap-4 items-center" >
+                    
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="name">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                    <div class="grid grid-cols-2 w-[60%] gap-x-5">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+            
+                        
                         </div>
-        
-                     
-                    </div>
-                  
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Enter a description"></textarea>
+                    
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" rows="1" id="description" name="description" placeholder="Enter a description"></textarea>
+                            </div>
                         </div>
                     </div>
         
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="px-4 py-1 mt-3 border-blue-600 border-2 duration-300 rounded-lg hover:bg-blue-600 hover:text-white text-blue-600 font-semibold ">Submit</button>
                 </form>
             </div>
     
