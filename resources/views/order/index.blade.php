@@ -9,7 +9,7 @@
     </div>
     <div class="mb-2">
         <button class="py-2 px-4 bg-black text-white rounded-sm font-bold" onchange="toggleVisibility()" id="addnew">Add
-            New Order</button>
+            New</button>
     </div>
     <div >
         
@@ -31,25 +31,36 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="date">
                 </div>
-                
+             
             </div>
-
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
-                    <label for="type" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Invoice Type</label>
-                    {{-- <input type="text" id="type"
-                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="type"> --}}
-                        <select
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1 w-auto select2"
-                        name="type" id="type" placeholder="Select type" required>
-                        <option value="">Select Type</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="date" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Invoice Number
+                        </label>
+                    <input type="number" id="num"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="">
                 </div>
+                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
+                    <label for="type" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Invoice Type</label>
+                
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1 w-auto select2"
+                            name="type" id="type" placeholder="Select type" required>
+                            <option value="">Select Type</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                </div>
+            </div>
+            
+
+
+            <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
+                
+               
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="agent" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Client Name</label>
                   
@@ -60,10 +71,21 @@
                           @endforeach
                       </select>
           
-                  </div>
+                </div>
+                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
+                    <label for="seller" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
+
+                    <select required name="supplier" id="supplier"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-auto p-1 select2">
+                        <option value="">Select Supplier</option>
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-
+           
          
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
@@ -71,17 +93,35 @@
                         Name</label>
                     <input type="text" id="name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="name">
+                        name="name[]">
                 </div>
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="passport_no" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Passport No</label>
                     
                         <input type="text" maxlength="9" id="passport_no"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="passport_no">
+                            name="passport_no[]">
                 </div>
             </div>
             
+            
+
+            <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
+                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
+                    <label for="contact_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent
+                        Price</label>
+                    <input type="text" id="contact_amount"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="contact_amount" required>
+                </div>
+                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
+                    <label for="payable_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier
+                        Price</label>
+                    <input type="text" id="payable_amount"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="payable_amount" required>
+                </div>
+            </div>
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="country" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Country</label>
@@ -282,37 +322,6 @@
                         <option value="Vatican City">Vatican City</option>
                     </select>
                 </div>
-                
-                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
-                    <label for="seller" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
-
-                    <select required name="supplier" id="supplier"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-auto p-1 select2">
-                        <option value="">Select Supplier</option>
-                        @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
-                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
-                    <label for="contact_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent
-                        Price</label>
-                    <input type="text" id="contact_amount"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="contact_amount" required>
-                </div>
-                <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
-                    <label for="payable_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier
-                        Price</label>
-                    <input type="text" id="payable_amount"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="payable_amount" required>
-                </div>
-            </div>
-            <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-                
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Remark</label>
                     <textarea id="remark"
@@ -322,13 +331,14 @@
 
             </div>
             <div class="col-span-2 gap-4 px-8 flex justify-end">
-                <button type="" id="add_ticket"
-                    class="bg-yellow-800 text-xl  text-white font-medium py-2 px-5 rounded">Add</button>
-                <button type="submit" id="submit_ticket"
+               
+                <button type="submit" id="submit_invoice"
                     class="bg-black text-xl text-white font-medium py-2 px-5 rounded">Submit</button>
             </div>
 
+        
         </form>
+
         <div class="p-6 rounded-lg mt-5 bg-white py-3">
             <table class="table divide-y divide-gray-200 table-hover no-wrap" id="ordertable">
                 <thead class="bg-[#7CB0B2]">
@@ -352,7 +362,7 @@
                     
                     
                         <tr class="text-md">
-                            <td>{{$order->id }}</td>
+                            <td>{{$key + 1 }}</td>
                             <td>{{ $order->invoice }}</td>
                             <td class="text-sm w-[150px]">{{ $order->date }}</td>
                             <td class="w-[180px]">{{ $order->name }}</td>
@@ -383,6 +393,25 @@
             </table>
 
         </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document" style="max-width: 1200px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="tableContainer"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -411,7 +440,8 @@
         }
 
         $(document).ready(function() {
-            // $("#type").select2({ width: '100%' });
+            $("#type").select2({ width: '100%' });
+            $("#country").select2({ width: '100%' });
             $('.datepicker').datepicker({
                 autoclose: true
             });
@@ -425,7 +455,7 @@
                     selector: 'td:nth-child(2)'
                 }
             });
-            $('#invoice').val(randomString);
+            $('#invoice').val(generateRandomString());
 
             function generateRandomString(length = 10) {
                 const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -438,7 +468,112 @@
 
                 return randomString;
             }
+
         });
-    </script>
+
+        $('#submit_invoice').on('click', function(event) {
+               
+                event.preventDefault();
+                var invoiceNo = $("#invoice").val();
+                var invoiceDate = $("#date").val();
+                var invoiceType = $("#type").val();
+                var clientName = $("#agent").val();
+                var invoiceNumber = $("#num").val();
+                var passengerName = $("#name").val();
+                var passportNo = $("#passport_no").val();
+                var country = $("#country").val();
+                var supplier = $("#supplier").val();
+                var agentPrice = $("#contact_amount").val();
+                var supplierPrice = $("#payable_amount").val();
+                var remark = $("#remark").val();
+
+                // console.log("qdw");
+                if(invoiceNumber == 1 || invoiceNumber == ''){
+                    $("#addorder").submit();
+                }
+                else if(invoiceNumber > 1){
+
+                    if (invoiceNo && invoiceDate && invoiceType && clientName && 
+                        country && supplier && agentPrice &&
+                        supplierPrice ) {
+
+                            var csrfToken = "{{ csrf_token() }}";
+                        var tableHtml =
+                            '<form id="visa_form" method="post" action="{{ route('addorder.multiple') }}">';
+                            tableHtml += '<input type="hidden" name="_token" value="' + csrfToken + '">';
+                            tableHtml += '<table class="table">';
+                            tableHtml += '<thead>';
+                            tableHtml += '<tr>';
+                            tableHtml += '<th>Invoice No</th>';
+                            tableHtml += '<th>Invoice Date</th>';
+                            tableHtml += '<th>Invoice Type</th>';
+                            tableHtml += '<th>Pessanger</th>';
+                            tableHtml += '<th>Passport</th>';
+                            tableHtml += '<th>Agent Price</th>';
+                            tableHtml += '<th>Supplier Price</th>';
+                            tableHtml += '<th>Remark</th>';
+                            // Add more headers as needed
+                            tableHtml += '</tr>';
+                            tableHtml += '</thead>';
+                            tableHtml += '<tbody>';
+
+                            // Populate table rows with data
+                            for (var i = 0; i < parseInt(invoiceNumber); i++) {
+                                tableHtml += '<tr>';
+                            
+                                tableHtml += '<td>' + invoiceNo + '</td>';
+                                tableHtml += '<td>' + invoiceDate + '</td>';
+                                tableHtml += '<td>' + invoiceType + '</td>';
+                            
+                                tableHtml += '<td>' +
+                                    '<input type="text" class="form-control" name="passenger[]" id="passenger_' +
+                                    i + '"></td>';
+                                tableHtml += '<td>' + '<input type="text" class="form-control" maxlength="10" name="passport[]" id="passport' + i +
+                                '" value=""></td>';
+
+                                tableHtml += '<td>' + agentPrice + '</td>';
+                                tableHtml += '<td>' + supplierPrice + '</td>';
+                                tableHtml += '<td>' + remark + '</td>';
+                                // Add more cells as needed
+                                tableHtml += '</tr>';
+                            }
+                            tableHtml += '<input type="hidden" name="agent" value="' + clientName + '">';
+                            tableHtml += '<input type="hidden" name="remark" value="' + remark + '">';
+                            tableHtml += '<input type="hidden" name="supplier" value="' + supplier + '">';
+                            tableHtml += '<input type="hidden" name="agent_price" value="' + agentPrice + '">';
+                            tableHtml += '<input type="hidden" name="supplier_price" value="' + supplierPrice +
+                                '">';
+                            tableHtml += '<input type="hidden" name="country" value="' + country + '">';
+                            tableHtml += '<input type="hidden" name="invoice_no" value="' + invoiceNo +
+                                '">';
+                            tableHtml += '<input type="hidden" name="invoice_type" value="' + invoiceType +
+                                '">';
+                            tableHtml += '<input type="hidden" name="invoice_date" value="' + invoiceDate + '">';
+                        
+                            tableHtml += '</tbody>';
+                            tableHtml += '</table>';
+                            tableHtml += '<td colspan="10" class="text-center">';
+                            tableHtml +=
+                                '<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">';
+                            tableHtml += 'Submit';
+                            tableHtml += '</button>';
+                            tableHtml += '</td>';
+                            tableHtml += '</form>';
+
+                            $('#tableContainer').html(tableHtml);
+
+                            $('#myModal').modal('show');
+
+                    }
+                    else {
+                    }
+                }
+
+        });
+   
+
+        
+        </script>
 
 </x-app-layout>
+

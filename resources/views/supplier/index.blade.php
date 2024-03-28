@@ -28,16 +28,16 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="mb-4">
                             <label for="email" class="block text-sm font-semibold text-gray-600">Email:</label>
-                            <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email" required>
+                            <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email">
                         </div>
                         <div class="mb-4">
                             <label for="company" class="block text-sm font-semibold text-gray-600">Company:</label>
-                            <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company" required>
+                            <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company">
                         </div>
                     </div>
                     <div class="mb-4 w-[49%]">
                         <label for="description" class="block text-sm font-semibold text-gray-600">Description:</label>
-                        <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description" required></textarea>
+                        <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description"></textarea>
                     </div>
         
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>

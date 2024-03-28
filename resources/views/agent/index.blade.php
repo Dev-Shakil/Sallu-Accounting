@@ -125,28 +125,28 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">
                             <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
-                            <input type="text" id="email" name="email" class="mt-1 p-2 w-full border " placeholder="Enter an Email" required>
+                            <input type="text" id="email" name="email" class="mt-1 p-2 w-full border " placeholder="Enter an Email">
                         </div>
             
                         <div class="mb-4">
                             <label for="district" class="block text-sm font-medium text-gray-700">District:</label>
-                            <input type="text" id="district" name="district" class="mt-1 p-2 w-full border " placeholder="Enter a district" required>
+                            <input type="text" id="district" name="district" class="mt-1 p-2 w-full border " placeholder="Enter a district">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">
                             <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
-                            <textarea id="address" name="address" class="mt-1 p-2 w-full border " placeholder="Enter an address" required></textarea>
+                            <textarea id="address" name="address" class="mt-1 p-2 w-full border " placeholder="Enter an address" ></textarea>
                         </div>
             
                         <div class="mb-4">
                             <label for="country" class="block text-sm font-medium text-gray-700">Country:</label>
-                            <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country" required>
+                            <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country">
                         </div>
                     </div>
                     <div class="mb-4 w-[100%] md:w-[48%]">
                         <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                        <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" required></textarea>
+                        <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" ></textarea>
                     </div>
         
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>

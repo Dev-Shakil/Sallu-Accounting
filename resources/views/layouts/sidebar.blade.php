@@ -152,7 +152,7 @@
                 </p>
                 <ul id="dropdown-example1" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
                     <li class="text-white font-semibold">
-                        <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                        <x-nav-link :href="route('pay-slip.view')" :active="request()->routeIs('pay-slip.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -162,7 +162,7 @@
                         </x-nav-link>
                     </li>
                     <li class=" font-semibold">
-                        <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                        <x-nav-link :href="route('stuff_details.view')" :active="request()->routeIs('stuff_details.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

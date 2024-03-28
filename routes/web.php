@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\DeporteeController;
+use App\Http\Controllers\HRController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReceivePaymentController;
@@ -176,6 +177,19 @@ Route::get('/get-last-id-adm', [ADMController::class, 'getlastidadm'])->name('ge
 Route::any('/reissue/view', function (Request $request) {
     return app(ReissueController::class)->view($request);
 })->name('reissue.view');
+
+Route::any('/reissue/view', function (Request $request) {
+    return app(ReissueController::class)->view($request);
+})->name('reissue.view');
+
+
+Route::any('/pay-slip/view', function (Request $request) {
+    return app(HRController::class)->view($request);
+})->name('pay-slip.view');
+Route::any('/stuff_details/view', function (Request $request) {
+    return app(HRController::class)->stuff_view($request);
+})->name('stuff_details.view');
+
 Route::post('/ticket_reissue', [ReissueController::class, 'reissue_entry'])->name('ticket_reissue');
 // 
 
@@ -220,6 +234,8 @@ Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_
 
 Route::get('/sales_exicutive_stuff', [ReportController::class, 'sales_exicutive_stuff'])->name('sales_exicutive_stuff');
 Route::post('/seles_executive_report_stuff', [ReportController::class, 'seles_executive_report_stuff'])->name('seles_executive_report_stuff');
+
+Route::post('/addorder_multiple', [OrderController::class, 'store_multiple'])->name('addorder.multiple');
 
 Route::get('transaction/view', function () {
     return app(TransactionController::class)->index();

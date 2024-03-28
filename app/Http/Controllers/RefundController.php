@@ -23,11 +23,12 @@ class RefundController extends Controller
 
         try {
             DB::beginTransaction();
-        
+            $user = Auth::id();
             $refund = new Refund();
            
             $refund->ticket_no = $request->ticket;
             $refund->date = $request->refund_date;
+            $refund->user = $user;
     
             $refund->agent = $request->agent;
             $refund->supplier = $request->supplier;

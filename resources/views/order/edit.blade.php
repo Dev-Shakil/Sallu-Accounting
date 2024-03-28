@@ -13,6 +13,11 @@
         <h3 class="font-bold text-2xl py-3">Order Details Update</h3>
         <form action="{{ route('order.update', ['id' => $order->id]) }}" method="POST" id="editorder" class="w-[80%] p-5 bg-white shadow-lg">
             @csrf
+            
+            <input type="hidden" name="id" value="{{ $order->id }}" />
+            <input type="hidden" name="prev_agent_amount" value="{{ $order->contact_amount }}" />
+            <input type="hidden" name="prev_supplier_amount" value="{{ $order->payable_amount }}" />
+
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="invoice" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Invoice

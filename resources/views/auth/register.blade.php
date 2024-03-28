@@ -70,7 +70,7 @@
                         Number</label>
                     <input type="text" id="tel_no" name="tel_no"
                         class="px-4 py-2 rounded-lg border focus:outline-none w-full focus:shadow-outline"
-                        placeholder="Tel Number" required>
+                        placeholder="Tel Number">
                 </div>
                 <div class="mb-4 flex items-center gap-8">
                     <label for="mobile_no" class="flex text-gray-700 text-lg font-medium mb-2 w-[40%]">Mobile Number <p
