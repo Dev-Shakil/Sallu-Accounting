@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Accounts</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -50,7 +50,9 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 ">Dashboard</a>
                     @else
-                    <a href="{{ url('/') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:no-underline text-xl">SalluSoft</a>
+                    <a href="/">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
                     <div class="" >
                         <a href="{{ route('login') }}" class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 rounded-md px-5">Log in</a>
 
@@ -97,8 +99,8 @@
                 
             </div>
         </div>
-        <section class="h-[90vh] relative">
-            <div class="bg-[#00959F] h-[60%] py-[70px]">
+        <section class="h-[80vh] relative">
+            <div class="bg-[#00959F] h-[50%] py-[70px]">
                 <h2 class="text-[#eca706] text-2xl text-center">
                     Plans & Pricing
                 </h2>
@@ -106,69 +108,153 @@
                     Check Our Valuable Price
                 </h3>
             </div>
-            <div class="w-[90%] xl:w-[50%] h-[80%] xl:h-[55%] absolute xl:bottom-[140px] xl:right-[40%] xl:left-[27%] py-7 bottom-[120px] md:bottom-[170px] right-[40%] top-[20%] left-[5%] md:left-[29%] ">
+            <div class="w-[90%] xl:w-[50%] h-[80%] xl:h-[55%] absolute xl:bottom-[140px] xl:right-[40%] xl:left-[24%] py-7 bottom-[100px] md:bottom-[170px] right-[50%] top-[23%] left-[5%] md:left-[29%] ">
                 <div class="h-full shadow-2xl bg-white rounded-xl overflow-hidden flex md:flex-row flex-col" >
-                    <div class="bg-gray-800 xl:text-xl text-md h-[100%] flex justify-center flex-col px-4">
+                    <div class="bg-gray-800 xl:text-lg text-md h-[100%] flex justify-center flex-col px-6 w-[50%]">
                         <ul class="list-none ">
                             <li class="text-white py-1 flex gap-3 items-center">
-                                <span class="w-4 h-4 xl:w-6 xl:h-6 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
-                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-4 xl:w-4" viewBox="0 0 24 24">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
                                         <path d="M20 6L9 17l-5-5" />
                                     </svg>
                                 </span>
-                                <span>Registration Fee is for the first time Only</span>
+                                <span>Admin Login</span>
                             </li>
                             <li class="text-white py-1 flex gap-3 items-center">
-                                <span class="w-4 h-4 xl:w-6 xl:h-6 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
-                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-4 xl:w-4" viewBox="0 0 24 24">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
                                         <path d="M20 6L9 17l-5-5" />
                                     </svg>
                                 </span>
-                                <span>Callback Support</span>
+                                <span>Accountant Login</span>
+                            </li>
+                            <li class="text-white py-1 flex gap-3 items-center">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" />
+                                    </svg>
+                                </span>
+                                <span>Unlimited Ticketing Stuff Login</span>
+                            </li>
+                            <li class="text-white py-1 flex gap-3 items-center">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" />
+                                    </svg>
+                                </span>
+                                <span>Stuff Training</span>
+                            </li>
+                            <li class="text-white py-1 flex gap-3 items-center">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" />
+                                    </svg>
+                                </span>
+                                <span>Technical Support</span>
+                            </li>
+                            <li class="text-white py-1 flex gap-3 items-center">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" />
+                                    </svg>
+                                </span>
+                                <span>Call back Support</span>
+                            </li>
+                            <li class="text-white py-1 flex gap-3 items-center">
+                                <span class="w-4 h-4 xl:w-4 xl:h-4 inline-flex items-center justify-center bg-white text-gray-900 rounded-full flex-shrink-0">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" class="w-3 h-3 xl:h-3 xl:w-3" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" />
+                                    </svg>
+                                </span>
+                                <span>Paid Virtual Accountant Service</span>
                             </li>
                             <!-- Add other list items here -->
                         </ul>
                     </div>
                     <div class="flex justify-center items-center text-center flex-col gap-8 w-[50%]">
                         <div class="w-full">
-                            <p class="xl:text-xl text-lg">Registration Fee</p>
-                            <span class="xl:text-3xl text-xl text-red-500 line-through">
+                            <p class="xl:text-2xl text-lg font-semibold">Initial Setup Fee</p>
+                            <span class="xl:text-5xl font-bold text-xl text-red-500">
                                 ৳ 10,000
                             </span>
                             <br />
-                            <span class="text-3xl font-semibold  text-green-800">
+                            {{-- <span class="text-3xl font-semibold  text-green-800">
                                 Free
-                            </span>
+                            </span> --}}
                             <br />
                         </div>
                         <div class="w-full">
-                            <p class="xl:text-xl text-lg">Monthly Service Charge</p>
-                            <span class="xl:text-5xl text-3xl font-semibold">
-                                ৳ 1000
+                            <p class="xl:text-2xl text-lg font-semibold">Monthly Service Charge</p>
+                            <span class="xl:text-5xl text-3xl font-bold">
+                                ৳1000
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <section class="mb-8 lg:w-[85%] w-[95%] mx-auto min-h-[30vh] gap-5">
+            <div class="">
+                <div class='flex flex-col gap-3'>
+                    <h2 class="text-blue-700 font-bold text-2xl">Quick Support</h2>
+                    <h3 class="text-[#2d70bd] font-bold text-5xl">Get In Touch Today!</h3>
+                    <p class="text-gray-500 font-semibold text-lg">Proactively deliver seamless core competencies with scalable.Compleately fabricate transparent paradigns.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 justify-between p-4 ">
+                    <div class="flex flex-col gap-y-4">
+                        <button class="p-2 flex items-center justify-center bg-[#88c5f7] rounded-full w-[70px] h-[70px] text-2xl font-bold "><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                          </svg></button>
+                        <h3 class="text-[#2dbbbb] font-bold text-2xl ">Call Us</h3>
+                        <p class="font-semibold text-xl">Questions about our product or pricing?<br/> Call for support</p>
+                        <div class="flex items-center gap-4">
+                        <span class="font-semibold text-xl text-blue-600">+88 01812215760</span>
+                        <span class="font-semibold text-xl text-blue-600">+88 01776105863</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-y-4">
+                        <button class="p-2 bg-[#e9a3e3] flex items-center justify-center rounded-full w-[70px] h-[70px] text-2xl font-bold "><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                            <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                            <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+                          </svg></button>
+                        <h3 class="text-[#2dbbbb] font-bold text-2xl ">Chat Us</h3>
+                        <p class="font-semibold text-xl">Our support will help you from 9am to 5pm BST.</p>
+                        <span class="font-semibold text-xl text-blue-600">Live Chat Now</span>
+                        
+                    </div>
+                    <div class="flex flex-col gap-y-4">
+                        <button class="p-2 bg-[#ecb8a0] flex items-center justify-center rounded-full w-[70px] h-[70px] text-2xl font-bold "><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                          </svg></button>
+                        <h3 class="text-[#2dbbbb] font-bold text-2xl ">Address</h3>
+                        <p class="font-semibold text-xl">291, Jomidar Palace, Inner circular road, Motijheel, Lift-7 Dhaka-100</p>
+                        <span class="font-semibold text-xl text-blue-600">contact.sallusoft@gmail.com</span>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </section>
         <div class="bg-gray-200 p-5 md:px-10">
             <h2 class="text-center font-bold text-4xl text-[#101111]">Products Belongs to Us</h2>
             <div class="grid lg:grid-cols-3 sm:grid-cols-2 mx-7 md:mx-0 justify-center gap-5 py-8">
                 <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] p-3 rounded-full fa-regular fa-cloud"></i></div>
-                    <h2 class="text-xl text-black font-bold">Cloud Based ERP</h2>
-                    <p class="text-[18px] text-center text-gray-400">Cloud Based ERP system that can be used anywhere</p>
+                    <h2 class="text-xl text-black font-bold">KSA Visa Form</h2>
+                    <p class="text-[18px] text-center text-gray-400">Get Ready KSA 4 Page Embassy Files Automatic </p>
                 </div>
                 <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] p-3 rounded-full fa-regular fa-user-plus"></i></div>
-                    <h2 class="text-xl text-black font-bold">Easy To Use</h2>
-                    <p class="text-[18px] text-center text-gray-400">Easy to use even for the newbies in accounts</p>
+                    <h2 class="text-xl text-black font-bold">BMET File Solution</h2>
+                    <p class="text-[18px] text-center text-gray-400">Easy to get ready Manpower Files for your Agency</p>
                 </div>
                 <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] rounded-full p-3 fa-user-plus"></i></div>
                    
-                    <h2 class="text-xl text-black font-bold">Multi Branch</h2>
-                    <p class="text-[18px] text-center text-gray-400">Easy to manage multiple branches in single admin</p>
+                    <h2 class="text-xl text-black font-bold">Agency Websites</h2>
+                    <p class="text-[18px] text-center text-gray-400">Any Type of Websites for your Business</p>
                 </div>
                 
             </div>

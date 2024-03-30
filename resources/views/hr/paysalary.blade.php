@@ -9,12 +9,12 @@
             <p class="font-bold text-2xl">List of Stuff</p>
             <button
                 class="py-2 px-4 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold "
-                onchange="toggleVisibility()" id="addnewbtn">Add
-                New Stuff</button>
+                onchange="toggleVisibility()" id="addnewbtn">Pay
+                Salary</button>
         </div>
         <div id="stuff-form">
 
-            <div class="addagent w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
+            <div class="addagent w-[100%] lg:w-[60%] bg-white p-5 shadow-lg rounded-lg">
                 {{-- <form action="/addtype" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="row">
@@ -27,42 +27,59 @@
 
                     <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
                 </form> --}}
-                <div class="text-center font-bold text-xl mb-8">Add New Employee</div>
-            <form class="grid grid-cols-1 gap-4" action="submit_employee_data.php" method="post">
-                <div class="flex items-center">
-                    <label for="employeeName" class="w-1/2  mr-4">Employee Name <stong class="text-red-600 text-2xl">*</strong></label>
-                    <input type="text" id="employeeName" name="employeeName"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
-                </div>
-                <div class="flex items-center">
-                    <label for="designation" class="w-1/2  mr-4">Employee Designation <stong class="text-red-600 text-2xl">*</strong></label>
-                    <input type="text" id="designation" name="designation"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
-                </div>
-                <div class="flex items-center">
-                    <label for="mobileNumber" class="w-1/2  mr-4">Mobile Number <stong class="text-red-600 text-2xl">*</strong></label>
-                    <input type="tel" id="mobileNumber" name="mobileNumber"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
-                </div>
-                <div class="flex items-center">
-                    <label for="email" class="w-1/2  mr-4">E-mail ID <stong class="text-red-600 text-2xl">*</strong></label>
-                    <input type="email" id="email" name="email"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
-                </div>
-                <div class="flex items-center">
-                    <label for="address" class="w-1/2  mr-4">Address</label>
-                    <textarea id="address" name="address" rows="2"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
-                </div>
-                <div class="flex items-center">
-                    <label for="salary" class="w-1/2  mr-4">Salary</label>
-                    <input type="number" id="salary" name="salary"
-                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
-                </div>
-               
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
-            </form>
+                <div class="text-center font-bold text-xl mb-8">Pay Employee Salary</div>
+                <form class="grid grid-cols-2 gap-x-6 gap-y-2">
+                    <div class="flex items-center">
+                      <label for="payment_date" class="w-1/2 pr-4 ">Payment Date*:</label>
+                      <input type="date" id="payment_date" name="payment_date" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    <div class="flex items-center">
+                      <label for="ref_no" class="w-1/2 pr-4 ">Ref. No.:</label>
+                      <input type="text" id="ref_no" name="ref_no" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" value="SL-001">
+                    </div>
+                      <div class="flex items-center">
+                        <label for="salary_amount" class="w-1/2 pr-4 ">Salary Amount*:</label>
+                        <input type="number" id="salary_amount" name="salary_amount" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                      </div>
+                      <div class="flex items-center">
+                        <label for="mode_of_payment" class="w-1/2 pr-4 ">Mode of Payment*:</label>
+                        <select id="mode_of_payment" name="mode_of_payment" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                          <option value="">Choose Mode of Payment</option>
+                        </select>
+                      </div>
+                      <div class="flex items-center">
+                        <label for="staff" class="w-1/2 pr-4 ">Choose Staff:</label>
+                        <select id="staff" name="staff" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                          <option value="">Choose the Staff</option>
+                        </select>
+                      </div>
+                      <div class="flex items-center">
+                        <label for="month" class="w-1/2 pr-4 ">For the month of:</label>
+                        <select id="month" name="month" class="w-3/4 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                          <option value="">Choose Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <input type="number" id="year" name="year" class="w-1/4 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Year">
+                      </div>
+                    <div class="flex items-center">
+                      <label for="remarks" class="w-1/2 pr-4">Remarks:</label>
+                      <textarea id="remarks" name="remarks" rows="2" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
+                    </div>
+                    <div class="flex justify-end items-end h-[40px]">
+                      <button type="submit" class="px-4 py-2 rounded bg-blue-500 text-white">Submit</button>
+                    </div>
+                  </form>
             </div>
         </div>
         <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">

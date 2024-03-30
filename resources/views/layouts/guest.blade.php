@@ -32,21 +32,25 @@
 
 <body class="font-sans text-gray-900 antialiased">
     @if (Route::has('login'))
-                <div class="sticky p-4 px-6 flex justify-between">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white ">Dashboard</a>
-                    @else
-                    <a href="{{ url('/') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:no-underline ">SalluSoft</a>
-                    <div class="" >
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 hover:no-underline dark:hover:text-white ">Log in</a>
+    <div>
+        <div class="sticky py-4 px-auto flex justify-between bg-white top-0 z-50 w-[95%] mx-auto md:w-[75%] items-center">
+            @auth
+                <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 ">Dashboard</a>
+            @else
+            <a href="/">
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            </a>
+            <div class="" >
+                <a href="{{ route('login') }}" class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 rounded-md px-5">Log in</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 hover:no-underline dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    </div>
-                    @endauth
-                </div>
-            @endif
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="ml-4 font-semibold py-2 rounded-md px-5 hover:text-gray-900 dark:text-gray-400 hover:no-underline dark:hover:text-white bg-[#00959F] text-white border-2 hover:bg-white hover:border-2 border-[#00959F] duration-300">Register</a>
+                @endif
+            </div>
+            @endauth
+        </div>
+    </div>
+    @endif
 
     <div class="min-h-[94vh] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
         {{-- <div>

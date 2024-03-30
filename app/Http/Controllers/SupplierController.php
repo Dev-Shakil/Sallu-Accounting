@@ -19,28 +19,21 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'company' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'description' => 'string',
-        ]);
+        
 
-        if($validatedData){
             $supplier = new Supplier();
-            $supplier->name = $validatedData['name'];
-            $supplier->phone = $validatedData['phone'];
-            $supplier->company = $validatedData['company'];
-            $supplier->email = $validatedData['email'];
-            $supplier->description = $validatedData['description'];
+            $supplier->name = $request['name'];
+            $supplier->phone = $request['phone'];
+            $supplier->company = $request['company'];
+            $supplier->email = $request['email'];
+            $supplier->description = $request['description'];
+           
             $supplier->user = Auth::id();
             $isdone = $supplier->save();
 
             if($isdone){
                 return redirect()->route('supplier.view')->with('success', 'Supplier added successfully');
             }
-        }
         // $validatedData['user'] = Auth::id();
         // Supplier::create($validatedData);
         return redirect()->route('supplier.view')->with('error', 'Supplier is not added');
@@ -58,9 +51,9 @@ class SupplierController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:20',
-                'description' => 'required|string',
-                'company' => 'required|string|max:255',
-                'email' => 'required|string|max:255',
+                'description' => 'string',
+                'company' => 'string|max:255',
+                'email' => 'string|max:255',
             ]);
 
             if($validatedData){

@@ -21,11 +21,11 @@ class AgentController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'country' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'district' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'description' => 'required|string',
+            'country' => 'string|max:255',
+            'address' => 'string|max:255',
+            'district' => 'string|max:255',
+            'email' => 'string|max:255',
+            'description' => 'string',
         ]);
         $validatedData['user'] = Auth::id();
         Agent::create($validatedData);
@@ -44,7 +44,7 @@ class AgentController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:20',
-                'description' => 'required|string',
+                'description' => '|string',
             ]);
 
             if($validatedData){

@@ -125,7 +125,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
                         <option value="">Select Supplier</option>
                         @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
                         @endforeach
                     </select>
                 </div>
