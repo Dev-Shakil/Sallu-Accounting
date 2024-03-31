@@ -4,6 +4,7 @@ use App\Http\Controllers\ADMController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AirlinesController;
 use App\Http\Controllers\DeporteeController;
 use App\Http\Controllers\HRController;
 use App\Http\Controllers\SupplierController;
@@ -229,6 +230,9 @@ Route::get('/due_reminder_specific', [ReportController::class, 'due_reminder_spe
 Route::get('/sales_ticket', [ReportController::class, 'sales_ticket'])->name('sales_ticket');
 Route::post('/sales_report_ticket', [ReportController::class, 'sales_report_ticket'])->name('seles_report_ticket');
 
+Route::get('/sales_visa', [ReportController::class, 'sales_visa'])->name('sales_visa');
+Route::post('/sales_report_visa', [ReportController::class, 'sales_report_visa'])->name('sales_report_visa');
+
 Route::get('/sales_analysis', [ReportController::class, 'sales_analysis'])->name('sales_analysis');
 Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_report'])->name('sales_analysis_report');
 
@@ -244,6 +248,14 @@ Route::post('/transaction_add', [TransactionController::class, 'store'])->name('
 Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
 Route::post('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/delete/{id}', [TransactionController::class, 'delete'])->name('transaction.delete');
+
+Route::get('airlines/view', function () {
+    return app(AirlinesController::class)->index();
+})->name('airlines.view');
+Route::post('/transaction_add', [AirlinesController::class, 'store'])->name('airlines.store');
+Route::get('/airlines/edit/{id}', [AirlinesController::class, 'edit'])->name('airlines.edit');
+Route::post('/airlines/update/{id}', [AirlinesController::class, 'update'])->name('airlines.update');
+Route::get('/airlines/delete/{id}', [AirlinesController::class, 'delete'])->name('airlines.delete');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

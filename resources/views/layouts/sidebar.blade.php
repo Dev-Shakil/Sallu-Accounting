@@ -72,7 +72,7 @@
                         </x-nav-link>
                     </li>
                     <li class="text-white font-semibold">
-                        <x-nav-link :href="route('transaction.view')" :active="request()->routeIs('transaction.view')">
+                        <x-nav-link :href="route('airlines.view')" :active="request()->routeIs('airlines.view')">
                              <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
@@ -175,7 +175,7 @@
                 </ul>
             </li>
             
-            <li class="w-full list-none">
+            {{-- <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-finance" data-collapse-toggle="dropdown-finance">
                     <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -203,16 +203,7 @@
                             {{ __('Transaction') }}
                         </x-nav-link>
                     </li>
-                    {{-- <li class=" font-semibold flex items-center">
-                        <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
-                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            {{ __('Received Voucher') }}
-                        </x-nav-link>
-                    </li> --}}
+                    
                     <li class=" font-semibold">
                         <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -300,7 +291,7 @@
                    
                    
                 </ul>
-            </li>
+            </li> --}}
             <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -438,6 +429,16 @@
                                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                     </svg>
                                     {{ __('Sales Report(Ticket)') }}
+                                </x-nav-link>
+                            </li>
+                            <li class="text-white font-semibold">
+                                <x-nav-link :href="route('sales_visa')" :active="request()->routeIs('sales_visa')">
+                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                    {{ __('Sales Report(Visa)') }}
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">

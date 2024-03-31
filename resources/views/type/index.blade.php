@@ -8,16 +8,16 @@
         <h1 class="mb-4 w-[100%] lg:w-[60%] mx-auto font-bold text-3xl">Add Type</h1>
 
         <div class="addagent w-[100%] lg:w-[60%] mx-auto bg-white p-5 shadow-lg rounded-lg">
-            <form action="/addtype" method="post">
+            <form action="/addtype" method="post" class="flex gap-14 items-center">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="row">
+                <div class="row w-full">
                     <div class="form-group col">
                         <label for="name">Type Name:</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
                     </div>
                 </div>
     
-                <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
+                <button type="submit" class="mt-3 px-8 py-2 bg-black rounded-xl text-white h-[40px]">Submit</button>
             </form>
         </div>
 
