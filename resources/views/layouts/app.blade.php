@@ -50,7 +50,7 @@
         });
     </script>
    
-    {{-- <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
     important: true,
@@ -65,7 +65,7 @@
   }
   
  
-</script> --}}
+</script>
 
 </body>
 

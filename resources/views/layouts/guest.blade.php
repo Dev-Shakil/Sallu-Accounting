@@ -7,27 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @include('layouts.head')
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            important: true,
-            theme: {
-                extend: {
-                    colors: {
-                        clifford: "#da373d",
-                    },
-
-                },
-            },
-        }
-    </script>
-    <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
@@ -65,6 +50,22 @@
         </div>
     </div>
     <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        important: true,
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+            
+          },
+        },
+      }
+      
+     
+    </script>
 </body>
 
 </html>

@@ -16,7 +16,22 @@
 
 <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
 
-
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    important: true,
+    theme: {
+      extend: {
+        colors: {
+          clifford: "#da373d",
+        },
+        
+      },
+    },
+  }
+  
+ 
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
