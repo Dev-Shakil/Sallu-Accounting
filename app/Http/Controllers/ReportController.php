@@ -1455,10 +1455,10 @@ class ReportController extends Controller
                         
                             
                     <main class="flex-1 mx-auto max-w-7xl px-10">
-                    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-                        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-                        <button id="printBtn" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-                        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
+                    <div class="justify-end flex gap-3 p-5 ">
+                        <button class="text-white bg-green-400 font-bold text-md py-2 px-4">Send</button>
+                        <button id="printBtn" class="text-white bg-[#882278] font-bold text-md py-2 px-4">Print</button>
+                        
                         <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
                     </div>
                     <div id="printSection" class="shadow-lg p-3">
@@ -1489,7 +1489,7 @@ class ReportController extends Controller
                                 <th class="">Balance</th>
                             </tr>
                             </thead>
-                            <tbody class="divide-y-2 devide-gray-900">
+                            <tbody class="divide-y devide-gray-600">
                     ';
 
             
@@ -1862,7 +1862,6 @@ class ReportController extends Controller
                             <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
                                 <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
                                 <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
-                                <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
                                 <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
                             </div>
                             <div id="printSection" class="shadow-lg p-3">
@@ -1893,7 +1892,7 @@ class ReportController extends Controller
                                             <th class="">Balance</th>
                                         </tr>
                                         </thead>
-                                        <tbody class="divide-y-2 divide-gray-900">
+                                        <tbody class="divide-y divide-gray-600">
                                 ';
 
             foreach ($sortedCollection as $index => $item) {

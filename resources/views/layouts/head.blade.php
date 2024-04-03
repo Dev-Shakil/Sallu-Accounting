@@ -30,7 +30,7 @@
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <style type="text/css">
   .select2-container{
    width: 100% !important;
