@@ -3192,10 +3192,10 @@ class ReportController extends Controller
                 
             </div>
         </div>
-        <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+        <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
         <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
-                <th class="text-start">SL</th>
+                <th class="text-start px-2">SL</th>
                 <th class="text-start">Ticket No</th>
                 <th class="text-start">Passenger Name</th>
                 <th class="text-start">Sector</th>
@@ -3213,31 +3213,34 @@ class ReportController extends Controller
         // Loop through each record in $alldata and add a row to the table
         foreach ($alldata as $index=> $data) {
             $htmlTable .= '<tr>
-                <td>' . $index + 1 . '</td>
+                <td class="py-2 pl-2>' . $index + 1 . '</td>
+                <td class="py-2 px-4>' . $index + 1 . '</td>
                
-                <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                <td>' . $data->passenger . '</td>
+                <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                
+
+                <td class="py-2">' . $data->passenger . '</td>
                
-                <td>' . $data->sector . '</td>
-                <td>' . '1G' . '</td>
-                <td>' . $data->airline_name . '</td>
+                <td class="py-2">' . $data->sector . '</td>
+                <td class="py-2">' . '1G' . '</td>
+                <td class="py-2">' . $data->airline_name . '</td>
                 
                 
-                <td>' . $data->count . '</td>
-                <td>' . $data->supplier_price . '</td>
+                <td class="py-2">' . $data->count . '</td>
+                <td class="py-2">' . $data->supplier_price . '</td>
                
             </tr>';
         }
 
         $htmlTable .= '<tr class="bg-green"> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
+                        <td class="py-2"></td> 
+                        <td class="py-2"></td> 
+                        <td class="py-2"></td> 
+                        <td class="py-2"></td> 
                         
                         <td colspan="2">Total Segment: </td>
-                        <td>' . $totalCount . '</td>
-                        <td>' . $totalSupplierPrice . '</td>
+                        <td class="py-2">' . $totalCount . '</td>
+                        <td class="py-2">' . $totalSupplierPrice . '</td>
                         </tr>';
 
         // Close the HTML table
@@ -3321,7 +3324,7 @@ class ReportController extends Controller
         <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
         <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
-                <th class="text-start">SL</th>
+                <th class="text-start px-2">SL</th>
                 <th class="text-start">Ticket No</th>
                 <th class="text-start">Passenger Name</th>
                 <th class="text-start">Sector</th>
@@ -3339,31 +3342,31 @@ class ReportController extends Controller
         // Loop through each record in $alldata and add a row to the table
         foreach ($alldata as $index=> $data) {
             $htmlTable .= '<tr>
-                <td>' . $index + 1 . '</td>
+                <td class="py-2 px-2">' . $index + 1 . '</td>
                
-                <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                <td>' . $data->passenger . '</td>
+                <td py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                <td py-2>' . $data->passenger . '</td>
                
-                <td>' . $data->sector . '</td>
-                <td>' . '1G' . '</td>
-                <td>' . $data->airline_name . '</td>
+                <td py-2>' . $data->sector . '</td>
+                <td py-2>' . '1G' . '</td>
+                <td py-2>' . $data->airline_name . '</td>
                 
                 
-                <td>' . $data->count . '</td>
-                <td>' . $data->supplier_price . '</td>
+                <td py-2>' . $data->count . '</td>
+                <td py-2>' . $data->supplier_price . '</td>
                
             </tr>';
         }
 
         $htmlTable .= '<tr class="bg-green"> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
+                        <td py-2></td> 
+                        <td py-2></td> 
+                        <td py-2></td> 
+                        <td py-2></td> 
                         
                         <td colspan="2">Total Segment: </td>
-                        <td>' . $totalCount . '</td>
-                        <td>' . $totalSupplierPrice . '</td>
+                        <td py-2>' . $totalCount . '</td>
+                        <td py-2>' . $totalSupplierPrice . '</td>
                         </tr>';
 
         // Close the HTML table
@@ -3699,7 +3702,7 @@ class ReportController extends Controller
                     
                 </div>
             </div>
-            <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+            <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
             <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                 <th class="text-start">Booking Date</th>
@@ -3743,31 +3746,31 @@ class ReportController extends Controller
                     $supplier = Supplier::where('id', $data->supplier)->value('name');
 
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
+                        <td class="py-2 pl-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->ticket_no . '</td>
+                        <td class="py-2">' . $data->passenger . '</td>
                       
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>';
+                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->sector . '</td>
+                        <td class="py-2">' . $data->airline_name . '</td>';
                         if($show_agent != null){
                             $htmlTable .= '
-                            <td class="text-start">'.$agent.'</td>
-                            <td class="text-start">'.$data->agent_price.'</td>
+                            <td class="text-start class="py-2"">'.$agent.'</td>
+                            <td class="text-start class="py-2"">'.$data->agent_price.'</td>
                             ';
                         }
                         if($show_supplier != null){
                             $htmlTable .= '
-                            <td class="text-start">'.$supplier.'</td>
-                            <td class="text-start">'.$data->supplier_price.'</td>
+                            <td class="text-start class="py-2"">'.$supplier.'</td>
+                            <td class="text-start class="py-2"">'.$data->supplier_price.'</td>
                             ';
                         }
                         if($show_profit != null){
                             $htmlTable .= '
-                            <td class="text-start">'.$data->profit.'</td>
+                            <td class="text-start class="py-2"">'.$data->profit.'</td>
                             ';
                         }
-                        $htmlTable .= '<td>' . $data->agent_new_amount . '</td>
+                        $htmlTable .= '<td class="py-2">' . $data->agent_new_amount . '</td>
                     </tr>';
                 }
 
@@ -3997,7 +4000,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4019,16 +4022,16 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
+                        <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->passenger . '</td>
                       
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
+                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->sector . '</td>
+                        <td class="py-2">' . $data->airline_name . '</td>
                        
                      
-                        <td>' . $data->void_profit . '</td>
+                        <td class="py-2">' . $data->void_profit . '</td>
                        
                     </tr>';
                 }
@@ -4050,7 +4053,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4073,18 +4076,18 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
-                        <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td>' . Supplier::where('id',$data->supplier)->value('name') . '</td>
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
-                        <td>' . $data->now_agent_fere . '</td>
-                        <td>' . $data->prev_agent_amount . '</td>
-                        <td>' . $data->now_supplier_fare . '</td>
-                        <td>' . $data->prev_supply_amount . '</td>
+                        <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->passenger . '</td>
+                        <td class="py-2">' . Agent::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2">' . Supplier::where('id',$data->supplier)->value('name') . '</td>
+                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->sector . '</td>
+                        <td class="py-2">' . $data->airline_name . '</td>
+                        <td class="py-2">' . $data->now_agent_fere . '</td>
+                        <td class="py-2">' . $data->prev_agent_amount . '</td>
+                        <td class="py-2">' . $data->now_supplier_fare . '</td>
+                        <td class="py-2">' . $data->prev_supply_amount . '</td>
                        
                     </tr>';
                 }
@@ -4106,7 +4109,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4131,20 +4134,20 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
-                        <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td>' . Supplier::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->passenger . '</td>
+                        <td class="py-2">' . Agent::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2">' . Supplier::where('id',$data->agent)->value('name') . '</td>
                       
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
-                        <td>' . $data->now_agent_fere . '</td>
-                        <td>' . $data->prev_agent_amount . '</td>
-                        <td>' . $data->now_supplier_fare . '</td>
-                        <td>' . $data->prev_supply_amount . '</td>
-                        <td>' . $data->void_profit . '</td>
+                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->sector . '</td>
+                        <td class="py-2">' . $data->airline_name . '</td>
+                        <td class="py-2">' . $data->now_agent_fere . '</td>
+                        <td class="py-2">' . $data->prev_agent_amount . '</td>
+                        <td class="py-2">' . $data->now_supplier_fare . '</td>
+                        <td class="py-2">' . $data->prev_supply_amount . '</td>
+                        <td class="py-2">' . $data->void_profit . '</td>
                     </tr>';
                 }
 
@@ -4166,7 +4169,7 @@ class ReportController extends Controller
                     
                 </div>
             </div>
-            <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+            <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
             <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                 <th class="text-start"> Date</th>
@@ -4185,13 +4188,13 @@ class ReportController extends Controller
             // Loop through each record in $alldata and add a row to the table
             foreach ($alldata as $data) {
                 $htmlTable .= '<tr>
-                    <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                    <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                    <td>' . $data->passenger . '</td>
+                    <td class="py-2 pl-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                    <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                    <td class="py-2">' . $data->passenger . '</td>
                  
-                    <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                    <td>' . $data->sector . '</td>
-                    <td>' . $data->airline_name . '</td>
+                    <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                    <td class="py-2">' . $data->sector . '</td>
+                    <td class="py-2">' . $data->airline_name . '</td>
                 </tr>';
             }
 
@@ -4264,7 +4267,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4286,16 +4289,16 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
+                        <td class="px-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->passenger . '</td>
                       
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
+                        <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->sector . '</td>
+                        <td class="py-2>' . $data->airline_name . '</td>
                        
                      
-                        <td>' . $data->reissue_profit . '</td>
+                        <td class="py-2>' . $data->reissue_profit . '</td>
                        
                     </tr>';
                 }
@@ -4317,7 +4320,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4340,18 +4343,18 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
-                        <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td>' . Supplier::where('id',$data->supplier)->value('name') . '</td>
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
-                        <td>' . $data->now_agent_fere . '</td>
-                        <td>' . $data->prev_agent_amount . '</td>
-                        <td>' . $data->now_supplier_fare . '</td>
-                        <td>' . $data->prev_supply_amount . '</td>
+                        <td class="py-2 pl-2>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->passenger . '</td>
+                        <td class="py-2>' . Agent::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2>' . Supplier::where('id',$data->supplier)->value('name') . '</td>
+                        <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->sector . '</td>
+                        <td class="py-2>' . $data->airline_name . '</td>
+                        <td class="py-2>' . $data->now_agent_fere . '</td>
+                        <td class="py-2>' . $data->prev_agent_amount . '</td>
+                        <td class="py-2>' . $data->now_supplier_fare . '</td>
+                        <td class="py-2>' . $data->prev_supply_amount . '</td>
                        
                     </tr>';
                 }
@@ -4373,7 +4376,7 @@ class ReportController extends Controller
                         
                     </div>
                 </div>
-                <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+                <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Date</th>
@@ -4398,20 +4401,20 @@ class ReportController extends Controller
                 // Loop through each record in $alldata and add a row to the table
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
-                        <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td>' . Supplier::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2 pl-2>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->passenger . '</td>
+                        <td class="py-2>' . Agent::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2>' . Supplier::where('id',$data->agent)->value('name') . '</td>
                       
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
-                        <td>' . $data->now_agent_fere . '</td>
-                        <td>' . $data->prev_agent_amount . '</td>
-                        <td>' . $data->now_supplier_fare . '</td>
-                        <td>' . $data->prev_supply_amount . '</td>
-                        <td>' . $data->void_profit . '</td>
+                        <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2>' . $data->sector . '</td>
+                        <td class="py-2>' . $data->airline_name . '</td>
+                        <td class="py-2>' . $data->now_agent_fere . '</td>
+                        <td class="py-2>' . $data->prev_agent_amount . '</td>
+                        <td class="py-2>' . $data->now_supplier_fare . '</td>
+                        <td class="py-2>' . $data->prev_supply_amount . '</td>
+                        <td class="py-2>' . $data->void_profit . '</td>
                     </tr>';
                 }
 
@@ -4433,7 +4436,7 @@ class ReportController extends Controller
                     
                 </div>
             </div>
-            <table class="table-auto w-full border-2 border-gray-400 devide-2 text-sm my-1">
+            <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
             <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                 <th class="text-start"> Date</th>
@@ -4452,13 +4455,13 @@ class ReportController extends Controller
             // Loop through each record in $alldata and add a row to the table
             foreach ($alldata as $data) {
                 $htmlTable .= '<tr>
-                    <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                    <td>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
-                    <td>' . $data->passenger . '</td>
+                    <td class="py-2 pl-2>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                    <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                    <td class="py-2>' . $data->passenger . '</td>
                  
-                    <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                    <td>' . $data->sector . '</td>
-                    <td>' . $data->airline_name . '</td>
+                    <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                    <td class="py-2>' . $data->sector . '</td>
+                    <td class="py-2>' . $data->airline_name . '</td>
                 </tr>';
             }
 
@@ -4958,9 +4961,6 @@ class ReportController extends Controller
                 'paymenttotalAmount' => $paymentAmount,
             ];
         }
-
-
-
         return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
     }
     public function sales_exicutive_stuff(){

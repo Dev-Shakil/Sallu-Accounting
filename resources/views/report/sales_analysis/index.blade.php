@@ -48,7 +48,7 @@
             </div>
         </div>
         <!-- <p class="">From Date : 14-09-2024 </p> -->
-        @dd($tableData)
+        {{-- @dd($tableData)
         @if($tableData)
         <div>
             <table class="table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
@@ -80,7 +80,7 @@
       </div>
       @else
         <div>No Data Available</div>
-      @endif
+      @endif --}}
         
 
   </main>
