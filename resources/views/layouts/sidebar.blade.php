@@ -152,7 +152,7 @@
                 </p>
                 <ul id="dropdown-example1" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
                     <li class="text-white font-semibold">
-                        <x-nav-link :href="route('pay-slip.view')" :active="request()->routeIs('pay-slip.view')">
+                        <x-nav-link :href="route('pay_salary.view')" :active="request()->routeIs('pay_salary.view')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

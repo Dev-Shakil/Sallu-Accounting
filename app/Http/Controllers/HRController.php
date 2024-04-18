@@ -3,33 +3,212 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Add this line
-use App\Models\Supplier;
-use App\Models\Agent;
-use App\Models\Deportee;
-use App\Models\Type;
-use App\Models\Ticket;
-use App\Models\Order;
-use App\Models\VoidTicket;
-use Illuminate\View\View;
-use DateTime;
+use App\Models\Employee;
+use App\Models\Salary;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class HRController extends Controller
+
+class HrController extends Controller
 {
-    public function view(Request $request) {
-        $user = Auth::id();
-        
-        return view('hr.paysalary', compact('user'));
+    public function index(){
+        $employees = Employee::where([
+            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+            ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
+        ])->get();
+                // dd($employees);
+        return view('hr.stuff_details', compact('employees'));
     }
-    public function stuff_view(Request $request) {
-        $user = Auth::id();
+
+    public function salary_index(){
+
+        $employees = Employee::where([
+            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+            ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
+        ])->get();
+
+        $methods = Transaction::where('user', Auth::id())->get();
+
+        $salaries = Salary::where([
+            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+        ])->get();
+
+        $lastSalary = Salary::orderBy('id', 'desc')->first();
+        $lastSalaryId = $lastSalary ? $lastSalary->id : null;
+        $nextID = $lastSalaryId +1;
+        // dd($nextID);
+        return view('hr.paysalary', compact('salaries', 'methods', 'employees', 'nextID'));
+    }
+
+    
+
+    public function store(Request $request){
+        // dd($request->all());
+        $employee = new Employee();
+      
+        $employee->name = $request->employeeName;
+        $employee->designation = $request->designation;
+        $employee->phone = $request->mobileNumber;
+        $employee->email = $request->email;
+        $employee->address = $request->address;
+        $employee->salary = $request->salary;
+        $employee->user = Auth::id();
+        $employee->save();
+        return redirect()->route('stuff_details.view')->with('success', 'Employee added successfully');
+    }
+
+    public function salary_store(Request $request){
+        // dd($request->all());
+        $salary = new Salary();
+      
+        $salary->date = $request->payment_date;
+        $salary->ref_id = $request->ref_no;
+        $salary->amount = $request->salary_amount;
+        $salary->month = $request->month;
+        $salary->year = $request->year;
+        $salary->employee = $request->staff;
+        $salary->method = $request->mode_of_payment;
+        $salary->remarks = $request->remarks;
+        $salary->user = Auth::id();
+
+        $transaction = Transaction::where('id', $request->mode_of_payment)->first();
+
+        if ($transaction) {
+            $transaction->amount = max(0, $transaction->amount - $request->salary_amount);
+            $transaction->save();
+        } else {
+           
+            return redirect()->route('pay_salary.view')->with('error', 'Error Occured');
+        }
         
-        return view('hr.stuff_details', compact('user'));
+        $salary->save();
+        return redirect()->route('pay_salary.view')->with('success', 'Salary added successfully');
+    }
+
+    public function edit($id)
+    {
+        $employee = Employee::findOrFail($id);
+        return response()->json($employee);
     }
     
 
+    public function salary_edit($id)
+    {
+        $employee = Employee::findOrFail($id);
+        return response()->json($employee);
+    }
     
+    public function update(Request $request)
+    {
+        // dd($request->all());
+        try {
+            // Enable query logging
+            DB::enableQueryLog();
+        
+            // Retrieve the airline record to update
+            $employee = Employee::findOrFail($request->empid);
+        
+           
+            // Update the attributes of the e$employee record
+            $employee->name = $request->employeeName;
+            $employee->designation = $request->designation;
+            $employee->phone = $request->mobileNumber;
+            $employee->email = $request->email;
+            $employee->address = $request->address;
+            $employee->salary = $request->salary;
+        
+            // Save the updated airline record
+            $employee->save();
+        
+            // Get the executed queries from the query log
+            $queries = DB::getQueryLog();
+            // dd($queries); // Check the executed queries
+        
+            return redirect()->route('stuff_details.view')->with('success', 'Employee updated successfully');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during the update process
+            return redirect()->back()->with('error', 'Failed to update Employee: ' . $e->getMessage());
+        }
+        
+        
+    }
+
+    public function salary_update(Request $request)
+    {
+        // dd($request->all());
+        try {
+            // Enable query logging
+            DB::enableQueryLog();
+        
+            // Retrieve the airline record to update
+            $employee = Employee::findOrFail($request->empid);
+        
+           
+            // Update the attributes of the e$employee record
+            $employee->name = $request->employeeName;
+            $employee->designation = $request->designation;
+            $employee->phone = $request->mobileNumber;
+            $employee->email = $request->email;
+            $employee->address = $request->address;
+            $employee->salary = $request->salary;
+        
+            // Save the updated airline record
+            $employee->save();
+        
+            // Get the executed queries from the query log
+            $queries = DB::getQueryLog();
+            // dd($queries); // Check the executed queries
+        
+            return redirect()->route('stuff_details.view')->with('success', 'Employee updated successfully');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during the update process
+            return redirect()->back()->with('error', 'Failed to update Employee: ' . $e->getMessage());
+        }
+        
+        
+    }
+
+    public function delete($id)
+    {
+        DB::enableQueryLog();
+        
+        // Retrieve the airline record to update
+        $employee = Employee::findOrFail($id);
+    
+        // Ensure that the ID attribute is set correctly
+        $employee->is_delete = 1;
+        
+        $queries = DB::getQueryLog();
+        // dd($queries); // Check the executed queries
+        
+        if ($employee->save()) {
+            return redirect()->route('stuff_details.view')->with('success', 'Employee deleted successfully');
+        } else {
+            return redirect()->route('stuff_details.view')->with('error', 'Failed to delete Employee');
+        }
+    }
+
+    public function salary_delete($id)
+    {
+        DB::enableQueryLog();
+        
+        // Retrieve the airline record to update
+        $employee = Employee::findOrFail($id);
+    
+        // Ensure that the ID attribute is set correctly
+        $employee->is_delete = 1;
+        
+        $queries = DB::getQueryLog();
+        // dd($queries); // Check the executed queries
+        
+        if ($employee->save()) {
+            return redirect()->route('stuff_details.view')->with('success', 'Employee deleted successfully');
+        } else {
+            return redirect()->route('stuff_details.view')->with('error', 'Failed to delete Employee');
+        }
+    }
+
     
 
 

@@ -1,12 +1,12 @@
 <x-app-layout>
-    <div class="container-fluid">
+    <div class="container-fluid bg-white shadow-lg px-4 rounded-lg">
         {{-- <h3>fsdsdf</h3> --}}
         <form id="reportForm" action="{{ route('seles_executive_report_stuff') }}" method="POST">
           @csrf
-          <div class="row">
+          <div class="flex items-center pt-3">
             
-              <div class=" form-group col-md-3">
-                  <label for="agent">Agent</label>
+              <div class=" form-group flex items-center gap-2 col-md-2">
+                  <label for="agent" class="text-[14px] text-[#22262e]">Agent</label>
                   <select class="form-control select2" name="agent" id="agent" placeholder="Select agent">
                       <option value="">Select Agent</option>
                       @foreach($agents as $agent)
@@ -14,8 +14,8 @@
                       @endforeach
                   </select>
               </div>
-              <div class="col-md-3 form-group">
-                  <label for="supplier">Supplier</label>
+              <div class="col-md-2 form-group flex items-center gap-2">
+                  <label for="supplier" class="text-[14px] text-[#22262e]">Supplier</label>
                   <select class="form-control select2" name="supplier" id="supplier">
                       <option value="">Select Supplier</option>
                       @foreach($suppliers as $supplier)
@@ -23,44 +23,35 @@
                       @endforeach
                   </select>
               </div>
-              <div class=" form-group col-md-3">
-                <label for="agent">Stuffs</label>
-                <select class="form-control select2" name="stuff" id="stuff" placeholder="Select stuff">
-                    <option value="">Select Stuffs</option>
-                    @foreach($stuffs as $stuff)
-                        <option value="{{ $stuff }}">{{ $stuff }}</option>
-                    @endforeach
-                </select>
-            </div>
-              <div class="form-group col-md-3">
-                  <label for="start_date">Start Date</label>
+              <div class="form-group col-md-2 flex items-center gap-2">
+                  <label for="start_date" class="text-[14px] text-[#22262e]">From</label>
                   <div class="input-group date" style="width: 100%">
                       <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
                   </div>      
               </div>
-              <div class="form-group col-md-3">
-                  <label for="end_date">End Date</label>
+              <div class="form-group col-md-2 flex items-center gap-2">
+                  <label for="end_date" class="text-[14px] text-[#22262e]">To</label>
                   <div class="input-group date" style="width: 100%">
                       <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
                   </div>      
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group px-6 flex items-center ">
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="profit" name="show_profit">
-                      <label class="form-check-label" for="inlineCheckbox1">Show Profit</label>
+                      <label class="form-check-label font-semibold text-green-600 text-[14px] " for="inlineCheckbox1">Profit</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="supplier" name="show_supplier">
-                      <label class="form-check-label" for="inlineCheckbox2">Show Supplier</label>
+                      <label class="form-check-label font-semibold text-blue-700 text-[14px] " for="inlineCheckbox2">Supplier</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
-                    <label class="form-check-label" for="inlineCheckbox3">Show Agent</label>
+                    <label class="form-check-label font-semibold text-pink-800 text-[14px] " for="inlineCheckbox3">Agent</label>
                   </div>
               </div>
               
-              <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+              <div class="flex items-center mb-2">
+                  <button type="submit" class="bg-black border-blue-500 text-white py-1 px-5 rounded-lg ">Submit</button>
               </div>
           </div>
       </form>

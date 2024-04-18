@@ -184,12 +184,7 @@ Route::any('/reissue/view', function (Request $request) {
 })->name('reissue.view');
 
 
-Route::any('/pay-slip/view', function (Request $request) {
-    return app(HRController::class)->view($request);
-})->name('pay-slip.view');
-Route::any('/stuff_details/view', function (Request $request) {
-    return app(HRController::class)->stuff_view($request);
-})->name('stuff_details.view');
+
 
 Route::post('/ticket_reissue', [ReissueController::class, 'reissue_entry'])->name('ticket_reissue');
 // 
@@ -238,6 +233,22 @@ Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_
 
 Route::get('/sales_exicutive_stuff', [ReportController::class, 'sales_exicutive_stuff'])->name('sales_exicutive_stuff');
 Route::post('/seles_executive_report_stuff', [ReportController::class, 'seles_executive_report_stuff'])->name('seles_executive_report_stuff');
+
+Route::get('stuff_details/view', function () {
+    return app(HrController::class)->index();
+})->name('stuff_details.view');
+Route::post('/addstuff', [HrController::class, 'store'])->name('addstuff.store');
+Route::get('/stuff/edit/{id}', [HrController::class, 'edit'])->name('stuff.edit');
+Route::post('/stuff/update/', [HrController::class, 'update'])->name('stuff.update');
+Route::get('/stuff/delete/{id}', [HrController::class, 'delete'])->name('stuff.delete');
+
+Route::get('pay_salary/view', function () {
+    return app(HrController::class)->salary_index();
+})->name('pay_salary.view');
+Route::post('/addsalary', [HrController::class, 'salary_store'])->name('salary.store');
+Route::get('/salary/edit/{id}', [HrController::class, 'salary_edit'])->name('salary.edit');
+Route::post('/salary/update/', [HrController::class, 'salary_update'])->name('salary.update');
+Route::get('/salary/delete/{id}', [HrController::class, 'salary_delete'])->name('salary.delete');
 
 Route::post('/addorder_multiple', [OrderController::class, 'store_multiple'])->name('addorder.multiple');
 
