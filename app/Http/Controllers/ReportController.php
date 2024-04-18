@@ -3755,19 +3755,19 @@ class ReportController extends Controller
                         <td class="py-2">' . $data->airline_name . '</td>';
                         if($show_agent != null){
                             $htmlTable .= '
-                            <td class="text-start class="py-2"">'.$agent.'</td>
-                            <td class="text-start class="py-2"">'.$data->agent_price.'</td>
+                            <td class="text-start py-2">'.$agent.'</td>
+                            <td class="text-start py-2">'.$data->agent_price.'</td>
                             ';
                         }
                         if($show_supplier != null){
                             $htmlTable .= '
-                            <td class="text-start class="py-2"">'.$supplier.'</td>
-                            <td class="text-start class="py-2"">'.$data->supplier_price.'</td>
+                            <td class="text-start py-2">'.$supplier.'</td>
+                            <td class="text-start py-2">'.$data->supplier_price.'</td>
                             ';
                         }
                         if($show_profit != null){
                             $htmlTable .= '
-                            <td class="text-start class="py-2"">'.$data->profit.'</td>
+                            <td class="text-start py-2">'.$data->profit.'</td>
                             ';
                         }
                         $htmlTable .= '<td class="py-2">' . $data->agent_new_amount . '</td>
@@ -5037,7 +5037,17 @@ class ReportController extends Controller
             if($show_profit != null && $show_supplier == null && $show_agent == !null){
                 // dd("asda");
                 $htmlTable = ''; // Initialize variable to hold HTML tables
-                
+                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-lg">
+                            <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                            <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
+                            </div>
+                        <div class="flex items-center">
+                           
+                            
+                        </div>
+                    </div>';
                 // Loop through each group
                 // dd($groupedData);
                 foreach ($groupedData as $stuff => $group) {
@@ -5049,7 +5059,7 @@ class ReportController extends Controller
                     $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;" >' . $stuff . '</h2>';
 
                     // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="w-100 table-striped">
+                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                         <thead>
                             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                                 <th class="text-start">Booking Date</th>
@@ -5063,7 +5073,7 @@ class ReportController extends Controller
                                 <th class="text-start">Balance Amount</th>
                             </tr>
                         </thead>
-                        <tbody>';
+                        <tbody class="divide-y-2">';
 
                     // Loop through each record in the group and add a row to the table
                     foreach ($group as $data) {
@@ -5071,18 +5081,18 @@ class ReportController extends Controller
                             $count++;
                         }
                         $htmlTable .= '<tr>
-                            <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->ticket_no . '</td>
-                            <td>' . $data->passenger . '</td>
-                            <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->sector . '</td>
-                            <td>' . $data->airline_name . '</td>
-                            <td>' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td>' . $data->profit . '</td>
-                            <td>' . $data->agent_new_amount . '</td>
+                            <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->ticket_no . '</td>
+                            <td class="py-2">' . $data->passenger . '</td>
+                            <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->sector . '</td>
+                            <td class="py-2">' . $data->airline_name . '</td>
+                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                            <td class="py-2">' . $data->profit . '</td>
+                            <td class="py-2">' . $data->agent_new_amount . '</td>
                         </tr>';
                     }
-                    $htmlTable .= '<tr class="w-100" style="background:#6a8099; "><td colspan="10"><b>Total Ticket: ' . $count . '</b></td></tr>';
+                    $htmlTable .= '<tr class="w-100 py-2" style="background:#6a8099; "><td colspan="10"><b>Total Ticket: ' . $count . '</b></td></tr>';
 
                     // Close the HTML table and the stuff banner
                     $htmlTable .= '</tbody></table>';
@@ -5094,19 +5104,29 @@ class ReportController extends Controller
 
             elseif($show_supplier != null && $show_profit == null && $show_agent != null){
                 $htmlTable = ''; // Initialize variable to hold HTML tables
-                
+                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-lg">
+                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
+                        </div>
+                    <div class="flex items-center">
+                       
+                        
+                    </div>
+                </div>';
                 // Loop through each group
                 // dd($groupedData);
                 foreach ($groupedData as $stuff => $group) {
                     $count = 0;
                     // dd($group, $stuff);
                     // Add stuff name as a banner above the tickets
-                    
+                   
                     $htmlTable .= '<div style="margin-bottom: 20px;">';
                     $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;">' . $stuff . '</h2>';
 
                     // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="w-100 table-striped">
+                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                         <thead>
                             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                                 <th class="text-start">Booking Date</th>
@@ -5121,7 +5141,7 @@ class ReportController extends Controller
                                 <th class="text-start">Supplier Amount</th>
                             </tr>
                         </thead>
-                        <tbody>';
+                        <tbody class="divide-y-2">';
 
                     // Loop through each record in the group and add a row to the table
                     foreach ($group as $data) {
@@ -5129,16 +5149,16 @@ class ReportController extends Controller
                             $count++;
                         }
                         $htmlTable .= '<tr>
-                            <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->ticket_no . '</td>
-                            <td>' . $data->passenger . '</td>
-                            <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->sector . '</td>
-                            <td>' . $data->airline_name . '</td>
-                            <td>' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td>' . $data->agent_new_amount . '</td>
-                            <td>' . Supplier::where('id', $data->supplier)->value('name') . '</td>
-                            <td>' . $data->supplier_new_amount . '</td>
+                            <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->ticket_no . '</td>
+                            <td class="py-2">' . $data->passenger . '</td>
+                            <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->sector . '</td>
+                            <td class="py-2">' . $data->airline_name . '</td>
+                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                            <td class="py-2">' . $data->agent_new_amount . '</td>
+                            <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
+                            <td class="py-2">' . $data->supplier_new_amount . '</td>
                         </tr>';
                     }
                     $htmlTable .= '<tr class="w-100" style="background:#6a8099; "><td colspan="10"><b>Total Ticket: ' . $count . '</b></td></tr>';
@@ -5156,16 +5176,27 @@ class ReportController extends Controller
                 
                 // Loop through each group
                 // dd($groupedData);
+                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-lg">
+                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
+                        </div>
+                    <div class="flex items-center">
+                       
+                        
+                    </div>
+                </div>';
                 foreach ($groupedData as $stuff => $group) {
                     $count = 0;
                     // dd($group, $stuff);
                     // Add stuff name as a banner above the tickets
-                    
+                   
                     $htmlTable .= '<div style="margin-bottom: 20px;">';
                     $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;">' . $stuff . '</h2>';
 
                     // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="w-100 table-striped">
+                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                         <thead>
                             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                                 <th class="text-start">Booking Date</th>
@@ -5181,7 +5212,7 @@ class ReportController extends Controller
                                 <th class="text-start">Net Markup</th>
                             </tr>
                         </thead>
-                        <tbody>';
+                        <tbody class="divide-y-2">';
 
                     // Loop through each record in the group and add a row to the table
                     foreach ($group as $data) {
@@ -5189,17 +5220,17 @@ class ReportController extends Controller
                             $count++;
                         }
                         $htmlTable .= '<tr>
-                            <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->ticket_no . '</td>
-                            <td>' . $data->passenger . '</td>
-                            <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                            <td>' . $data->sector . '</td>
-                            <td>' . $data->airline_name . '</td>
-                            <td>' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td>' . $data->agent_new_amount . '</td>
-                            <td>' . Supplier::where('id', $data->supplier)->value('name') . '</td>
-                            <td>' . $data->supplier_new_amount . '</td>
-                            <td>' . $data->profit . '</td>
+                            <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->ticket_no . '</td>
+                            <td class="py-2">' . $data->passenger . '</td>
+                            <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->sector . '</td>
+                            <td class="py-2">' . $data->airline_name . '</td>
+                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                            <td class="py-2">' . $data->agent_new_amount . '</td>
+                            <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
+                            <td class="py-2">' . $data->supplier_new_amount . '</td>
+                            <td class="py-2">' . $data->profit . '</td>
 
                         </tr>';
                     }
@@ -5217,7 +5248,17 @@ class ReportController extends Controller
         else{
                 
             $htmlTable = ''; // Initialize variable to hold HTML tables
-            
+            $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-lg">
+                            <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                            <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
+                            </div>
+                        <div class="flex items-center">
+                           
+                            
+                        </div>
+                    </div>';
             // Loop through each group
             // dd($groupedData);
             foreach ($groupedData as $stuff => $group) {
@@ -5229,7 +5270,7 @@ class ReportController extends Controller
                 $htmlTable .= '<h2 class="text-start" style="font-weight:bold;">' . $stuff . '</h2>';
 
                 // Start a new table for each group
-                $htmlTable .= '<table border="1" class="w-100 table-striped">
+                $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
                 <tr class="border-y-2 border-black bg-cyan-700 text-white">
                     <th class="text-start">Booking Date</th>
@@ -5241,7 +5282,7 @@ class ReportController extends Controller
                    
                 </tr>
             </thead>
-                    <tbody>';
+                    <tbody class="divide-y-2">';
 
                 // Loop through each record in the group and add a row to the table
                 foreach ($group as $data) {
@@ -5249,12 +5290,12 @@ class ReportController extends Controller
                         $count++;
                     }
                     $htmlTable .= '<tr>
-                        <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->ticket_no . '</td>
-                        <td>' . $data->passenger . '</td>
-                        <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td>' . $data->sector . '</td>
-                        <td>' . $data->airline_name . '</td>
+                        <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->ticket_no . '</td>
+                        <td class="py-2">' . $data->passenger . '</td>
+                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
+                        <td class="py-2">' . $data->sector . '</td>
+                        <td class="py-2">' . $data->airline_name . '</td>
                        
 
                     </tr>';

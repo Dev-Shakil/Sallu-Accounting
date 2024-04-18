@@ -196,7 +196,7 @@ class TicketController extends Controller
             // dd($request->all());
 
             DB::beginTransaction();
-            // dd($request->all());
+            dd($request->all());
 
                 
                 $ticket = new Ticket();
