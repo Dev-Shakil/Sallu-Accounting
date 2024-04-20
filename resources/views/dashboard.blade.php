@@ -151,7 +151,7 @@
               @foreach($closetickets as $ticket)
               <tr class="border-b hover:bg-gray-50">
                 <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}</td>
-                <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_no}}/{{$ticket->ticket_code}}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_code}}/{{$ticket->ticket_no}}</td>
                 <td class="px-4 py-2 text-gray-700">{{$ticket->airline_name}}/{{$ticket->airline_code}}</td>
 
                 <td class="px-4 py-2 text-gray-700">{{$ticket->passenger}}</td>

@@ -1613,6 +1613,7 @@ class ReportController extends Controller
                                                     <b>Refund</b> to Customer : $agentname ,  
                                                     {$item->invoice}<br> Ticket No : {$ticket->ticket_code}/{$item->ticket_no}, <br>
                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+                                                    Remark: {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit"></td>
                                                 <td class="w-[12%] totalcredit">{$item->now_agent_fere}</td>
@@ -1635,9 +1636,9 @@ class ReportController extends Controller
                                                 <td class="w-[11%]"> {$item->invoice} </td>
                                                 <td class="w-[15%]"> {$typeneme} </td>
                                                 <td class="w-[28%]">
-                                                    Remarks:  {$item->remark} <br>
                                                     Passenger: {$item->name} <br>
-                                                    Passport: {$item->passport_no}
+                                                    Passport: {$item->passport_no}<br>
+                                                    Remarks:  {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit">{$item->contact_amount}</td>
                                                 <td class="w-[12%] totalcredit"></td>
@@ -1664,10 +1665,10 @@ class ReportController extends Controller
                                                 <td class="w-[11%]"> {$item->invoice} </td>
                                                 <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
                                                 <td class="w-[28%]">
-                                                    Remarks:  {$item->remark} 
                                                     <b>Void</b> to Customer : $agentname ,  
                                                     {$item->invoice}<br> Ticket No : {$ticket->ticket_code}/{$item->ticket_no}, <br>
                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+                                                    <b>Remarks</b>:  {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit">{$item->now_agent_fere}</td>
                                                 <td class="w-[12%] totalcredit"></td>
@@ -1944,6 +1945,7 @@ class ReportController extends Controller
                                                     <b>Refund</b> to Customer : $agentname ,  
                                                     {$item->invoice}<br> Ticket No : {$ticket->ticket_code}/{$item->ticket_no}, <br>
                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+                                                    Remarks: {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit">{$item->now_supplier_fare}</td>
                                                 <td class="w-[12%] totalcredit"></td>
@@ -2010,10 +2012,11 @@ class ReportController extends Controller
                                                 <td class="w-[11%]"> {$item->invoice} </td>
                                                 <td class="w-[15%]"> {$item->ticket_no} </td>
                                                 <td class="w-[28%]">
-                                                    Remarks:  {$item->remark} 
+                                                     
                                                     <b>Reissue</b> to Customer : $supplierName ,  
                                                     {$item->invoice}<br> Ticket No : {$ticket->ticket_code}/{$item->ticket_no}, <br>
-                                                    Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+                                                    Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br/>
+                                                    Remarks:  {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit"></td>
                                                 <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
@@ -2037,10 +2040,10 @@ class ReportController extends Controller
                                                 <td class="w-[11%]"> {$item->invoice} </td>
                                                 <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
                                                 <td class="w-[28%]">
-                                                    Remarks:  {$item->remark} 
                                                     <b>Void</b> to Customer : $supplierName ,  
                                                     {$item->invoice}<br> Ticket No : {$ticket->ticket_code}/{$item->ticket_no}, <br>
-                                                    Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+                                                    Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br>
+                                                    Remarks:  {$item->remark}
                                                 </td>
                                                 <td class="w-[12%] totaldebit"></td>
                                                 <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
@@ -2064,9 +2067,10 @@ class ReportController extends Controller
                                                 <td class="w-[11%]"> {$item->invoice} </td>
                                                 <td class="w-[15%]"> {$typeneme} </td>
                                                 <td class="w-[28%]">
-                                                    Remarks:  {$item->remark} <br>
+                                                    
                                                     Passenger: {$item->name} <br>
-                                                    Passport: {$item->passport_no}
+                                                    Passport: {$item->passport_no}<br>
+                                                    Remarks:  {$item->remark} <br>
                                                 </td>
                                                 <td class="w-[12%] totaldebit"></td>
                                                 <td class="w-[12%] totalcredit">{$item->payable_amount}</td>

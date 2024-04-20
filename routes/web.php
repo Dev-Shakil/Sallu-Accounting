@@ -15,6 +15,7 @@ use App\Http\Controllers\ReissueController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
@@ -267,6 +268,13 @@ Route::post('/transaction_add', [AirlinesController::class, 'store'])->name('air
 Route::get('/airlines/edit/{id}', [AirlinesController::class, 'edit'])->name('airlines.edit');
 Route::post('/airlines/update/{id}', [AirlinesController::class, 'update'])->name('airlines.update');
 Route::get('/airlines/delete/{id}', [AirlinesController::class, 'delete'])->name('airlines.delete');
+
+Route::get('change_password/view', function () {
+    return app(SettingsController::class)->index();
+})->name('change_password.view');
+Route::get('company_profile/view', function () {
+    return app(SettingsController::class)->edit_company_profile();
+})->name('company_profile.view');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
