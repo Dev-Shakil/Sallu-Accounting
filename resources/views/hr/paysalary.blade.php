@@ -139,7 +139,7 @@
         </div>
         <div id="stuff-form">
 
-            <div class="addagent w-[100%] lg:w-[60%] bg-white p-5 shadow-lg rounded-lg">
+            <div class="addagent w-[100%] lg:w-[80%] bg-white p-5 shadow-lg rounded-lg">
                 {{-- <form action="/addtype" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="row">

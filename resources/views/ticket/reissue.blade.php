@@ -71,10 +71,7 @@
                         <label for="flight_date" class="block text-md font-semibold text-black ">Flight Date</label>
                         <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="flight_date" readonly name="flight_date">
                     </div>
-                    <div class="mb-4 flex items-center justify-between gap-6">
-                        <label for="reissue_date" class="block text-md font-semibold text-black ">Reissue Date</label>
-                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="reissue_date" name="reissue_date" required>
-                    </div>
+                   
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent" class="block text-md font-semibold text-black ">Client</label>
                         <input type="text" readonly class="form-input mt-1 block text-sm w-[65%] border p-1" id="agent"  required>
@@ -93,6 +90,17 @@
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="supplier_fare" class="block text-md font-semibold text-black ">Supplier Fare</label>
                         <input type="text" readonly class="form-input mt-1 block text-sm w-[65%] border p-1" id="supplier_fare" name="supplier_fare">
+                    </div>
+                    <div class="mb-4 flex items-center justify-between gap-6">
+                       
+                    </div>
+                    <div class="mb-4 flex items-center justify-between gap-6">
+                        <label for="supplier_fare" class="block text-md font-semibold text-black ">New Ticket Number</label>
+                        <input type="text" maxlength="13" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_ticket_number" name="new_ticket_number">
+                    </div>
+                    <div class="mb-4 flex items-center justify-between gap-6">
+                        <label for="reissue_date" class="block text-md font-semibold text-black ">Reissue Date</label>
+                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="reissue_date" name="reissue_date" required>
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent_reissuefare" class="block text-md font-semibold text-black ">Client Reissue Charge</label>

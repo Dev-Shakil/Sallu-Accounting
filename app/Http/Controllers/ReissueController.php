@@ -68,6 +68,7 @@ class ReissueController extends Controller
         $reissueticket = new ReissueTicket();
         $reissueticket->ticket_no = $request->ticket;
         $reissueticket->passenger_name = $request->name;
+        $reissueticket->new_ticket_number = $request->new_ticket_number;
         $reissueticket->ticket_code = $request->ticket_code;
         $reissueticket->date = $request->reissue_date;
         $reissueticket->agent = $request->agent;

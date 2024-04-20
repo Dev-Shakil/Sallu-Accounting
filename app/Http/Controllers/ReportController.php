@@ -2086,8 +2086,8 @@ class ReportController extends Controller
                                             <td></td>
                                             <td></td>
                                             <td class="text-lg font-semibold">Total Closing Balance</td>
-                                            <td class="w-[12%]" id="sumtotaldebit2">'.$debit.'</td>
-                                            <td class="w-[12%]  font-bold" id="sumtotalcredit2">'.$credit.'</td>
+                                            <td class="w-[12%]" id="sumtotaldebit2">'.$debit.'Dr</td>
+                                            <td class="w-[12%]  font-bold" id="sumtotalcredit2">'.$credit.'Cr</td>
                                             <td class="w-[12%]  font-bold" id="sumtotal2">'.$balance.'</td>
                                         </tr>
                                         </tbody>

@@ -17,51 +17,52 @@
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
             <form action="{{ route('ticket_void') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                
+                <div class="mb-4 flex items-center gap-6">
+                    <label for="ticket" class="w-[15%] block text-md font-semibold text-black ">Ticket Search:</label>
+                    {{-- <input type="text" class="bg-green-50 rounded-lg shadow-lg border-2 border-green-400 mt-1 block w-[65%] p-1" id="ticket" name="ticket" required> --}}
+                    <div class="w-[40%] flex items-center border-2 border-black">
+                    <input
+                        type="text"
+                        class="block py-1 border-1 bg-gray-50 px-2 leading-1.5 outline-none transition-all duration-200 ease-linear  w-full"
+                        placeholder="Search"
+                        aria-label="Search"
+                        id="ticket"
+                        name="ticket"
+                        aria-describedby="basic-addon1" />
+                    
+                    <button
+                        class="flex items-center  bg-primary py-1.5 px-3  text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2"
+                        type="button"
+                        id="button-addon1"
+                        data-twe-ripple-init
+                        data-twe-ripple-color="light">
+                        <span class="[&>svg]:h-5 [&>svg]:w-5">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor">
+                            <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        </span>
+                    </button>
+                </div>
+                </div>
                 <div class="grid grid-cols-2 gap-x-14">
-                    <div class="mb-4 flex items-center justify-between gap-6">
-                        <label for="ticket" class="block text-md font-semibold text-black ">Ticket Search:</label>
-                        {{-- <input type="text" class="bg-green-50 rounded-lg shadow-lg border-2 border-green-400 mt-1 block w-[65%] p-1" id="ticket" name="ticket" required> --}}
-                        <div class="w-[65%] flex items-center border-2 border-black">
-                        <input
-                            type="text"
-                            class="block py-1 border-1 bg-gray-50 px-2 leading-1.5 outline-none transition-all duration-200 ease-linear  w-full"
-                            placeholder="Search"
-                            aria-label="Search"
-                            id="ticket"
-                            name="ticket"
-                            aria-describedby="basic-addon1" />
-                        
-                        <button
-                            class="flex items-center  bg-primary py-1.5 px-3  text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2"
-                            type="button"
-                            id="button-addon1"
-                            data-twe-ripple-init
-                            data-twe-ripple-color="light">
-                            <span class="[&>svg]:h-5 [&>svg]:w-5">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor">
-                                <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                            </svg>
-                            </span>
-                        </button>
-                    </div>
-                    </div>
+                    
+                    
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="name" class="block text-md font-semibold text-black ">Passenger Name:</label>
                         <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" id="name" name="name" readonly required>
                     </div>
-                    <div class="mb-4 flex items-center justify-between gap-6">
+                    {{-- <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="name" class="block text-md font-semibold text-black ">TICKET Code:</label>
                         <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" id="ticket_code" name="ticket_code" readonly required>
-                    </div>
+                    </div> --}}
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="sector" class="block text-md font-semibold text-black ">Sector</label>
                         <input type="tel" readonly class="form-input mt-1 block text-sm w-[65%] border p-1" id="sector" name="sector" required>
