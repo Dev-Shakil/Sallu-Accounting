@@ -18,20 +18,11 @@ class AgentController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'country' => 'string|max:255',
-            'address' => 'string|max:255',
-            'district' => 'string|max:255',
-            'email' => 'string|max:255',
-            'description' => 'string',
-        ]);
+        $validatedData = $request->all();
         $validatedData['user'] = Auth::id();
         Agent::create($validatedData);
         return redirect()->route('agent.view')->with('success', 'Agent added successfully');
     }
-
     public function edit($id)
     {
         $id = decrypt($id);
@@ -44,7 +35,6 @@ class AgentController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:20',
-                'description' => '|string',
             ]);
 
             if($validatedData){

@@ -9,7 +9,7 @@ class Agent extends Model
 {
   
     protected $table = 'agent';
-    protected $fillable = ['name', 'phone', 'user','email','district','country','address','description',];
+    protected $fillable = ['name', 'phone', 'user',];
     
 }
 ?>
