@@ -5,7 +5,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="mb-4 text-2xl font-bold text-red-700">Add Umrah</h1>
+        <h1 class="mb-4 text-2xl font-bold text-red-700">Add U Umrah</h1>
 
         <div class="addagent bg-white shadow-lg rounded-lg p-4">
             <form action="/addtype" method="post">
