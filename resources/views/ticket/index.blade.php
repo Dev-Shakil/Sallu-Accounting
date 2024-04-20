@@ -58,19 +58,17 @@
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="sector" class="w-[50%]">Sector</label>
-                    <input type="text" id="sector"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="sector">
+                    <label for="airline" class="w-[50%]">Airline</label>
+                    <div class="flex w-full gap-x-3">
+                        <input type="text" id="airlines_name"
+                            class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            name="airlines_name">
+                        <input type="text" id="airlines_code"
+                            class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            name="airlines_code">
+                    </div>
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="flight_no" class="w-[50%]">Flight No</label>
-                    <input type="text" id="flight_no"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="flight_no">
-                </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="ticket_no" class="w-[50%]">Ticket No /
                         PNR</label>
@@ -83,12 +81,21 @@
                             name="ticket_no">
                     </div>
                 </div>
+            </div>
+            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="number_of_tickets" class="w-[50%]">Number of
                         Tickets</label>
                     <input type="number" id="number_of_tickets"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="number_of_tickets">
+                </div>
+                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                    <label for="sector" class="w-[50%]">Sector</label>
+                    <input type="text" id="sector"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="sector">
                 </div>
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
@@ -99,16 +106,13 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="passenger_name">
                 </div>
+
+                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="airline" class="w-[50%]">Airline</label>
-                    <div class="flex w-full gap-x-3">
-                        <input type="text" id="airlines_name"
-                            class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                            name="airlines_name">
-                        <input type="text" id="airlines_code"
-                            class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                            name="airlines_code">
-                    </div>
+                    <label for="flight_no" class="w-[50%]">Flight No</label>
+                    <input type="text" id="flight_no"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="flight_no">
                 </div>
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
@@ -185,7 +189,7 @@
         </form>
 
         <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
-            Net Profit - 900
+            Net Profit - 00
         </div>
         <div class="flex justify-center my-4 gap-x-8">
             <div class="font-semibold">
@@ -751,6 +755,15 @@
                     return null;
                 }
             }
+            
+            $('#number_of_tickets').on('change', function(event) {
+                var number_of_tickets = parseInt($('#number_of_tickets').val());
+                if (number_of_tickets > 1) {
+                    $('#passenger_name').prop('disabled', true);
+                } else {
+                    $('#passenger_name').prop('disabled', false);
+                }
+            });
 
             $('#add_ticket').on('click', function(event) {
                 event.preventDefault();
@@ -777,7 +790,7 @@
                 // console.log(invoice_Date)
                 var agent_price_1 = parseFloat($('#agent_price_1').val());
                 var supplier_price = parseFloat($('#supplier_price').val());
-
+                
                 if (!isNaN(agent_price_1) && !isNaN(supplier_price)) {
                     var profit = agent_price_1 - supplier_price;
                     var tkno = parseInt(number_of_tickets);
