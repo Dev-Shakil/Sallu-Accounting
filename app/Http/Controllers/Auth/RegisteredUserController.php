@@ -45,9 +45,14 @@ class RegisteredUserController extends Controller
             'tel_no' => $request->tel_no,
             'company_address' => $request->company_address,
         ]);
+        // if ($request->hasFile('company_logo')) {
+        //     $logoPath = $request->file('company_logo')->store('company_logos', 'public');
+        //     $user->company_logo = $logoPath;
+        // }
         if ($request->hasFile('company_logo')) {
-            $logoPath = $request->file('company_logo')->store('company_logos', 'public');
-            $user->company_logo = $logoPath;
+            $logo = $request->file('company_logo');
+            $logo->move(public_path('company_logo'), $logo->getClientOriginalName());
+            $user->company_logo = 'company_logo/' . $logo->getClientOriginalName();
         }
         $user->save();
         event(new Registered($user));
