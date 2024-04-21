@@ -296,8 +296,8 @@ class ReportController extends Controller
     //         $sortedCollection = $mergedCollection->sortBy('created_at');
 
     //         $html = '
-                        
-                            
+
+
     //                         <main class="flex-1 mx-auto max-w-7xl px-10">
     //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
     //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
@@ -313,7 +313,7 @@ class ReportController extends Controller
     //                                         <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //                                     </div>
     //                                     <div class="flex items-center">
-                                        
+
     //                                         <div class="mb-8">
     //                                             <h2 class="font-bold text-xl">STS International</h2>
     //                                             <p>Motijheel, Dhaka</p>
@@ -329,7 +329,7 @@ class ReportController extends Controller
     //                                         <th class="">Details</th>
     //                                         <th class="">Debit</th>
     //                                         <th class="">Credit</th>
-                                            
+
     //                                         <th class="">Balance</th>
     //                                     </tr>
     //                                     </thead>
@@ -382,25 +382,25 @@ class ReportController extends Controller
     //         }
 
     //         $html .= '
-                                        
+
     //                                     </tbody>
     //                                 </table>
     //                         </div>
-                            
-                            
+
+
     //                         </main>
-                           
-    
+
+
     //                         <style>
     //                             @media print {
     //                                 body * {
     //                                     visibility: hidden;
     //                                 }
-                            
+
     //                                 #printSection, #printSection * {
     //                                     visibility: visible;
     //                                 }
-                            
+
     //                                 #printSection {
     //                                     position: absolute;
     //                                     left: 0;
@@ -412,7 +412,7 @@ class ReportController extends Controller
     //                                 }
     //                             }
     //                         </style>
-                      
+
     //                 ';
     //     } elseif ($who == 'supplier') {
     //         // dd($who);
@@ -469,7 +469,7 @@ class ReportController extends Controller
     //         // dd($sortedCollection);
 
     //         $html = ' 
-                            
+
     //                     <main class="flex-1 mx-auto max-w-7xl px-10">
     //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
     //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
@@ -485,7 +485,7 @@ class ReportController extends Controller
     //                                         <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //                                     </div>
     //                                     <div class="flex items-center">
-                                        
+
     //                                         <div class="mb-8">
     //                                             <h2 class="font-bold text-xl">STS International</h2>
     //                                             <p>Motijheel, Dhaka</p>
@@ -501,7 +501,7 @@ class ReportController extends Controller
     //                                         <th class=" pl-6">Details</th>
     //                                         <th class="">Debit</th>
     //                                         <th class="">Credit</th>
-                                            
+
     //                                         <th class="">Balance</th>
     //                                     </tr>
     //                                     </thead>
@@ -524,7 +524,7 @@ class ReportController extends Controller
     //                                                     $item->airline_code -  $item->airline_name <br>
     //                                                     Remarks:  $item->remark 
     //                                                 </td>
-                                                    
+
     //                                                 <td class="w-[12%] "></td>
     //                                                 <td class="w-[12%]  "> $item->supplier_price </td>
     //                                                 <!-- <td class="w-[12%] "> $item->previous_amount  Dr</td> -->
@@ -568,19 +568,19 @@ class ReportController extends Controller
     //                                     </tbody>
     //                                 </table>
     //                         </div>
-                            
-                            
+
+
     //                     </main>
     //                     <style>
     //                     @media print {
     //                         body * {
     //                             visibility: hidden;
     //                         }
-                    
+
     //                         #printSection, #printSection * {
     //                             visibility: visible;
     //                         }
-                    
+
     //                         #printSection {
     //                             position: absolute;
     //                             left: 0;
@@ -592,9 +592,9 @@ class ReportController extends Controller
     //                         }
     //                     }
     //                 </style>
-                            
-    
-                        
+
+
+
     //                 ';
     //     } else {
     //         // Your logic for other cases goes here
@@ -734,7 +734,7 @@ class ReportController extends Controller
     //             });
     //         $order = $order->get();
 
-            
+
     //         // $order = $order->get();
     //         // dd($order, $void_ticket);
     //         $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
@@ -742,8 +742,8 @@ class ReportController extends Controller
     //         // dd($mergedCollection);
     //         $acountname = Agent::where('id', $id)->value('name');
     //         $html = '
-                        
-                            
+
+
     //                         <main class="flex-1 mx-auto max-w-7xl px-10">
     //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
     //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
@@ -759,7 +759,7 @@ class ReportController extends Controller
     //                                         <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
     //                                     </div>
     //                                     <div class="flex items-center">
-                                        
+
     //                                         <div class="mb-8">
     //                                             <h2 class="font-bold text-xl">STS International</h2>
     //                                             <p>Motijheel, Dhaka</p>
@@ -775,7 +775,7 @@ class ReportController extends Controller
     //                                         <th class="">Details</th>
     //                                         <th class="">Debit</th>
     //                                         <th class="">Credit</th>
-                                            
+
     //                                         <th class="">Balance</th>
     //                                     </tr>
     //                                     </thead>
@@ -822,7 +822,7 @@ class ReportController extends Controller
     //                                         </tr>
     //                                         HTML;
     //             }
-                
+
     //             elseif ($item->getTable() == "payment") {
     //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
 
@@ -943,21 +943,21 @@ class ReportController extends Controller
     //                                     </tbody>
     //                                 </table>
     //                         </div>
-                            
-                            
+
+
     //                         </main>
-                           
-    
+
+
     //                         <style>
     //                             @media print {
     //                                 body * {
     //                                     visibility: hidden;
     //                                 }
-                            
+
     //                                 #printSection, #printSection * {
     //                                     visibility: visible;
     //                                 }
-                            
+
     //                                 #printSection {
     //                                     position: absolute;
     //                                     left: 0;
@@ -969,7 +969,7 @@ class ReportController extends Controller
     //                                 }
     //                             }
     //                         </style>
-                                                    
+
     //                         <script>
     //                         // Get all elements with the specified classes
     //                         const totaldebitElements = document.querySelectorAll(".totaldebit");
@@ -998,7 +998,7 @@ class ReportController extends Controller
     //                         document.getElementById("sumtotal").textContent = (sumTotalDebit - sumTotalCredit).toFixed(2) + " Dr"; // Format to 2 decimal places and append "Dr"
     //                         </script>
 
-                      
+
     //                 ';
     //     } 
     //     elseif ($who == 'supplier') {
@@ -1009,7 +1009,7 @@ class ReportController extends Controller
 
     //         $receive = Ticket::where('supplier', $id);
     //         // dd($receive);
-            
+
     //         $receiver = Receiver::where([
     //             ['receive_from', '=', 'supplier'],
     //             ['agent_supplier_id', '=', $id],
@@ -1024,8 +1024,8 @@ class ReportController extends Controller
     //         $void_ticket = VoidTicket::where([ ['user', Auth::id()], ['supplier', $id]]);
     //         $reissue = ReissueTicket::where([['supplier', $id],['user', Auth::id()]]);
     //         // dd($receive);
-          
-            
+
+
     //         if (!is_null($start_date) || !is_null($end_date)) {
     //             $start_date = (new DateTime($start_date))->format('Y-m-d');
     //             $end_date = (new DateTime($end_date))->format('Y-m-d');
@@ -1040,7 +1040,7 @@ class ReportController extends Controller
     //                 }
     //             });
     //         }
-            
+
     //         if (!is_null($start_date) || !is_null($end_date)) {
     //             $start_date = (new DateTime($start_date))->format('Y-m-d');
     //             $end_date = (new DateTime($end_date))->format('Y-m-d');
@@ -1096,7 +1096,7 @@ class ReportController extends Controller
     //         $acountname = Supplier::where('id', $id)->value('name');
     //         // dd($acountname, $id);
     //         $html = ' 
-                            
+
     //                     <main class="flex-1 mx-auto max-w-7xl px-10">
     //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
     //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
@@ -1112,7 +1112,7 @@ class ReportController extends Controller
     //                                     <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
     //                                 </div>
     //                                     <div class="flex items-center">
-                                        
+
     //                                         <div class="mb-8">
     //                                             <h2 class="font-bold text-xl">STS International</h2>
     //                                             <p>Motijheel, Dhaka</p>
@@ -1128,7 +1128,7 @@ class ReportController extends Controller
     //                                         <th class=" pl-6">Details</th>
     //                                         <th class="">Debit</th>
     //                                         <th class="">Credit</th>
-                                            
+
     //                                         <th class="">Balance</th>
     //                                     </tr>
     //                                     </thead>
@@ -1175,7 +1175,7 @@ class ReportController extends Controller
     //                                         </tr>
     //                                         HTML;
     //             }
-                
+
     //             elseif ($item->getTable() == "payment") {
     //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
 
@@ -1246,19 +1246,19 @@ class ReportController extends Controller
     //                                     </tbody>
     //                                 </table>
     //                         </div>
-                            
-                            
+
+
     //                     </main>
     //                     <style>
     //                     @media print {
     //                         body * {
     //                             visibility: hidden;
     //                         }
-                    
+
     //                         #printSection, #printSection * {
     //                             visibility: visible;
     //                         }
-                    
+
     //                         #printSection {
     //                             position: absolute;
     //                             left: 0;
@@ -1270,7 +1270,7 @@ class ReportController extends Controller
     //                         }
     //                     }
     //                 </style>
-                    
+
     //                 <script>
     //                 // Get all elements with the specified classes
     //                 const totaldebitElements2 = document.querySelectorAll(".totaldebit");
@@ -1298,8 +1298,8 @@ class ReportController extends Controller
     //                 document.getElementById("sumtotalcredit2").textContent = sumTotalCredit.toFixed(2); // Format to 2 decimal places
     //                 document.getElementById("sumtotal2").textContent = (sumTotalDebit - sumTotalCredit).toFixed(2) + " Dr"; // Format to 2 decimal places and append "Dr"
     //                 </script>
-    
-                        
+
+
     //                 ';
     //     } else {
     //         // Your logic for other cases goes here
@@ -1357,8 +1357,8 @@ class ReportController extends Controller
 
             // $order = $order->where(['agent', $id]);
 
-            $void_ticket = VoidTicket::where([ ['user', Auth::id()], ['agent', $id]]);
-            $reissue = ReissueTicket::where([['agent', $id],['user', Auth::id()]]);
+            $void_ticket = VoidTicket::where([['user', Auth::id()], ['agent', $id]]);
+            $reissue = ReissueTicket::where([['agent', $id], ['user', Auth::id()]]);
 
             if (!is_null($start_date) || !is_null($end_date)) {
                 $start_date = (new DateTime($start_date))->format('Y-m-d');
@@ -1427,7 +1427,7 @@ class ReportController extends Controller
             $refund = $refund->get();
 
             $order = Order::where('user', Auth::id())
-              ->where('agent', $id);
+                ->where('agent', $id);
             $order = $order->where(function ($query) use ($start_date, $end_date) {
                 if (!is_null($start_date)) {
                     $query->where('date', '>=', $start_date);
@@ -1436,10 +1436,10 @@ class ReportController extends Controller
                 if (!is_null($end_date)) {
                     $query->where('date', '<=', $end_date);
                 }
-                });
+            });
             $order = $order->get();
 
-            
+
             // $order = $order->get();
             // dd($order, $void_ticket);
             $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
@@ -1465,8 +1465,8 @@ class ReportController extends Controller
                         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                         <div class="flex items-center justify-between mb-2">
                             <div class="text-lg">
-                                <h2 class="font-semibold">Account Name : '. $acountname. '</h2>
-                                <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
+                                <h2 class="font-semibold">Account Name : ' . $acountname . '</h2>
+                                <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . '</p>
                             </div>
                             <div class="flex items-center">
                             
@@ -1492,8 +1492,8 @@ class ReportController extends Controller
                             <tbody class="divide-y devide-gray-600">
                     ';
 
-            
-                foreach ($sortedCollection as $index => $item) {
+
+            foreach ($sortedCollection as $index => $item) {
                 // dd($item->getTable());
                 if ($item->getTable() == "tickets") {
                     // Handle logic specific to Ticket model
@@ -1507,7 +1507,7 @@ class ReportController extends Controller
                                                     <td class="w-[15%]"> $item->ticket_no </td>
                                                     <td class="w-[28%] pr-3">
                                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-                                                        PNR:  $item->ticket_code ,  $item->sector <br>
+                                                        PNR:  $item->pnr ,  $item->sector <br>
                                                         FLIGHT DATE:  $item->flight_date <br>
                                                         $item->airline_code -  $item->airline_name <br>
                                                         Remarks:  $item->remark 
@@ -1518,8 +1518,7 @@ class ReportController extends Controller
                                                     <td class="w-[12%] totaltotal"> $currentAmount </td>
                                                 </tr>
                              HTML;
-                }
-                elseif ($item->getTable() == "receive") {
+                } elseif ($item->getTable() == "receive") {
                     // $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
                     $balance -= $item->amount;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
@@ -1538,11 +1537,9 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-                
-                elseif ($item->getTable() == "payment") {
+                } elseif ($item->getTable() == "payment") {
                     // $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-                    
+
                     $balance += $item->amount;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                     $debit += $item->amount;
@@ -1561,9 +1558,7 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "reissue") {
+                } elseif ($item->getTable() == "reissue") {
                     // $currentAmount = $item->now_agent_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
 
@@ -1572,7 +1567,7 @@ class ReportController extends Controller
                     $debit += $item->now_agent_debit;
 
                     $agentname = Agent::where('id', $id)->value('name');
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
                     $html .= <<<HTML
                                             <tr >
@@ -1590,16 +1585,14 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "refund") {
+                } elseif ($item->getTable() == "refund") {
                     // dd($item);
                     $balance -= $item->now_agent_fere;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                     $credit += $item->now_agent_fere;
 
                     $agentname = Agent::where('id', $id)->value('name');
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
                     $html .= <<<HTML
                                             <tr >
@@ -1620,9 +1613,7 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "order") {
+                } elseif ($item->getTable() == "order") {
                     // $currentAmount = $item->agent_new_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     $balance += $item->contact_amount;
@@ -1645,19 +1636,17 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "voidTicket") {
+                } elseif ($item->getTable() == "voidTicket") {
                     // $currentAmount = $item->now_agent_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-                    
+
                     $balance += $item->now_agent_fere;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                     $debit += $item->now_agent_fere;
                     // dd($item->date, $currentAmount);
-                    
+
                     $agentname = Agent::where('id', $id)->value('name');
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
                     $html .= <<<HTML
                                             <tr >
@@ -1682,16 +1671,17 @@ class ReportController extends Controller
                 // }
             }
 
-            $html .= '
-                                        <tr class="py-2 text-xl">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-lg font-semibold">Total Closing Balance</td>
-                                            <td class="w-[12%]" id="sumtotaldebit">'.$debit.'</td>
-                                            <td class="w-[12%]  font-bold" id="sumtotalcredit">'.$credit.'</td>
-                                            <td class="w-[12%]  font-bold" id="sumtotal">'.$balance.'</td>
-                                        </tr>
+            $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+            $html .= ' 
+            <tr class="py-4">
+            <td class="w-[12%] font-bold" >To Receive :  BDT</td>
+            <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
+            <td class="w-[12%] text-md font-bold" ></td>
+            <td class="text-lg font-semibold"></td>
+            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . 'Dr</td>
+            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . 'Cr</td>
+            <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
+        </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -1725,8 +1715,7 @@ class ReportController extends Controller
                          
                       
                     ';
-        } 
-        elseif ($who == 'supplier') {
+        } elseif ($who == 'supplier') {
             // dd($who);
             $start_date = $request->start_date;
             $end_date = $request->end_date;
@@ -1747,16 +1736,16 @@ class ReportController extends Controller
                 ['agent_supplier_id', '=', $id],
                 ['user', Auth::id()]
             ]);
-            
+
             $refund = $refund->where([
                 ['supplier', $id],
             ]);
-            
-            $void_ticket = VoidTicket::where([ ['user', Auth::id()], ['supplier', $id]]);
-            $reissue = ReissueTicket::where([['supplier', $id],['user', Auth::id()]]);
+
+            $void_ticket = VoidTicket::where([['user', Auth::id()], ['supplier', $id]]);
+            $reissue = ReissueTicket::where([['supplier', $id], ['user', Auth::id()]]);
             // dd($receive);
-          
-            
+
+
             if (!is_null($start_date) || !is_null($end_date)) {
                 $start_date = (new DateTime($start_date))->format('Y-m-d');
                 $end_date = (new DateTime($end_date))->format('Y-m-d');
@@ -1771,7 +1760,7 @@ class ReportController extends Controller
                     }
                 });
             }
-            
+
             if (!is_null($start_date) || !is_null($end_date)) {
                 $start_date = (new DateTime($start_date))->format('Y-m-d');
                 $end_date = (new DateTime($end_date))->format('Y-m-d');
@@ -1821,7 +1810,6 @@ class ReportController extends Controller
                         $query->where('date', '<=', $end_date);
                     }
                 });
-                
             }
 
             $receive = $receive->get();
@@ -1832,7 +1820,7 @@ class ReportController extends Controller
             $reissue = $reissue->get();
 
             $order = Order::where('user', Auth::id())
-              ->where('supplier', $id);
+                ->where('supplier', $id);
             $order = $order->where(function ($query) use ($start_date, $end_date) {
                 if (!is_null($start_date)) {
                     $query->where('date', '>=', $start_date);
@@ -1841,17 +1829,17 @@ class ReportController extends Controller
                 if (!is_null($end_date)) {
                     $query->where('date', '<=', $end_date);
                 }
-                });
+            });
             $order = $order->get();
 
-            
+
             // $order = $order->get();
             // dd($order, $void_ticket);
             $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
             $sortedCollection = $mergedCollection->sortBy('created_at');
 
             $balance = 0;
-            $debit =0;
+            $debit = 0;
             $credit = 0;
             // dd($mergedCollection);
 
@@ -1869,8 +1857,8 @@ class ReportController extends Controller
                                     <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                                     <div class="flex items-center justify-between mb-2">
                                         <div class="text-lg">
-                                        <h2 class="font-semibold">Account Name : '. $supplierName. '</h2>
-                                        <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
+                                        <h2 class="font-semibold">Account Name : ' . $supplierName . '</h2>
+                                        <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . '</p>
                                     </div>
                                         <div class="flex items-center">
                                         
@@ -1880,7 +1868,7 @@ class ReportController extends Controller
                                             </div>
                                         </div>
                                     </div>
-                                    <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
+                                    <table class="table-auto w-full table-stripe devide-2 text-sm my-1">
                                         <thead>
                                         <tr class="border-y-2 border-black">
                                             <th class="">Date</th>
@@ -1898,9 +1886,9 @@ class ReportController extends Controller
 
             foreach ($sortedCollection as $index => $item) {
                 // dd($item->getTable());
-                    $balance += $item->supplier_price;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                    $credit += $item->supplier_price;
+                $balance += $item->supplier_price;
+                $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                $credit += $item->supplier_price;
                 if ($item->getTable() == "tickets") {
                     // Handle logic specific to Ticket model
 
@@ -1911,7 +1899,7 @@ class ReportController extends Controller
                                                     <td class="w-[15%]"> $item->ticket_no </td>
                                                     <td class="w-[28%] pr-3">
                                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-                                                        PNR:  $item->ticket_code ,  $item->sector <br>
+                                                        PNR:  $item->pnr ,  $item->sector <br>
                                                         FLIGHT DATE:  $item->flight_date <br>
                                                         $item->airline_code -  $item->airline_name <br>
                                                         Remarks:  $item->remark 
@@ -1922,16 +1910,14 @@ class ReportController extends Controller
                                                     <td class="w-[12%] totaltotal"> $item->supplier_new_amount  Cr</td>
                                                 </tr>
                                             HTML;
-                }
-                
-                elseif ($item->getTable() == "refund") {
+                } elseif ($item->getTable() == "refund") {
                     // dd($item);
                     $balance -= $item->now_supplier_fare;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                     $debit += $item->now_supplier_fare;
 
                     $agentname = Agent::where('id', $id)->value('name');
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
                     $html .= <<<HTML
                                             <tr >
@@ -1952,9 +1938,7 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "receive") {
+                } elseif ($item->getTable() == "receive") {
                     // dd($item);
                     $balance -= $item->amount;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
@@ -1973,9 +1957,7 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-                
-                elseif ($item->getTable() == "payment") {
+                } elseif ($item->getTable() == "payment") {
 
                     $balance += $item->amount;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
@@ -1995,16 +1977,13 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                
-                }
-
-                elseif ($item->getTable() == "reissue") {
+                } elseif ($item->getTable() == "reissue") {
                     // $currentAmount = $item->now_supplier_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     // dd($item);
                     $balance += $item->now_supplier_fare;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                     $credit += $item->now_supplier_fare;
                     $html .= <<<HTML
                                             <tr >
@@ -2023,16 +2002,14 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-
-                elseif ($item->getTable() == "voidTicket") {
+                } elseif ($item->getTable() == "voidTicket") {
                     // dd($item);
                     // $currentAmount = $item->now_supplier_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     $balance += $item->now_supplier_fare;
                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                     $credit += $item->now_supplier_fare;
-                    $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
+                    $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
                     $html .= <<<HTML
                                             <tr >
@@ -2050,9 +2027,7 @@ class ReportController extends Controller
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
-                }
-                
-                elseif ($item->getTable() == "order") {
+                } elseif ($item->getTable() == "order") {
                     // $currentAmount = $item->agent_new_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     // dd($item);
@@ -2079,16 +2054,16 @@ class ReportController extends Controller
                                             HTML;
                 }
             }
-
-            $html .= ' 
-                                        <tr class="py-2 text-xl">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-lg font-semibold">Total Closing Balance</td>
-                                            <td class="w-[12%]" id="sumtotaldebit2">'.$debit.'Dr</td>
-                                            <td class="w-[12%]  font-bold" id="sumtotalcredit2">'.$credit.'Cr</td>
-                                            <td class="w-[12%]  font-bold" id="sumtotal2">'.$balance.'</td>
+            $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+            $html .= '                  
+                                        <tr class="py-4">
+                                            <td class="w-[12%] font-bold" >To Receive :  BDT</td>
+                                            <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
+                                            <td class="w-[12%] text-md font-bold" ></td>
+                                            <td class="text-lg font-semibold"></td>
+                                            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . 'Dr</td>
+                                            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . 'Cr</td>
+                                            <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -2178,7 +2153,7 @@ class ReportController extends Controller
     //     $html = '
     //         <!doctype html>
     //         <html>
-            
+
     //         <head>
     //         <meta charset="UTF-8">
     //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2196,14 +2171,14 @@ class ReportController extends Controller
     //             }
     //         </script>
     //         <style>
-            
+
     //         </style>
     //         </head>
-            
+
     //         <body class="flex ">
-            
+
     //         <main class=" mx-auto w-[95%] ">
-            
+
     //             <div class="bg-[#23CFD3] px-7 py-3 flex justify-center gap-y-4 mb-3 shadow-2xl">
     //                 <h2 class="text-center font-bold text-2xl">Received Report</h2>
     //                 <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
@@ -2221,7 +2196,7 @@ class ReportController extends Controller
     //                 </tr>
     //                 </thead>
     //                 <tbody id="data">';
-        
+
     //             foreach ($result as $key => $item) :
     //                 $printUrl = url('/receive_voucher', ['id' => $item]);
     //                 $html .=
@@ -2270,30 +2245,31 @@ class ReportController extends Controller
     //             </script>
     //         <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
     //         </body>
-            
+
     //         </html>
     //     ';
 
     //             return $html;
     // }
-    public function receive_report_info(Request $request){
+    public function receive_report_info(Request $request)
+    {
         // dd($request->all());
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
 
         $tableName = $customerid = null;
-        if($request->customer){
+        if ($request->customer) {
             list($tableName, $customerid) = explode('_', $request->customer);
         }
-       
+
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
 
         $query1 = Receiver::where('receive.user', $user);
@@ -2301,37 +2277,37 @@ class ReportController extends Controller
         if ($tableName !== null) {
             $query1->where('receive_from', $tableName);
         }
-        
+
         if ($customerid !== null) {
             $query1->where('agent_supplier_id', $customerid);
         }
-        
+
         if ($request->method !== null) {
             $query1->where('method', $request->method);
         }
-        
+
         if ($start_date !== null) {
             $query1->whereDate('date', '>=', $start_date);
         }
-        
+
         if ($end_date !== null) {
             $query1->whereDate('date', '<=', $end_date);
         }
-        
-               
+
+
         $query1->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'receive.method');
 
-        
+
         if ($tableName !== null) {
             $query1->join(DB::raw("$tableName as dynamicTable"), 'receive.agent_supplier_id', '=', 'dynamicTable.id')
-                   ->where('dynamicTable.user', $user)
-                   ->select('dynamicTable.name', 'receive.*', 'transaction_left.name as method_name');
+                ->where('dynamicTable.user', $user)
+                ->select('dynamicTable.name', 'receive.*', 'transaction_left.name as method_name');
         } else {
             $query1->select('receive.*', 'transaction_left.name as method_name');
         }
-        
+
         $result = $query1->get();
-        
+
         if ($tableName === null && $customerid === null) {
             // dd('mk');
             foreach ($result as $row) {
@@ -2342,7 +2318,7 @@ class ReportController extends Controller
                 }
             }
         }
-       
+
         $html = '
             
             
@@ -2365,9 +2341,9 @@ class ReportController extends Controller
                     </tr>
                     </thead>
                     <tbody id="data">';
-                    foreach ($result as $key => $item):
-                        $printUrl = url('/receive_voucher', ['id' => $item]);
-                            $html .= <<<HTML
+        foreach ($result as $key => $item) :
+            $printUrl = url('/receive_voucher', ['id' => $item]);
+            $html .= <<<HTML
                             <tr class="">
                                 <td class="w-[10%] px-4 py-2 text-left"> $item->date </td>
                                 <td class="w-[11%] px-4 py-2 text-left"> $item->invoice </td>
@@ -2381,9 +2357,9 @@ class ReportController extends Controller
                                 <td class="px-2 py-1 text-center flex justify-center gap-2 items-center"><a href='$printUrl' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
                             </tr>
                             HTML;
-                    endforeach;
-                    
-                        $html .=' 
+        endforeach;
+
+        $html .= ' 
                         <tr>
                             <td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
                             <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
@@ -2426,11 +2402,11 @@ class ReportController extends Controller
     {
         $user = Auth::id();
         $payment_voucher = Payment::findOrFail($id);
-        if ($payment_voucher->receive_from == 'agent'){
+        if ($payment_voucher->receive_from == 'agent') {
             $supplier = Agent::where([
                 ['id', $payment_voucher->agent_supplier_id]
             ])->first();
-        }else{
+        } else {
             $supplier = Supplier::where([
                 ['id', $payment_voucher->agent_supplier_id]
             ])->first();
@@ -2439,21 +2415,21 @@ class ReportController extends Controller
     }
     public function receive_voucher(Request $request, $id)
     {
-        
+
         $user = Auth::id();
         $receive_voucher = Receiver::findOrFail($id);
         // dd($receive_voucher);
-        if ($receive_voucher->receive_from == 'agent'){
+        if ($receive_voucher->receive_from == 'agent') {
             $agent = Agent::where([
                 ['id', $receive_voucher->agent_supplier_id]
             ])->first();
-        }else{
+        } else {
             $agent = Supplier::where([
                 ['id', $receive_voucher->agent_supplier_id]
             ])->first();
         }
         // dd($agent);
-       
+
         return view('report.receive.voucher', compact('receive_voucher', 'agent'));
     }
     public function payment_report_info1(Request $request)
@@ -2466,7 +2442,7 @@ class ReportController extends Controller
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
         $tableName = $customerid = null;
-        if($request->customer != null){
+        if ($request->customer != null) {
             list($tableName, $customerid) = explode('_', $request->customer);
         }
 
@@ -2476,7 +2452,7 @@ class ReportController extends Controller
 
         $user = Auth::id();
         $query1 = Payment::leftjoin(DB::raw("$tableName as dynamicTable"), 'payment.agent_supplier_id', '=', 'dynamicTable.id')
-                ->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'payment.method');
+            ->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'payment.method');
 
         if ($tableName !== null) {
             $query1->where('dynamicTable.user', $user)
@@ -2589,42 +2565,43 @@ class ReportController extends Controller
 
         return $html;
     }
-    public function payment_report_info(Request $request){
+    public function payment_report_info(Request $request)
+    {
 
         // dd($request->all());
-       
+
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
 
         $tableName = $customerid = null;
-        if($request->customer != null){
+        if ($request->customer != null) {
             list($tableName, $customerid) = explode('_', $request->customer);
         }
 
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
 
-        $query1 = Payment::where('payment.user', $user); 
+        $query1 = Payment::where('payment.user', $user);
 
         if ($tableName !== null) {
             $query1->where('receive_from', $tableName);
         }
-        
+
         if ($customerid !== null) {
             $query1->where('agent_supplier_id', $customerid);
         }
-        
+
         if ($request->method !== null) {
             $query1->where('method', $request->method);
         }
-        
+
         if ($start_date !== null && $end_date !== null) {
             $query1->whereBetween('date', [$start_date, $end_date]);
         } elseif ($start_date !== null) {
@@ -2632,9 +2609,9 @@ class ReportController extends Controller
         } elseif ($end_date !== null) {
             $query1->whereDate('date', '<=', $end_date);
         }
-        
+
         $query1->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'payment.method');
-        
+
         if ($tableName !== null) {
             $query1->leftJoin(DB::raw("$tableName as dynamicTable"), 'payment.agent_supplier_id', '=', 'dynamicTable.id')
                 ->where('dynamicTable.user', $user)
@@ -2642,7 +2619,7 @@ class ReportController extends Controller
         } else {
             $query1->select('payment.*', 'transaction_left.name as method_name');
         }
-        
+
         $result = $query1->get();
 
         if ($tableName === null && $customerid === null) {
@@ -2655,7 +2632,7 @@ class ReportController extends Controller
                 }
             }
         }
-        
+
 
         // dd($result);
         $html = '
@@ -2682,9 +2659,9 @@ class ReportController extends Controller
                    
                     </thead>
                     <tbody id="data">';
-                    foreach ($result as $key => $item):
-                        $printUrl = url('/payment_voucher', ['id' => $item->id]);
-                            $html .= <<<HTML
+        foreach ($result as $key => $item) :
+            $printUrl = url('/payment_voucher', ['id' => $item->id]);
+            $html .= <<<HTML
                             <tr class="">
                                 <td class="w-[10%] px-4 py-2 text-left"> $item->date </td>
                                 <td class="w-[11%] px-4 py-2 text-left"> $item->invoice </td>
@@ -2698,9 +2675,9 @@ class ReportController extends Controller
                                 <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
                             </tr>
                             HTML;
-                    endforeach;
-                    
-                        $html .=' 
+        endforeach;
+
+        $html .= ' 
 
                         <tr><td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
                         <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
@@ -2822,9 +2799,10 @@ class ReportController extends Controller
                        <tr class="border-y-2 border-black bg-cyan-700 text-white">
                          <th class="text-start">SL</th>
                          <th class="text-start">Air Name</th>
-                         <th class="text-start">AIT AMOUNT</th>
                          <th class="text-start">Sector</th>
-                         <th class="text-start">Actions</th>
+                         <th class="text-start">AIT AMOUNT</th>
+                       
+                        
                        </tr>
                      </thead>
                      <tbody class="divide-y-2">';
@@ -2835,9 +2813,10 @@ class ReportController extends Controller
                        <tr class="">
                         <td>$index</td>
                         <td>$item->airline_name</td>
-                        <td class="amount">$item->total_amount</td>
+                       
                         <td>$item->sector</td>
-                        <td class="px-2 py-1 flex gap-2"><button type="button" class="bg-green-700 text-white px-3 rounded-md text-sm">Print</button><button type="button" class="bg-red-700 text-white px-3 rounded-md text-sm">Download</button></td>
+                        <td class="amount">$item->total_amount</td>
+                        <!-- <td class="px-2 py-1 flex gap-2"><button type="button" class="bg-green-700 text-white px-3 rounded-md text-sm">Print</button><button type="button" class="bg-red-700 text-white px-3 rounded-md text-sm">Download</button></td> -->
                        </tr>
                        HTML;
         endforeach;
@@ -2891,16 +2870,16 @@ class ReportController extends Controller
     }
     public function due_reminder()
     {
-    //    dd('as');
+        //    dd('as');
         $agentIds = Agent::where([
-            ['is_delete', 0], 
-            ['is_active', 1], 
+            ['is_delete', 0],
+            ['is_active', 1],
             ['user', Auth::id()]
         ])->pluck('id');
 
         $supplierIds = Supplier::where([
-            ['is_delete', 0], 
-            ['is_active', 1], 
+            ['is_delete', 0],
+            ['is_active', 1],
             ['user', Auth::id()]
         ])->pluck('id');
 
@@ -2958,73 +2937,74 @@ class ReportController extends Controller
         // Output the result
         $filteredTransactions = [];
 
-            foreach ($latestTransaction as $transaction) {
-                // Check if the transaction is not empty
-                if (!empty($transaction)) {
-                    // Check if there's already a transaction with the same receive_from and agent_supplier_id
-                    $existingTransaction = collect($filteredTransactions)->first(function ($filteredTransaction) use ($transaction) {
-                        return $filteredTransaction['receive_from'] == $transaction['receive_from']
-                            && $filteredTransaction['agent_supplier_id'] == $transaction['agent_supplier_id'];
-                    });
+        foreach ($latestTransaction as $transaction) {
+            // Check if the transaction is not empty
+            if (!empty($transaction)) {
+                // Check if there's already a transaction with the same receive_from and agent_supplier_id
+                $existingTransaction = collect($filteredTransactions)->first(function ($filteredTransaction) use ($transaction) {
+                    return $filteredTransaction['receive_from'] == $transaction['receive_from']
+                        && $filteredTransaction['agent_supplier_id'] == $transaction['agent_supplier_id'];
+                });
 
-                    // If no existing transaction found, add the current transaction to the filtered transactions
-                    if (!$existingTransaction) {
-                        $filteredTransactions[] = $transaction;
-                    }
+                // If no existing transaction found, add the current transaction to the filtered transactions
+                if (!$existingTransaction) {
+                    $filteredTransactions[] = $transaction;
                 }
             }
+        }
 
-            // Output the filtered transactions
-            // dd($filteredTransactions);
-            $filteredTransactionsWithNames = [];
+        // Output the filtered transactions
+        // dd($filteredTransactions);
+        $filteredTransactionsWithNames = [];
 
-            foreach ($filteredTransactions as $transaction) {
-                // Determine the model based on the value of receive_from
-                $modelName = ($transaction['receive_from'] === 'agent') ? 'App\Models\Agent' : 'App\Models\Supplier';
+        foreach ($filteredTransactions as $transaction) {
+            // Determine the model based on the value of receive_from
+            $modelName = ($transaction['receive_from'] === 'agent') ? 'App\Models\Agent' : 'App\Models\Supplier';
 
-                // Retrieve the model instance
-                $model = $modelName::find($transaction['agent_supplier_id']);
+            // Retrieve the model instance
+            $model = $modelName::find($transaction['agent_supplier_id']);
 
-                // If the model instance is found, add its name to the transaction
-                if ($model) {
-                    $transaction['agent_supplier_name'] = $model->name;
-                    $transaction['agent_supplier_email'] = $model->email;
-                    $transaction['agent_supplier_phone'] = $model->phone;
-                    $transaction['agent_supplier_company'] = $model->company;
-                    $filteredTransactionsWithNames[] = $transaction;
-                }
+            // If the model instance is found, add its name to the transaction
+            if ($model) {
+                $transaction['agent_supplier_name'] = $model->name;
+                $transaction['agent_supplier_email'] = $model->email;
+                $transaction['agent_supplier_phone'] = $model->phone;
+                $transaction['agent_supplier_company'] = $model->company;
+                $filteredTransactionsWithNames[] = $transaction;
             }
-            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+        }
+        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
 
-            // Output the filtered transactions with names
-            // dd($filteredTransactionsWithNames);
-            return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
+        // Output the filtered transactions with names
+        // dd($filteredTransactionsWithNames);
+        return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
     }
-    public function due_reminder_specific(Request $request){
+    public function due_reminder_specific(Request $request)
+    {
 
         $supplierName = $request->supplierName;
 
-        
+
         list($tableName, $clientID) = explode('_', $supplierName);
-       
+
         $modelClassName = ucfirst($tableName);
 
         $model = app("App\\Models\\$modelClassName");
 
         $ssid = $model::where([
-            ['is_delete', 0], 
-            ['is_active', 1], 
+            ['is_delete', 0],
+            ['is_active', 1],
             ['user', Auth::id()]
         ])->pluck('id');
 
 
-        $ssid = $ssid->toArray(); 
-      
+        $ssid = $ssid->toArray();
+
         $latestReceives = [];
         $latestPayments = [];
 
-    
+
         $latestReceive = Receiver::where('agent_supplier_id', $clientID)
             ->where('receive_from', $tableName)
             ->orderBy('created_at', 'desc')
@@ -3051,135 +3031,140 @@ class ReportController extends Controller
         // Output the result
         $filteredTransactions = [];
 
-            foreach ($latestTransaction as $transaction) {
-                // Check if the transaction is not empty
-                if (!empty($transaction)) {
-                    // Check if there's already a transaction with the same receive_from and agent_supplier_id
-                    $existingTransaction = collect($filteredTransactions)->first(function ($filteredTransaction) use ($transaction) {
-                        return $filteredTransaction['receive_from'] == $transaction['receive_from']
-                            && $filteredTransaction['agent_supplier_id'] == $transaction['agent_supplier_id'];
-                    });
+        foreach ($latestTransaction as $transaction) {
+            // Check if the transaction is not empty
+            if (!empty($transaction)) {
+                // Check if there's already a transaction with the same receive_from and agent_supplier_id
+                $existingTransaction = collect($filteredTransactions)->first(function ($filteredTransaction) use ($transaction) {
+                    return $filteredTransaction['receive_from'] == $transaction['receive_from']
+                        && $filteredTransaction['agent_supplier_id'] == $transaction['agent_supplier_id'];
+                });
 
-                    // If no existing transaction found, add the current transaction to the filtered transactions
-                    if (!$existingTransaction) {
-                        $filteredTransactions[] = $transaction;
-                    }
+                // If no existing transaction found, add the current transaction to the filtered transactions
+                if (!$existingTransaction) {
+                    $filteredTransactions[] = $transaction;
                 }
             }
+        }
 
-            // Output the filtered transactions
-            // dd($filteredTransactions);
-            $filteredTransactionsWithNames = [];
+        // Output the filtered transactions
+        // dd($filteredTransactions);
+        $filteredTransactionsWithNames = [];
 
-            foreach ($filteredTransactions as $transaction) {
-                // Determine the model based on the value of receive_from
-                $modelName = ($transaction['receive_from'] === 'agent') ? 'App\Models\Agent' : 'App\Models\Supplier';
+        foreach ($filteredTransactions as $transaction) {
+            // Determine the model based on the value of receive_from
+            $modelName = ($transaction['receive_from'] === 'agent') ? 'App\Models\Agent' : 'App\Models\Supplier';
 
-                // Retrieve the model instance
-                $model = $modelName::find($transaction['agent_supplier_id']);
+            // Retrieve the model instance
+            $model = $modelName::find($transaction['agent_supplier_id']);
 
-                // If the model instance is found, add its name to the transaction
-                if ($model) {
-                    $transaction['agent_supplier_name'] = $model->name;
-                    $transaction['agent_supplier_email'] = $model->email;
-                    $transaction['agent_supplier_phone'] = $model->phone;
-                    $transaction['agent_supplier_company'] = $model->company;
-                    $filteredTransactionsWithNames[] = $transaction;
-                }
+            // If the model instance is found, add its name to the transaction
+            if ($model) {
+                $transaction['agent_supplier_name'] = $model->name;
+                $transaction['agent_supplier_email'] = $model->email;
+                $transaction['agent_supplier_phone'] = $model->phone;
+                $transaction['agent_supplier_company'] = $model->company;
+                $filteredTransactionsWithNames[] = $transaction;
             }
-            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+        }
+        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
 
-            return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
+        return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
     }
-    public function sales_ticket(){
+    public function sales_ticket()
+    {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $orders = Order::where([['is_delete',0],['is_active',1],['user', $user]])->get();
+        $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $types = Type::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $orders = Order::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
         return view('report.sales_ticket.index', compact('suppliers', 'agents', 'types'));
     }
-    public function sales_visa(){
+    public function sales_visa()
+    {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $orders = Order::where([['is_delete',0],['is_active',1],['user', $user]])->get();
+        $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $types = Type::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $orders = Order::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
         return view('report.sales_visa.index', compact('suppliers', 'agents', 'types'));
     }
 
 
-    public function segment_view(){
+    public function segment_view()
+    {
         return view('report.segment.index');
     }
 
-    public function sector_city_view(){
-    
+    public function sector_city_view()
+    {
+
         $cities = Ticket::where([
             ['is_delete', 0],
             ['is_active', 1]
         ])
-        ->distinct()
-        ->pluck('s_from');
+            ->distinct()
+            ->pluck('s_from');
 
         $cities2 = Ticket::where([
             ['is_delete', 0],
             ['is_active', 1]
         ])
-        ->distinct()
-        ->pluck('e_to');
+            ->distinct()
+            ->pluck('e_to');
 
         // dd($cities, $cities2);
         return view('report.sector_city.index', compact('cities', 'cities2'));
     }
 
-    public function segment_report(Request $request){
+    public function segment_report(Request $request)
+    {
 
-     
+
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
 
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
-       $query = DB::table('tickets')
+
+        $query = DB::table('tickets')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
                 ['user', $user],
             ]);
-         
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
-            $alldata = $query->get();
 
-            $totalCount = 0;
-            $totalSupplierPrice = 0;
-            
-            foreach ($alldata as $data) {
-                $sector = $data->sector;
-                $parts = explode('-', $sector);
-                $count = count($parts) - 1;
-                $data->count = $count;
-                $totalCount += $count;
-            
-                // Assuming $supplier_price is a property of the $data object
-                $totalSupplierPrice += $data->supplier_price;
-            }
-            
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
+        $alldata = $query->get();
+
+        $totalCount = 0;
+        $totalSupplierPrice = 0;
+
+        foreach ($alldata as $data) {
+            $sector = $data->sector;
+            $parts = explode('-', $sector);
+            $count = count($parts) - 1;
+            $data->count = $count;
+            $totalCount += $count;
+
+            // Assuming $supplier_price is a property of the $data object
+            $totalSupplierPrice += $data->supplier_price;
+        }
+
         // dd($alldata);
         $htmlTable = '';
-       
+
         $htmlTable = '
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
@@ -3211,12 +3196,12 @@ class ReportController extends Controller
         <tbody class="divide-y-2">';
 
         // Loop through each record in $alldata and add a row to the table
-        foreach ($alldata as $index=> $data) {
+        foreach ($alldata as $index => $data) {
             $htmlTable .= '<tr>
                 <td class="py-2 pl-2>' . $index + 1 . '</td>
                 <td class="py-2 px-4>' . $index + 1 . '</td>
                
-                <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                 
 
                 <td class="py-2">' . $data->passenger . '</td>
@@ -3245,17 +3230,18 @@ class ReportController extends Controller
 
         // Close the HTML table
         $htmlTable .= '</tbody></table>';
-            
 
-           
-          
-      
+
+
+
+
         return $htmlTable;
     }
 
-    public function sector_city_report(Request $request){
+    public function sector_city_report(Request $request)
+    {
 
-     
+
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
         $start = $request->input('start_from') ?? null;
@@ -3264,51 +3250,51 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
-       $query = DB::table('tickets')
+
+        $query = DB::table('tickets')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
                 ['user', $user],
             ]);
 
-            if($start){
-                $query->where('s_from', $start);
-            }
-         
-            if($end){
-                $query->where('e_to', $end);
-            }
-         
+        if ($start) {
+            $query->where('s_from', $start);
+        }
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
-            $alldata = $query->get();
+        if ($end) {
+            $query->where('e_to', $end);
+        }
 
-            $totalCount = 0;
-            $totalSupplierPrice = 0;
-            
-            foreach ($alldata as $data) {
-                $sector = $data->sector;
-                $parts = explode('-', $sector);
-                $count = count($parts) - 1;
-                $data->count = $count;
-                $totalCount += $count;
-            
-                // Assuming $supplier_price is a property of the $data object
-                $totalSupplierPrice += $data->supplier_price;
-            }
-            
+
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
+        $alldata = $query->get();
+
+        $totalCount = 0;
+        $totalSupplierPrice = 0;
+
+        foreach ($alldata as $data) {
+            $sector = $data->sector;
+            $parts = explode('-', $sector);
+            $count = count($parts) - 1;
+            $data->count = $count;
+            $totalCount += $count;
+
+            // Assuming $supplier_price is a property of the $data object
+            $totalSupplierPrice += $data->supplier_price;
+        }
+
         // dd($alldata);
         $htmlTable = '';
-       
+
         $htmlTable = '
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
@@ -3340,11 +3326,11 @@ class ReportController extends Controller
         <tbody class="divide-y-2">';
 
         // Loop through each record in $alldata and add a row to the table
-        foreach ($alldata as $index=> $data) {
+        foreach ($alldata as $index => $data) {
             $htmlTable .= '<tr>
                 <td class="py-2 px-2">' . $index + 1 . '</td>
                
-                <td py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                <td py-2>' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                 <td py-2>' . $data->passenger . '</td>
                
                 <td py-2>' . $data->sector . '</td>
@@ -3371,11 +3357,11 @@ class ReportController extends Controller
 
         // Close the HTML table
         $htmlTable .= '</tbody></table>';
-            
 
-           
-          
-      
+
+
+
+
         return $htmlTable;
     }
 
@@ -3384,7 +3370,7 @@ class ReportController extends Controller
 
     //     $agent = $request->input('agent') ?? null;
     //     $supplier = $request->input('supplier') ?? null;
-    
+
     //     $show_profit = $request->input('show_profit') ?? null;
     //     $show_supplier = $request->input('show_supplier') ?? null;
     //     $show_agent = $request->input('show_agent') ?? null;
@@ -3395,20 +3381,20 @@ class ReportController extends Controller
     //     if ($start_date) {
     //         $start_date = (new DateTime($start_date))->format('Y-m-d');
     //     }
-        
+
     //     if ($end_date) {
     //         $end_date = (new DateTime($end_date))->format('Y-m-d');
     //     }
-        
+
     //     $user = Auth::id();
-        
+
     //    $query = DB::table('tickets')
     //         ->where([
     //             ['is_active', 1],
     //             ['is_delete', 0],
     //             ['user', $user],
     //         ]);
-         
+
     //         if ($agent !== null) {
     //             $query->where('agent', $agent);
     //         }
@@ -3436,8 +3422,8 @@ class ReportController extends Controller
     //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //                 </div>
     //                 <div class="flex items-center">
-                       
-                        
+
+
     //                 </div>
     //             </div>
     //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
@@ -3446,16 +3432,16 @@ class ReportController extends Controller
     //                 <th class="text-start">Booking Date</th>
     //                 <th class="text-start">Ticket No</th>
     //                 <th class="text-start">Passenger Name</th>
-                    
-                 
+
+
     //                 <th class="text-start">Flight Date</th>
     //                 <th class="text-start">Sector</th>
     //                 <th class="text-start">Airlines</th>
-                   
-                    
+
+
     //                 <th class="text-start">Net Markup</th>
     //                 <th class="text-start">Balance Amount</th>
-                    
+
     //             </tr>
     //             </thead>
     //             <tbody class="divide-y-2 divide-black">';
@@ -3466,12 +3452,12 @@ class ReportController extends Controller
     //                     <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
     //                     <td>' . $data->ticket_no . '</td>
     //                     <td>' . $data->passenger . '</td>
-                      
+
     //                     <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
     //                     <td>' . $data->sector . '</td>
     //                     <td>' . $data->airline_name . '</td>
-                       
-                     
+
+
     //                     <td>' . $data->profit . '</td>
     //                     <td>' . $data->agent_new_amount . '</td>
     //                 </tr>';
@@ -3490,8 +3476,8 @@ class ReportController extends Controller
     //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //                 </div>
     //                 <div class="flex items-center">
-                       
-                        
+
+
     //                 </div>
     //             </div>
     //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
@@ -3507,9 +3493,9 @@ class ReportController extends Controller
     //                 <th class="text-start">Airlines</th>
     //                 <th class="text-start">Client Price</th>
     //                 <th class="text-start">Supplier Price</th>
-                    
+
     //                 <th class="text-start">Balance Amount</th>
-                    
+
     //             </tr>
     //             </thead>
     //             <tbody class="divide-y-2">';
@@ -3527,7 +3513,7 @@ class ReportController extends Controller
     //                     <td>' . $data->airline_name . '</td>
     //                     <td>' . $data->agent_price . '</td>
     //                     <td>' . $data->supplier_price . '</td>
-                       
+
     //                     <td>' . $data->agent_new_amount . '</td>
     //                 </tr>';
     //             }
@@ -3545,8 +3531,8 @@ class ReportController extends Controller
     //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //                 </div>
     //                 <div class="flex items-center">
-                       
-                        
+
+
     //                 </div>
     //             </div>
     //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
@@ -3557,7 +3543,7 @@ class ReportController extends Controller
     //                 <th class="text-start">Passenger Name</th>
     //                 <th class="text-start">Client</th>
     //                 <th class="text-start">Supplier</th>
-                  
+
     //                 <th class="text-start">Flight Date</th>
     //                 <th class="text-start">Sector</th>
     //                 <th class="text-start">Airlines</th>
@@ -3565,7 +3551,7 @@ class ReportController extends Controller
     //                 <th class="text-start">Supplier Price</th>
     //                 <th class="text-start">Net Markup</th>
     //                 <th class="text-start">Balance Amount</th>
-                    
+
     //             </tr>
     //             </thead>
     //             <tbody class="divide-y-2">';
@@ -3578,7 +3564,7 @@ class ReportController extends Controller
     //                     <td>' . $data->passenger . '</td>
     //                     <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
     //                     <td>' . Supplier::where('id',$data->agent)->value('name') . '</td>
-                      
+
     //                     <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
     //                     <td>' . $data->sector . '</td>
     //                     <td>' . $data->airline_name . '</td>
@@ -3592,7 +3578,7 @@ class ReportController extends Controller
     //             // Close the HTML table
     //             $htmlTable .= '</tbody></table>';
     //         }
-          
+
     //     }
     //     else{
     //         $htmlTable = '
@@ -3603,8 +3589,8 @@ class ReportController extends Controller
     //                 <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
     //             </div>
     //             <div class="flex items-center">
-                   
-                    
+
+
     //             </div>
     //         </div>
     //         <table class="table-auto w-full shadow-lg bg-white devide-2 text-sm my-1">
@@ -3613,13 +3599,13 @@ class ReportController extends Controller
     //             <th class="text-start">Booking Date</th>
     //             <th class="text-start">Ticket No</th>
     //             <th class="text-start">Passenger Name</th>
-              
+
     //             <th class="text-start">Flight Date</th>
     //             <th class="text-start">Sector</th>
     //             <th class="text-start">Airlines</th>
-               
+
     //             <th class="text-start">Balance Amount</th>
-                
+
     //         </tr>
     //         </thead>
     //         <tbody class="divide-y-2">';
@@ -3630,11 +3616,11 @@ class ReportController extends Controller
     //                 <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
     //                 <td>' . $data->ticket_no . '</td>
     //                 <td>' . $data->passenger . '</td>
-                 
+
     //                 <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
     //                 <td>' . $data->sector . '</td>
     //                 <td>' . $data->airline_name . '</td>
-                  
+
     //                 <td>' . $data->agent_new_amount . '</td>
     //             </tr>';
     //         }
@@ -3646,11 +3632,12 @@ class ReportController extends Controller
 
     //     return $htmlTable;
     // }
-    public function sales_report_ticket(Request $request){
+    public function sales_report_ticket(Request $request)
+    {
 
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
-    
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -3661,41 +3648,41 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
-       $query = DB::table('tickets')
+
+        $query = DB::table('tickets')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
                 ['user', $user],
             ]);
-         
-            if ($agent !== null) {
-                $query->where('agent', $agent);
-            }
 
-            if ($supplier !== null) {
-                $query->where('supplier', $supplier);
-            }
+        if ($agent !== null) {
+            $query->where('agent', $agent);
+        }
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
-            $alldata = $query->get();
+        if ($supplier !== null) {
+            $query->where('supplier', $supplier);
+        }
+
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
+        $alldata = $query->get();
 
         // dd($alldata, $supplier, $agent);
-       
-            $htmlTable = '
+
+        $htmlTable = '
             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
                 <div class="text-lg">
                     <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                    <p><span class="font-semibold">Period Date :</span>'.$start_date.' to'.$end_date.' </p>
+                    <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to' . $end_date . ' </p>
                 </div>
                 <div class="flex items-center">
                     
@@ -3713,39 +3700,46 @@ class ReportController extends Controller
                 <th class="text-start">Airlines</th>
                 ';
 
-                if($show_agent != null){
-                    $htmlTable .= '
+        if ($show_agent != null) {
+            $htmlTable .= '
                     <th class="text-start">Agent</th>
-                    <th class="text-start">Agent Priceo</th>
+                    <th class="text-start">Agent Price</th>
                     ';
-                }
-                if($show_supplier != null){
-                    $htmlTable .= '
+        }
+        if ($show_supplier != null) {
+            $htmlTable .= '
                     <th class="text-start">Supplier</th>
-                    <th class="text-start">Supplier Priceo</th>
+                    <th class="text-start">Supplier Price</th>
                     ';
-                }
-                if($show_profit != null){
-                    $htmlTable .= '
+        }
+        if ($show_profit != null) {
+            $htmlTable .= '
                     <th class="text-start">Net Markup</th>                    
                     ';
-                }
-                
-             $htmlTable .= '
+        }
+
+        $htmlTable .= '
                 <th class="text-start">Balance Amount</th>
                     
                 </tr>
                 </thead>
              ';
-            $htmlTable .='  
+        $total_agent_price = $total_supplier_price = $total_profit = $total_balance = $count = 0;
+        $htmlTable .= '  
             <tbody class="divide-y-2">';
 
-                // Loop through each record in $alldata and add a row to the table
-                foreach ($alldata as $data) {
-                    $agent = Agent::where('id', $data->agent)->value('name');
-                    $supplier = Supplier::where('id', $data->supplier)->value('name');
+        // Loop through each record in $alldata and add a row to the table
+        foreach ($alldata as $data) {
+            $agent = Agent::where('id', $data->agent)->value('name');
+            $supplier = Supplier::where('id', $data->supplier)->value('name');
 
-                    $htmlTable .= '<tr>
+            $total_agent_price += $data->agent_price;
+            $total_supplier_price += $data->supplier_price;
+            $total_profit += $data->profit;
+            $total_balance += $data->agent_new_amount;
+            $count++;
+
+            $htmlTable .= '<tr>
                         <td class="py-2 pl-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
                         <td class="py-2">' . $data->ticket_no . '</td>
                         <td class="py-2">' . $data->passenger . '</td>
@@ -3753,43 +3747,72 @@ class ReportController extends Controller
                         <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                         <td class="py-2">' . $data->sector . '</td>
                         <td class="py-2">' . $data->airline_name . '</td>';
-                        if($show_agent != null){
-                            $htmlTable .= '
-                            <td class="text-start py-2">'.$agent.'</td>
-                            <td class="text-start py-2">'.$data->agent_price.'</td>
+            if ($show_agent != null) {
+                $htmlTable .= '
+                            <td class="text-start py-2">' . $agent . '</td>
+                            <td class="text-start py-2">' . $data->agent_price . '</td>
                             ';
-                        }
-                        if($show_supplier != null){
-                            $htmlTable .= '
-                            <td class="text-start py-2">'.$supplier.'</td>
-                            <td class="text-start py-2">'.$data->supplier_price.'</td>
+            }
+            if ($show_supplier != null) {
+                $htmlTable .= '
+                            <td class="text-start py-2">' . $supplier . '</td>
+                            <td class="text-start py-2">' . $data->supplier_price . '</td>
                             ';
-                        }
-                        if($show_profit != null){
-                            $htmlTable .= '
-                            <td class="text-start py-2">'.$data->profit.'</td>
+            }
+            if ($show_profit != null) {
+                $htmlTable .= '
+                            <td class="text-start py-2">' . $data->profit . '</td>
                             ';
-                        }
-                        $htmlTable .= '<td class="py-2">' . $data->agent_new_amount . '</td>
+            }
+            $htmlTable .= '<td class="py-2">' . $data->agent_new_amount . '</td>
                     </tr>';
-                }
+        }
 
-                // Close the HTML table
-                $htmlTable .= '</tbody></table>';
-            
+        // Close the HTML table
+        $htmlTable .= '
+                <tr class="bg-dark-600" >
+                    <td class="text-start py-2"><b> Total - ' . $count . ' </b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>';
+        if ($show_agent != null) {
+            $htmlTable .= '
+                        <td></td>
+                        <td class="text-start py-2"><b>' . $total_agent_price . '</td>';
+        }
+
+        if ($show_supplier != null) {
+            $htmlTable .= '
+                        <td></td>
+                        <td class="text-start py-2"><b>' . $total_supplier_price . '</td>';
+        }
+
+        if ($show_profit != null) {
+            $htmlTable .= '
+                       
+                        <td class="text-start py-2"><b>' . $total_profit . '</td>';
+        }
+        $htmlTable .= '
+                         <td class="text-start py-2"><b>' . $total_balance . '</td>
+                        </tr>
+                        </tbody></table>';
+
 
 
         return $htmlTable;
     }
-    
 
 
-    public function sales_report_visa(Request $request){
+
+    public function sales_report_visa(Request $request)
+    {
 
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
         $type = $request->input('type') ?? null;
-    
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -3800,36 +3823,36 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
-       $query = DB::table('order')
+
+        $query = DB::table('order')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
                 ['user', $user],
             ]);
-         
-            if ($agent !== null) {
-                $query->where('agent', $agent);
-            }
 
-            if ($supplier !== null) {
-                $query->where('supplier', $supplier);
-            }
+        if ($agent !== null) {
+            $query->where('agent', $agent);
+        }
 
-            if ($type !== null) {
-                $query->where('type', $type);
-            }
+        if ($supplier !== null) {
+            $query->where('supplier', $supplier);
+        }
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('date', [$start_date, $end_date]);
-            }
-            $alldata = $query->get();
+        if ($type !== null) {
+            $query->where('type', $type);
+        }
+
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('date', [$start_date, $end_date]);
+        }
+        $alldata = $query->get();
 
         // dd($alldata, $supplier, $agent);
         $htmlTable = '
@@ -3854,96 +3877,99 @@ class ReportController extends Controller
                     <th class="text-start">Passenger Name</th>
                     <th class="text-start">Passport No</th>
                     <th class="text-start">Country</th>';
-                    if($show_agent != null){
-                        $htmlTable .= '
+        if ($show_agent != null) {
+            $htmlTable .= '
                         <th class="text-start">Agent</th>
                         <th class="text-start">Agent Price</th>
                         ';
-                    }
-                    if($show_supplier != null){
-                        $htmlTable .= '
+        }
+        if ($show_supplier != null) {
+            $htmlTable .= '
                         <th class="text-start">Supplier</th>
                         <th class="text-start">Supplier Price</th>
                         ';
-                    }
-                    if($show_profit != null){
-                        $htmlTable .= '
+        }
+        if ($show_profit != null) {
+            $htmlTable .= '
                         <th class="text-start">Profit</th>
                     
                         ';
-                    }
-                 
-                $htmlTable .= '  
+        }
+
+        $htmlTable .= '  
                     
                 </tr>
                 </thead>
                 <tbody class="border-y-2">';
 
-                // Loop through each record in $alldata and add a row to the table
-                foreach ($alldata as $data) {
-                    // dd($data->profit);
-                    $agent = Agent::where('id', $data->agent)->value('name');
-                    $supplier = Supplier::where('id', $data->supplier)->value('name');
-                    $type = Type::where('id', $data->type)->value('name');
+        // Loop through each record in $alldata and add a row to the table
+        foreach ($alldata as $data) {
+            // dd($data->profit);
+            $agent = Agent::where('id', $data->agent)->value('name');
+            $supplier = Supplier::where('id', $data->supplier)->value('name');
+            $type = Type::where('id', $data->type)->value('name');
 
-                    $htmlTable .= '<tr class="py-4 border-gray-300 border-y">
+            $htmlTable .= '<tr class="py-4 border-gray-300 border-y">
                         <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
                         <td class="py-2">' . $data->invoice . '</td>
                         <td class="py-2">' . $type . '</td>
                         <td class="py-2">' . $data->name . '</td>
                         <td class="py-2">' . $data->passport_no . '</td>
                         <td class="py-2">' . $data->country . '</td>';
-                        if($show_agent != null){
-                            $htmlTable .= '
+            if ($show_agent != null) {
+                $htmlTable .= '
                             <td class="py-2">' . $agent . '</td>
                             <td class="py-2">' . $data->contact_amount . '</td>
                             ';
-                        }
-                        if($show_supplier != null){
-                            $htmlTable .= '
+            }
+            if ($show_supplier != null) {
+                $htmlTable .= '
                             <td class="py-2">' . $supplier . '</td>
                             <td class="py-2">' . $data->payable_amount . '</td>
                             ';
-                        }
-                        if($show_profit != null){
-                            $htmlTable .= '
+            }
+            if ($show_profit != null) {
+                $htmlTable .= '
                             <td>' . $data->profit . '</td>
                          
                             ';
-                        }
+            }
 
-                        
-                      
-                    $htmlTable .= '</tr>';
-                }
 
-                // Close the HTML table
-                $htmlTable .= '</tbody></table>';
 
-        
+            $htmlTable .= '</tr>';
+        }
+
+        // Close the HTML table
+        $htmlTable .= '</tbody></table>';
+
+
         return $htmlTable;
     }
-    public function void_ticket(){
+    public function void_ticket()
+    {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
         // $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         // $orders = Order::where([['is_delete',0],['is_active',1],['user', $user]])->get();
         return view('report.void_ticket.index', compact('suppliers', 'agents'));
     }
 
-    public function reissue_ticket(){
+    public function reissue_ticket()
+    {
         $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
         return view('report.reissue_ticket.index', compact('suppliers', 'agents'));
     }
 
-    public function void_ticket_report(Request $request){
+    public function void_ticket_report(Request $request)
+    {
 
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
-    
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -3954,40 +3980,40 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
+
         $query = DB::table('voidticket')
-            ->leftJoin('tickets', function($join) {
+            ->leftJoin('tickets', function ($join) {
                 $join->on('voidticket.ticket_no', '=', 'tickets.ticket_no')
                     ->where('tickets.ticket_code', '=', DB::raw('voidticket.ticket_code'));
             })
             ->where('voidticket.user', $user);
-        
+
         if ($agent !== null) {
             $query->where('voidticket.agent', $agent);
         }
-        
+
         if ($supplier !== null) {
             $query->where('voidticket.supplier', $supplier);
         }
-        
+
         if ($start_date !== null && $end_date !== null) {
             $query->whereBetween('voidticket.date', [$start_date, $end_date]);
         }
-        
+
         $alldata = $query->get();
-    
+
         // dd($alldata, $supplier, $agent);
         $htmlTable = '';
-        if($show_profit != null || $show_supplier != null || $show_agent != null) {
+        if ($show_profit != null || $show_supplier != null || $show_agent != null) {
 
 
-            if($show_profit != null && $show_supplier == null && $show_agent == null){
+            if ($show_profit != null && $show_supplier == null && $show_agent == null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4023,7 +4049,7 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2">' . $data->passenger . '</td>
                       
                         <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
@@ -4038,9 +4064,7 @@ class ReportController extends Controller
 
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
-            }
-
-            elseif($show_supplier != null && $show_profit == null && $show_agent != null){
+            } elseif ($show_supplier != null && $show_profit == null && $show_agent != null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4077,10 +4101,10 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2">' . $data->passenger . '</td>
-                        <td class="py-2">' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td class="py-2">' . Supplier::where('id',$data->supplier)->value('name') . '</td>
+                        <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                        <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
                         <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                         <td class="py-2">' . $data->sector . '</td>
                         <td class="py-2">' . $data->airline_name . '</td>
@@ -4094,9 +4118,7 @@ class ReportController extends Controller
 
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
-            }
-
-            elseif($show_supplier != null && $show_profit != null && $show_agent != null){
+            } elseif ($show_supplier != null && $show_profit != null && $show_agent != null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4135,10 +4157,10 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2">' . $data->passenger . '</td>
-                        <td class="py-2">' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td class="py-2">' . Supplier::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                        <td class="py-2">' . Supplier::where('id', $data->agent)->value('name') . '</td>
                       
                         <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                         <td class="py-2">' . $data->sector . '</td>
@@ -4154,9 +4176,7 @@ class ReportController extends Controller
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
             }
-          
-        }
-        else{
+        } else {
             $htmlTable = '
             <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
@@ -4189,7 +4209,7 @@ class ReportController extends Controller
             foreach ($alldata as $data) {
                 $htmlTable .= '<tr>
                     <td class="py-2 pl-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                    <td class="py-2">' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                    <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                     <td class="py-2">' . $data->passenger . '</td>
                  
                     <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
@@ -4200,17 +4220,17 @@ class ReportController extends Controller
 
             // Close the HTML table
             $htmlTable .= '</tbody></table>';
-
         }
 
         return $htmlTable;
     }
 
-    public function reissue_ticket_report(Request $request){
+    public function reissue_ticket_report(Request $request)
+    {
 
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
-    
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -4221,40 +4241,40 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
+
         $query = DB::table('reissue')
-            ->leftJoin('tickets', function($join) {
+            ->leftJoin('tickets', function ($join) {
                 $join->on('reissue.ticket_no', '=', 'tickets.ticket_no')
                     ->where('tickets.ticket_code', '=', DB::raw('reissue.ticket_code'));
             })
             ->where('reissue.user', $user);
-        
+
         if ($agent !== null) {
             $query->where('reissue.agent', $agent);
         }
-        
+
         if ($supplier !== null) {
             $query->where('reissue.supplier', $supplier);
         }
-        
+
         if ($start_date !== null && $end_date !== null) {
             $query->whereBetween('reissue.date', [$start_date, $end_date]);
         }
-        
+
         $alldata = $query->get();
-    
+
         // dd($alldata, $supplier, $agent);
         $htmlTable = '';
-        if($show_profit != null || $show_supplier != null || $show_agent != null) {
+        if ($show_profit != null || $show_supplier != null || $show_agent != null) {
 
 
-            if($show_profit != null && $show_supplier == null && $show_agent == null){
+            if ($show_profit != null && $show_supplier == null && $show_agent == null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4290,7 +4310,7 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="px-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2>' . $data->passenger . '</td>
                       
                         <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
@@ -4305,9 +4325,7 @@ class ReportController extends Controller
 
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
-            }
-
-            elseif($show_supplier != null && $show_profit == null && $show_agent != null){
+            } elseif ($show_supplier != null && $show_profit == null && $show_agent != null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4344,10 +4362,10 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="py-2 pl-2>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2>' . $data->passenger . '</td>
-                        <td class="py-2>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td class="py-2>' . Supplier::where('id',$data->supplier)->value('name') . '</td>
+                        <td class="py-2>' . Agent::where('id', $data->agent)->value('name') . '</td>
+                        <td class="py-2>' . Supplier::where('id', $data->supplier)->value('name') . '</td>
                         <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                         <td class="py-2>' . $data->sector . '</td>
                         <td class="py-2>' . $data->airline_name . '</td>
@@ -4361,9 +4379,7 @@ class ReportController extends Controller
 
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
-            }
-
-            elseif($show_supplier != null && $show_profit != null && $show_agent != null){
+            } elseif ($show_supplier != null && $show_profit != null && $show_agent != null) {
                 $htmlTable = '
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
@@ -4402,10 +4418,10 @@ class ReportController extends Controller
                 foreach ($alldata as $data) {
                     $htmlTable .= '<tr>
                         <td class="py-2 pl-2>' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                        <td class="py-2>' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                         <td class="py-2>' . $data->passenger . '</td>
-                        <td class="py-2>' . Agent::where('id',$data->agent)->value('name') . '</td>
-                        <td class="py-2>' . Supplier::where('id',$data->agent)->value('name') . '</td>
+                        <td class="py-2>' . Agent::where('id', $data->agent)->value('name') . '</td>
+                        <td class="py-2>' . Supplier::where('id', $data->agent)->value('name') . '</td>
                       
                         <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                         <td class="py-2>' . $data->sector . '</td>
@@ -4421,9 +4437,7 @@ class ReportController extends Controller
                 // Close the HTML table
                 $htmlTable .= '</tbody></table>';
             }
-          
-        }
-        else{
+        } else {
             $htmlTable = '
             <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
@@ -4456,7 +4470,7 @@ class ReportController extends Controller
             foreach ($alldata as $data) {
                 $htmlTable .= '<tr>
                     <td class="py-2 pl-2>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                    <td class="py-2>' . $data->ticket_code.'-'.$data->ticket_no . '</td>
+                    <td class="py-2>' . $data->ticket_code . '-' . $data->ticket_no . '</td>
                     <td class="py-2>' . $data->passenger . '</td>
                  
                     <td class="py-2>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
@@ -4467,38 +4481,38 @@ class ReportController extends Controller
 
             // Close the HTML table
             $htmlTable .= '</tbody></table>';
-
         }
 
         return $htmlTable;
     }
-    public function profit_loss_report(Request $request){
+    public function profit_loss_report(Request $request)
+    {
 
-     
+
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
-     
+
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
+
         $query = DB::table('tickets')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
-                
+
                 ['user', $user],
             ]);
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
         $tickets = $query->sum('profit');
         $ticket_purchase = $query->sum('supplier_price');
         $ticket_sell = $query->sum('agent_price');
@@ -4511,9 +4525,9 @@ class ReportController extends Controller
                 ['user', $user],
             ]);
 
-            if ($start_date !== null && $end_date !== null) {
-                $query2->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
+        if ($start_date !== null && $end_date !== null) {
+            $query2->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
         $refundticket = $query2->sum('refund_profit');
         $refund_purchase = $query2->sum('supplier_price');
         $refund_sell = $query2->sum('agent_price');
@@ -4526,9 +4540,9 @@ class ReportController extends Controller
                 ['user', $user],
             ]);
 
-            if ($start_date !== null && $end_date !== null) {
-                $query3->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
+        if ($start_date !== null && $end_date !== null) {
+            $query3->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
         $voidticket = $query3->sum('void_profit');
         $voidticket_purchase = $query3->sum('supplier_price');
         $voidticket_sell = $query3->sum('agent_price');
@@ -4541,9 +4555,9 @@ class ReportController extends Controller
                 ['user', $user],
             ]);
 
-            if ($start_date !== null && $end_date !== null) {
-                $query4->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
+        if ($start_date !== null && $end_date !== null) {
+            $query4->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
         $reissueticket = $query4->sum('reissue_profit');
         $reissueticket_purchase = $query4->sum('supplier_price');
         $reissueticket_sell = $query4->sum('agent_price');
@@ -4554,7 +4568,7 @@ class ReportController extends Controller
 
         // dd($reissueticket_purchase, $reissueticket_sell, $voidticket_sell, $voidticket_purchase, $refund_purchase, $refund_sell, $ticket_purchase, $ticket_sell);
         $htmlTable = '';
-       
+
         $htmlTable = '
         <!doctype html>
             <html>
@@ -4591,7 +4605,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-medium text-2xl ">Company Name : SALLU AIR SERVICE</h2>
                 <p class="text-center text-lg">Company Address : 291, Inner Circular Road, Fakirapool, Jomider palace Dhaka, 1000, Bangladesh</p>
                 <p class="text-center font-semibold text-xl underline">Report: Profit/Loss A/c</p>
-                <p class="text-center font-semibold text-xl">Form Date : '. $start_date.  ' To Date : '.$end_date.'</p>
+                <p class="text-center font-semibold text-xl">Form Date : ' . $start_date .  ' To Date : ' . $end_date . '</p>
                 
             </div>
             <div class="flex mb-10">
@@ -4606,12 +4620,12 @@ class ReportController extends Controller
                 <tbody id="data" class="text-lg px-2 border ">
                   <tr class="flex justify-between px-2 border-y">
                     <td class="px-2 py-2 font-semibold">Purchage Accounts</td>
-                    <td class="px-2 py-2 font-semibold">'.$total_purchase.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $total_purchase . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 pl-8">
                     <td class="px-2  w-[30%]">Tickets</td>
-                    <td class="px-2 ">'.$ticket_purchase.'</td>
+                    <td class="px-2 ">' . $ticket_purchase . '</td>
                     <td class="px-2 "></td>
                     
                   </tr>
@@ -4636,49 +4650,49 @@ class ReportController extends Controller
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Refund Purchase c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$refund_purchase.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $refund_purchase . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Reissue Purchase c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$reissueticket_purchase.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $reissueticket_purchase . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Void Ticket Purchase c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$voidticket_purchase.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $voidticket_purchase . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Ticket Profit</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$tickets.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $tickets . '</td>
                     
                     </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Refund Profit</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$refundticket.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $refundticket . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Reissue Profit</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$reissueticket.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $reissueticket . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Void Ticket Profit</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$voidticket.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $voidticket . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Gross Profit c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$gross_profit.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $gross_profit . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
@@ -4741,12 +4755,12 @@ class ReportController extends Controller
                   <tbody id="data" class="text-lg px-2 border ">
                     <tr class="flex justify-between px-2 border-y">
                         <td class="px-2 py-2 font-semibold">Sell Accounts</td>
-                        <td class="px-2 py-2 font-semibold">'.$total_sell.'</td>
+                        <td class="px-2 py-2 font-semibold">' . $total_sell . '</td>
                     
                     </tr>
                     <tr class="flex justify-between px-2 pl-8">
                       <td class="px-2 w-[30%]">Tickets</td>
-                      <td class="px-2">'.$ticket_sell.'</td>
+                      <td class="px-2">' . $ticket_sell . '</td>
                       <td class="px-2"></td>
                       
                     </tr>
@@ -4771,19 +4785,19 @@ class ReportController extends Controller
                     <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Refund Sell c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$refund_sell.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $refund_sell . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Reissue Sell c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$reissueticket_sell.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $reissueticket_sell . '</td>
                     
                   </tr>
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Void Ticket Sell c/o</td>
                     <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">'.$voidticket_sell.'</td>
+                    <td class="px-2 py-2 font-semibold">' . $voidticket_sell . '</td>
                     
                   </tr>
                     <tr class="flex justify-between px-2 py-1">
@@ -4814,7 +4828,7 @@ class ReportController extends Controller
               </table>
             </div>
             <div class="w-[50%] flex justify-end">
-            <p class="font-bold text-xl">Gross Profit : '.$gross_profit.'</p>
+            <p class="font-bold text-xl">Gross Profit : ' . $gross_profit . '</p>
             <p class="font-medium text-lg"></p>
             </div>
           </main>
@@ -4826,39 +4840,42 @@ class ReportController extends Controller
         </body>
         ';
         $htmlTable .= '</html>';
-            
 
-           
-          
-      
+
+
+
+
         return $htmlTable;
     }
-    public function profit_loss_view(){
+    public function profit_loss_view()
+    {
         return view('report.profit_loss.index');
     }
-    public function sales_analysis(){
+    public function sales_analysis()
+    {
         return view('report.sales_analysis.index');
     }
 
-    public function sales_analysis_report(Request $request){
+    public function sales_analysis_report(Request $request)
+    {
 
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
+
         $query1 = Receiver::where('user', $user);
         $query2 = Payment::where('user', $user);
         $query3 = Ticket::where('user', $user);
         // $query4 = Ticket::where('user', $user);
-        
+
         // Apply date checks if start_date and/or end_date are provided
         if ($start_date) {
             $query1->whereDate('date', '>=', $start_date);
@@ -4866,20 +4883,20 @@ class ReportController extends Controller
             $query3->whereDate('invoice_date', '>=', $start_date);
             // $query4->whereDate('invoice_date', '>=', $start_date);
         }
-        
+
         if ($end_date) {
             $query1->whereDate('date', '<=', $end_date);
             $query2->whereDate('date', '<=', $end_date);
             $query3->whereDate('invoice_date', '<=', $end_date);
             // $query4->whereDate('invoice_date', '<=', $end_date);
         }
-        
+
         // Fetch results from the queries
         $results1 = $query1->get();
         $results2 = $query2->get();
         $results3 = $query3->get();
         // $results4 = $query4->get();
-      
+
 
         $sumsByDay = [
             'receivetotalAmount' => [],
@@ -4963,16 +4980,17 @@ class ReportController extends Controller
         }
         return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
     }
-    public function sales_exicutive_stuff(){
+    public function sales_exicutive_stuff()
+    {
 
         $user = Auth::id();
         $stuffs = Ticket::where('is_delete', 0)
-                ->where('is_active', 1)
-                ->distinct()
-                ->pluck('stuff');
+            ->where('is_active', 1)
+            ->distinct()
+            ->pluck('stuff');
 
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+        $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+        $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
 
         // dd($stuffs);
         return view('report.sales_exicutive_stuff.index', compact('stuffs', 'agents', 'suppliers'));
@@ -4985,7 +5003,7 @@ class ReportController extends Controller
 
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
-    
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -4996,48 +5014,47 @@ class ReportController extends Controller
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
-        
+
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
         }
-        
+
         $user = Auth::id();
-        
-       $query = DB::table('tickets')
+
+        $query = DB::table('tickets')
             ->where([
                 ['is_active', 1],
                 ['is_delete', 0],
                 ['user', $user],
             ]);
 
-            if($stuff !== null) {
-                $query->where('stuff', $stuff);
-            }
-         
-            if ($agent !== null) {
-                $query->where('agent', $agent);
-            }
+        if ($stuff !== null) {
+            $query->where('stuff', $stuff);
+        }
 
-            if ($supplier !== null) {
-                $query->where('supplier', $supplier);
-            }
+        if ($agent !== null) {
+            $query->where('agent', $agent);
+        }
 
-            if ($start_date !== null && $end_date !== null) {
-                $query->whereBetween('invoice_date', [$start_date, $end_date]);
-            }
-            $alldata = $query->get();
-            $groupedData = $alldata->groupBy('stuff');
+        if ($supplier !== null) {
+            $query->where('supplier', $supplier);
+        }
+
+        if ($start_date !== null && $end_date !== null) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        }
+        $alldata = $query->get();
+        $groupedData = $alldata->groupBy('stuff');
 
 
         // dd($groupedData, $supplier, $agent, $stuff, $show_profit, $show_supplier, $show_agent);
         $htmlTable = '';
-        if($show_profit != null || $show_supplier != null || $show_agent != null) {
 
-            // dd("asffa");
-            if($show_profit != null && $show_supplier == null && $show_agent == !null){
-                // dd("asda");
-                $htmlTable = ''; // Initialize variable to hold HTML tables
-                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
+        // dd("asffa");
+        // if($show_profit != null && $show_supplier == null && $show_agent == !null){
+        // dd("asda");
+        $htmlTable = ''; // Initialize variable to hold HTML tables
+        $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
                     <div class="flex items-center justify-between mb-2">
                         <div class="text-lg">
                             <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -5048,18 +5065,18 @@ class ReportController extends Controller
                             
                         </div>
                     </div>';
-                // Loop through each group
-                // dd($groupedData);
-                foreach ($groupedData as $stuff => $group) {
-                    $count = 0;
-                    // dd($group, $stuff);
-                    // Add stuff name as a banner above the tickets
-                    
-                    $htmlTable .= '<div style="margin-bottom: 20px;">';
-                    $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;" >' . $stuff . '</h2>';
+        // Loop through each group
+        // dd($groupedData);
+        foreach ($groupedData as $stuff => $group) {
+            $total_agent_price = $total_supplier_price = $total_profit = $total_balance = $count = 0;
+            // dd($group, $stuff);
+            // Add stuff name as a banner above the tickets
 
-                    // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
+            $htmlTable .= '<div style="margin-bottom: 20px;">';
+            $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;" >' . $stuff . '</h2>';
+
+            // Start a new table for each group
+            $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                         <thead>
                             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                                 <th class="text-start">Booking Date</th>
@@ -5067,248 +5084,98 @@ class ReportController extends Controller
                                 <th class="text-start">Passenger Name</th>
                                 <th class="text-start">Flight Date</th>
                                 <th class="text-start">Sector</th>
-                                <th class="text-start">Airlines</th>
-                                <th class="text-start">Agent</th>
-                                <th class="text-start">Net Markup</th>
+                                <th class="text-start">Airlines</th>';
+            if ($show_agent != null) {
+                $htmlTable .= '
+                                        <th class="text-start">Agent</th>
+                                        <th class="text-start">Agent Amount</th>';
+            }
+            if ($show_supplier != null) {
+                $htmlTable .= '
+                                        <th class="text-start">Supplier</th>
+                                        <th class="text-start">Supplier Amount</th>';
+            }
+            if ($show_profit != null) {
+                $htmlTable .= '
+                                    <th class="text-start">Net Markup</th>';
+            }
+            $htmlTable .= '
                                 <th class="text-start">Balance Amount</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y-2">';
 
-                    // Loop through each record in the group and add a row to the table
-                    foreach ($group as $data) {
-                        if($data->stuff == $stuff){
-                            $count++;
-                        }
-                        $htmlTable .= '<tr>
+            // Loop through each record in the group and add a row to the table
+            foreach ($group as $data) {
+                // dd($data);
+                if ($data->stuff == $stuff) {
+
+                    $count++;
+                    $total_agent_price += $data->agent_price;
+                    $total_supplier_price += $data->supplier_price;
+                    $total_profit += $data->profit;
+                    $total_balance += $data->agent_new_amount;
+                }
+                $htmlTable .= '<tr>
                             <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
                             <td class="py-2">' . $data->ticket_no . '</td>
                             <td class="py-2">' . $data->passenger . '</td>
                             <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
                             <td class="py-2">' . $data->sector . '</td>
-                            <td class="py-2">' . $data->airline_name . '</td>
-                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td class="py-2">' . $data->profit . '</td>
+                            <td class="py-2">' . $data->airline_name . '</td>';
+                if ($show_agent != null) {
+                    $htmlTable .= '
+                                    <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                                    <th class="text-start">' . $data->agent_price . '</th>';
+                }
+                if ($show_supplier != null) {
+                    $htmlTable .= '
+                                    <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
+                                    <th class="text-start">' . $data->supplier_price . '</th>';
+                }
+                if ($show_profit != null) {
+                    $htmlTable .= '
+                                    <th class="text-start">' . $data->profit . '</th>';
+                }
+                $htmlTable .= '
                             <td class="py-2">' . $data->agent_new_amount . '</td>
                         </tr>';
-                    }
-                    $htmlTable .= '<tr class="w-100 py-2" style="background:#6a8099; "><td colspan="10"><b>Total Ticket: ' . $count . '</b></td></tr>';
-
-                    // Close the HTML table and the stuff banner
-                    $htmlTable .= '</tbody></table>';
-                    $htmlTable .= '</div>';
-                                
-                }
-                // dd($htmlTable);
+            }
+            $htmlTable .= '<tr class="w-100 py-2" style="background:#6a8099; "><td><b>Total Ticket: ' . $count . '</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>';
+            if ($show_agent != null) {
+                $htmlTable .= '
+                        <td></td>
+                        <td class="text-start py-2"><b>' . $total_agent_price . '</td>';
             }
 
-            elseif($show_supplier != null && $show_profit == null && $show_agent != null){
-                $htmlTable = ''; // Initialize variable to hold HTML tables
-                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
-                <div class="flex items-center justify-between mb-2">
-                    <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                        <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
-                        </div>
-                    <div class="flex items-center">
+            if ($show_supplier != null) {
+                $htmlTable .= '
+                        <td></td>
+                        <td class="text-start py-2"><b>' . $total_supplier_price . '</td>';
+            }
+
+            if ($show_profit != null) {
+                $htmlTable .= '
                        
+                        <td class="text-start py-2"><b>' . $total_profit . '</td>';
+            }
+            $htmlTable .= '
+                         <td class="text-start py-2"><b>' . $total_balance . '</td>
                         
-                    </div>
-                </div>';
-                // Loop through each group
-                // dd($groupedData);
-                foreach ($groupedData as $stuff => $group) {
-                    $count = 0;
-                    // dd($group, $stuff);
-                    // Add stuff name as a banner above the tickets
-                   
-                    $htmlTable .= '<div style="margin-bottom: 20px;">';
-                    $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;">' . $stuff . '</h2>';
-
-                    // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
-                        <thead>
-                            <tr class="border-y-2 border-black bg-cyan-700 text-white">
-                                <th class="text-start">Booking Date</th>
-                                <th class="text-start">Ticket No</th>
-                                <th class="text-start">Passenger Name</th>
-                                <th class="text-start">Flight Date</th>
-                                <th class="text-start">Sector</th>
-                                <th class="text-start">Airlines</th>
-                                <th class="text-start">Agent</th>
-                                <th class="text-start">Agent Amount</th>
-                                <th class="text-start">Supplier</th>
-                                <th class="text-start">Supplier Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y-2">';
-
-                    // Loop through each record in the group and add a row to the table
-                    foreach ($group as $data) {
-                        if($data->stuff == $stuff){
-                            $count++;
-                        }
-                        $htmlTable .= '<tr>
-                            <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                            <td class="py-2">' . $data->ticket_no . '</td>
-                            <td class="py-2">' . $data->passenger . '</td>
-                            <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                            <td class="py-2">' . $data->sector . '</td>
-                            <td class="py-2">' . $data->airline_name . '</td>
-                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td class="py-2">' . $data->agent_new_amount . '</td>
-                            <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
-                            <td class="py-2">' . $data->supplier_new_amount . '</td>
-                        </tr>';
-                    }
-                    $htmlTable .= '<tr class="w-100" style="background:#6a8099; "><td colspan="10"><b>Total Ticket: ' . $count . '</b></td></tr>';
-
-                    // Close the HTML table and the stuff banner
-                    $htmlTable .= '</tbody></table>';
-                    $htmlTable .= '</div>';
-                                
-                }
-            }
-
-            elseif($show_supplier != null && $show_profit != null && $show_agent != null){
-                
-                $htmlTable = ''; // Initialize variable to hold HTML tables
-                
-                // Loop through each group
-                // dd($groupedData);
-                $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
-                <div class="flex items-center justify-between mb-2">
-                    <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                        <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
-                        </div>
-                    <div class="flex items-center">
-                       
-                        
-                    </div>
-                </div>';
-                foreach ($groupedData as $stuff => $group) {
-                    $count = 0;
-                    // dd($group, $stuff);
-                    // Add stuff name as a banner above the tickets
-                   
-                    $htmlTable .= '<div style="margin-bottom: 20px;">';
-                    $htmlTable .= '<h2 class="text-start uppercase" style="font-weight:bold;">' . $stuff . '</h2>';
-
-                    // Start a new table for each group
-                    $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
-                        <thead>
-                            <tr class="border-y-2 border-black bg-cyan-700 text-white">
-                                <th class="text-start">Booking Date</th>
-                                <th class="text-start">Ticket No</th>
-                                <th class="text-start">Passenger Name</th>
-                                <th class="text-start">Flight Date</th>
-                                <th class="text-start">Sector</th>
-                                <th class="text-start">Airlines</th>
-                                <th class="text-start">Agent</th>
-                                <th class="text-start">Agent Amount</th>
-                                <th class="text-start">Supplier</th>
-                                <th class="text-start">Supplier Amount</th>
-                                <th class="text-start">Net Markup</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y-2">';
-
-                    // Loop through each record in the group and add a row to the table
-                    foreach ($group as $data) {
-                        if($data->stuff == $stuff){
-                            $count++;
-                        }
-                        $htmlTable .= '<tr>
-                            <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                            <td class="py-2">' . $data->ticket_no . '</td>
-                            <td class="py-2">' . $data->passenger . '</td>
-                            <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                            <td class="py-2">' . $data->sector . '</td>
-                            <td class="py-2">' . $data->airline_name . '</td>
-                            <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
-                            <td class="py-2">' . $data->agent_new_amount . '</td>
-                            <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
-                            <td class="py-2">' . $data->supplier_new_amount . '</td>
-                            <td class="py-2">' . $data->profit . '</td>
-
-                        </tr>';
-                    }
-                    $htmlTable .= '<tr class="w-100" style="background:#6a8099;"><td colspan="11"><b>Total Ticket: ' . $count . '</b></td></tr>';
-
-                    // Close the HTML table and the stuff banner
-                    $htmlTable .= '</tbody></table>';
-                    $htmlTable .= '</div>';
-                                
-                }
-            
-            }
-          
-        }
-        else{
-                
-            $htmlTable = ''; // Initialize variable to hold HTML tables
-            $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="text-lg">
-                            <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                            <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
-                            </div>
-                        <div class="flex items-center">
-                           
-                            
-                        </div>
-                    </div>';
-            // Loop through each group
-            // dd($groupedData);
-            foreach ($groupedData as $stuff => $group) {
-                $count = 0;
-                // dd($group, $stuff);
-                // Add stuff name as a banner above the tickets
-                
-                $htmlTable .= '<div style="margin-bottom: 20px;">';
-                $htmlTable .= '<h2 class="text-start" style="font-weight:bold;">' . $stuff . '</h2>';
-
-                // Start a new table for each group
-                $htmlTable .= '<table border="1" class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
-                <thead>
-                <tr class="border-y-2 border-black bg-cyan-700 text-white">
-                    <th class="text-start">Booking Date</th>
-                    <th class="text-start">Ticket No</th>
-                    <th class="text-start">Passenger Name</th>
-                    <th class="text-start">Flight Date</th>
-                    <th class="text-start">Sector</th>
-                    <th class="text-start">Airlines</th>
-                   
-                </tr>
-            </thead>
-                    <tbody class="divide-y-2">';
-
-                // Loop through each record in the group and add a row to the table
-                foreach ($group as $data) {
-                    if($data->stuff == $stuff){
-                        $count++;
-                    }
-                    $htmlTable .= '<tr>
-                        <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->ticket_no . '</td>
-                        <td class="py-2">' . $data->passenger . '</td>
-                        <td class="py-2">' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->sector . '</td>
-                        <td class="py-2">' . $data->airline_name . '</td>
-                       
-
                     </tr>';
-                }
-                $htmlTable .= '<tr class="w-100" style="background:#6a8099; "><td colspan="11"><b>Total Ticket: ' . $count . '</b></td></tr>';
 
-                // Close the HTML table and the stuff banner
-                $htmlTable .= '</tbody></table>';
-                $htmlTable .= '</div>';
-                            
-            }
-        
+            // Close the HTML table and the stuff banner
+            $htmlTable .= '</tbody></table>';
+            $htmlTable .= '</div>';
         }
+        // dd($htmlTable);
+        // }
+
 
         return $htmlTable;
     }

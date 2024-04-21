@@ -22,6 +22,8 @@ use App\Http\Controllers\UmrahController;
 use App\Http\Controllers\VoidController;
 use App\Models\Deportee;
 use App\Models\Ticket;
+use App\Models\Agent;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +58,11 @@ Route::get('/dashboard', function () {
         ['flight_date', '>=', $start_date->format('Y-m-d')],
         ['flight_date', '<=', $end_date->format('Y-m-d')]
     ])->get();
+
+    foreach ($closetickets as $ticket){
+        $ticket->agent = Agent::where('id', $ticket->agent)->value('name');
+        $ticket->supplier = Supplier::where('id', $ticket->supplier)->value('name');
+    }
 
     // dd($closetickets, $start_date->format('Y-m-d'), $end_date->format('Y-m-d'), $current_date->format('Y-m-d'));
 
@@ -260,6 +267,10 @@ Route::post('/transaction_add', [TransactionController::class, 'store'])->name('
 Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
 Route::post('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/delete/{id}', [TransactionController::class, 'delete'])->name('transaction.delete');
+
+Route::get('/get-last-id-order', [OrderController::class, 'getlastid'])->name('get-last-id-order');
+Route::get('/get-last-id-payment', [ReceivePaymentController::class, 'getlastid_payment'])->name('get-last-id-payment');
+Route::get('/get-last-id-receive', [ReceivePaymentController::class, 'getlastid_receive'])->name('get-last-id-receive');
 
 // Route::get('airlines/view', function () {
 //     return app(AirlineController::class)->index();

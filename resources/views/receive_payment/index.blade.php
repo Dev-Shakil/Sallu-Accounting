@@ -270,18 +270,190 @@
       //           receiveSection.style.display = 'block';
       //       }
       //   }
-        function generateRandomString(length) {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
+      function generateRandomStringReceive() {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: '/get-last-id-receive', // Replace with the actual URL to fetch the last ID
+                        method: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            let invoice = response.invoice;
+                            
+                            resolve(invoice);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching last ID:', error);
+                            // Reject the promise with the error
+                            reject(error);
+                        }
+                    });
+                });
             }
-            return result;
-        }
 
-        // Set the random string as the value for the "paymentRef" input field
-        document.getElementById('paymentRef').value = 'PV-' + generateRandomString(6);
-        document.getElementById('receiveRef').value = 'RV-' + generateRandomString(6);
+            // Example usage:
+            generateRandomStringReceive()
+                .then(randomString => {
+                    $('#receiveRef').val(randomString);
+                    // Do something with the random string here
+                })
+                .catch(error => {
+                    console.error('Failed to generate random string:', error);
+                });
+
+
+
+           
+                $('#ticket_code').on('change', function() {
+                var ticketCodeValue = $(this).val();
+
+                // Make an AJAX call
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: ticketCodeValue
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full);
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
+            function generateRandomStringPayment() {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: '/get-last-id-payment', // Replace with the actual URL to fetch the last ID
+                        method: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            let invoice = response.invoice;
+                            
+                            resolve(invoice);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching last ID:', error);
+                            // Reject the promise with the error
+                            reject(error);
+                        }
+                    });
+                });
+            }
+
+            // Example usage:
+            generateRandomStringPayment()
+                .then(randomString => {
+                    $('#paymentRef').val(randomString);
+                    // Do something with the random string here
+                })
+                .catch(error => {
+                    console.error('Failed to generate random string:', error);
+                });
+
+
+
+           
+                $('#ticket_code').on('change', function() {
+                var ticketCodeValue = $(this).val();
+
+                // Make an AJAX call
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: ticketCodeValue
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full);
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+            function generateRandomStringReceive() {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: '/get-last-id-receive', // Replace with the actual URL to fetch the last ID
+                        method: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            let invoice = response.invoice;
+                            
+                            resolve(invoice);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching last ID:', error);
+                            // Reject the promise with the error
+                            reject(error);
+                        }
+                    });
+                });
+            }
+
+            // Example usage:
+            generateRandomStringReceive()
+                .then(randomString => {
+                    $('#receiveRef').val(randomString);
+                    // Do something with the random string here
+                })
+                .catch(error => {
+                    console.error('Failed to generate random string:', error);
+                });
+
+
+
+           
+                $('#ticket_code').on('change', function() {
+                var ticketCodeValue = $(this).val();
+
+                // Make an AJAX call
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: ticketCodeValue
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full);
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
     </script>
 </x-app-layout>
 

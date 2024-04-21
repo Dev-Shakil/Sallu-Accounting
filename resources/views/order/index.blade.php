@@ -479,120 +479,167 @@
                     selector: 'td:nth-child(2)'
                 }
             });
-            $('#invoice').val(generateRandomString());
+            
+            function generateRandomString() {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        url: '/get-last-id-order', // Replace with the actual URL to fetch the last ID
+                        method: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            let invoice = response.invoice;
+                            
+                            resolve(invoice);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching last ID:', error);
+                            // Reject the promise with the error
+                            reject(error);
+                        }
+                    });
+                });
+            }
 
-            function generateRandomString(length = 10) {
-                const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                let randomString = '';
+            // Example usage:
+            generateRandomString()
+                .then(randomString => {
+                    $('#invoice').val(randomString);
+                    // Do something with the random string here
+                })
+                .catch(error => {
+                    console.error('Failed to generate random string:', error);
+            });
 
-                for (let i = 0; i < length; i++) {
-                    const randomIndex = Math.floor(Math.random() * characters.length);
-                    randomString += characters.charAt(randomIndex);
+
+        });
+        
+            $('#ticket_code').on('change', function() {
+                var ticketCodeValue = $(this).val();
+
+                // Make an AJAX call
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: ticketCodeValue
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full);
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+            $('#submit_invoice').on('click', function(event) {
+
+                event.preventDefault();
+                var invoiceNo = $("#invoice").val();
+                var invoiceDate = $("#date").val();
+                var invoiceType = $("#type").val();
+                var clientName = $("#agent").val();
+                var invoiceNumber = $("#num").val();
+                var passengerName = $("#name").val();
+                var passportNo = $("#passport_no").val();
+                var country = $("#country").val();
+                var supplier = $("#supplier").val();
+                var agentPrice = $("#contact_amount").val();
+                var supplierPrice = $("#payable_amount").val();
+                var remark = $("#remark").val();
+
+                // console.log("qdw");
+                if (invoiceNumber == 1 || invoiceNumber == '') {
+                    $("#addorder").submit();
+                } else if (invoiceNumber > 1) {
+
+                    if (invoiceNo && invoiceDate && invoiceType && clientName &&
+                        country && supplier && agentPrice &&
+                        supplierPrice) {
+
+                        var csrfToken = "{{ csrf_token() }}";
+                        var tableHtml =
+                            '<form id="visa_form" method="post" action="{{ route('addorder.multiple') }}">';
+                        tableHtml += '<input type="hidden" name="_token" value="' + csrfToken + '">';
+                        tableHtml += '<table class="table">';
+                        tableHtml += '<thead>';
+                        tableHtml += '<tr>';
+                        tableHtml += '<th>Invoice No</th>';
+                        tableHtml += '<th>Invoice Date</th>';
+                        tableHtml += '<th>Invoice Type</th>';
+                        tableHtml += '<th>Pessanger</th>';
+                        tableHtml += '<th>Passport</th>';
+                        tableHtml += '<th>Agent Price</th>';
+                        tableHtml += '<th>Supplier Price</th>';
+                        tableHtml += '<th>Remark</th>';
+                        // Add more headers as needed
+                        tableHtml += '</tr>';
+                        tableHtml += '</thead>';
+                        tableHtml += '<tbody>';
+
+                        // Populate table rows with data
+                        for (var i = 0; i < parseInt(invoiceNumber); i++) {
+                            tableHtml += '<tr>';
+
+                            tableHtml += '<td>' + invoiceNo + '</td>';
+                            tableHtml += '<td>' + invoiceDate + '</td>';
+                            tableHtml += '<td>' + invoiceType + '</td>';
+
+                            tableHtml += '<td>' +
+                                '<input type="text" class="form-control" name="passenger[]" id="passenger_' +
+                                i + '"></td>';
+                            tableHtml += '<td>' +
+                                '<input type="text" class="form-control" maxlength="10" name="passport[]" id="passport' +
+                                i +
+                                '" value=""></td>';
+
+                            tableHtml += '<td>' + agentPrice + '</td>';
+                            tableHtml += '<td>' + supplierPrice + '</td>';
+                            tableHtml += '<td>' + remark + '</td>';
+                            // Add more cells as needed
+                            tableHtml += '</tr>';
+                        }
+                        tableHtml += '<input type="hidden" name="agent" value="' + clientName + '">';
+                        tableHtml += '<input type="hidden" name="remark" value="' + remark + '">';
+                        tableHtml += '<input type="hidden" name="supplier" value="' + supplier + '">';
+                        tableHtml += '<input type="hidden" name="agent_price" value="' + agentPrice + '">';
+                        tableHtml += '<input type="hidden" name="supplier_price" value="' + supplierPrice +
+                            '">';
+                        tableHtml += '<input type="hidden" name="country" value="' + country + '">';
+                        tableHtml += '<input type="hidden" name="invoice_no" value="' + invoiceNo +
+                            '">';
+                        tableHtml += '<input type="hidden" name="invoice_type" value="' + invoiceType +
+                            '">';
+                        tableHtml += '<input type="hidden" name="invoice_date" value="' + invoiceDate + '">';
+
+                        tableHtml += '</tbody>';
+                        tableHtml += '</table>';
+                        tableHtml += '<td colspan="10" class="text-center">';
+                        tableHtml +=
+                            '<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">';
+                        tableHtml += 'Submit';
+                        tableHtml += '</button>';
+                        tableHtml += '</td>';
+                        tableHtml += '</form>';
+
+                        $('#tableContainer').html(tableHtml);
+
+                        $('#myModal').modal('show');
+
+                    } else {}
                 }
 
-                return randomString;
-            }
-
-        });
-
-        $('#submit_invoice').on('click', function(event) {
-
-            event.preventDefault();
-            var invoiceNo = $("#invoice").val();
-            var invoiceDate = $("#date").val();
-            var invoiceType = $("#type").val();
-            var clientName = $("#agent").val();
-            var invoiceNumber = $("#num").val();
-            var passengerName = $("#name").val();
-            var passportNo = $("#passport_no").val();
-            var country = $("#country").val();
-            var supplier = $("#supplier").val();
-            var agentPrice = $("#contact_amount").val();
-            var supplierPrice = $("#payable_amount").val();
-            var remark = $("#remark").val();
-
-            // console.log("qdw");
-            if (invoiceNumber == 1 || invoiceNumber == '') {
-                $("#addorder").submit();
-            } else if (invoiceNumber > 1) {
-
-                if (invoiceNo && invoiceDate && invoiceType && clientName &&
-                    country && supplier && agentPrice &&
-                    supplierPrice) {
-
-                    var csrfToken = "{{ csrf_token() }}";
-                    var tableHtml =
-                        '<form id="visa_form" method="post" action="{{ route('addorder.multiple') }}">';
-                    tableHtml += '<input type="hidden" name="_token" value="' + csrfToken + '">';
-                    tableHtml += '<table class="table">';
-                    tableHtml += '<thead>';
-                    tableHtml += '<tr>';
-                    tableHtml += '<th>Invoice No</th>';
-                    tableHtml += '<th>Invoice Date</th>';
-                    tableHtml += '<th>Invoice Type</th>';
-                    tableHtml += '<th>Pessanger</th>';
-                    tableHtml += '<th>Passport</th>';
-                    tableHtml += '<th>Agent Price</th>';
-                    tableHtml += '<th>Supplier Price</th>';
-                    tableHtml += '<th>Remark</th>';
-                    // Add more headers as needed
-                    tableHtml += '</tr>';
-                    tableHtml += '</thead>';
-                    tableHtml += '<tbody>';
-
-                    // Populate table rows with data
-                    for (var i = 0; i < parseInt(invoiceNumber); i++) {
-                        tableHtml += '<tr>';
-
-                        tableHtml += '<td>' + invoiceNo + '</td>';
-                        tableHtml += '<td>' + invoiceDate + '</td>';
-                        tableHtml += '<td>' + invoiceType + '</td>';
-
-                        tableHtml += '<td>' +
-                            '<input type="text" class="form-control" name="passenger[]" id="passenger_' +
-                            i + '"></td>';
-                        tableHtml += '<td>' +
-                            '<input type="text" class="form-control" maxlength="10" name="passport[]" id="passport' +
-                            i +
-                            '" value=""></td>';
-
-                        tableHtml += '<td>' + agentPrice + '</td>';
-                        tableHtml += '<td>' + supplierPrice + '</td>';
-                        tableHtml += '<td>' + remark + '</td>';
-                        // Add more cells as needed
-                        tableHtml += '</tr>';
-                    }
-                    tableHtml += '<input type="hidden" name="agent" value="' + clientName + '">';
-                    tableHtml += '<input type="hidden" name="remark" value="' + remark + '">';
-                    tableHtml += '<input type="hidden" name="supplier" value="' + supplier + '">';
-                    tableHtml += '<input type="hidden" name="agent_price" value="' + agentPrice + '">';
-                    tableHtml += '<input type="hidden" name="supplier_price" value="' + supplierPrice +
-                        '">';
-                    tableHtml += '<input type="hidden" name="country" value="' + country + '">';
-                    tableHtml += '<input type="hidden" name="invoice_no" value="' + invoiceNo +
-                        '">';
-                    tableHtml += '<input type="hidden" name="invoice_type" value="' + invoiceType +
-                        '">';
-                    tableHtml += '<input type="hidden" name="invoice_date" value="' + invoiceDate + '">';
-
-                    tableHtml += '</tbody>';
-                    tableHtml += '</table>';
-                    tableHtml += '<td colspan="10" class="text-center">';
-                    tableHtml +=
-                        '<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">';
-                    tableHtml += 'Submit';
-                    tableHtml += '</button>';
-                    tableHtml += '</td>';
-                    tableHtml += '</form>';
-
-                    $('#tableContainer').html(tableHtml);
-
-                    $('#myModal').modal('show');
-
-                } else {}
-            }
-
-        });
+            });
     </script>
 
 </x-app-layout>

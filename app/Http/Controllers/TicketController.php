@@ -110,6 +110,7 @@ class TicketController extends Controller
                 $ticket->passenger = $request['passenger_name'][$index];
                 $ticket->airline_name = $request['airlines_name'];
                 $ticket->airline_code = $request['airlines_code'];
+                $ticket->pnr = $request['pnr'];
                 $ticket->ticket_code = $request['ticket_code'];
                 $ticket->agent = $request['agent'];
                 $ticket->supplier = $request['supplier'];
@@ -235,6 +236,8 @@ class TicketController extends Controller
                 $ticket->passenger = $request['passenger_name'];
                 $ticket->airline_name = $request['airlines_name'];
                 $ticket->airline_code = $request['airlines_code'];
+                $ticket->pnr = $request['pnr'];
+
                 $ticket->ticket_code = $request['ticket_code'];
                 $ticket->agent = $request['agent'];
                 $ticket->supplier = $request['supplier'];

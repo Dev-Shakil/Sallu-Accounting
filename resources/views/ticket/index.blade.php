@@ -104,12 +104,14 @@
                         name="number_of_tickets">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="sector" class="w-[50%]">Sector</label>
-                    <input type="text" id="sector"
+                    <label for="pnr" class="w-[50%]">PNR</label>
+                    <input type="text" id="pnr"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="sector">
+                        name="pnr">
                 </div>
+                
             </div>
+            
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="passenger_name" class="w-[50%]">Passenger
@@ -163,11 +165,12 @@
                 </div>
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="discount" class="w-[50%]">Discount</label>
-                    <input type="text" id="discount"
+                    <label for="sector" class="w-[50%]">Sector</label>
+                    <input type="text" id="sector"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="discount">
+                        name="sector">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="remark" class="w-[50%]">Remark</label>
@@ -177,6 +180,7 @@
                 </div>
 
             </div>
+
             <div class=" flex-wrap gap-x-10 -mx-4 mb-4 hidden">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
@@ -209,7 +213,7 @@
                 <label for="addGDS">Add GDS</label>
             </div>
 
-            <div class="font-semibold">
+            {{-- <div class="font-semibold">
                 <input type="checkbox" id="receivePayment" name="receivePayment"
                     onchange="toggleFormVisibility()" />
                 <label for="receivePayment">Receive Payment</label>
@@ -218,7 +222,7 @@
             <div class="font-semibold">
                 <input type="checkbox" id="refundCheckbox" name="refund" onchange="toggleRefundVisibility()" />
                 <label for="refundCheckbox">Refund</label>
-            </div>
+            </div> --}}
         </div>
 
         <form class="w-full my-4" id="receive_payment" method="post" action="{{ route('receive_only') }}">
@@ -845,6 +849,7 @@
                 var sector = $('#sector').val();
                 var flight_no = $('#flight_no').val();
                 var ticket_code = $('#ticket_code').val();
+                var pnr = $('#pnr').val();
                 var ticket_no = $('#ticket_no').val();
                 var airlines_name = $('#airlines_name').val();
                 var airlines_code = $('#airlines_code').val();
@@ -884,7 +889,7 @@
                     (airlines_name || airlines_code) && // either airlines name or code should be available
                     number_of_tickets>1 &&
                     agent_price_1 && sector && stuff &&
-                    supplier_price && invoice_no
+                    supplier_price && invoice_no && pnr
                 ) {
                     var csrfToken = "{{ csrf_token() }}";
                     var tableHtml =
@@ -928,6 +933,7 @@
                         tableHtml += '</tr>';
                     }
                     tableHtml += '<input type="hidden" name="agent" value="' + agent + '">';
+                    tableHtml += '<input type="hidden" name="pnr" value="' + pnr + '">';
                     tableHtml += '<input type="hidden" name="supplier" value="' + supplier + '">';
                     tableHtml += '<input type="hidden" name="agent_price" value="' + agent_price_1 + '">';
                     tableHtml += '<input type="hidden" name="supplier_price" value="' + supplier_price +
@@ -969,7 +975,7 @@
                 (airlines_name || airlines_code) && // either airlines name or code should be available
                 number_of_tickets == 1 &&
                 agent_price_1 && sector &&
-                supplier_price && invoice_no)
+                supplier_price && invoice_no && pnr)
                 {
                   var csrfToken = "{{ csrf_token() }}";
                   var dataToSend = {
@@ -977,6 +983,7 @@
                             agent,
                             supplier,
                             invoice_no,
+                            pnr,
                             invoice_date,
                             flight_date,
                             flight_no,

@@ -165,4 +165,69 @@ class ReceivePaymentController extends Controller
         return response()->json(['message' => 'Receive successfully submitted', 'success' => true]);
         // return view('receive_payment.index', compact('agents', 'suppliers','methods'))->with('success', 'Receive successfully submitted.');
     }
+    public function getlastid_receive(){
+        try {
+            $lastId = Receiver::latest('id')->value('id');
+            $newInvoice = 0;
+
+            if ($lastId) {
+                $receive = Receiver::find($lastId);
+                if ($receive) {
+                    $invoice = $receive->invoice;
+                    $parts = explode("-", $invoice);
+                    $partAfterHyphen = end($parts); // Extract part after hyphen
+                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                    
+                } else {
+                   
+                }
+            }
+            else{
+                $lastId = 0;
+                $newInvoice = "RV-0001";
+            }
+        //   dd($newInvoice, $lastId);
+
+            // Return the last ID and associated invoice as JSON response
+            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+
+        } catch (\Exception $e) {
+            // Handle any exceptions that might occur during the process
+            return response()->json(['error' => 'Error fetching last ID'], 500);
+        }     
+    }
+
+    public function getlastid_payment(){
+        try {
+            $lastId = Payment::latest('id')->value('id');
+            $newInvoice = 0;
+
+            if ($lastId) {
+                $payment = Payment::find($lastId);
+                if ($payment) {
+                    $invoice = $payment->invoice;
+                    $parts = explode("-", $invoice);
+                    $partAfterHyphen = end($parts); // Extract part after hyphen
+                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                    
+                } else {
+                   
+                }
+            }
+            else{
+                $lastId = 0;
+                $newInvoice = "PV-0001";
+            }
+        //   dd($newInvoice, $lastId);
+
+            // Return the last ID and associated invoice as JSON response
+            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+
+        } catch (\Exception $e) {
+            // Handle any exceptions that might occur during the process
+            return response()->json(['error' => 'Error fetching last ID'], 500);
+        }     
+    }
 }
