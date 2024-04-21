@@ -426,23 +426,27 @@
 
     </div>
 
-    <script>
-        var addnew = document.getElementById('addnew');
+    <script type="text/javascript">
+         var addnew = document.getElementById('addnew');
         var addorder = document.getElementById('addorder');
         addorder.style.display = 'none';
 
         addnew.addEventListener('click', function() {
             toggleVisibility();
         });
-        document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevents the default link behavior (navigating to the href)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Your code here
+            document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents the default link behavior (navigating to the href)
 
-            var isConfirmed = confirm('Are you sure you want to delete this order?');
-            // If user confirms, navigate to the delete route
-            if (isConfirmed) {
-                window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
-            }
+                var isConfirmed = confirm('Are you sure you want to delete this order?');
+                // If user confirms, navigate to the delete route
+                if (isConfirmed) {
+                    window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
+                }
+            });
         });
+
 
         function toggleVisibility() {
             if (addorder.style.display === 'none') {
@@ -451,6 +455,9 @@
                 addorder.style.display = 'none';
             }
         }
+    </script>
+    <script>
+       
 
         $(document).ready(function() {
             $("#type").select2({

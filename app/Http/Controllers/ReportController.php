@@ -2889,8 +2889,9 @@ class ReportController extends Controller
 
         return $html;
     }
-    public function due_reminder(){
-
+    public function due_reminder()
+    {
+    //    dd('as');
         $agentIds = Agent::where([
             ['is_delete', 0], 
             ['is_active', 1], 
@@ -3004,15 +3005,12 @@ class ReportController extends Controller
 
         $supplierName = $request->supplierName;
 
-        // Split the string at the underscore character
+        
         list($tableName, $clientID) = explode('_', $supplierName);
-        // dd($tableName, $clientID);
+       
+        $modelClassName = ucfirst($tableName);
 
-         // Build the model class name dynamically
-         $modelClassName = ucfirst($tableName);
-
-         // Create an instance of the model
-         $model = app("App\\Models\\$modelClassName");
+        $model = app("App\\Models\\$modelClassName");
 
         $ssid = $model::where([
             ['is_delete', 0], 
@@ -3021,7 +3019,7 @@ class ReportController extends Controller
         ])->pluck('id');
 
 
-        $ssid = $ssid->toArray(); // Convert the collection to an array
+        $ssid = $ssid->toArray(); 
       
         $latestReceives = [];
         $latestPayments = [];
@@ -3092,8 +3090,6 @@ class ReportController extends Controller
             $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
             $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
 
-            // Output the filtered transactions with names
-            // dd($filteredTransactionsWithNames);
             return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
     }
     public function sales_ticket(){

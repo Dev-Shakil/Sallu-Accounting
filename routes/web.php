@@ -4,7 +4,7 @@ use App\Http\Controllers\ADMController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgentController;
-use App\Http\Controllers\AirlinesController;
+use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\DeporteeController;
 use App\Http\Controllers\HRController;
 use App\Http\Controllers\SupplierController;
@@ -261,13 +261,13 @@ Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->na
 Route::post('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 Route::get('/transaction/delete/{id}', [TransactionController::class, 'delete'])->name('transaction.delete');
 
-Route::get('airlines/view', function () {
-    return app(AirlinesController::class)->index();
-})->name('airlines.view');
-Route::post('/transaction_add', [AirlinesController::class, 'store'])->name('airlines.store');
-Route::get('/airlines/edit/{id}', [AirlinesController::class, 'edit'])->name('airlines.edit');
-Route::post('/airlines/update/{id}', [AirlinesController::class, 'update'])->name('airlines.update');
-Route::get('/airlines/delete/{id}', [AirlinesController::class, 'delete'])->name('airlines.delete');
+// Route::get('airlines/view', function () {
+//     return app(AirlineController::class)->index();
+// })->name('airlines.view');
+// Route::post('/transaction_add', [AirlineController::class, 'store'])->name('airlines.store');
+// Route::get('/airlines/edit/{id}', [AirlineController::class, 'edit'])->name('airlines.edit');
+// Route::post('/airlines/update/{id}', [AirlineController::class, 'update'])->name('airlines.update');
+// Route::get('/airlines/delete/{id}', [AirlineController::class, 'delete'])->name('airlines.delete');
 
 Route::get('change_password/view', function () {
     return app(SettingsController::class)->index();
@@ -276,6 +276,14 @@ Route::get('company_profile/view', function () {
     return app(SettingsController::class)->edit_company_profile();
 })->name('company_profile.view');
 
+Route::get('airline/view', function () {
+    return app(AirlineController::class)->index();
+})->name('airline.view');
+Route::post('/addairline', [AirlineController::class, 'store'])->name('airline.store');
+Route::get('/airline/edit/{id}', [AirlineController::class, 'edit'])->name('airline.edit');
+Route::post('/airline/update/{id}', [AirlineController::class, 'update'])->name('airline.update');
+Route::get('/airline/delete/{id}', [AirlineController::class, 'delete'])->name('airline.delete');
+Route::get('/findairlinefree', [AirlineController::class, 'findAirlineFree'])->name('findairlinefree');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

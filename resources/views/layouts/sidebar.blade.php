@@ -72,7 +72,7 @@
                         </x-nav-link>
                     </li>
                     <li class="text-white font-semibold">
-                        <x-nav-link :href="route('airlines.view')" :active="request()->routeIs('airlines.view')">
+                        <x-nav-link :href="route('airline.view')" :active="request()->routeIs('airline.view')">
                              <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
@@ -678,6 +678,7 @@
                 </svg>
                 {{ __('Due Reminder') }}
             </x-nav-link>
+            
             <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
@@ -697,7 +698,7 @@
                 </p>
                 <ul id="dropdown-example2" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
                     <li class=" font-semibold">
-                        <x-nav-link :href="route('company_profile.view')" :active="request()->routeIs('company_profile.view')">
+                        <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

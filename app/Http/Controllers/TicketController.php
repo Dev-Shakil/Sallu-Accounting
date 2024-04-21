@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Add this line
 use App\Models\Supplier;
 use App\Models\Agent;
+use App\Models\Airline;
 use App\Models\AIT;
 use App\Models\Receiver;
 use App\Models\Type;
@@ -25,6 +26,8 @@ class TicketController extends Controller
         $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
+        $airlines = Airline::get();
+
         foreach($tickets as $order){
            
             $order->agent = Agent::where('id', $order->agent)->value('name');
@@ -32,18 +35,30 @@ class TicketController extends Controller
         }
         // dd($orders);
         // dd($suppliers);
-        return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets'));
+        return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets','airlines'));
     }
 
     public function searchAirline(Request $request)
     {
         $ticketCode = $request->input('ticketCode');
-        
-        $find = DB::table('airlines')->where('ID', $ticketCode)->first();
-        if($find){
-            return response()->json(['message' => 'Success', 'airline' => $find]);
+
+        if (is_numeric($ticketCode) && (int) $ticketCode == $ticketCode) {
+              
+            $find = DB::table('airlines')->where('ID', $ticketCode)->first();
+            if($find){
+                return response()->json(['message' => 'Success', 'airline' => $find]);
+            }
+            return response()->json(['message' => 'Failed No such AirLine']);
+
+        } else {
+                
+            $find = DB::table('airlines')->where('Full', $ticketCode)->first();
+            if($find){
+                return response()->json(['message' => 'Success', 'airline' => $find]);
+            }
+            return response()->json(['message' => 'Failed No such AirLine']);
         }
-        return response()->json(['message' => 'Failed No such AirLine']);
+      
     }
     
     private function allValuesExist($array) {
@@ -196,7 +211,7 @@ class TicketController extends Controller
             // dd($request->all());
 
             DB::beginTransaction();
-            dd($request->all());
+            // dd($request->all());
 
                 
                 $ticket = new Ticket();
@@ -254,7 +269,7 @@ class TicketController extends Controller
                 $flag = false;
                 $flag = $ticket->save();
 
-                dd($flag);
+                // dd($flag);
 
                 if($flag)
                 {
@@ -468,12 +483,43 @@ class TicketController extends Controller
         return response()->json($list_all);
     }
 
+    // public function getlastid(){
+    //     try {
+    //         $lastId = Ticket::latest('id')->value('id');
+    //         return response()->json(['lastId' => $lastId]);
+    //     } catch (\Exception $e) {
+    //         // Handle any exceptions that might occur during the process
+    //         return response()->json(['error' => 'Error fetching last ID'], 500);
+    //     }     
+    // }
+
     public function getlastid(){
         try {
             $lastId = Ticket::latest('id')->value('id');
-            return response()->json(['lastId' => $lastId]);
+            $newInvoice = 0;
+
+            if ($lastId) {
+                $ticket = Ticket::find($lastId);
+                if ($ticket) {
+                    $invoice = $ticket->invoice;
+                    $parts = explode("-", $invoice);
+                    $partAfterHyphen = end($parts); // Extract part after hyphen
+                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                    
+                } else {
+                   
+                }
+            }
+            else{
+                $lastId = 0;
+                $newInvoice = "INVT-0000001";
+            }
+      
+            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+
         } catch (\Exception $e) {
-            // Handle any exceptions that might occur during the process
+           
             return response()->json(['error' => 'Error fetching last ID'], 500);
         }     
     }

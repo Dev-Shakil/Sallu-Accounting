@@ -1,4 +1,9 @@
 <x-app-layout>
+    <style type="text/css">
+        .select2-selection--single{
+            height:32px !important;
+        }
+    </style>
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -60,9 +65,16 @@
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="airline" class="w-[50%]">Airline</label>
                     <div class="flex w-full gap-x-3">
-                        <input type="text" id="airlines_name"
+                        {{-- <input type="text" id="airlines_name"
                             class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                            name="airlines_name">
+                            name="airlines_name"> --}}
+                            <select id="airlines_name" class="select2 bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name">
+                                <option>Select Airline</option>
+                                @foreach ($airlines as $airline)
+                                    <option value="{{ $airline->Full}}">{{ $airline->Full }}</option>
+                                @endforeach
+                            </select>
+                            
                         <input type="text" id="airlines_code"
                             class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                             name="airlines_code">
@@ -619,22 +631,51 @@
             });
             $('#ticket_table').DataTable();
 
+            // function generateRandomString() {
+            //     return new Promise((resolve, reject) => {
+            //         $.ajax({
+            //             url: '/get-last-id', // Replace with the actual URL to fetch the last ID
+            //             method: 'GET',
+            //             success: function(response) {
+            //                 let lastId = response.lastId;
+            //                 lastId = parseInt(lastId) + 1;
+
+            //                 // Format the lastId with leading zeros to make it 6 digits
+            //                 const formattedLastId = lastId.toString().padStart(6, '0');
+
+            //                 const randomString = `INVT-${formattedLastId}`;
+
+            //                 // Resolve the promise with the generated random string
+            //                 resolve(randomString);
+            //             },
+            //             error: function(error) {
+            //                 console.error('Error fetching last ID:', error);
+            //                 // Reject the promise with the error
+            //                 reject(error);
+            //             }
+            //         });
+            //     });
+            // }
+
+            // // Example usage:
+            // generateRandomString()
+            //     .then(randomString => {
+            //         $('#invoice_no').val(randomString);
+            //         // Do something with the random string here
+            //     })
+            //     .catch(error => {
+            //         console.error('Failed to generate random string:', error);
+            //     });
+
             function generateRandomString() {
                 return new Promise((resolve, reject) => {
                     $.ajax({
                         url: '/get-last-id', // Replace with the actual URL to fetch the last ID
                         method: 'GET',
                         success: function(response) {
-                            let lastId = response.lastId;
-                            lastId = parseInt(lastId) + 1;
-
-                            // Format the lastId with leading zeros to make it 6 digits
-                            const formattedLastId = lastId.toString().padStart(6, '0');
-
-                            const randomString = `INVT-${formattedLastId}`;
-
-                            // Resolve the promise with the generated random string
-                            resolve(randomString);
+                            let invoice = response.invoice;
+                            
+                            resolve(invoice);
                         },
                         error: function(error) {
                             console.error('Error fetching last ID:', error);
@@ -656,7 +697,6 @@
                 });
 
 
-
             $('#ticket_code').on('change', function() {
                 var ticketCodeValue = $(this).val();
 
@@ -673,8 +713,38 @@
                     dataType: 'json', // Expected data type of the response
                     success: function(response) {
                         if (response.message == 'Success') {
+                            $('#airlines_name').val(response.airline.Full).trigger('change');
+
+                            $('#airlines_code').val(response.airline.Short);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        // Handle errors during the AJAX call
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+            $('#airlines_name').on('change', function() {
+                var airlinesname = $(this).val();
+                
+                $.ajax({
+                    url: '/search_airline', // Replace with the actual endpoint URL
+                    method: 'POST', // Specify the HTTP method (POST, GET, etc.)
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        ticketCode: airlinesname
+                    }, // Data to be sent to the server
+                    dataType: 'json', // Expected data type of the response
+                    success: function(response) {
+                        if (response.message == 'Success') {
                             $('#airlines_name').val(response.airline.Full);
                             $('#airlines_code').val(response.airline.Short);
+                            $('#ticket_code').val(response.airline.ID);
                         } else {
                             alert(response.message);
                         }
@@ -946,7 +1016,7 @@
 
                 }
                 else {
-                    console.log('Some required variables are missing.');
+                    alert('Some required variables are missing.');
                 }
 
 

@@ -267,19 +267,35 @@ class OrderController extends Controller
             return redirect()->route('order.view')->with('error', 'Order updated failed');
         }
 
-    public function delete($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->is_delete = 1;
-        if($order->save()){
-            return redirect()->route('order.view')->with('success', 'Order deleted successfully');
-        }
-        else{
-            return redirect()->route('order.view')->with('error', 'Order deleted failed');
-        }
-        return redirect()->route('order.view')->with('error', 'Order deleted failed');
+        public function delete($id)
+        {
+            DB::beginTransaction();
         
-    }
+            try {
+                $order = Order::findOrFail($id);
+                $order->is_delete = 1;
+        
+                $agent = Agent::findOrFail($order->agent);
+                $agent->amount -= $order->contact_amount;
+        
+                $supplier = Supplier::findOrFail($order->supplier);
+                $supplier->amount -= $order->payable_amount;
+        
+                $flag = $agent->save() && $supplier->save();
+        
+                if ($flag) {
+                    $order->save();
+                    DB::commit(); // Commit the transaction if everything is successful
+                    return redirect()->route('order.view')->with('success', 'Order deleted successfully');
+                } else {
+                    DB::rollBack(); // Rollback the transaction if any operation fails
+                    return redirect()->route('order.view')->with('error', 'Order deletion failed');
+                }
+            } catch (\Exception $e) {
+                DB::rollBack(); // Rollback the transaction in case of any exception
+                return redirect()->route('order.view')->with('error', 'Order deletion failed');
+            }
+        }
 }
 
 ?>
