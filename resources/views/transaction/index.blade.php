@@ -1,18 +1,18 @@
 <x-app-layout>
    
-        <div class="container mt-5">
+        <div class="container mt-5 w-[50%] mx-auto">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-            <h1 class="mb-4 font-semibold">Add Transaction Method</h1>
+            <h1 class="mb-4 text-xl font-semibold">Add Transaction Method</h1>
     
             <div class="addagent">
-                <form action="/transaction_add" method="post" class="flex gap-4 items-center" >
+                <form action="/transaction_add" method="post" class="flex gap-4 items-center shadow-lg p-3 rounded-sm bg-white mb-3" >
                     
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                    <div class="grid grid-cols-2 w-[60%] gap-x-5">
+                    <div class="grid grid-cols-2 w-[80%] gap-x-5">
                         <div class="row">
                             <div class="form-group col">
                                 <label for="name">Name:</label>
@@ -34,9 +34,9 @@
                 </form>
             </div>
     
-            <div class="allagents">
-                <table class="table">
-                    <thead>
+        <div class="allagents bg-white shadow-lg p-3">
+                <table class="table shadow-lg" id="transaction_table">
+                    <thead class="bg-gray-200">
                         <tr>
                             <th scope="col">Serial</th>
                             <th scope="col">Name</th>
@@ -53,8 +53,8 @@
                                
                                 <td>{{ $transaction->description }}</td>
                                 <td>
-                                    <a href="{{ route('transaction.edit', ['id' => encrypt($transaction->id)]) }}" class="btn btn-primary">Edit</a>
-                                    <a href="{{ route('transaction.delete', ['id' => $transaction->id]) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('transaction.edit', ['id' => encrypt($transaction->id)]) }}" class=""><i class="fa fa-pencil fa-fw text-xl"></i></a>
+                                    <a href="{{ route('transaction.delete', ['id' => $transaction->id]) }}" class=""><i class="fa fa-trash fa-fw text-xl"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -64,4 +64,7 @@
             </div>
     
         </div>
+        <script type="text/javascript">
+            $('#transaction_table').DataTable();
+        </script>
 </x-app-layout>

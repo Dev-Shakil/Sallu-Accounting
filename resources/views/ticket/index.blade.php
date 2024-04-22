@@ -131,10 +131,10 @@
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="stuff" class="w-[50%]">Stuff</label>
-                    <input type="text" id="stuff"
+                    <label for="sector" class="w-[50%]">Sector</label>
+                    <input type="text" id="sector"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="stuff">
+                        name="sector">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="supplier" class="w-[50%]">Supplier</label>
@@ -165,13 +165,13 @@
                 </div>
             </div>
             <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="sector" class="w-[50%]">Sector</label>
-                    <input type="text" id="sector"
+                    <label for="stuff" class="w-[50%]">Stuff</label>
+                    <input type="text" id="stuff"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="sector">
+                        name="stuff">
                 </div>
+                
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="remark" class="w-[50%]">Remark</label>
                     <textarea id="remark"
@@ -430,32 +430,33 @@
     </table> --}}
     <table class="table-fixed mx-4 border rounded-lg overflow-hidden table table-striped table-hover"
         id="ticket_table">
-        <thead>
-            <tr class="border-b bg-gray-100">
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice Date</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Ticket No</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Passenger</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Flight Date</th>
+        <thead class="">
+            <tr class="border-b bg-[#7CB0B2]">
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Invoice Date</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Invoice</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Ticket No</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Passenger</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Flight Date</th>
 
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Airline</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Airline</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Agent</th>
 
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent Price</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Supplier</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Agent Price</th>
 
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Price</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Remark</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Action</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Supplier Price</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Remark</th>
+                <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Action</th>
             </tr>
         </thead>
         <tbody>
 
             @foreach ($tickets as $ticket)
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->invoice }}</td>
                     <td class="px-2 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}
                     </td>
+                    <td class="px-2 py-2 text-gray-700">{{ $ticket->invoice }}</td>
+                    
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->ticket_code }}-{{ $ticket->ticket_no }}</td>
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->passenger }}</td>
 
@@ -464,9 +465,9 @@
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->airline_code }}-{{ $ticket->airline_name }}</td>
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->agent }}</td>
 
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier }}</td>
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->agent_price }}</td>
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier_price }}</td>
+                    <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier }}<br></td>
+                    <td class="px-2 py-2 text-center text-gray-700">{{ $ticket->agent_price }}</td>
+                    <td class="px-2 py-2 text-center text-gray-700">{{ $ticket->supplier_price }}</td>
 
 
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->remark }}</td>

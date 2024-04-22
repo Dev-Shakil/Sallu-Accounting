@@ -297,7 +297,12 @@ class OrderController extends Controller
 
             return redirect()->route('order.view')->with('error', 'Order updated failed');
         }
-
+        public function view($id){
+            $order = Order::findOrFail($id); 
+            $agent = Agent::where('id', $order->agent)->value('name');
+            $type = Type::where('id', $order->type)->value('name');
+            return view('order.view', compact('order', 'agent','type'));
+        }
         public function delete($id)
         {
             DB::beginTransaction();

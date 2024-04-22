@@ -8,7 +8,7 @@
 
     </div>
     <div class="mb-2">
-        <button class="py-2 px-4 bg-black text-white rounded-sm font-bold" onchange="toggleVisibility()" id="addnew">Add
+        <button class="py-2 px-7 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold" onchange="toggleVisibility()" id="addnew">Add
             New</button>
     </div>
     <div>
@@ -78,11 +78,11 @@
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="seller" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
 
-                    <select required name="supplier" id="supplier"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-auto p-1 select2">
+                    <select name="supplier" id="supplier"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
                         <option value="">Select Supplier</option>
                         @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -396,6 +396,10 @@
                                     <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
                                         data-toggle="modal" data-target="#confirmDeleteModal"><i
                                             class="fa fa-trash-o fa-fw"></i></a>
+                                            <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
+                                                class=" hover:text-green-700 mr-1">
+                                                <i class="fa fa-eye fa-fw text-xl"></i>
+                                            </a>
                                 </section>
                             </td>
                         </tr>
@@ -458,7 +462,7 @@
     </script>
     <script>
        
-
+       
         $(document).ready(function() {
             $("#type").select2({
                 width: '100%'
@@ -479,7 +483,14 @@
                     selector: 'td:nth-child(2)'
                 }
             });
-            
+            $('#num').on('change', function(event) {
+                var number = parseInt($('#num').val());
+                if (number > 1) {
+                    $('#name').prop('disabled', true);
+                } else {
+                    $('#name').prop('disabled', false);
+                }
+            });  
             function generateRandomString() {
                 return new Promise((resolve, reject) => {
                     $.ajax({

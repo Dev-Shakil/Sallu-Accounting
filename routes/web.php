@@ -106,6 +106,7 @@ Route::get('/order/view', function () {
 })->name('order.view');
 Route::post('/addorder', [OrderController::class, 'store'])->name('addorder.store');
 Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
+Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('order.viewInv');
 Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::get('/order/delete/{id}', [OrderController::class, 'delete'])->name('order.delete');
 

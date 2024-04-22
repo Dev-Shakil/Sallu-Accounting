@@ -174,35 +174,38 @@
 
             </div>
         </div>
-    
-    <table class="table table-striped table-hover no-wrap " id="typetable">
-        <thead class="bg-[#5dc8cc]">
-            <tr>
-                <th scope="col" class="px-4 py-2 ">Serial</th>
-                <th scope="col" class="px-4 py-2 ">Name</th>
-                <th scope="col" class="px-4 py-2 ">Designation</th>
-                <th scope="col" class="px-4 py-2 ">Phone</th>
-                <th scope="col" class="px-4 py-2 ">Email</th>
-                
-                <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($employees as $index => $employee)
-                <tr>
-                    <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
-                    <td class="px-4 py-2 ">{{ $employee->name }}</td>
-                    <td class="px-4 py-2 ">{{ $employee->designation }}</td>
-                    <td class="px-4 py-2 ">{{ $employee->phone }}</td>
-                    <td class="px-4 py-2 ">{{ $employee->email }}</td>
-                    <td class="px-4 py-2 flex justify-center">
-                        <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                        <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <div class="bg-white p-3 shadow-lg">
+            <table class="table table-striped table-hover no-wrap " id="stufftable">
+                <thead class="bg-[#5dc8cc]">
+                    <tr>
+                        <th scope="col" class="px-4 py-2 ">Serial</th>
+                        <th scope="col" class="px-4 py-2 ">Name</th>
+                        <th scope="col" class="px-4 py-2 ">Designation</th>
+                        <th scope="col" class="px-4 py-2 ">Phone</th>
+                        <th scope="col" class="px-4 py-2 ">Email</th>
+                        <th scope="col" class="px-4 py-2 ">Salary</th>
+                        
+                        <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($employees as $index => $employee)
+                        <tr>
+                            <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
+                            <td class="px-4 py-2 ">{{ $employee->name }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->designation }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->phone }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->email }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->salary }}</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal" tabindex="-1">
@@ -265,7 +268,12 @@
             $('.datepicker').datepicker({
                 autoclose: true
             });
-
+            new DataTable('#stufftable', {
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
             $('.select2').select2({
                 theme: 'classic',
             });

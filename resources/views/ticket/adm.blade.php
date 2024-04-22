@@ -116,12 +116,13 @@
                 <label for="supplier" class="w-[50%]">Supplier</label>
 
                 <select name="supplier" id="supplier"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
-                    <option value="">Select Supplier</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                    @endforeach
-                </select>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
+                        <option value="">Select Supplier</option>
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
+                        @endforeach
+                    </select>
+                
             </div>
         </div>
         
@@ -180,22 +181,22 @@
     <table class="table-fixed mx-4 border rounded-lg overflow-hidden table table-striped table-hover"
     id="ticket_table">
     <thead>
-        <tr class="border-b bg-gray-100">
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice Date</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Ticket No</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Passenger</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Flight Date</th>
+        <tr class="border-b bg-[#7CB0B2]">
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Invoice</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Invoice Date</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Ticket No</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Passenger</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Flight Date</th>
 
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Airline</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Airline</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Agent</th>
 
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent Deportee Price</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Supplier</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Agent Deportee Price</th>
 
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Deportee Price</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Remark</th>
-            <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Action</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Supplier Deportee Price</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Remark</th>
+            <th class="w-1/6 px-4 py-2 text-left text-gray-900 font-medium">Action</th>
         </tr>
     </thead>
     <tbody>

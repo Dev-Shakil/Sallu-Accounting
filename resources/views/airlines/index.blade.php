@@ -6,32 +6,40 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="mb-4 font-semibold">Add Airlines</h1>
+        <div class="mb-2 flex items-center gap-6">
+            <p class="font-bold text-2xl">List of AirLines</p>
+            <button
+                class="py-2 px-4 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold "
+                onchange="toggleVisibility()" id="addnewbtn">Add Airlines</button>
+        </div>
+        <div id="airlines">
+            <h1 class="mb-4 font-semibold w-[90%] md:w-[60%] mx-auto text-lg">Add Airlines</h1>
 
-        <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
-            <form action="/addairline" method="POST">
-                @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Code:</label>
-                        <input type="text" id="code" name="code" class="mt-1 p-2 w-full border " placeholder="Enter code" required>
+            <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
+                <form action="/addairline" method="POST">
+                    @csrf <!-- Add this line to include CSRF protection in Laravel -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Code:</label>
+                            <input type="text" id="code" name="code" class="mt-1 p-2 w-full border " placeholder="Enter code" required>
+                        </div>
+        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Short Name:</label>
+                            <input type="text" id="short_name" name="short_name" class="mt-1 p-2 w-full border " placeholder="Enter short name" required>
+                        </div>
                     </div>
-    
-                    <div class="mb-4">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Short Name:</label>
-                        <input type="text" id="short_name" name="short_name" class="mt-1 p-2 w-full border " placeholder="Enter short name" required>
+                    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Full Name:</label>
+                            <input type="text" id="full_name" name="full_name" class="mt-1 p-2 w-full border " placeholder="Enter an full name" required>
+                        </div>
                     </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Full Name:</label>
-                        <input type="text" id="full_name" name="full_name" class="mt-1 p-2 w-full border " placeholder="Enter an full name" required>
-                    </div>
-                </div>
-               
-    
-                <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
-            </form>
+                
+        
+                    <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
+                </form>
+            </div>
         </div>
     
         <div class="allagents mt-8 shadow-lg bg-white p-3 rounded-lg">
@@ -92,6 +100,24 @@
         });
 
         
+    </script>
+    <script>
+        
+        var addnewBtn = document.getElementById('addnewbtn');
+        var addAirlines = document.getElementById('airlines');
+        addAirlines.style.display = 'none';
+
+        addnewBtn.addEventListener('click', function() {
+            toggleVisibility();
+        });
+
+        function toggleVisibility() {
+            if (addAirlines.style.display === 'none') {
+                addAirlines.style.display = 'block';
+            } else {
+                addAirlines.style.display = 'none';
+            }
+        }
     </script>
     <script>
         $(document).ready(function() {

@@ -3223,7 +3223,7 @@ class ReportController extends Controller
                         <td class="py-2"></td> 
                         <td class="py-2"></td> 
                         
-                        <td colspan="2">Total Segment: </td>
+                        <td colspan="2" class="font-bold text-md">Total Segment: </td>
                         <td class="py-2">' . $totalCount . '</td>
                         <td class="py-2">' . $totalSupplierPrice . '</td>
                         </tr>';
