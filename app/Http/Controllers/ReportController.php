@@ -2324,11 +2324,11 @@ class ReportController extends Controller
             
             <main class=" mx-auto w-[95%] ">
             
-                <div class="bg-[#23CFD3] px-7 py-3 flex justify-center gap-y-4 mb-3 shadow-2xl">
-                    <h2 class="text-center font-bold text-2xl">Received Report</h2>
+                <div class="py-3 flex  gap-y-4 mb-3 ">
+                    <h2 class="font-bold text-2xl">Received Report</h2>
                     <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
                 </div>
-                <table class="table-auto table-striped w-full shadow-2xl">
+                <table class="table-auto w-full shadow-2xl">
                     <thead>
                     <tr class="bg-[#0E7490] text-white">
                         <th class="px-4 py-2 text-left">Date</th>
@@ -2340,7 +2340,7 @@ class ReportController extends Controller
                         <th class="px-4 py-2 text-center">Actions</th>
                     </tr>
                     </thead>
-                    <tbody id="data">';
+                    <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
             $printUrl = url('/receive_voucher', ['id' => $item]);
             $html .= <<<HTML
@@ -2354,14 +2354,14 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2 items-center"><a href='$printUrl' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black px-3 rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
 
         $html .= ' 
                         <tr>
-                            <td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
+                            <td class="px-4 py-2 text-left font-bold" colspan="5">Total Amount </td>
                             <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
                         </tr>
                     </tbody>
@@ -2640,11 +2640,11 @@ class ReportController extends Controller
             
             <main class=" mx-auto w-[95%] ">
             
-                <div class="bg-[#23CFD3] px-7 py-3 flex justify-center gap-y-4 mb-3 shadow-2xl">
-                    <h2 class="text-center font-bold text-2xl">Payment Report</h2>
+                <div class=" py-3 flex gap-y-4 mb-3">
+                    <h2 class=" font-bold text-2xl">Payment Report</h2>
                     <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
                 </div>
-                <table class="table-auto w-full shadow-2xl table-striped">
+                <table class="table-auto w-full shadow-2xl">
                     <thead>
                     <tr class="bg-[#0E7490] text-white">
                     
@@ -2654,11 +2654,11 @@ class ReportController extends Controller
                         <th class="px-4 py-2 text-left">Payment Mode</th>
                         <th class="px-4 py-2 text-left">Narration</th>
                         <th class="px-4 py-2 text-left">Amount</th>
-                        <th class="px-4 py-2 text-center">Print</th>
+                        <th class="px-4 py-2 text-center">Action</th>
                     </tr>
                    
                     </thead>
-                    <tbody id="data">';
+                    <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
             $printUrl = url('/payment_voucher', ['id' => $item->id]);
             $html .= <<<HTML
@@ -2672,14 +2672,17 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black px-3 rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
 
         $html .= ' 
 
-                        <tr><td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
+                        <tr>
+
+                        <td class="px-4 py-2 text-left font-bold" colspan="3"></td>
+                        <td class="px-4 py-2 text-left font-bold" colspan="2">Total Amount </td>
                         <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
                         </tr>
                     </tbody>
@@ -2794,13 +2797,13 @@ class ReportController extends Controller
                      </div>
                  </div>
                  <!-- <p class="">From Date : 14-09-2024 </p> -->
-                 <table class=" table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
+                 <table class=" table-auto w-[100%] md:w-[60%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
                      <thead>
                        <tr class="border-y-2 border-black bg-cyan-700 text-white">
                          <th class="text-start">SL</th>
                          <th class="text-start">Air Name</th>
                          <th class="text-start">Sector</th>
-                         <th class="text-start">AIT AMOUNT</th>
+                         <th class="text-center">AIT AMOUNT</th>
                        
                         
                        </tr>
@@ -2815,14 +2818,14 @@ class ReportController extends Controller
                         <td>$item->airline_name</td>
                        
                         <td>$item->sector</td>
-                        <td class="amount">$item->total_amount</td>
+                        <td class="amount text-center">$item->total_amount</td>
                         <!-- <td class="px-2 py-1 flex gap-2"><button type="button" class="bg-green-700 text-white px-3 rounded-md text-sm">Print</button><button type="button" class="bg-red-700 text-white px-3 rounded-md text-sm">Download</button></td> -->
                        </tr>
                        HTML;
         endforeach;
 
         $html .= '
-                       <tr class="bg-neutral-400 text-black font-bold">
+                       <tr class="bg-white text-black font-bold">
                         <td></td>
                         
                        
@@ -3860,7 +3863,7 @@ class ReportController extends Controller
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
                         <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                        <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
+                        <p><span class="font-semibold">Period Date :</span> '.$start_date.' to '.$end_date.' </p>
                     </div>
                     <div class="flex items-center">
                        
@@ -5141,7 +5144,7 @@ class ReportController extends Controller
                             <td class="py-2">' . $data->agent_new_amount . '</td>
                         </tr>';
             }
-            $htmlTable .= '<tr class="w-100 py-2" style="background:#6a8099; "><td><b>Total Ticket: ' . $count . '</b></td>
+            $htmlTable .= '<tr class="w-100 py-2" style="background:white; "><td><b>Total Ticket: ' . $count . '</b></td>
                     <td></td>
                     <td></td>
                     <td></td>

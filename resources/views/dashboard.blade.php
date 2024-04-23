@@ -129,7 +129,7 @@
       </div>
       <div class="grid grid-cols-2">
         <div class="bg-white p-2 shadow-lg mt-2">
-          <table class=" my-5 text-sm text-black border  overflow-hidden table table-striped table-hover" id="flight_table">
+          <table class=" my-5 text-sm text-black border  overflow-hidden table table-hover" id="flight_table">
             <thead>
               <tr class="border-b bg-[#7CB0B2]">
                 <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Invoice Date</th>

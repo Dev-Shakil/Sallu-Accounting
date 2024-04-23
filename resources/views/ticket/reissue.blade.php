@@ -112,7 +112,9 @@
                     </div>
                 </div>
                
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-black text-white px-4 py-2 rounded ">Submit</button>
+                </div>
             </form>
         </div>
     

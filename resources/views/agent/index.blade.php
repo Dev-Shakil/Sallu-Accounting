@@ -159,6 +159,7 @@
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2">Serial</th>
+                        <th class="px-4 py-2">Date</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Phone</th>
                         <th class="px-4 py-2">Email</th>
@@ -173,6 +174,7 @@
                     @foreach($agents as $index => $agent)
                         <tr>
                             <td class="px-4 py-2">{{ $index + 1 }}</td>
+                            <td class="px-4 py-2">{{ date('d-m-Y', strtotime($agent->created_at)) }}</td>
                             <td class="px-4 py-2">{{ $agent->name }}</td>
                             <td class="px-4 py-2">{{ $agent->phone }}</td>
                             <td class="px-4 py-2">{{ $agent->email }}</td>

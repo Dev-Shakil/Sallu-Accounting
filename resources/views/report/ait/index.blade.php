@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container-fluid">
+    <div class="container-fluid bg-white p-3 shadow-lg">
         <form id="reportForm" action="{{ route('ait_report_info') }}" method="POST">
             @csrf
             <div class="row">
@@ -19,7 +19,7 @@
                 
                 
                 <div class="col-md-2 mt-5">
-                    <button type="submit" class="btn btn-outline-primary btn-primary">Submit</button>
+                    <button type="submit" class="bg-black py-2 px-5 text-white text-md rounded-md">Submit</button>
                 </div>
             </div>
         </form>

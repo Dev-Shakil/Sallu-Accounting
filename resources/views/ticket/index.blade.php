@@ -199,7 +199,7 @@
             </div>
             <div class="col-span-2 flex justify-end">
                 <button type="submit" id="add_ticket"
-                    class="bg-[#922724] text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Add</button>
+                    class="bg-black text-xl hover:bg-blue-700 mr-5 text-white font-bold py-2 px-16 rounded">Submit</button>
             </div>
 
         </form>
@@ -283,9 +283,9 @@
                         name="remark"></textarea>
                 </div>
             </div>
-            <div class="w-full flex justify-end mx-4">
-                <button type="submit"
-                    class="bg-[#922724] mt-7 text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
+            <div class="col-span-2 flex justify-end">
+                <button type="submit" id="add_ticket"
+                    class="bg-black text-xl text-white font-bold py-2 px-16 rounded">Submit</button>
             </div>
         </form>
 
@@ -360,10 +360,7 @@
             @csrf
         </form>
 
-        <div class="w-full flex justify-end mx-4">
-            <button type="submit"
-                class="bg-[#922724] mt-7 text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
-        </div>
+        
     </div>
 
 
@@ -473,15 +470,15 @@
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->remark }}</td>
                     <td class="px-2 py-2 text-gray-700 flex items-center justify-around">
                         <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
-                            class="text-blue-500 hover:text-blue-700 mr-1">
+                            class=" mr-1">
                             <i class="fa fa-pencil fa-fw text-xl"></i>
                         </a>
                         <a href="{{ route('ticket_view', ['id' => $ticket->id]) }}"
-                            class="text-green-500 hover:text-green-700 mr-1">
+                            class=" mr-1">
                             <i class="fa fa-eye fa-fw text-xl"></i>
                         </a>
                         <a href="#" onclick="confirmDelete('{{ route('ticket.delete', ['id' => $ticket->id]) }}')"
-                          class="text-red-800 hover:text-red-900 mr-1">
+                          class=" mr-1">
                           <i class="fa fa-trash fa-fw text-xl"></i>
                        </a>
                         {{-- <a href="{{ route('ticket_print', ['id' => $ticket->id]) }}" class="text-red-500 hover:text-red-700">

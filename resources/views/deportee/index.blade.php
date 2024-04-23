@@ -157,11 +157,13 @@
 
         </div>
         
-        <div class="col-span-2 mx-3 flex justify-end">
+        {{-- <div class="col-span-2 mx-3 flex justify-end">
             <button id="add_ticket" type="submit"
                 class="bg-[#922724] text-xl hover:bg-blue-700 text-white font-bold py-2 px-16 rounded">Submit</button>
+        </div> --}}
+        <div class="flex justify-end mr-5">
+            <button type="submit" id="add_ticket" class="bg-black text-white px-4 py-2 rounded ">Submit</button>
         </div>
-
     </form>
 
         

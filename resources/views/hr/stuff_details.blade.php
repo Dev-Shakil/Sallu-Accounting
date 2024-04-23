@@ -121,7 +121,7 @@
         </div>
         <div id="stuff-form">
 
-            <div class="addagent w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
+            <div class="addagent my-3 w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
                 {{-- <form action="/addtype" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="row">
@@ -167,9 +167,10 @@
                     <input type="number" id="salary" name="salary"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
-               
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
+                <div class="flex justify-end">
+                    <button type="submit"
+                    class="bg-black w-fit text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
+                </div>
             </form>
 
             </div>
@@ -179,6 +180,7 @@
                 <thead class="bg-[#5dc8cc]">
                     <tr>
                         <th scope="col" class="px-4 py-2 ">Serial</th>
+                        <th scope="col" class="px-4 py-2 ">Date</th>
                         <th scope="col" class="px-4 py-2 ">Name</th>
                         <th scope="col" class="px-4 py-2 ">Designation</th>
                         <th scope="col" class="px-4 py-2 ">Phone</th>
@@ -192,6 +194,7 @@
                     @foreach ($employees as $index => $employee)
                         <tr>
                             <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
+                            <th class="px-4 py-2">{{ date('d-m-Y', strtotime($employee->created_at)) }}</th>
                             <td class="px-4 py-2 ">{{ $employee->name }}</td>
                             <td class="px-4 py-2 ">{{ $employee->designation }}</td>
                             <td class="px-4 py-2 ">{{ $employee->phone }}</td>

@@ -39,7 +39,7 @@
                 </div>
                 
                 <div class="flex items-end">
-                    <button type="submit" class="btn btn-primary btn-primary">Submit</button>
+                    <button type="submit" class="py-2 px-5 bg-black rounded-md text-md text-white">Submit</button>
                 </div>
             </div>
         </form>

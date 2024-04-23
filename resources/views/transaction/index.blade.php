@@ -30,13 +30,13 @@
                         </div>
                     </div>
         
-                    <button type="submit" class="px-4 py-1 mt-3 border-blue-600 border-2 duration-300 rounded-lg hover:bg-blue-600 hover:text-white text-blue-600 font-semibold ">Submit</button>
+                    <button type="submit" class="px-4 py-2 mt-3 bg-black text-white rounded-md font-semibold ">Submit</button>
                 </form>
             </div>
     
         <div class="allagents bg-white shadow-lg p-3">
                 <table class="table shadow-lg" id="transaction_table">
-                    <thead class="bg-gray-200">
+                    <thead class="bg-[#7CB0B2]">
                         <tr>
                             <th scope="col">Serial</th>
                             <th scope="col">Name</th>

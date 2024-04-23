@@ -156,14 +156,15 @@
                 <form class="grid grid-cols-2 gap-x-6 gap-y-2" action="{{ route('salary.store') }}" method="post">
                     @csrf
                     <div class="flex items-center">
-                      <label for="payment_date" class="w-1/2 pr-4 ">Payment Date*:</label>
-                      <input type="date" id="payment_date" name="payment_date" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                    </div>
-                    <div class="flex items-center">
                       <label for="ref_no" class="w-1/2 pr-4 ">Ref. No.:</label>
                       <input type="text" id="ref_no" name="ref_no" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"value="SL-{{ $nextID }}" readonly
                       >
                     </div>
+                    <div class="flex items-center">
+                      <label for="payment_date" class="w-1/2 pr-4 ">Payment Date*:</label>
+                      <input type="date" id="payment_date" name="payment_date" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    </div>
+                    
                       <div class="flex items-center">
                         <label for="salary_amount" class="w-1/2 pr-4 ">Salary Amount*:</label>
                         <input type="number" id="salary_amount" name="salary_amount" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
@@ -210,7 +211,7 @@
                       <textarea id="remarks" name="remarks" rows="2" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
                     </div>
                     <div class="flex justify-end items-end h-[40px]">
-                      <button type="submit" class="px-4 py-2 rounded bg-blue-500 text-white">Submit</button>
+                      <button type="submit" class="px-4 py-2 rounded mt-2 bg-black text-white">Submit</button>
                     </div>
                   </form>
             </div>
