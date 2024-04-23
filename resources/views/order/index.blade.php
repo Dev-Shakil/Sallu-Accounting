@@ -13,7 +13,10 @@
     </div>
     <div>
 
-
+        <h2 class="text-2xl py-4 flex  w-full mx-auto font-bold
+    px-2  text-gray-900">
+        Invoicing
+    </h2>
         <form action="/addorder" method="POST" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
             @csrf
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">

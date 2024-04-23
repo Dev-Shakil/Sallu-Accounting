@@ -16,10 +16,11 @@
         </div>
     @endif
 
-    <h2 class="text-4xl py-4 flex justify-center font-extrabold bg-[#01919A] text-white">
+    <h2 class="text-2xl py-4 flex xl:w-3/4 lg:w-4/4 w-full mx-auto font-bold
+    px-2  text-gray-900">
         Ticket Invoicing
     </h2>
-    <div class="flex flex-col justify-center items-center p-6 rounded-lg shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
+    <div class="border-t border-gray-2 flex flex-col justify-center items-center p-6 rounded-lg shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
 
         <form class="w-full " id="ticket_form">
             @csrf
