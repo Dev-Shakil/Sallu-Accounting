@@ -52,7 +52,7 @@
                         Date</label>
                     <input type="date" id="invoice_date"
                         class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="invoice_date">
+                        name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="flight_date" class="w-[50%]">Flight
@@ -198,12 +198,12 @@
                 </div>
 
             </div>
-            <div class="col-span-2 flex justify-end">
+            {{-- <div class="col-span-2 flex justify-end">
                 <button type="submit" id="add_ticket"
                     class="bg-black text-xl hover:bg-blue-700 mr-5 text-white font-bold py-2 px-16 rounded">Submit</button>
             </div>
 
-        </form>
+        </form> --}}
 
         <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
             Net Profit - 00
@@ -226,7 +226,7 @@
             </div> --}}
         </div>
 
-        <form class="w-full my-4" id="receive_payment" method="post" action="{{ route('receive_only') }}">
+        <div class="w-full my-4" id="receive_payment">
             @csrf
             <div class="flex flex-wrap gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
@@ -247,7 +247,7 @@
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="agent_supplier"
                         class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Agent/Supplier</label>
-                    {{-- <input type="text" id="agent_supplier" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="agent_supplier" > --}}
+                    
                     <select id="agent_supplier" name="agent_supplier"
                         class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         required>
@@ -259,7 +259,7 @@
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Select
                         Candidate</label>
-                    {{-- <input type="text" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="amount"> --}}
+                    
                     <select id="agent_supplier_id" name="agent_supplier_id"
                         class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         required>
@@ -288,7 +288,7 @@
                 <button type="submit" id="add_ticket"
                     class="bg-black text-xl text-white font-bold py-2 px-16 rounded">Submit</button>
             </div>
-        </form>
+        </div>
 
 
         <div class="my-4 w-full" id="gds">
@@ -357,11 +357,16 @@
         </div>
 
 
-        <form id="refundForm" action="{{ route('refund_ticket') }}" method="post" style="display: none;">
+        <div id="refundForm" method="post" style="display: none;">
             @csrf
-        </form>
+        </div>
 
-        
+        <div class="col-span-2 flex justify-end">
+            <button type="submit" id="add_ticket"
+                class="bg-black text-xl hover:bg-blue-700 mr-5 text-white font-bold py-2 px-16 rounded">Submit</button>
+        </div>
+
+    </form>
     </div>
 
 
@@ -812,7 +817,13 @@
                 }
 
             });
+            // var today = new Date();
 
+            // // Format the date as "day/month/year"
+            // var formattedDate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+
+            // // Set the value of the input field
+            // document.getElementById('invoice_date').value = formattedDate;
 
             $('#agent_price').on('change', function() {
                 $('#agent_price_1').val(this.value);
@@ -1031,6 +1042,49 @@
             });
 
 
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sectorInput = document.getElementById('sector');
+    
+            sectorInput.addEventListener('input', function() {
+                var inputValue = this.value.toUpperCase();
+                var formattedValue = inputValue.replace(/-/g, ''); // Remove existing hyphens
+                var newValue = '';
+                for (var i = 0; i < formattedValue.length; i++) {
+                    newValue += formattedValue[i];
+                    if ((i + 1) % 3 === 0 && i + 1 !== formattedValue.length) {
+                        newValue += '-';
+                    }
+                }
+                this.value = newValue;
+            });
+
+            sectorInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Backspace') {
+                    var currentValue = this.value;
+                    if (currentValue.slice(-1) === '-') {
+                        this.value = currentValue.slice(0, -2); // Remove the character before the hyphen
+                        event.preventDefault();
+                    }
+                }
+            });
+        });
+        var flightInput = document.getElementById('flight_no');
+
+        flightInput.addEventListener('input', function() {
+            var inputValue = this.value;
+            if (inputValue.length === 2) {
+                this.value = inputValue + '-';
+            }
+        });
+
+        flightInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Backspace' && this.value.length > 2) {
+                this.value = this.value.slice(0, -1);
+                event.preventDefault();
+            }
         });
     </script>
 </x-app-layout>
