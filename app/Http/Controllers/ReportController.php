@@ -19,6 +19,7 @@ use App\Models\VoidTicket;
 use Illuminate\Support\Facades\Auth; // Add this line
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View as ViewFacade;
 
 class ReportController extends Controller
 {
@@ -1400,15 +1401,7 @@ class ReportController extends Controller
                         $query->where('date', '<=', $end_date);
                     }
                 });
-                // $order->where(function ($query) use ($start_date, $end_date) {
-                //     if (!is_null($start_date)) {
-                //         $query->where('date', '>=', $start_date);
-                //     }
-
-                //     if (!is_null($end_date)) {
-                //         $query->where('date', '<=', $end_date);
-                //     }
-                // });
+               
                 $reissue->where(function ($query) use ($start_date, $end_date) {
                     if (!is_null($start_date)) {
                         $query->where('date', '>=', $start_date);
@@ -1678,8 +1671,8 @@ class ReportController extends Controller
             <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
             <td class="w-[12%] text-md font-bold" ></td>
             <td class="text-lg font-semibold"></td>
-            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . 'Dr</td>
-            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . 'Cr</td>
+            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . '</td>
+            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . '</td>
             <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
         </tr>
                                         </tbody>
@@ -1886,12 +1879,12 @@ class ReportController extends Controller
 
             foreach ($sortedCollection as $index => $item) {
                 // dd($item->getTable());
-                $balance += $item->supplier_price;
-                $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                $credit += $item->supplier_price;
+              
                 if ($item->getTable() == "tickets") {
                     // Handle logic specific to Ticket model
-
+                    $credit += $item->supplier_price;
+                    $balance += $item->supplier_price;
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                     $html .= <<<HTML
                                                 <tr>
                                                     <td class="w-[10%]"> $item->invoice_date </td>
@@ -1907,13 +1900,14 @@ class ReportController extends Controller
                                                     <td class="w-[12%] totaldebit"> </td>
                                                     <td class="w-[12%] totalcredit">$item->supplier_price </td>
                                                     <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                                    <td class="w-[12%] totaltotal"> $item->supplier_new_amount  Cr</td>
+                                                    <td class="w-[12%] totaltotal">$currentAmount</td>
                                                 </tr>
                                             HTML;
-                } elseif ($item->getTable() == "refund") {
+                }
+                elseif ($item->getTable() == "refund") {
                     // dd($item);
                     $balance -= $item->now_supplier_fare;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                     $debit += $item->now_supplier_fare;
 
                     $agentname = Agent::where('id', $id)->value('name');
@@ -1940,9 +1934,9 @@ class ReportController extends Controller
                                             HTML;
                 } elseif ($item->getTable() == "receive") {
                     // dd($item);
-                    $balance -= $item->amount;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                    $debit += $item->amount;
+                    $balance += $item->amount;
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+                    $credit += $item->amount;
                     $html .= <<<HTML
                                             <tr>
                                                 <td class="w-[10%]"> {$item->date} </td>
@@ -1952,16 +1946,16 @@ class ReportController extends Controller
                                                     Remarks:  {$item->remark} <br>
                                                     <b>Receive<b>
                                                 </td>
-                                                <td class="w-[12%] totaldebit">{$item->amount}</td>
-                                                <td class="w-[12%] totalcredit"></td>
+                                                <td class="w-[12%] totaldebit"></td>
+                                                <td class="w-[12%] totalcredit">{$item->amount}</td>
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
                 } elseif ($item->getTable() == "payment") {
 
-                    $balance += $item->amount;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                    $credit += $item->amount;
+                    $balance -= $item->amount;
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+                    $debit += $item->amount;
 
                     $html .= <<<HTML
                                             <tr>
@@ -1972,8 +1966,8 @@ class ReportController extends Controller
                                                     Remarks:  {$item->remark} <br>
                                                     <b>Payment<b>
                                                 </td>
-                                                <td class="w-[12%] totaldebit"></td>
-                                                <td class="w-[12%] totalcredit">{$item->amount}</td>
+                                                <td class="w-[12%] totaldebit">{$item->amount}</td>
+                                                <td class="w-[12%] totalcredit"></td>
                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                             </tr>
                                             HTML;
@@ -1982,7 +1976,7 @@ class ReportController extends Controller
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     // dd($item);
                     $balance += $item->now_supplier_fare;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                     $credit += $item->now_supplier_fare;
                     $html .= <<<HTML
@@ -2007,7 +2001,7 @@ class ReportController extends Controller
                     // $currentAmount = $item->now_supplier_amount;
                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
                     $balance += $item->now_supplier_fare;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                     $credit += $item->now_supplier_fare;
                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
 
@@ -2028,11 +2022,9 @@ class ReportController extends Controller
                                             </tr>
                                             HTML;
                 } elseif ($item->getTable() == "order") {
-                    // $currentAmount = $item->agent_new_amount;
-                    // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-                    // dd($item);
+                    
                     $balance += $item->payable_amount;
-                    $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                    $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                     $credit += $item->payable_amount;
 
                     $typeneme = Type::where('id', $item->type)->value('name');
@@ -2054,15 +2046,15 @@ class ReportController extends Controller
                                             HTML;
                 }
             }
-            $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+            $balance = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
             $html .= '                  
                                         <tr class="py-4">
                                             <td class="w-[12%] font-bold" >To Receive :  BDT</td>
                                             <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
                                             <td class="w-[12%] text-md font-bold" ></td>
                                             <td class="text-lg font-semibold"></td>
-                                            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . 'Dr</td>
-                                            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . 'Cr</td>
+                                            <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . '</td>
+                                            <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . '</td>
                                             <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
                                         </tr>
                                         </tbody>
@@ -2112,10 +2104,16 @@ class ReportController extends Controller
     }
     public function receive_report_index()
     {
-        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
-        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
-        return view('report.receive.index', compact('methods', 'agents', 'suppliers'));
+        if(Auth::user()){
+            $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+            return view('report.receive.index', compact('methods', 'agents', 'suppliers'));
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
 
     // public function receive_report_info(Request $request)
@@ -2253,7 +2251,8 @@ class ReportController extends Controller
     // }
     public function receive_report_info(Request $request)
     {
-        // dd($request->all());
+        if(Auth::user()){
+              // dd($request->all());
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
 
@@ -2343,6 +2342,7 @@ class ReportController extends Controller
                     <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
             $printUrl = url('/receive_voucher', ['id' => $item]);
+            $deleteUrl = url('/delete_receive', ['id' => $item]);
             $html .= <<<HTML
                             <tr class="">
                                 <td class="w-[10%] px-4 py-2 text-left"> $item->date </td>
@@ -2354,7 +2354,7 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black px-3 rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black px-3 rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
@@ -2390,6 +2390,11 @@ class ReportController extends Controller
         ';
 
         return $html;
+        }
+        else{
+            return view('welcome');
+        }
+      
     }
     public function payment_report_index()
     {
@@ -2514,6 +2519,7 @@ class ReportController extends Controller
                     <tbody id="data">';
         foreach ($result as $key => $item) :
             $printUrl = url('/payment_voucher', ['id' => $item->id]);
+            $deleteUrl = url('/delete_payment', ['id' => $item->id]);
             $html .=
                 '<tr class="">
                                 <td class="w-[10%] px-2 py-2 text-left">' . $item->date . '</td>
@@ -2524,7 +2530,7 @@ class ReportController extends Controller
                 '</td>
                                 <td class="w-[12%]  px-2 py-2 text-left">' . $item->remark . '</td>
                                 <td class="w-[12%]  px-2 py-2 text-left amount">' . $item->amount . '</td>
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href=' . $printUrl . ' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href=' . $printUrl . ' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><a href ='.$deleteUrl.'<button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
                             </tr>
                             ';
         endforeach;
@@ -3863,7 +3869,7 @@ class ReportController extends Controller
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
                         <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-                        <p><span class="font-semibold">Period Date :</span> '.$start_date.' to '.$end_date.' </p>
+                        <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . ' </p>
                     </div>
                     <div class="flex items-center">
                        
@@ -5181,5 +5187,351 @@ class ReportController extends Controller
 
 
         return $htmlTable;
+    }
+    public function bank_book(){
+        if(Auth::user()){
+            $methods = Transaction::where([['user', Auth::id()],['name', '!=', 'CASH']])->get();
+            return view('report.bankbook.index', compact('methods'));
+        }
+        else{
+            return view('welcome'); 
+        }
+        
+    }
+
+    public function cash_book(){
+        if(Auth::user()){
+            $methods = Transaction::where([['user', Auth::id()],['name', '=', 'CASH']])->first();
+            // dd($methods);
+            return view('report.cashbook.index', compact('methods'));
+        }
+        else{
+            return view('welcome'); 
+        }
+        
+    }
+
+    public function bank_book_report(Request $request){
+
+        if(Auth::user()){
+            $start_date = $request->input('start_date') ?? null;
+            $end_date = $request->input('end_date') ?? null;
+            $method = $request->input('method') ?? null;
+    
+            if ($start_date) {
+                $start_date = (new DateTime($start_date))->format('Y-m-d');
+            }
+            
+            if ($end_date) {
+                $end_date = (new DateTime($end_date))->format('Y-m-d');
+            }
+            
+            $user = Auth::id();
+            
+            $query1 = Receiver::where('user', $user);
+            $query2 = Payment::where('user', $user);
+    
+            if ($start_date) {
+                $query1->whereDate('date', '>=', $start_date);
+                $query2->whereDate('date', '>=', $start_date);
+                
+            }
+            
+            if ($end_date) {
+                $query1->whereDate('date', '<=', $end_date);
+                $query2->whereDate('date', '<=', $end_date);
+               
+            }
+    
+            if($method) {
+                $query1->where('method',  $method);
+                $query2->where('method',  $method);
+            }
+    
+            $receive = $query1->get();
+            $payment = $query2->get();
+    
+            $merged = $receive->concat($payment);
+    
+            $sorted = $merged->sortBy('date');
+    
+            foreach ($sorted as $data){
+                $data->method = Transaction::where('id', $data->method)->value('name');
+                $data->date = (new DateTime($data->date))->format('d/m/Y');
+                if($data->receive_from == 'agent'){
+                    $data->name = Agent::where('id', $data->agent_supplier_id)->value('name');
+                }
+                else{
+                    $data->name = Supplier::where('id', $data->agent_supplier_id)->value('name');
+     
+                }
+            }
+            // dd($sorted);
+            $html = ViewFacade::make('report.bankbook.bankbook', [
+                'datas' => $sorted,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+            ])->render();
+            return response()->json(['html' => $html]);
+        }
+        else{
+            return view('welcome'); 
+        }
+       
+    }
+    
+
+    public function cash_book_report(Request $request){
+
+        if(Auth::user()){
+            $start_date = $request->input('start_date') ?? null;
+            $end_date = $request->input('end_date') ?? null;
+           
+            $method = $request->input('method') ?? null;
+           
+            if ($start_date) {
+                $start_date = (new DateTime($start_date))->format('Y-m-d');
+            }
+            
+            if ($end_date) {
+                $end_date = (new DateTime($end_date))->format('Y-m-d');
+            }
+            
+            $user = Auth::id();
+            
+            $query1 = Receiver::where('user', $user);
+            $query2 = Payment::where('user', $user);
+    
+            if ($start_date) {
+                $query1->whereDate('date', '>=', $start_date);
+                $query2->whereDate('date', '>=', $start_date);
+                
+            }
+            
+            if ($end_date) {
+                $query1->whereDate('date', '<=', $end_date);
+                $query2->whereDate('date', '<=', $end_date);
+               
+            }
+
+            if($method) {
+                $query1->where('method',  $method);
+                $query2->where('method',  $method);
+            }
+    
+            $receive = $query1->get();
+            $payment = $query2->get();
+    
+            $merged = $receive->concat($payment);
+    
+            $sorted = $merged->sortBy('date');
+    
+            foreach ($sorted as $data){
+                $data->method = Transaction::where('id', $data->method)->value('name');
+                $data->date = (new DateTime($data->date))->format('d/m/Y');
+                if($data->receive_from == 'agent'){
+                    $data->name = Agent::where('id', $data->agent_supplier_id)->value('name');
+                }
+                else{
+                    $data->name = Supplier::where('id', $data->agent_supplier_id)->value('name');
+     
+                }
+            }
+            // dd($sorted);
+            $html = ViewFacade::make('report.cashbook.cashbook', [
+                'datas' => $sorted,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+            ])->render();
+            return response()->json(['html' => $html]);
+        }
+        else{
+            return view('welcome'); 
+        }
+       
+    }
+
+    public function dailystate(){
+        if(Auth::user()){
+            return view('report.dailystate.index');
+        }
+        else{
+            return view('welcome'); 
+        }
+    }
+
+    public function dailystate_report(Request $request){
+        if(Auth::user()){
+            $date = $request->input('date') ?? null;
+    
+            if ($date) {
+                $date = (new DateTime($date))->format('Y-m-d');
+            }
+
+            $user = Auth::id();
+            
+            $query1 = Receiver::where('user', $user);
+            $query2 = Payment::where('user', $user);
+    
+            if ($date) {
+                $query1->where('date', '=', $date);
+                $query2->where('date', '=', $date);
+                
+            }
+            $receive = $query1->get();
+            $payment = $query2->get();
+    
+            $merged = $receive->concat($payment);
+    
+            $sorted = $merged->sortBy('date');
+    
+            foreach ($sorted as $data){
+                $data->method = Transaction::where('id', $data->method)->value('name');
+                $data->date = (new DateTime($data->date))->format('d/m/Y');
+                if($data->receive_from == 'agent'){
+                    $data->name = Agent::where('id', $data->agent_supplier_id)->value('name');
+                }
+                else{
+                    $data->name = Supplier::where('id', $data->agent_supplier_id)->value('name');
+     
+                }
+            }
+            // dd($sorted);
+            $html = ViewFacade::make('report.dailystate.dailystate', [
+                'datas' => $sorted,
+                'date' => $date
+            ])->render();
+            
+            return response()->json(['html' => $html]);
+
+
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+    public function profitreport_view(){
+        if(Auth::user()){
+         
+            return view('report.profitreport.index');
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+    public function profitreport(Request $request){
+        if(Auth::user()){
+            $user = Auth::id();
+            $start_date = $request->input('start_date') ?? null;
+            $end_date = $request->input('end_date') ?? null;
+
+               
+            if ($start_date) {
+                $start_date = (new DateTime($start_date))->format('Y-m-d');
+            }
+            
+            if ($end_date) {
+                $end_date = (new DateTime($end_date))->format('Y-m-d');
+            }
+            
+            if ($start_date && $end_date) {
+                $tickets = Ticket::where([
+                    ['is_delete', 0],
+                    ['is_active', 1],
+                    ['user', $user]
+                ])->whereBetween('invoice_date', [$start_date, $end_date])->get();
+            } elseif ($start_date) {
+                $tickets = Ticket::where([
+                    ['is_delete', 0],
+                    ['is_active', 1],
+                    ['user', $user],
+                    ['invoice_date', '>=', $start_date]
+                ])->get();
+            } elseif ($end_date) {
+                $tickets = Ticket::where([
+                    ['is_delete', 0],
+                    ['is_active', 1],
+                    ['user', $user],
+                    ['invoice_date', '<=', $end_date]
+                ])->get();
+            } else {
+                $tickets = Ticket::where([
+                    ['is_delete', 0],
+                    ['is_active', 1],
+                    ['user', $user]
+                ])->get();
+            }
+            
+            
+            $countTicket = $tickets->count();
+            $selling_price = $tickets->pluck('agent_price')->sum();
+            $buying_price = $tickets->pluck('supplier_price')->sum();
+            $ticket_profit = $tickets->pluck('profit')->sum();
+            
+            $from_ticket = [
+                'name' => 'Tickets',
+                'count' => $countTicket,
+                'buying_price' => $buying_price,
+                'selling_price' => $selling_price,
+                'profit' => $ticket_profit
+            ];
+            
+            $types = Type::where([
+                ['user', $user],
+                ['is_active', 1],
+                ['is_delete', 0]
+            ])->pluck('id', 'name');
+            
+            $orders = Order::where([
+                ['user', $user],
+                ['is_delete', 0],
+                ['is_active', 1]
+            ]);
+
+            if ($start_date) {
+                $orders->whereDate('date', '>=', $start_date);
+            }
+            
+            if ($end_date) {
+                $orders->whereDate('date', '<=', $end_date);
+            }
+            
+            $typeData = [];
+            
+            foreach($types as $typeName => $typeId){
+                $typeOrders = $orders->where('type', $typeId)->get();
+                //  dd($typeOrders);
+                $count = $typeOrders->count();
+                $selling_price = $typeOrders->pluck('contact_amount')->sum();
+                $buying_price = $typeOrders->pluck('payable_amount')->sum();
+                $single_profit = $typeOrders->pluck('profit')->sum();
+            
+                $typeData[] = [
+                    'name' => $typeName,
+                    'count' => $count,
+                    'buying_price' => $buying_price,
+                    'selling_price' => $selling_price,
+                    'profit' => $single_profit
+                ];
+            }
+            
+            // $typeData now contains the calculated data for each type
+            $typedatalength = count($typeData);
+            // dd($typedatalength, $typeData);
+            $typeData[$typedatalength] = $from_ticket;   
+                        // dd($from_ticket, $typeData);
+            $html = ViewFacade::make('report.profitreport.ProfitReport', [
+                'typeData' => $typeData,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+            ])->render();
+            return response()->json(['html' => $html]);
+            // return view('report.profitreport.ProfitReport', compact('typeData'));
+        }
+        else{
+            return view('welcome');
+        }
     }
 }

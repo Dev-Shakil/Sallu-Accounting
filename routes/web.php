@@ -215,6 +215,8 @@ Route::post('/general-ledger-report', [ReportController::class, 'general_ledger_
 Route::get('/receive_report_index', [ReportController::class, 'receive_report_index'])->name('receive_report_index');
 Route::post('/receive_report_info', [ReportController::class, 'receive_report_info'])->name('receive_report_info');
 Route::get('/receive_voucher/{id}', [ReportController::class, 'receive_voucher'])->name('receive_voucher');
+Route::get('/delete_receive/{id}', [ReceivePaymentController::class, 'delete_receive'])->name('delete_receive');
+Route::get('/delete_payment/{id}', [ReceivePaymentController::class, 'delete_payment'])->name('delete_payment');
 
 Route::get('/payment_report_index', [ReportController::class, 'payment_report_index'])->name('payment_report_index');
 Route::post('/payment_report_info', [ReportController::class, 'payment_report_info'])->name('payment_report_info');
@@ -287,6 +289,17 @@ Route::get('change_password/view', function () {
 Route::get('company_profile/view', function () {
     return app(SettingsController::class)->edit_company_profile();
 })->name('company_profile.view');
+
+Route::get('/bank_book', [ReportController::class, 'bank_book'])->name('bank_book.view');
+Route::get('/cash_book', [ReportController::class, 'cash_book'])->name('cash_book.view');
+Route::post('/bank_book_report', [ReportController::class, 'bank_book_report'])->name('bank_book_report');
+Route::post('/cash_book_report', [ReportController::class, 'cash_book_report'])->name('cash_book_report');
+
+Route::get('/dailystate', [ReportController::class, 'dailystate'])->name('dailystate.view');
+Route::post('/dailystate_report', [ReportController::class, 'dailystate_report'])->name('dailystate_report');
+
+Route::get('/profitreport_view', [ReportController::class, 'profitreport_view'])->name('profitreport.view');
+Route::post('/profitreport', [ReportController::class, 'profitreport'])->name('profitreport.info');
 
 Route::get('airline/view', function () {
     return app(AirlineController::class)->index();

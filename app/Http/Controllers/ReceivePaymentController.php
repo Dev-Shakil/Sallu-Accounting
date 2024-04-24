@@ -9,6 +9,7 @@ use App\Models\Receiver;
 use App\Models\Transaction;  // Assuming Agent model is in the App\Models namespace
 use App\Models\Supplier; // Assuming Agent model is in the App\Models namespace
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use DateTime;
 
 class ReceivePaymentController extends Controller
@@ -165,6 +166,7 @@ class ReceivePaymentController extends Controller
         return response()->json(['message' => 'Receive successfully submitted', 'success' => true]);
         // return view('receive_payment.index', compact('agents', 'suppliers','methods'))->with('success', 'Receive successfully submitted.');
     }
+
     public function getlastid_receive(){
         try {
             $lastId = Receiver::latest('id')->value('id');
@@ -229,5 +231,76 @@ class ReceivePaymentController extends Controller
             // Handle any exceptions that might occur during the process
             return response()->json(['error' => 'Error fetching last ID'], 500);
         }     
+    }
+
+    public function delete_receive($id) {
+        DB::beginTransaction();
+    
+        try {
+            $receive = Receiver::find($id);
+            $transaction = Transaction::where('id', $receive->method)->first();
+    
+            // Update transaction amount
+            $transaction->amount -= $receive->amount;
+            $transaction->save();
+    
+            // Update agent's or supplier's amount based on receive_from
+            if($receive->receive_from == 'agent') {
+                $agent = Agent::find($receive->agent_supplier_id);
+                $agent->amount += $receive->amount;
+                $agent->save();
+            } else {
+                $supplier = Supplier::find($receive->agent_supplier_id);
+                $supplier->amount -= $receive->amount;
+                $supplier->save();
+            }
+    
+         
+            $receive->delete();
+    
+            DB::commit();
+    
+            return redirect()->route('receive_report_index');
+        } catch (\Exception $e) {
+            DB::rollback();
+      
+            return redirect()->back()->with('error', 'An error occurred while deleting the receive record.');
+        }
+    }
+
+    
+    public function delete_payment($id) {
+        DB::beginTransaction();
+    
+        try {
+            $payment = Payment::find($id);
+            $transaction = Transaction::where('id', $payment->method)->first();
+    
+            // Update transaction amount
+            $transaction->amount += $payment->amount;
+            $transaction->save();
+    
+            // Update agent's or supplier's amount based on receive_from
+            if($payment->receive_from == 'agent') {
+                $agent = Agent::find($payment->agent_supplier_id);
+                $agent->amount -= $payment->amount;
+                $agent->save();
+            } else {
+                $supplier = Supplier::find($payment->agent_supplier_id);
+                $supplier->amount += $payment->amount;
+                $supplier->save();
+            }
+    
+         
+            $payment->delete();
+    
+            DB::commit();
+    
+            return redirect()->route('payment_report_index');
+        } catch (\Exception $e) {
+            DB::rollback();
+      
+            return redirect()->back()->with('error', 'An error occurred while deleting the payment record.');
+        }
     }
 }

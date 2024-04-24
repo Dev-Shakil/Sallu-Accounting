@@ -21,7 +21,7 @@ class TransactionController extends Controller
         // dd('s');
        
         $transaction = new Transaction();
-        $transaction->name = $request->name;
+        $transaction->name = strtoupper($request->name);
         $transaction->description = $request->description;
         
         $transaction->user = Auth::id();
