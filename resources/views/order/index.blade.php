@@ -32,7 +32,7 @@
                         Date</label>
                     <input type="date" id="date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="date">
+                        name="date" value="<?php echo date('Y-m-d'); ?>">
                 </div>
 
             </div>
@@ -383,7 +383,7 @@
                             <td class="text-sm w-[150px]">
                                 @foreach ($suppliers as $supplier)
                                     @if ($order->supplier == $supplier->id)
-                                        {{ $supplier->name }}
+                                        {{ $supplier->name }} <span class="font-bold">{{ $supplier->company }}</span>
                                     @endif
                                 @endforeach
                             </td>
@@ -554,6 +554,20 @@
                         console.error('Error:', error);
                     }
                 });
+            });
+            $('#num').on('change', function(event) {
+                var number_of_orders = parseInt($('#num').val());
+                if (number_of_orders > 1) {
+                    $('#name').prop('disabled', true);
+                    $('#passport_no').prop('disabled', true);
+                    $('#name').addClass('bg-gray-300');
+                    $('#passport_no').addClass('bg-gray-300');
+                } else {
+                    $('#name').prop('disabled', false);
+                    $('#name').removeClass('bg-gray-300');
+                    $('#passport_no').removeClass('bg-gray-300');
+                    $('#passport_no').removeClass('bg-gray-300');
+                }
             });
 
             $('#submit_invoice').on('click', function(event) {

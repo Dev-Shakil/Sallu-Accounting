@@ -203,6 +203,8 @@ Route::post('/submit-payment', [ReceivePaymentController::class, 'payment'])->na
 Route::post('/submit-receive', [ReceivePaymentController::class, 'receive'])->name('submit.receive');
 Route::get('/receive_payment', [ReceivePaymentController::class, 'index'])->name('receive_payment');
 Route::get('/receive_payment', [ReceivePaymentController::class, 'index'])->name('receive_payment.index');
+Route::get('/payment_form', [ReceivePaymentController::class, 'payment_index'])->name('payment.index');
+Route::get('/receive_form', [ReceivePaymentController::class, 'receive_index'])->name('receive.index');
 
 Route::get('/report/view', function () {
     return app(ReportController::class)->index();

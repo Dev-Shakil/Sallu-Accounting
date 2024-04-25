@@ -40,7 +40,7 @@
                 <tbody>
                     @foreach($types as $index => $type)
                         <tr>
-                            <th scope="row" class="px-4 py-2">{{ $type->id}}</th>
+                            <th scope="row" class="px-4 py-2">{{ $index + 1}}</th>
                             <td class="px-4 py-2 ">{{ $type->name }}</td>
                             <td class="px-4 py-2 flex justify-center">
                                 <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class=""><i class="text-xl fa fa-pencil fa-fw"></i></a>

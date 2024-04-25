@@ -67,8 +67,8 @@
                             <td class="px-4 py-2 ">{{ $supplier->company }}</td>
                             <td class="px-4 py-2 ">{{ $supplier->description }}</td>
                             <td class="px-4 py-2  w-[75px]">
-                                <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class="text-blue-500 hover:underline"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                <a href="{{ route('supplier.delete', ['id' => $supplier->id]) }}" class="text-red-500 hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class=" hover:underline"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                <a href="{{ route('supplier.delete', ['id' => $supplier->id]) }}" class=" hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         </tr>
                     @endforeach

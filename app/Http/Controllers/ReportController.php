@@ -1447,14 +1447,14 @@ class ReportController extends Controller
             $html = '
                         
                             
-                    <main class="flex-1 mx-auto max-w-7xl px-10">
+                    <main class="flex-1 mx-auto max-w-7xl px-10 ">
                     <div class="justify-end flex gap-3 p-5 ">
                         <button class="text-white bg-green-400 font-bold text-md py-2 px-4">Send</button>
                         <button id="printBtn" class="text-white bg-[#882278] font-bold text-md py-2 px-4">Print</button>
                         
                         <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
                     </div>
-                    <div id="printSection" class="shadow-lg p-3">
+                    <div id="printSection" class="shadow-lg p-3 bg-white">
                         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                         <div class="flex items-center justify-between mb-2">
                             <div class="text-lg">
@@ -1840,13 +1840,13 @@ class ReportController extends Controller
             // dd($acountname, $id);
             $html = ' 
                             
-                        <main class="flex-1 mx-auto max-w-7xl px-10">
+                        <main class="flex-1  mx-auto max-w-7xl px-10">
                             <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
                                 <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
                                 <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
                                 <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
                             </div>
-                            <div id="printSection" class="shadow-lg p-3">
+                            <div id="printSection" class="shadow-lg p-3 bg-white">
                                     <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                                     <div class="flex items-center justify-between mb-2">
                                         <div class="text-lg">
@@ -2330,13 +2330,13 @@ class ReportController extends Controller
                 <table class="table-auto w-full shadow-2xl">
                     <thead>
                     <tr class="bg-[#0E7490] text-white">
-                        <th class="px-4 py-2 text-left">Date</th>
-                        <th class="px-4 py-2 text-left">Voucher No</th>
-                        <th class="px-4 py-2 text-left">Receive From</th>
-                        <th class="px-4 py-2 text-left">Receive Mode</th>
-                        <th class="px-4 py-2 text-left">Narration</th>
-                        <th class="px-4 py-2 text-left">Amount</th>
-                        <th class="px-4 py-2 text-center">Actions</th>
+                        <th class="px-4 py-2 text-md text-left">Date</th>
+                        <th class="px-4 py-2 text-md text-left">Voucher No</th>
+                        <th class="px-4 py-2 text-md text-left">Receive From</th>
+                        <th class="px-4 py-2 text-md text-left">Receive Mode</th>
+                        <th class="px-4 py-2 text-md text-left">Narration</th>
+                        <th class="px-4 py-2 text-md text-left">Amount</th>
+                        <th class="px-4 py-2 text-md text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody id="data" class="divide-y divide-gray-500">';
@@ -2345,16 +2345,16 @@ class ReportController extends Controller
             $deleteUrl = url('/delete_receive', ['id' => $item]);
             $html .= <<<HTML
                             <tr class="">
-                                <td class="w-[10%] px-4 py-2 text-left"> $item->date </td>
-                                <td class="w-[11%] px-4 py-2 text-left"> $item->invoice </td>
-                                <td class="w-[15%] px-4 py-2 text-left"> $item->name </td>
-                                <td class="w-[28%] px-4 py-2 text-left">
+                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
+                                <td class="w-[11%] px-4 py-2 text-sm text-left"> $item->invoice </td>
+                                <td class="w-[15%] px-4 py-2 text-sm text-left"> $item->name </td>
+                                <td class="w-[28%] px-4 py-2 text-sm text-left">
                                   $item->method_name
                                 </td>
-                                <td class="w-[12%] px-4 py-2 text-left"> $item->remark </td>
-                                <td class="w-[12%] px-4 py-2 text-left amount">$item->amount</td>
+                                <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
+                                <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black px-3 rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
@@ -2362,7 +2362,7 @@ class ReportController extends Controller
         $html .= ' 
                         <tr>
                             <td class="px-4 py-2 text-left font-bold" colspan="5">Total Amount </td>
-                            <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
+                            <td class="ml-5 font-bold text-md px-2 " id="total_amount"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -2407,6 +2407,13 @@ class ReportController extends Controller
     {
         $user = Auth::id();
         $payment_voucher = Payment::findOrFail($id);
+        $transaction = Transaction::where([
+            ['id', $payment_voucher->method],
+            ['user', $user]
+        ])->select('name')->first();
+        
+        $methodName = $transaction ? $transaction->name : null;
+        $payment_voucher->method = $methodName;
         if ($payment_voucher->receive_from == 'agent') {
             $supplier = Agent::where([
                 ['id', $payment_voucher->agent_supplier_id]
@@ -2424,6 +2431,13 @@ class ReportController extends Controller
         $user = Auth::id();
         $receive_voucher = Receiver::findOrFail($id);
         // dd($receive_voucher);
+        $transaction = Transaction::where([
+            ['id', $receive_voucher->method],
+            ['user', $user]
+        ])->select('name')->first();
+        
+        $methodName = $transaction ? $transaction->name : null;
+        $receive_voucher->method = $methodName;
         if ($receive_voucher->receive_from == 'agent') {
             $agent = Agent::where([
                 ['id', $receive_voucher->agent_supplier_id]
@@ -2654,13 +2668,13 @@ class ReportController extends Controller
                     <thead>
                     <tr class="bg-[#0E7490] text-white">
                     
-                        <th class="px-4 py-2 text-left">Date</th>
-                        <th class="px-4 py-2 text-left">Voucher No</th>
-                        <th class="px-4 py-2 text-left">Payment From</th>
-                        <th class="px-4 py-2 text-left">Payment Mode</th>
-                        <th class="px-4 py-2 text-left">Narration</th>
-                        <th class="px-4 py-2 text-left">Amount</th>
-                        <th class="px-4 py-2 text-center">Action</th>
+                        <th class="px-4 py-2 text-md text-left">Date</th>
+                        <th class="px-4 py-2 text-md text-left">Voucher No</th>
+                        <th class="px-4 py-2 text-md text-left">Payment From</th>
+                        <th class="px-4 py-2 text-md text-left">Payment Mode</th>
+                        <th class="px-4 py-2 text-md text-left">Narration</th>
+                        <th class="px-4 py-2 text-md text-left">Amount</th>
+                        <th class="px-4 py-2 text-md text-center">Action</th>
                     </tr>
                    
                     </thead>
@@ -2669,16 +2683,16 @@ class ReportController extends Controller
             $printUrl = url('/payment_voucher', ['id' => $item->id]);
             $html .= <<<HTML
                             <tr class="">
-                                <td class="w-[10%] px-4 py-2 text-left"> $item->date </td>
-                                <td class="w-[11%] px-4 py-2 text-left"> $item->invoice </td>
-                                <td class="w-[15%] px-4 py-2 text-left"> $item->name </td>
-                                <td class="w-[28%] px-4 py-2 text-left">
+                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
+                                <td class="w-[11%] px-4 py-2 text-sm text-left"> $item->invoice </td>
+                                <td class="w-[15%] px-4 py-2 text-sm text-left"> $item->name </td>
+                                <td class="w-[28%] px-4 py-2 text-sm text-left">
                                 $item->method_name
                                 </td>
-                                <td class="w-[12%] px-4 py-2 text-left"> $item->remark </td>
-                                <td class="w-[12%] px-4 py-2 text-left amount">$item->amount</td>
+                                <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
+                                <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black px-3 rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black px-3 rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
@@ -2689,7 +2703,7 @@ class ReportController extends Controller
 
                         <td class="px-4 py-2 text-left font-bold" colspan="3"></td>
                         <td class="px-4 py-2 text-left font-bold" colspan="2">Total Amount </td>
-                        <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
+                        <td class="ml-5 font-bold text-md px-2 " id="total_amount"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -3175,6 +3189,7 @@ class ReportController extends Controller
         $htmlTable = '';
 
         $htmlTable = '
+        <div class="bg-white p-4 shadow-xl">
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
@@ -3186,7 +3201,7 @@ class ReportController extends Controller
                 
             </div>
         </div>
-        <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
+        <table class="table-auto w-full bordered shadow-sm bg-white border-black text-sm my-1">
         <thead>
             <tr class="border-y-2 border-black bg-cyan-700 text-white">
                 <th class="text-start px-2">SL</th>
@@ -3207,7 +3222,7 @@ class ReportController extends Controller
         // Loop through each record in $alldata and add a row to the table
         foreach ($alldata as $index => $data) {
             $htmlTable .= '<tr>
-                <td class="py-2 pl-2>' . $index + 1 . '</td>
+                <td class="py-2 px-4>' . $index + 1 . '</td>
                 <td class="py-2 px-4>' . $index + 1 . '</td>
                
                 <td class="py-2">' . $data->ticket_code . '-' . $data->ticket_no . '</td>
@@ -3238,7 +3253,7 @@ class ReportController extends Controller
                         </tr>';
 
         // Close the HTML table
-        $htmlTable .= '</tbody></table>';
+        $htmlTable .= '</tbody></table></div>';
 
 
 
@@ -3375,272 +3390,7 @@ class ReportController extends Controller
     }
 
 
-    // public function sales_report_ticket(Request $request){
-
-    //     $agent = $request->input('agent') ?? null;
-    //     $supplier = $request->input('supplier') ?? null;
-
-    //     $show_profit = $request->input('show_profit') ?? null;
-    //     $show_supplier = $request->input('show_supplier') ?? null;
-    //     $show_agent = $request->input('show_agent') ?? null;
-
-    //     $start_date = $request->input('start_date') ?? null;
-    //     $end_date = $request->input('end_date') ?? null;
-
-    //     if ($start_date) {
-    //         $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //     }
-
-    //     if ($end_date) {
-    //         $end_date = (new DateTime($end_date))->format('Y-m-d');
-    //     }
-
-    //     $user = Auth::id();
-
-    //    $query = DB::table('tickets')
-    //         ->where([
-    //             ['is_active', 1],
-    //             ['is_delete', 0],
-    //             ['user', $user],
-    //         ]);
-
-    //         if ($agent !== null) {
-    //             $query->where('agent', $agent);
-    //         }
-
-    //         if ($supplier !== null) {
-    //             $query->where('supplier', $supplier);
-    //         }
-
-    //         if ($start_date !== null && $end_date !== null) {
-    //             $query->whereBetween('invoice_date', [$start_date, $end_date]);
-    //         }
-    //         $alldata = $query->get();
-
-    //     // dd($alldata, $supplier, $agent);
-    //     $htmlTable = '';
-    //     if($show_profit != null && $show_supplier != null && $show_agent != null) {
-
-
-    //         if($show_profit != null && $show_supplier == null && $show_agent == null){
-    //             $htmlTable = '
-    //             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
-    //             <div class="flex items-center justify-between mb-2">
-    //                 <div class="text-lg">
-    //                     <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-    //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //                 </div>
-    //                 <div class="flex items-center">
-
-
-    //                 </div>
-    //             </div>
-    //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
-    //             <thead>
-    //             <tr class="border-y-2 border-black bg-cyan-700 text-white">
-    //                 <th class="text-start">Booking Date</th>
-    //                 <th class="text-start">Ticket No</th>
-    //                 <th class="text-start">Passenger Name</th>
-
-
-    //                 <th class="text-start">Flight Date</th>
-    //                 <th class="text-start">Sector</th>
-    //                 <th class="text-start">Airlines</th>
-
-
-    //                 <th class="text-start">Net Markup</th>
-    //                 <th class="text-start">Balance Amount</th>
-
-    //             </tr>
-    //             </thead>
-    //             <tbody class="divide-y-2 divide-black">';
-
-    //             // Loop through each record in $alldata and add a row to the table
-    //             foreach ($alldata as $data) {
-    //                 $htmlTable .= '<tr class="" >
-    //                     <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->ticket_no . '</td>
-    //                     <td>' . $data->passenger . '</td>
-
-    //                     <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->sector . '</td>
-    //                     <td>' . $data->airline_name . '</td>
-
-
-    //                     <td>' . $data->profit . '</td>
-    //                     <td>' . $data->agent_new_amount . '</td>
-    //                 </tr>';
-    //             }
-
-    //             // Close the HTML table
-    //             $htmlTable .= '</tbody></table>';
-    //         }
-
-    //         elseif($show_supplier != null && $show_profit == null && $show_agent != null){
-    //             $htmlTable = '
-    //             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
-    //             <div class="flex items-center justify-between mb-2">
-    //                 <div class="text-lg">
-    //                     <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-    //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //                 </div>
-    //                 <div class="flex items-center">
-
-
-    //                 </div>
-    //             </div>
-    //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
-    //             <thead>
-    //             <tr class="border-y-2 border-black bg-cyan-700 text-white">
-    //                 <th class="text-start">Booking Date</th>
-    //                 <th class="text-start">Ticket No</th>
-    //                 <th class="text-start">Passenger Name</th>
-    //                 <th class="text-start">Client</th>
-    //                 <th class="text-start">Supplier</th>
-    //                 <th class="text-start">Flight Date</th>
-    //                 <th class="text-start">Sector</th>
-    //                 <th class="text-start">Airlines</th>
-    //                 <th class="text-start">Client Price</th>
-    //                 <th class="text-start">Supplier Price</th>
-
-    //                 <th class="text-start">Balance Amount</th>
-
-    //             </tr>
-    //             </thead>
-    //             <tbody class="divide-y-2">';
-
-    //             // Loop through each record in $alldata and add a row to the table
-    //             foreach ($alldata as $data) {
-    //                 $htmlTable .= '<tr>
-    //                     <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->ticket_no . '</td>
-    //                     <td>' . $data->passenger . '</td>
-    //                     <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-    //                     <td>' . Supplier::where('id',$data->supplier)->value('name') . '</td>
-    //                     <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->sector . '</td>
-    //                     <td>' . $data->airline_name . '</td>
-    //                     <td>' . $data->agent_price . '</td>
-    //                     <td>' . $data->supplier_price . '</td>
-
-    //                     <td>' . $data->agent_new_amount . '</td>
-    //                 </tr>';
-    //             }
-
-    //             // Close the HTML table
-    //             $htmlTable .= '</tbody></table>';
-    //         }
-
-    //         elseif($show_supplier != null && $show_profit != null && $show_agent != null){
-    //             $htmlTable = '
-    //             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
-    //             <div class="flex items-center justify-between mb-2">
-    //                 <div class="text-lg">
-    //                     <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-    //                     <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //                 </div>
-    //                 <div class="flex items-center">
-
-
-    //                 </div>
-    //             </div>
-    //             <table class="table-auto w-full shadow-xl bg-white devide-2 text-sm my-1">
-    //             <thead>
-    //             <tr class="border-y-2 border-black bg-cyan-700 text-white">
-    //                 <th class="text-start">Booking Date</th>
-    //                 <th class="text-start">Ticket No</th>
-    //                 <th class="text-start">Passenger Name</th>
-    //                 <th class="text-start">Client</th>
-    //                 <th class="text-start">Supplier</th>
-
-    //                 <th class="text-start">Flight Date</th>
-    //                 <th class="text-start">Sector</th>
-    //                 <th class="text-start">Airlines</th>
-    //                 <th class="text-start">Client Price</th>
-    //                 <th class="text-start">Supplier Price</th>
-    //                 <th class="text-start">Net Markup</th>
-    //                 <th class="text-start">Balance Amount</th>
-
-    //             </tr>
-    //             </thead>
-    //             <tbody class="divide-y-2">';
-
-    //             // Loop through each record in $alldata and add a row to the table
-    //             foreach ($alldata as $data) {
-    //                 $htmlTable .= '<tr>
-    //                     <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->ticket_no . '</td>
-    //                     <td>' . $data->passenger . '</td>
-    //                     <td>' . Agent::where('id',$data->agent)->value('name') . '</td>
-    //                     <td>' . Supplier::where('id',$data->agent)->value('name') . '</td>
-
-    //                     <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-    //                     <td>' . $data->sector . '</td>
-    //                     <td>' . $data->airline_name . '</td>
-    //                     <td>' . $data->agent_price . '</td>
-    //                     <td>' . $data->supplier_price . '</td>
-    //                     <td>' . $data->profit . '</td>
-    //                     <td>' . $data->agent_new_amount . '</td>
-    //                 </tr>';
-    //             }
-
-    //             // Close the HTML table
-    //             $htmlTable .= '</tbody></table>';
-    //         }
-
-    //     }
-    //     else{
-    //         $htmlTable = '
-    //         <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
-    //         <div class="flex items-center justify-between mb-2">
-    //             <div class="text-lg">
-    //                 <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
-    //                 <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //             </div>
-    //             <div class="flex items-center">
-
-
-    //             </div>
-    //         </div>
-    //         <table class="table-auto w-full shadow-lg bg-white devide-2 text-sm my-1">
-    //         <thead>
-    //         <tr class="border-y-2 border-black bg-cyan-700 text-white">
-    //             <th class="text-start">Booking Date</th>
-    //             <th class="text-start">Ticket No</th>
-    //             <th class="text-start">Passenger Name</th>
-
-    //             <th class="text-start">Flight Date</th>
-    //             <th class="text-start">Sector</th>
-    //             <th class="text-start">Airlines</th>
-
-    //             <th class="text-start">Balance Amount</th>
-
-    //         </tr>
-    //         </thead>
-    //         <tbody class="divide-y-2">';
-
-    //         // Loop through each record in $alldata and add a row to the table
-    //         foreach ($alldata as $data) {
-    //             $htmlTable .= '<tr>
-    //                 <td>' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
-    //                 <td>' . $data->ticket_no . '</td>
-    //                 <td>' . $data->passenger . '</td>
-
-    //                 <td>' . (new DateTime($data->flight_date))->format('d-m-Y') . '</td>
-    //                 <td>' . $data->sector . '</td>
-    //                 <td>' . $data->airline_name . '</td>
-
-    //                 <td>' . $data->agent_new_amount . '</td>
-    //             </tr>';
-    //         }
-
-    //         // Close the HTML table
-    //         $htmlTable .= '</tbody></table>';
-
-    //     }
-
-    //     return $htmlTable;
-    // }
+   
     public function sales_report_ticket(Request $request)
     {
 

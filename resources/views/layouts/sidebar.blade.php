@@ -126,14 +126,47 @@
                 </svg>
                 {{ __('Invoice Entry') }}
             </x-nav-link>
-            <x-nav-link :href="route('receive_payment.index')" :active="request()->routeIs('receive_payment.index')">
-                <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 11a9 9 0 0118 0M3 13a9 9 0 0118 0M3 15a9 9 0 0118 0M3 17a9 9 0 0118 0m-9-8v8m-9-8h18" />
-                </svg>
-                {{ __('Receive Payment') }}
-            </x-nav-link>
+            
+            <li class="w-full list-none">
+                <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
+                    aria-controls="dropdown-RP" data-collapse-toggle="dropdown-RP">
+                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 0v3m0 0h3m-3-3H9m3 3c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4zm0 0v3m0 0h3m-3-3H9m7.5 7.5c3.58 0 6.5 2.92 6.5 6.5h-13c0-3.58 2.92-6.5 6.5-6.5zm0 0v3m0 0h3m-3-3H9m0 0c0-3.86 3.14-7 7-7s7 3.14 7 7m-10.5-1v1.5m-3-1.5v1.5m0-1.5H3m18 1.5h-3m3-1.5v4m-3-4v4" />
+                    </svg>
+                    <span class="flex-1 ml-3 text-left text-sm" sidebar-toggle-item>Receive Payment</span>
+                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </p>
+                <ul id="dropdown-RP" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
+                    <li class="text-white font-semibold">
+                        <x-nav-link :href="route('receive.index')" :active="request()->routeIs('receive.index')">
+                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            {{ __('Receive') }}
+                        </x-nav-link>
+                    </li>
+                    <li class=" font-semibold">
+                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            {{ __('Payment') }}
+                        </x-nav-link>
+                    </li>
+                  
+                </ul>
+            </li>
             <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-example1" data-collapse-toggle="dropdown-example1">

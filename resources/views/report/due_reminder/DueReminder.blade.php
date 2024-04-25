@@ -37,30 +37,30 @@
     </div>
     <table class="table-auto w-full shadow-2xl">
         <thead>
-          <tr class="bg-[#0E7490] text-white">
-            <th class="px-4 py-2 text-left">SN</th>
-            <th class="px-4 py-2 text-left">Customer</th>
-            <th class="px-4 py-2 text-left">Office Name</th>
-            <th class="px-4 py-2 text-left">Email</th>
-            <th class="px-4 py-2 text-left">Mobile</th>
-            <th class="px-4 py-2 text-left">Last Date</th>
-            <th class="px-4 py-2 text-center">Last Payment</th>
+          <tr class="bg-[#0E7490] text-white ">
+            <th class="px-4 py-2 text-left text-md">SN</th>
+            <th class="px-4 py-2 text-left text-md">Customer</th>
+            <th class="px-4 py-2 text-left text-md">Office Name</th>
+            <th class="px-4 py-2 text-left text-md">Email</th>
+            <th class="px-4 py-2 text-left text-md">Mobile</th>
+            <th class="px-4 py-2 text-left text-md">Last Date</th>
+            <th class="px-4 py-2 text-center text-md">Last Payment</th>
         
-            <th class="px-4 py-2 text-center">Total Due</th>
+            <th class="px-4 py-2 text-center text-md">Total Due</th>
           </tr>
         </thead>
-        <tbody id="data">
+        <tbody id="data" class="divide-y divide-gray-400">
           @foreach($filteredTransactions as $index => $data)
           <tr>
-            <td class="px-4 py-2">{{$index++}}</td>
-            <td class="px-4 py-2">{{$data->agent_supplier_name}}</td>
-            <td class="px-4 py-2">{{$data->agent_supplier_company}}</td>
-            <td class="px-4 py-2">{{$data->agent_supplier_email}}</td>
-            <td class="px-4 py-2">{{$data->agent_supplier_phone}}</td>
-            <td class="px-4 py-2">{{$data->date}}</td>
-            <td class="px-4 py-2 text-center">{{$data->amount}}</td>
+            <td class="px-4 py-2 text-sm">{{$index+1}}</td>
+            <td class="px-4 py-2 text-sm">{{$data->agent_supplier_name}}</td>
+            <td class="px-4 py-2 text-sm">{{$data->agent_supplier_company}}</td>
+            <td class="px-4 py-2 text-sm">{{$data->agent_supplier_email}}</td>
+            <td class="px-4 py-2 text-sm">{{$data->agent_supplier_phone}}</td>
+            <td class="px-4 py-2 text-sm">{{$data->date}}</td>
+            <td class="px-4 py-2 text-sm text-center">{{$data->amount}}</td>
             
-            <td class="px-4 py-2 text-center">{{$data->current_amount}}</td>
+            <td class="px-4 py-2 text-sm text-center">{{$data->current_amount}}</td>
           </tr>
           
           @endforeach
@@ -78,10 +78,7 @@
             searchbar.style.display = "none";
         }
     }
-    const rows = document.querySelectorAll('#data tr');
-    for (let i = 0; i < rows.length; i += 2) {
-      rows[i].classList.add('bg-gray-200');
-    }
+   
   </script>
   <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
 </x-app-layout>

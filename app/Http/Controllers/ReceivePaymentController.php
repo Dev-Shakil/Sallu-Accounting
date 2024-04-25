@@ -22,6 +22,22 @@ class ReceivePaymentController extends Controller
         $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
         return view('receive_payment.index', compact('agents', 'suppliers', 'methods'));
     }
+    public function payment_index()
+    {
+        // Assuming 'is_deleted' is the correct column name in the Agent model
+        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+        return view('receive_payment.payment', compact('agents', 'suppliers', 'methods'));
+    }
+    public function receive_index()
+    {
+        // Assuming 'is_deleted' is the correct column name in the Agent model
+        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+        return view('receive_payment.receive', compact('agents', 'suppliers', 'methods'));
+    }
 
     
 

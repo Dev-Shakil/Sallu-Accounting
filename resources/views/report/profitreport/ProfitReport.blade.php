@@ -28,7 +28,7 @@
 
 <body class="flex ">
   
-  <main class="mx-auto w-[65%] ">
+  <main class="mx-auto w-full ">
     <div class=" px-7 py-3 shadow-2xl">
       <h2 class="text-center text-3xl my-2">SALLU AIR SERVICE</h2>
       <h2 class="text-center font-bold text-xl my-2 underline">Profit Report</h2>
@@ -47,7 +47,7 @@
       {{-- <p class="text-xl font-semibold">(Opening Balance : 100,000)</p> --}}
   </div>
     
-    <table class="table-auto w-full shadow-2xl mt-5">
+    <table class="table-auto w-full shadow-2xl">
         <thead>
           <tr class="bg-[#0E7490] text-white">
             <th class="px-4 text-left">SL</th>

@@ -165,9 +165,15 @@
                       <input type="date" id="payment_date" name="payment_date" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
                     </div>
                     
+                      
                       <div class="flex items-center">
-                        <label for="salary_amount" class="w-1/2 pr-4 ">Salary Amount*:</label>
-                        <input type="number" id="salary_amount" name="salary_amount" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        <label for="staff" class="w-1/2 pr-4 ">Choose Staff:</label>
+                        <select id="staff" name="staff" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                          <option value="">Choose the Staff</option>
+                          @foreach ($employees as $employee)
+                            <option value="{{$employee->id}}">{{$employee->name}}</option>
+                          @endforeach
+                        </select>
                       </div>
                       <div class="flex items-center">
                         <label for="mode_of_payment" class="w-1/2 pr-4 ">Mode of Payment*:</label>
@@ -179,13 +185,8 @@
                         </select>
                       </div>
                       <div class="flex items-center">
-                        <label for="staff" class="w-1/2 pr-4 ">Choose Staff:</label>
-                        <select id="staff" name="staff" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                          <option value="">Choose the Staff</option>
-                          @foreach ($employees as $employee)
-                            <option value="{{$employee->id}}">{{$employee->name}}</option>
-                          @endforeach
-                        </select>
+                        <label for="salary_amount" class="w-1/2 pr-4 ">Salary Amount*:</label>
+                        <input type="number" id="salary_amount" name="salary_amount" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
                       </div>
                       <div class="flex items-center">
                         <label for="month" class="w-1/2 pr-4 ">For the month of:</label>

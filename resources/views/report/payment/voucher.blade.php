@@ -6,7 +6,7 @@
         <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
         <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
     </div>
-    <main id="printSection" class="flex-1 m-4 mx-auto max-w-[1060px] shadow-2xl border-t border-gray-200 px-10 py-5">
+    <main id="printSection" class="flex-1 m-4 mx-auto max-w-[1060px] shadow-3xl border-t border-gray-200 px-6 py-9">
 
         <div class="flex justify-between items-center pb-2">
             <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
@@ -26,26 +26,26 @@
             </div>
             <div class="flex flex-col gap-y-2">
                 <h3 class="font-bold text-xl">Client Details</h3>
-                <p>Client Name : {{ $supplier->name }}</p>
-                <p>Email : {{ $supplier->email }}</p>
-                <p>Mob : {{ $supplier->phone }}</p>
+                <p class="text-lg">Client Name : {{ $supplier->name }}</p>
+                <p class="text-lg">Email : {{ $supplier->email }}</p>
+                <p class="text-lg">Mob : {{ $supplier->phone }}</p>
             </div>
         </div>
         <table class=" w-full my-3 border-y border-black">
             <thead class="border-y border-black bg-amber-300">
                 <tr>
-                    <th>Service Details</th>
-                    <th>Payment Mode</th>
-                    <th>Remark</th>
-                    <th>Payment Amount</th>
+                    <th class="text-lg">Service Details</th>
+                    <th class="text-lg">Payment Mode</th>
+                    <th class="text-lg">Remark</th>
+                    <th class="text-lg">Payment Amount</th>
                 </tr>
             </thead>
-            <tbody class="h-[60px]">
+            <tbody class="h-[90px]">
                 <tr class=" py-5">
-                    <td>Ticket Booking</td>
-                    <td>{{ $payment_voucher->method }}</td>
-                    <td>{{ $payment_voucher->remark }}</td>
-                    <td>{{ number_format($payment_voucher->amount, 0, '.', ',') }}</td>
+                    <td class="text-xl">Ticket Booking</td>
+                    <td class="text-xl">{{ $payment_voucher->method }}</td>
+                    <td class="text-xl">{{ $payment_voucher->remark }}</td>
+                    <td class="text-xl">{{ number_format($payment_voucher->amount, 0, '.', ',') }}</td>
                 </tr>
             </tbody>
         </table>

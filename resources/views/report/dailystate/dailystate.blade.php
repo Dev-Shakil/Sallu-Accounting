@@ -24,7 +24,7 @@
 
 <body class="flex ">
   
-  <main class="mx-auto w-[65%] ">
+  <main class="mx-auto w-full bg-white">
    
     <div class=" px-7 py-3 shadow-2xl">
         <h2 class="text-center text-3xl my-2">SALLU AIR SERVICE</h2>
@@ -51,7 +51,7 @@
             <th class="px-4 py-2 text-left">Credit</th>
           </tr>
         </thead>
-        <tbody id="data">
+        <tbody id="data" class="divide-y divide-gray-400">
           @php
               $balance = $credit = $debit = $count = 0;
           @endphp
@@ -68,11 +68,11 @@
                   }
               @endphp
               <tr>
-                  <td class="px-2 py-1">{{ $count }}</td>
+                  <td class="px-4 py-1">{{ $count }}</td>
                   <td class="px-2 py-1">{{ $data->date }}</td>
                   <td class="px-2 py-1">
-                      Iv No: {{ $data->invoice }}<br/>
-                      Service Type: {{ $data->remark }}<br/>
+                      Iv No: {{ $data->invoice }}
+                      Service Type: {{ $data->remark }}
                       Customer: {{ $data->name }}
                   </td>
                   <td class="px-2 py-1">{{ $data->getTable() == 'payment' ? $data->amount : '0.00' }}</td>
@@ -83,20 +83,20 @@
           <tr class="!bg-white font-bold border-y border-black">
               <td class="px-2 py-1"></td>
               <td class="px-2 py-1"></td>
-              <td class="px-2 py-1">Total</td>
+              <td class="px-2 py-1 text-center">Total</td>
               <td class="px-2 py-1">{{ $debit }}</td>
               <td class="px-2 py-1">{{ $credit }}</td>
           </tr>
       </tbody>
       </table>
   </main>
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
     
     const rows = document.querySelectorAll('#data tr');
     for (let i = 0; i < rows.length; i += 2) {
       rows[i].classList.add('bg-gray-200');
     }
-  </script>
+  </script> --}}
   <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
 </body>
 

@@ -24,7 +24,7 @@
 
 <body class="flex ">
   
-  <main class="mx-auto w-[65%] ">
+  <main class="mx-auto w-full ">
    
     <div class=" px-7 py-3 shadow-2xl">
         <h2 class="text-center text-3xl my-2">SALLU AIR SERVICE</h2>
@@ -71,7 +71,7 @@
                       <td class="px-2 py-1">{{ $index + 1 }}</td>
                       <td class="px-2 py-1">{{ $data->date }}</td>
                       <td class="px-2 py-1">{{ $data->name }}</td>
-                      <td class="px-2 py-1">Ref No: {{ $data->invoice }}<br>
+                      <td class="px-2 py-1">Ref No 4: {{ $data->invoice }}<br>
                           Bank Name: {{ $data->method }}</td>
                       <td class="px-2 py-1 text-center">{{ $data->amount }}</td>
                       <td class="px-2 py-1 text-center"></td>
