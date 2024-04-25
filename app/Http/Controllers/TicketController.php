@@ -90,6 +90,10 @@ class TicketController extends Controller
                 $count += 1;
                 $ticket = new Ticket();
                 $ticket->flight_date = $request['flight_date'];
+                $ticket->return = $request['return_date'];
+                $ticket->class = $request['class'];
+                $ticket->class_code = $request['class_code'];
+                $ticket->person = $request['person'];
                 $ticket->invoice_date = $request['invoice_date'];
                 $ticket->invoice = $request['invoice_no'];
                 $ticket->ticket_no = $ticketNumber;
@@ -217,6 +221,10 @@ class TicketController extends Controller
                 
                 $ticket = new Ticket();
                 $ticket->flight_date = $request['flight_date'];
+                $ticket->return = $request['return_date'];
+                $ticket->class = $request['class'];
+                $ticket->class_code = $request['class_code'];
+                $ticket->person = $request['person'];
                 $ticket->invoice_date = $request['invoice_date'];
                 $ticket->invoice = $request['invoice_no'];
                 $ticket->ticket_no = $request['ticket_no'];

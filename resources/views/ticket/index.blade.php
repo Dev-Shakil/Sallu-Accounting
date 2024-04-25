@@ -20,18 +20,19 @@
     px-2  text-gray-900">
         Ticket Invoicing
     </h2>
-    <div class="border-t border-gray-2 flex flex-col justify-center items-center p-6 rounded-lg shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
+    <div class="border-t bg-white border-gray-2 flex flex-col justify-center items-center p-6 rounded-lg shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
 
         <form class="w-full " id="ticket_form">
             @csrf
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            <div class="grid grid-cols-2 w-full gap-3">
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="invoice_no" class="block w-[50%]">Invoice No.</label>
                     <input type="text" id="invoice_no"
                         class="text-center text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         name="invoice_no" readonly>
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="agent_name" class="block w-[50%]">Agent
                         Name</label>
 
@@ -44,26 +45,26 @@
                     </select>
 
                 </div>
-            </div>
 
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="invoice_date" class="block w-[50%]">Invoice
                         Date</label>
                     <input type="date" id="invoice_date"
                         class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="flight_date" class="w-[50%]">Flight
-                        Date</label>
-                    <input type="date" id="flight_date"
-                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="flight_date">
+                <div class="w-full px-4 mb-2 flex items-center">
+                    <label for="flight_date" class="w-[50%]">Flight Date</label>
+                    <div class="w-full flex gap-x-2">
+                        <input type="date" id="flight_date" class="bg-gray-50 md:w-[90%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date">
+                        <button id="toggle_return_section" class="bg-[#00959E] font-bold w-[8%] text-white text-xl rounded-xl flex justify-center items-center p-1">+</button>
+                    </div>
                 </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="airline" class="w-[50%]">Airline</label>
                     <div class="flex w-full gap-x-3">
                         {{-- <input type="text" id="airlines_name"
@@ -81,8 +82,12 @@
                             name="airlines_code">
                     </div>
                 </div>
+                <div id="return_section" class="w-full px-4 mb-2 items-center flex hidden">
+                    <label for="return_date" class="w-[50%]">Return Date</label>
+                    <input type="date" id="return_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="return_date">
+                </div>
                 
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="ticket_no" class="w-[50%]">Ticket No /
                         PNR</label>
                     <div class="flex w-full gap-x-4">
@@ -94,50 +99,78 @@
                             name="ticket_no">
                     </div>
                 </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
+            
+            
                 
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="number_of_tickets" class="w-[50%]">Number of
                         Tickets</label>
                     <input type="number" id="number_of_tickets"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="number_of_tickets">
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="pnr" class="w-[50%]">PNR</label>
                     <input type="text" id="pnr"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="pnr">
                 </div>
                 
-            </div>
             
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="passenger_name" class="w-[50%]">Passenger
                         Name</label>
                     <input type="text" id="passenger_name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="passenger_name">
                 </div>
-
-                
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="flight_no" class="w-[50%]">Flight No</label>
-                    <input type="text" id="flight_no"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="flight_no">
+                <div class="w-full px-4 mb-2 flex items-center">
+                    <label for="person" class="w-[50%]">Person</label>
+                    <select id="person" class=" bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="person">
+                            <option value="adult">Adult</option>
+                            <option value="child">Child</option>
+                            <option value="infant">Infant</option>
+                            
+                    </select>
                 </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                
+                
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
+                    <label for="class" class="w-[50%]">Class</label>
+                    <div class="flex w-full gap-x-4">
+                        <input type="text" id="class_code"
+                                class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                                name="class_code">
+                        <select id="class" class=" bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="class">
+                                <option value="economy">Economy</option>
+                                <option value="business">Business</option>
+                                
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="sector" class="w-[50%]">Sector</label>
                     <input type="text" id="sector"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="sector">
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                
+                
+                
+                
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
+                    <label for="flight_no" class="w-[50%]">Flight No</label>
+                    <input type="text" id="flight_no"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="flight_no">
+                </div>
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="supplier" class="w-[50%]">Supplier</label>
 
                     <select name="supplier" id="supplier"
@@ -148,40 +181,40 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="agent_price" class="w-[50%]">Agent
                         Price</label>
                     <input type="text" id="agent_price_1"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="agent_price">
                 </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="supplier_price" class="w-[50%]">Supplier
                         Price</label>
                     <input type="text" id="supplier_price"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="supplier_price">
                 </div>
-            </div>
-            <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+            
+            
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="stuff" class="w-[50%]">Stuff</label>
                     <input type="text" id="stuff"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="stuff">
                 </div>
                 
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
+                <div class="w-full px-4 mb-2 flex items-center">
                     <label for="remark" class="w-[50%]">Remark</label>
                     <textarea id="remark"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="remark"></textarea>
                 </div>
 
+            
             </div>
-
             <div class=" flex-wrap gap-x-10 -mx-4 mb-4 hidden">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
@@ -198,12 +231,7 @@
                 </div>
 
             </div>
-            {{-- <div class="col-span-2 flex justify-end">
-                <button type="submit" id="add_ticket"
-                    class="bg-black text-xl hover:bg-blue-700 mr-5 text-white font-bold py-2 px-16 rounded">Submit</button>
-            </div>
-
-        </form> --}}
+            
 
         <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
             Net Profit - 00
@@ -214,20 +242,11 @@
                 <label for="addGDS">Add GDS</label>
             </div>
 
-            {{-- <div class="font-semibold">
-                <input type="checkbox" id="receivePayment" name="receivePayment"
-                    onchange="toggleFormVisibility()" />
-                <label for="receivePayment">Receive Payment</label>
-            </div>
-
-            <div class="font-semibold">
-                <input type="checkbox" id="refundCheckbox" name="refund" onchange="toggleRefundVisibility()" />
-                <label for="refundCheckbox">Refund</label>
-            </div> --}}
+            
         </div>
 
         <div class="w-full my-4" id="receive_payment">
-            @csrf
+            
             <div class="flex flex-wrap gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="reff_no" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Ref No</label>
@@ -284,10 +303,7 @@
                         name="remark"></textarea>
                 </div>
             </div>
-            <div class="col-span-2 flex justify-end">
-                <button type="submit" id="add_ticket"
-                    class="bg-black text-xl text-white font-bold py-2 px-16 rounded">Submit</button>
-            </div>
+           
         </div>
 
 
@@ -358,7 +374,7 @@
 
 
         <div id="refundForm" method="post" style="display: none;">
-            @csrf
+            
         </div>
 
         <div class="col-span-2 flex justify-end">
@@ -370,67 +386,7 @@
     </div>
 
 
-    {{-- 
-    <table class="table-fixed mx-4 border rounded-lg overflow-hidden table table-striped table-hover"
-        id="ticket_table">
-        <thead>
-            <tr class="border-b bg-gray-100">
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Invoice Date</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Ticket No</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Passenger</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Flight Date</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent</th>
-
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Agent Price</th>
-
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Price</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Airline</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Remark</th>
-                <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach ($tickets as $ticket)
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->invoice }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}
-                    </td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->ticket_no }}/{{ $ticket->ticket_code }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->passenger }}</td>
-
-                    <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}
-                    </td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->agent }}</td>
-
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->supplier }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->agent_price }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->supplier_price }}</td>
-
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->airline_name }}/{{ $ticket->airline_code }}</td>
-                    <td class="px-4 py-2 text-gray-700">{{ $ticket->remark }}</td>
-                    <td class="px-4 py-2 text-gray-700">
-                        <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
-                            class="text-blue-500 hover:text-blue-700 mr-2">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a href="{{ route('ticket_view', ['id' => $ticket->id]) }}"
-                            class="text-green-500 hover:text-green-700 mr-2">
-                            <i class="fas fa-eye"></i> View
-                        </a>
-                        <a href="{{ route('ticket_print', ['id' => $ticket->id]) }}"
-                            class="text-red-500 hover:text-red-700">
-                            <i class="fas fa-print"></i> Print
-                        </a>
-                    </td>
-
-                </tr>
-            @endforeach
-
-        </tbody>
-    </table> --}}
+    
     <table class="table-fixed mx-4 border rounded-lg overflow-hidden table table-striped table-hover"
         id="ticket_table">
         <thead class="">
@@ -528,48 +484,18 @@
             window.location.href = deleteUrl;
         }
     }
-        $(document).ready(function() {
+        
 
-    
-            $("#agent_supplier").change(function() {
-                var selectedValue = $(this).val();
-                if (selectedValue) {
-                    $.ajax({
-                        url: "/get_agent_supplier",
-                        method: "GET",
-                        data: {
-                            who: selectedValue
-                        },
-                        success: function(response) {
-                            updateOptions(response);
-                        },
-                        error: function(error) {
-                            alert(error);
-                        }
-                    });
-                }
-            });
+        // function generateRandomInvoiceNumberReceivePayment() {
+        //     const prefix = 'RP-';
+        //     const length = 8;
 
-            function updateOptions(options) {
-                var selectElement = $("#agent_supplier_id");
-                selectElement.empty();
-                selectElement.append("<option value=''>Select One</option>");
-                options.forEach(function(option) {
-                    selectElement.append("<option value='" + option.id + "'>" + option.name + "</option>");
-                });
-            }
-        });
+        //     // Generate a random alphanumeric string of the specified length
+        //     const randomString = Math.random().toString(36).substr(2, length).toUpperCase();
 
-        function generateRandomInvoiceNumberReceivePayment() {
-            const prefix = 'RP-';
-            const length = 8;
-
-            // Generate a random alphanumeric string of the specified length
-            const randomString = Math.random().toString(36).substr(2, length).toUpperCase();
-
-            return `${prefix}${randomString}`;
-        }
-        $('#reff_no').val(generateRandomInvoiceNumberReceivePayment());
+        //     return `${prefix}${randomString}`;
+        // }
+        // $('#reff_no').val(generateRandomInvoiceNumberReceivePayment());
 
         var received_payment = document.getElementById('receive_payment');
         var gds = document.getElementById('gds');
@@ -578,17 +504,17 @@
         received_payment.style.display = 'none';
         gds.style.display = 'none';
         // Function to toggle the visibility of the received_payment
-        function toggleFormVisibility() {
-            var received_payment = document.getElementById('receive_payment');
-            var checkbox = document.getElementById('receivePayment');
-            received_payment.style.display = 'none';
-            // Toggle the visibility of the received_payment based on checkbox state
-            if (checkbox.checked) {
-                received_payment.style.display = 'block';
-            } else {
-                received_payment.style.display = 'none';
-            }
-        }
+        // function toggleFormVisibility() {
+        //     var received_payment = document.getElementById('receive_payment');
+        //     var checkbox = document.getElementById('receivePayment');
+        //     received_payment.style.display = 'none';
+        //     // Toggle the visibility of the received_payment based on checkbox state
+        //     if (checkbox.checked) {
+        //         received_payment.style.display = 'block';
+        //     } else {
+        //         received_payment.style.display = 'none';
+        //     }
+        // }
 
         function toggleGdsVisibility() {
             var gds = document.getElementById('gds');
@@ -602,18 +528,18 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            toggleRefundVisibility();
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     toggleRefundVisibility();
+        // });
 
-        function toggleRefundVisibility() {
-            var refunddiv = document.getElementById('refunddiv');
-            var refundCheckbox = document.getElementById('refundCheckbox');
-            var refundForm = document.getElementById('refundForm');
-            if (refundCheckbox.checked) {
-                refundForm.submit();
-            }
-        }
+        // function toggleRefundVisibility() {
+        //     var refunddiv = document.getElementById('refunddiv');
+        //     var refundCheckbox = document.getElementById('refundCheckbox');
+        //     var refundForm = document.getElementById('refundForm');
+        //     if (refundCheckbox.checked) {
+        //         refundForm.submit();
+        //     }
+        // }
     </script>
 
 
@@ -844,8 +770,10 @@
                 var number_of_tickets = parseInt($('#number_of_tickets').val());
                 if (number_of_tickets > 1) {
                     $('#passenger_name').prop('disabled', true);
+                    $('#passenger_name').addClass('bg-gray-300');// Change background color
                 } else {
                     $('#passenger_name').prop('disabled', false);
+                    $('#passenger_name').removeClass('bg-gray-300'); // Reset background color
                 }
             });
 
@@ -856,6 +784,10 @@
                 var supplier = $('#supplier').val();
                 var invoice_date = $('#invoice_date').val();
                 var flight_date = $('#flight_date').val();
+                var return_date = $('#return_date').val();
+                var person = $('#person').val();
+                var classOpt = $('#class').val();
+                var class_code = $('#class_code').val();
                 var sector = $('#sector').val();
                 var flight_no = $('#flight_no').val();
                 var ticket_code = $('#ticket_code').val();
@@ -899,7 +831,7 @@
                     (airlines_name || airlines_code) && // either airlines name or code should be available
                     number_of_tickets>1 &&
                     agent_price_1 && sector && stuff &&
-                    supplier_price && invoice_no && pnr
+                    supplier_price && invoice_no && pnr && person && classOpt && class_code && return_date
                 ) {
                     var csrfToken = "{{ csrf_token() }}";
                     var tableHtml =
@@ -952,6 +884,10 @@
                     tableHtml += '<input type="hidden" name="flight_date" value="' + flight_date + '">';
                     tableHtml += '<input type="hidden" name="invoice_no" value="' + invoice_no + '">';
                     tableHtml += '<input type="hidden" name="flight_no" value="' + flight_no + '">';
+                    tableHtml += '<input type="hidden" name="return_date" value="' + return_date + '">';
+                    tableHtml += '<input type="hidden" name="class" value="' + classOpt + '">';
+                    tableHtml += '<input type="hidden" name="class_code" value="' + class_code + '">';
+                    tableHtml += '<input type="hidden" name="person" value="' + person + '">';
                     tableHtml += '<input type="hidden" name="sector" value="' + sector + '">';
                     tableHtml += '<input type="hidden" name="ticket_code" value="' + ticket_code + '">';
                     // tableHtml += '<input type="hidden" name="ticket_no" value="'+ ticket_no +'">';
@@ -985,7 +921,7 @@
                 (airlines_name || airlines_code) && // either airlines name or code should be available
                 number_of_tickets == 1 &&
                 agent_price_1 && sector &&
-                supplier_price && invoice_no && pnr)
+                supplier_price && invoice_no && pnr && person && classOpt && class_code && return_date)
                 {
                   var csrfToken = "{{ csrf_token() }}";
                   var dataToSend = {
@@ -1008,7 +944,11 @@
                             stuff,
                             discount,
                             csrfToken,
-                            remark
+                            remark,
+                            person,
+                            classOpt ,
+                            class_code ,
+                            return_date
                         };
                     // console.log(dataToSend);
                     $.ajax({
@@ -1046,6 +986,14 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('toggle_return_section').addEventListener('click', function() {
+                var returnSection = document.getElementById('return_section');
+                if (returnSection.classList.contains('hidden')) {
+                    returnSection.classList.remove('hidden');
+                } else {
+                    returnSection.classList.add('hidden');
+                }
+            });
             var sectorInput = document.getElementById('sector');
     
             sectorInput.addEventListener('input', function() {
