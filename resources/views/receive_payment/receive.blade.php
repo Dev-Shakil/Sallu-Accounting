@@ -102,8 +102,16 @@
                             showConfirmButton: false,
                             timer: 2500
                             }).then((result) => {
-                                // Reload the page after the alert is closed
-                                window.location.reload();
+                                if (response && response.fullEntry) {
+                                    const lastId = response.fullEntry.payment.id
+                                    console.log(lastId);
+                                    // Redirect to the receive_voucher with the lastId
+                                    window.location.href = `/receive_voucher/${lastId}`;
+                                } else {
+                                    // Handle the case where lastId is missing in the result
+                                    console.error("lastId not found in result:", response);
+                                }
+
                             });
                         }
                         else{
@@ -140,7 +148,7 @@
                         url: '/get-last-id-receive', // Replace with the actual URL to fetch the last ID
                         method: 'GET',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             let invoice = response.invoice;
                             
                             resolve(invoice);
@@ -237,7 +245,7 @@
                         url: '/get-last-id-receive', // Replace with the actual URL to fetch the last ID
                         method: 'GET',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             let invoice = response.invoice;
                             
                             resolve(invoice);

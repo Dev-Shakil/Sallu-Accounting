@@ -21,6 +21,21 @@ class HrController extends Controller
         return view('hr.stuff_details', compact('employees'));
     }
 
+    public function getStaffDetails(Request $request)
+    {
+        // Retrieve staff details based on the provided staff_id
+        $staffId = $request->input('staff_id');
+        $staff = Employee::find($staffId);
+
+        if ($staff) {
+            // Return staff details as JSON response
+            return response()->json($staff);
+        } else {
+            // Staff not found
+            return response()->json(['error' => 'Staff not found'], 404);
+        }
+    }
+    
     public function salary_index(){
 
         $employees = Employee::where([
@@ -32,7 +47,7 @@ class HrController extends Controller
 
         $salaries = Salary::where([
             ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
-        ])->get();
+        ])->paginate(10);
 
         $lastSalary = Salary::orderBy('id', 'desc')->first();
         $lastSalaryId = $lastSalary ? $lastSalary->id : null;
@@ -40,11 +55,29 @@ class HrController extends Controller
         // dd($nextID);
         return view('hr.paysalary', compact('salaries', 'methods', 'employees', 'nextID'));
     }
+    public function payslip($id){
+        // dd($id);
+
+        // $employees = Employee::where([
+        //     ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+        //     ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
+        // ])->get();
+        $employee = Employee::findOrFail($id);
+        $methods = Transaction::where('user', Auth::id())->get();
+
+        $salaries = Salary::where([
+            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+        ])->paginate(10);
+
+        
+        // dd($nextID);
+        return view('hr.paysalary', compact('salaries', 'methods', 'employee', ));
+    }
 
     
 
     public function store(Request $request){
-        // dd($request->all());
+        dd($request->all());
         $employee = new Employee();
       
         $employee->name = $request->employeeName;

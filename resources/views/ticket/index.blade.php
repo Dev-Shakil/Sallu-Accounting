@@ -22,7 +22,7 @@
     </h2>
     <div class="border-t bg-white border-gray-2 flex flex-col justify-center items-center p-6 rounded-lg shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
 
-        <form class="w-full " id="ticket_form">
+    <form class="w-full " id="ticket_form">
             @csrf
             <div class="grid grid-cols-2 w-full gap-3">
             
@@ -82,9 +82,11 @@
                             name="airlines_code">
                     </div>
                 </div>
-                <div id="return_section" class="w-full px-4 mb-2 items-center flex hidden">
+                <div class="" id="return_section" >
+                <div class="w-full px-4 mb-2 flex items-center" style="display:none">
                     <label for="return_date" class="w-[50%]">Return Date</label>
                     <input type="date" id="return_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="return_date">
+                </div>
                 </div>
                 
                 <div class="w-full px-4 mb-2 flex items-center">
@@ -190,12 +192,16 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="agent_price">
                 </div>
+
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="supplier_price" class="w-[50%]">Supplier
                         Price</label>
+                    <div class="w-full flex gap-x-2">
                     <input type="text" id="supplier_price"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-gray-50 border border-gray-300 md:w-[82%] text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="supplier_price">
+                        <button id="group_ait" class="bg-[#00959E] font-bold w-[16%] text-white text-sm rounded-xl flex justify-center items-center p-1"><span class="text-lg">+</span> AIT</button>
+                    </div>
                 </div>
             
             
@@ -233,9 +239,7 @@
             </div>
             
 
-        <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
-            Net Profit - 00
-        </div>
+        
         <div class="flex justify-center my-4 gap-x-8">
             <div class="font-semibold">
                 <input type="checkbox" id="addGDS" name="addGDS" onchange="toggleGdsVisibility()" />
@@ -245,66 +249,7 @@
             
         </div>
 
-        <div class="w-full my-4" id="receive_payment">
-            
-            <div class="flex flex-wrap gap-x-6 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="reff_no" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Ref No</label>
-                    <input type="text" id="reff_no"
-                        class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="reff_no">
-                </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Amount</label>
-                    <input type="text" id="amount"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="amount">
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-x-6 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="agent_supplier"
-                        class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Agent/Supplier</label>
-                    
-                    <select id="agent_supplier" name="agent_supplier"
-                        class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        required>
-                        <option value="">Select One</option>
-                        <option value="agent">Agent</option>
-                        <option value="supplier">Supplier</option>
-                    </select>
-                </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Select
-                        Candidate</label>
-                    
-                    <select id="agent_supplier_id" name="agent_supplier_id"
-                        class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        required>
-                        <option value="">Select One</option>
-
-                    </select>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-x-6 -mx-4 mb-4">
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="payment_mode" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Mode Of
-                        Payment</label>
-                    <input type="text" id="payment_mode"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="payment_mode">
-                </div>
-                <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Remark</label>
-                    <textarea id="remark"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="remark"></textarea>
-                </div>
-            </div>
-           
-        </div>
+        
 
 
         <div class="my-4 w-full" id="gds">
@@ -371,11 +316,13 @@
                 </div>
             </div>
         </div>
-
-
-        <div id="refundForm" method="post" style="display: none;">
-            
+        <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
+            Net Profit - 00
         </div>
+
+        {{-- <div id="refundForm" method="post" style="display: none;">
+            
+        </div> --}}
 
         <div class="col-span-2 flex justify-end">
             <button type="submit" id="add_ticket"
@@ -500,21 +447,10 @@
         var received_payment = document.getElementById('receive_payment');
         var gds = document.getElementById('gds');
         // var refunddiv = document.getElementById('refunddiv');
-        //   refunddiv.style.display = 'none';
-        received_payment.style.display = 'none';
+        
+        
         gds.style.display = 'none';
-        // Function to toggle the visibility of the received_payment
-        // function toggleFormVisibility() {
-        //     var received_payment = document.getElementById('receive_payment');
-        //     var checkbox = document.getElementById('receivePayment');
-        //     received_payment.style.display = 'none';
-        //     // Toggle the visibility of the received_payment based on checkbox state
-        //     if (checkbox.checked) {
-        //         received_payment.style.display = 'block';
-        //     } else {
-        //         received_payment.style.display = 'none';
-        //     }
-        // }
+       
 
         function toggleGdsVisibility() {
             var gds = document.getElementById('gds');
@@ -528,18 +464,7 @@
             }
         }
 
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     toggleRefundVisibility();
-        // });
-
-        // function toggleRefundVisibility() {
-        //     var refunddiv = document.getElementById('refunddiv');
-        //     var refundCheckbox = document.getElementById('refundCheckbox');
-        //     var refundForm = document.getElementById('refundForm');
-        //     if (refundCheckbox.checked) {
-        //         refundForm.submit();
-        //     }
-        // }
+        
     </script>
 
 
@@ -564,6 +489,32 @@
                 // autoclose: true
             });
             $('#ticket_table').DataTable();
+           
+            $('#return_section').hide();
+            $('#toggle_return_section').click(function() {
+                event.preventDefault();
+                $('#return_section').toggle(); 
+            });
+            // Flag variable to track if price has been changed
+
+            var amountEntered = false; // Flag variable to track if an amount has been entered
+
+            $('#supplier_price').on('input', function() {
+                amountEntered = true; // Set the flag to true when an amount is entered
+            });
+
+            $('#group_ait').click(function(event) {
+                event.preventDefault();
+                if (amountEntered) { // Check if an amount has been entered
+                    var supplier_price = parseFloat($('#supplier_price').val());
+                    var percentage = supplier_price * 0.003;
+                    supplier_price = (supplier_price + percentage);
+                    $('#supplier_price').val(supplier_price);
+                    $('#ait').val(percentage);
+                    amountEntered = false; // Reset the flag after calculation
+                }
+            });
+           
 
             // function generateRandomString() {
             //     return new Promise((resolve, reject) => {
@@ -803,7 +754,7 @@
                 var number_of_tickets = $('#number_of_tickets').val();
                 var invoice_no = $('#invoice_no').val();
                 var aitticket = $('#aitticket').val();
-
+                var ait = $('#ait').val();
                 // console.log(invoice_Date)
                 var agent_price_1 = parseFloat($('#agent_price_1').val());
                 var supplier_price = parseFloat($('#supplier_price').val());
@@ -831,7 +782,7 @@
                     (airlines_name || airlines_code) && // either airlines name or code should be available
                     number_of_tickets>1 &&
                     agent_price_1 && sector && stuff &&
-                    supplier_price && invoice_no && pnr && person && classOpt && class_code && return_date
+                    supplier_price && invoice_no && pnr && person && classOpt && class_code
                 ) {
                     var csrfToken = "{{ csrf_token() }}";
                     var tableHtml =
@@ -895,7 +846,7 @@
                     tableHtml += '<input type="hidden" name="airlines_code" value="' + airlines_code + '">';
                     tableHtml += '<input type="hidden" name="remark" value="' + remark + '">';
                     tableHtml += '<input type="hidden" name="stuff" value="' + stuff + '">';
-                    tableHtml += '<input type="hidden" name="ait" value="' + aitticket + '">';
+                    tableHtml += '<input type="hidden" name="ait" value="' + ait + '">';
                     tableHtml += '<input type="hidden" name="ait_amount" value="' + aitticket + '">';
                     tableHtml += '</tbody>';
                     tableHtml += '</table>';
@@ -921,7 +872,7 @@
                 (airlines_name || airlines_code) && // either airlines name or code should be available
                 number_of_tickets == 1 &&
                 agent_price_1 && sector &&
-                supplier_price && invoice_no && pnr && person && classOpt && class_code && return_date)
+                supplier_price && invoice_no && pnr && person && classOpt && class_code)
                 {
                   var csrfToken = "{{ csrf_token() }}";
                   var dataToSend = {
@@ -948,7 +899,9 @@
                             person,
                             classOpt ,
                             class_code ,
-                            return_date
+                            return_date,
+                            ait,
+                            aitticket
                         };
                     // console.log(dataToSend);
                     $.ajax({
@@ -986,14 +939,7 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('toggle_return_section').addEventListener('click', function() {
-                var returnSection = document.getElementById('return_section');
-                if (returnSection.classList.contains('hidden')) {
-                    returnSection.classList.remove('hidden');
-                } else {
-                    returnSection.classList.add('hidden');
-                }
-            });
+           
             var sectorInput = document.getElementById('sector');
     
             sectorInput.addEventListener('input', function() {

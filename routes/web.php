@@ -254,10 +254,12 @@ Route::post('/addstuff', [HrController::class, 'store'])->name('addstuff.store')
 Route::get('/stuff/edit/{id}', [HrController::class, 'edit'])->name('stuff.edit');
 Route::post('/stuff/update/', [HrController::class, 'update'])->name('stuff.update');
 Route::get('/stuff/delete/{id}', [HrController::class, 'delete'])->name('stuff.delete');
+Route::post('/get-staff-details', [HrController::class, 'getStaffDetails']);
 
 Route::get('pay_salary/view', function () {
     return app(HrController::class)->salary_index();
 })->name('pay_salary.view');
+Route::get('/payslip/{id}', [HrController::class, 'payslip'])->name('payslip.view');
 Route::post('/addsalary', [HrController::class, 'salary_store'])->name('salary.store');
 Route::get('/salary/edit/{id}', [HrController::class, 'salary_edit'])->name('salary.edit');
 Route::post('/salary/update/', [HrController::class, 'salary_update'])->name('salary.update');

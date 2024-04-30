@@ -228,29 +228,62 @@
 
 
 
-        {{-- <table class="table table-striped table-hover no-wrap " id="typetable">
+        <table class="table table-striped table-hover no-wrap " id="typetable">
                 <thead class="bg-[#5dc8cc]">
                     <tr>
                         <th scope="col" class="px-4 py-2 ">Serial</th>
                         <th scope="col" class="px-4 py-2 ">Name</th>
+                        <th scope="col" class="px-4 py-2 ">Salary</th>
+                        
+                        <th scope="col" class="px-4 py-2 ">Method</th>
+                        <th scope="col" class="px-4 py-2 ">Month-Year</th>
                         
                         <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($types as $index => $type)
+                    @foreach ($salaries as $index => $salary)
                         <tr>
-                            <th scope="row" class="px-4 py-2">{{ $type->id}}</th>
-                            <td class="px-4 py-2 ">{{ $type->name }}</td>
+                            <th scope="row" class="px-4 py-2">{{ $index + 1}}</th>
+                            <td class="px-4 py-2">
+                              @foreach($employees as $index => $employee)
+                                  @if($salary->employee == $employee->id)
+                                      {{ $employee->name }}
+                                  @endif
+                              @endforeach
+                            </td>
+                            <td class="px-4 py-2">
+                              @foreach($employees as $index => $employee)
+                                  @if($salary->employee == $employee->id)
+                                      {{ $employee->salary }}
+                                  @endif
+                              @endforeach
+                            </td>
+                            <td class="px-4 py-2">
+                              @foreach($methods as $index => $method)
+                                  @if($salary->method == $method->id)
+                                      {{ $method->name }}
+                                  @endif
+                              @endforeach
+                            </td>
+                            <td class="px-4 py-2">
+                              <?php
+    // Assuming $salary->month contains the numeric value of the month (e.g., 1 for January)
+                                $monthNumber = $salary->month;
+                                $monthName = date("F", mktime(0, 0, 0, $monthNumber, 1));
+                                echo $monthName;
+                                ?>
+                                {{ $salary->year}}
+                            </td>
                             <td class="px-4 py-2 flex justify-center">
-                                <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class=""><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                <a href="{{ route('type.delete', ['id' => $type->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                              <a href="{{ route('payslip.view', ['id' => $salary->id]) }}" class=""><i class="text-xl fa fa-eye fa-fw"></i></a>
+                                
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-            </table> --}}
-        {{-- {{ $types->links() }} --}}
+            </table> 
+        {{ $salaries->links() }}
     </div>
 
     </div>
@@ -258,6 +291,29 @@
         $(document).ready(function() {
             $('.datepicker').datepicker({
                 autoclose: true
+            });
+            $('#staff').on('change', function(){
+              var staffId = $(this).val(); // Get the selected staff ID
+    
+              // Make an AJAX call
+              $.ajax({
+                  url: '/get-staff-details', // URL to your backend route
+                  method: 'POST', // or 'GET' depending on your backend setup
+                  data: { 
+                      staff_id: staffId,
+                      _token: '{{ csrf_token() }}' // Include the CSRF token
+                  }, 
+                  success: function(response) {
+                      // Handle successful response from the server
+                      // console.log(response);
+                      $('#salary_amount').val(response.salary);
+                      // You can update your UI with the received data here
+                  },
+                  error: function(xhr, status, error) {
+                      // Handle errors
+                      console.error(xhr.responseText);
+                  }
+              });
             });
 
             $('.select2').select2({

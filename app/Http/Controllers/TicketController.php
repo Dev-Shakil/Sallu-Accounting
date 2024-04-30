@@ -69,6 +69,7 @@ class TicketController extends Controller
         }
         return true;
     }
+
     public function store(Request $request)
     {
         // dd($request->all());
@@ -126,7 +127,7 @@ class TicketController extends Controller
                 $ticket->profit = $profit;
                 $ticket->user = $user;
 
-                
+                $ticket->ait = $request['ait'];
                 $agent_acc = Agent::find($request['agent']);
                 $agent_previous_amount = $agent_acc->amount;
                 $agent_new_amount = floatval($agent_previous_amount) + floatval($request['agent_price']);
@@ -177,7 +178,7 @@ class TicketController extends Controller
 
                         $ait = new AIT();
                         $ait->ticket_invoice = $request['invoice_no'];
-                        $ait->ait_amount = $request['ait_amount'];
+                        $ait->ait_amount = $request['ait'];
                         $ait->total_amount = $request['ait'] * $count;
                         $ait->sector = $request['sector'];
                         $ait->user = $user;
@@ -205,6 +206,7 @@ class TicketController extends Controller
         }
         
     }
+    
     public function store_single(Request $request)
     {
         // dd($request->all());
@@ -222,7 +224,7 @@ class TicketController extends Controller
                 $ticket = new Ticket();
                 $ticket->flight_date = $request['flight_date'];
                 $ticket->return = $request['return_date'];
-                $ticket->class = $request['class'];
+                $ticket->class = $request['classOpt'];
                 $ticket->class_code = $request['class_code'];
                 $ticket->person = $request['person'];
                 $ticket->invoice_date = $request['invoice_date'];
@@ -257,7 +259,7 @@ class TicketController extends Controller
                 $profit = floatval($request['agent_price_1']) - floatval($request['supplier_price']);
                 $ticket->profit = $profit;
                 $ticket->user = $user;
-
+                $ticket->ait = $request['ait'];
                 // dd($ticket);
 
                 $agent_acc = Agent::find($request['agent']);
@@ -277,12 +279,12 @@ class TicketController extends Controller
                 $ticket->supplier_new_amount = $supplier_new_amount;
 
                 // dd($ticket);
-                $flag = false;
-                $flag = $ticket->save();
+                // $flag = false;
+                // $flag = $ticket->save();
 
-                // dd($flag);
+                // var_dump($flag);
 
-                if($flag)
+                if($ticket->save())
                 {
                 
                     $agent_acc->save();

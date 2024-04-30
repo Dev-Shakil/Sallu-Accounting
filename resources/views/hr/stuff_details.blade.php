@@ -167,6 +167,34 @@
                     <input type="number" id="salary" name="salary"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
+                <div class="flex items-start">
+                    <label for="salary" class="w-1/2  mr-4">Permission</label>
+                    <div>
+                        <fieldset class="flex gap-2">
+                            <div>
+                                <input type="checkbox" id="entry" name="permissions[]" value="entry" />
+                                <label for="entry">Entry</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="edit" name="permissions[]" value="edit" />
+                                <label for="edit">Edit</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="view" name="permissions[]" value="view" />
+                                <label for="view">View</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="print" name="permissions[]" value="print" />
+                                <label for="print">Print</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="delete" name="permissions[]" value="delete" />
+                                <label for="delete">Delete</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
                 <div class="flex justify-end">
                     <button type="submit"
                     class="bg-black w-fit text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
