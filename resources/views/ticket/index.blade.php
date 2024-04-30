@@ -51,13 +51,13 @@
                     <label for="invoice_date" class="block w-[50%]">Invoice
                         Date</label>
                     <input type="date" id="invoice_date"
-                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class=" bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="flight_date" class="w-[50%]">Flight Date</label>
                     <div class="w-full flex gap-x-2">
-                        <input type="date" id="flight_date" class="bg-gray-50 md:w-[90%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date">
+                        <input type="date" id="flight_date" class="bg-white md:w-[90%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date">
                         <button id="toggle_return_section" class="bg-[#00959E] font-bold w-[8%] text-white text-xl rounded-xl flex justify-center items-center p-1">+</button>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
                     <label for="airline" class="w-[50%]">Airline</label>
                     <div class="flex w-full gap-x-3">
                         {{-- <input type="text" id="airlines_name"
-                            class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            class="bg-white w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                             name="airlines_name"> --}}
-                            <select id="airlines_name" class="select2 bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name">
+                            <select id="airlines_name" class="select2 bg-white w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name">
                                 <option>Select Airline</option>
                                 @foreach ($airlines as $airline)
                                     <option value="{{ $airline->Full}}">{{ $airline->Full }}</option>
@@ -78,14 +78,14 @@
                             </select>
                             
                         <input type="text" id="airlines_code"
-                            class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                             name="airlines_code">
                     </div>
                 </div>
                 <div class="" id="return_section" >
                 <div class="w-full px-4 mb-2 flex items-center" style="display:none">
                     <label for="return_date" class="w-[50%]">Return Date</label>
-                    <input type="date" id="return_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="return_date">
+                    <input type="date" id="return_date" class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="return_date">
                 </div>
                 </div>
                 
@@ -94,10 +94,10 @@
                         PNR</label>
                     <div class="flex w-full gap-x-4">
                         <input type="text" id="ticket_code"
-                            class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                             name="ticket_code">
                         <input type="text" id="ticket_no" maxlength="10" minlength="10"
-                            class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                            class="bg-white w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                             name="ticket_no">
                     </div>
                 </div>
@@ -108,13 +108,13 @@
                     <label for="number_of_tickets" class="w-[50%]">Number of
                         Tickets</label>
                     <input type="number" id="number_of_tickets"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="number_of_tickets">
                 </div>
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="pnr" class="w-[50%]">PNR</label>
                     <input type="text" id="pnr"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="pnr">
                 </div>
                 
@@ -125,12 +125,12 @@
                     <label for="passenger_name" class="w-[50%]">Passenger
                         Name</label>
                     <input type="text" id="passenger_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="passenger_name">
                 </div>
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="person" class="w-[50%]">Person</label>
-                    <select id="person" class=" bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="person">
+                    <select id="person" class=" bg-white w-full border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="person">
                             <option value="adult">Adult</option>
                             <option value="child">Child</option>
                             <option value="infant">Infant</option>
@@ -145,9 +145,9 @@
                     <label for="class" class="w-[50%]">Class</label>
                     <div class="flex w-full gap-x-4">
                         <input type="text" id="class_code"
-                                class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                                class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                                 name="class_code">
-                        <select id="class" class=" bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="class">
+                        <select id="class" class=" bg-white w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="class">
                                 <option value="economy">Economy</option>
                                 <option value="business">Business</option>
                                 
@@ -157,7 +157,7 @@
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="sector" class="w-[50%]">Sector</label>
                     <input type="text" id="sector"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="sector">
                 </div>
                 
@@ -169,14 +169,14 @@
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="flight_no" class="w-[50%]">Flight No</label>
                     <input type="text" id="flight_no"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="flight_no">
                 </div>
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="supplier" class="w-[50%]">Supplier</label>
 
                     <select name="supplier" id="supplier"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
                         <option value="">Select Supplier</option>
                         @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
@@ -189,7 +189,7 @@
                     <label for="agent_price" class="w-[50%]">Agent
                         Price</label>
                     <input type="text" id="agent_price_1"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="agent_price">
                 </div>
 
@@ -198,7 +198,7 @@
                         Price</label>
                     <div class="w-full flex gap-x-2">
                     <input type="text" id="supplier_price"
-                        class="bg-gray-50 border border-gray-300 md:w-[82%] text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 md:w-[82%] text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="supplier_price">
                         <button id="group_ait" class="bg-[#00959E] font-bold w-[16%] text-white text-sm rounded-xl flex justify-center items-center p-1"><span class="text-lg">+</span> AIT</button>
                     </div>
@@ -208,14 +208,14 @@
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="stuff" class="w-[50%]">Stuff</label>
                     <input type="text" id="stuff"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="stuff">
                 </div>
                 
                 <div class="w-full px-4 mb-2 flex items-center">
                     <label for="remark" class="w-[50%]">Remark</label>
                     <textarea id="remark"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="remark"></textarea>
                 </div>
 
@@ -225,14 +225,14 @@
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="discount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
                     <input type="text" id="aitticket"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="ait">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="remark" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT
                         Amount</label>
                     <input type="text" id="aitticket_amount"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="ait_amount">
                 </div>
 
@@ -243,7 +243,7 @@
         <div class="flex justify-center my-4 gap-x-8">
             <div class="font-semibold">
                 <input type="checkbox" id="addGDS" name="addGDS" onchange="toggleGdsVisibility()" />
-                <label for="addGDS">Add GDS</label>
+                <label for="addGDS" class="text-[#00959E] font-bold">Add GDS</label>
             </div>
 
             
@@ -255,68 +255,79 @@
         <div class="my-4 w-full" id="gds">
             <div class="flex flex-wrap gap-x-2 md:gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="fare" class="block w-full md:w-[40%] text-gray-700 text-sm mb-2">Fare</label>
+                    <label for="fare" class="block w-full md:w-[50%] text-gray-700 text-sm mb-2">Fare</label>
                     <input type="text" id="fare"
-                        class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class=" text-gray-900 text-sm bg-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="fare">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
                     <label for="commission"
-                        class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Commission</label>
-                    <input type="text" id="commission"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">Commission</label>
+                    <div class="w-full flex gap-2">
+                        <input type="text" id="commission"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[83%] p-1"
                         name="commission">
+                        <input type="number" id="commissionPercentage"
+                            class="bg-white text-center border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[15%] p-1" value="7"
+                            >%
+                       
+                    </div>
                 </div>
             </div>
 
             <div class="flex flex-wrap gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="tax" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">TAX</label>
+                    <label for="tax" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">TAX</label>
                     <input type="text" id="tax"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="tax">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="ait_amount" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT
+                    <label for="ait_amount" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">AIT
                         Amount</label>
                     <input type="text" id="ait_amount"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="ait_amount">
+                        class=" border bg-white border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        name="ait_amount" readonly placeholder="3830">
                 </div>
             </div>
             <div class="flex flex-wrap gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="ait" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">AIT</label>
-                    <input type="text" id="ait"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="ait">
+                    <label for="ait" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">AIT</label>
+                    <div class="w-full flex gap-2">
+                        <input type="text" id="ait"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[83%] p-1"
+                            name="ait">
+                        <p id="aitPercent"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1 md:w-[15%] text-center"
+                            >0.3%</p>
+                    </div>
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="service_charge" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Service
+                    <label for="service_charge" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">Service
                         Charge</label>
                     <input type="text" id="service_charge"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="service_charge">
                 </div>
             </div>
             <div class="flex flex-wrap gap-x-6 mb-4">
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="agent_price" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent
+                    <label for="agent_price" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">Agent
                         Price</label>
                     <input type="text" id="agent_price"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="agent_price">
                 </div>
                 <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                    <label for="gds_payment" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">GDS
+                    <label for="gds_payment" class="block w-full md:w-[50%]  text-gray-700 text-sm mb-2">GDS
                         Payment</label>
                     <input type="text" id="gds_payment"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                         name="gds_payment">
                 </div>
             </div>
         </div>
-        <div class="bg-[#F4A460D1] w-full my-2 rounded-lg p-2" id="profit_show">
+        <div class=" w-full my-2 rounded-lg p-2 font-bold" id="profit_show">
             Net Profit - 00
         </div>
 
@@ -648,11 +659,21 @@
                 fare = parseFloat(this.value);
 
                 if (!isNaN(fare)) {
-                    var commissionPercentage = 7;
+                    var commissionPercentage = $('#commissionPercentage').val();
                     commission = (fare * commissionPercentage) / 100;
                     commission = Math.floor(commission);
                     // var afterCommission = fare - commission;
+
                     $('#commission').val(commission);
+                    $('#commissionPercentage').on('change', function() {
+                        var commissionPercentage = $('#commissionPercentage').val();
+                    commission = (fare * commissionPercentage) / 100;
+                    commission = Math.floor(commission);
+                    // var afterCommission = fare - commission;
+
+                    $('#commission').val(commission);
+                    });
+
 
                 }
             });

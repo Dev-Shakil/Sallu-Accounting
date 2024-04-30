@@ -217,7 +217,7 @@
                   </form>
             </div>
         </div>
-        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">
+        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[80%]">
             
         <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
                 <div class="flex items-center gap-3">
