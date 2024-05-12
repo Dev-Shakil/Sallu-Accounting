@@ -1,3 +1,20 @@
+@if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+@else
+    @php
+        $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+        $role = 'admin';
+    @endphp
+@endif
+
+
 <div id="sideNav"
     class="text-white lg:block hidden w-64 min-h-screen h-auto rounded-none border-none overflow-y-scroll no-scrollbar bg-gray-800">
     
@@ -167,6 +184,7 @@
                   
                 </ul>
             </li>
+            @if($role != 'employee')
             <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-example1" data-collapse-toggle="dropdown-example1">
@@ -204,9 +222,10 @@
                             {{ __('Stuff Details') }}
                         </x-nav-link>
                     </li>
-                  
+                
                 </ul>
             </li>
+        @endif
             
             {{-- <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
@@ -753,47 +772,50 @@
                 {{ __('Due Reminder') }}
             </x-nav-link>
             
-            <li class="w-full list-none">
-                <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
-                    aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
-                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="flex-1 ml-3 text-left text-sm" sidebar-toggle-item>Settings</span>
-                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </p>
-                <ul id="dropdown-example2" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
-                    <li class=" font-semibold">
-                        <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            {{ __('Company Profile') }}
-                        </x-nav-link>
-                    </li>
-                    <li class=" font-semibold">
-                        <x-nav-link :href="route('change_password.view')" :active="request()->routeIs('change_password.view')">
-                            <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            {{ __('Change Password') }}
-                        </x-nav-link>
-                    </li>
-                  
-                </ul>
-            </li>
+            
+            @if($role != 'employee')
+                <li class="w-full list-none">
+                    <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
+                        aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
+                        <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 text-left text-sm" sidebar-toggle-item>Settings</span>
+                        <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </p>
+                    <ul id="dropdown-example2" class="hidden divide-y-2 text-white bg-gray-700 ml-7 rounded-lg">
+                        <li class=" font-semibold">
+                            <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                {{ __('Company') }}
+                            </x-nav-link>
+                        </li>
+                        <li class=" font-semibold">
+                            <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                                <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                {{ __('Change Password') }}
+                            </x-nav-link>
+                        </li>
+                    
+                    </ul>
+                </li>
+            @endif
             <li class="w-full list-none">
                 <p class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-[#00959E]"
                     aria-controls="dropdown-support" data-collapse-toggle="dropdown-support">

@@ -1,5 +1,19 @@
 <x-app-layout>
-
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+    @else
+        @php
+            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+            $role = 'admin';
+        @endphp
+    @endif
     <main class=" w-full">
         
         @if(session('success'))
@@ -13,6 +27,7 @@
 
             <div class="flex-col py-3 border-gray-400 w-full" style="" id="receive">
                 <div class="text-xl font-bold text-gray-700 mb-4">Receive Details</div>
+                @if(in_array('entry', $permissionsArray))
                 <form action="{{ route('submit.receive') }}" id="submit_form_receive" method="post" class="w-[100%]">
                     @csrf
                     <div
@@ -73,6 +88,11 @@
                         </div>
                     </div>
                 </form>
+                @else
+                <div class="alert alert-warning">
+                    Don't have permission to entry
+                </div>
+            @endif
             </div>
         </div>
     </main>

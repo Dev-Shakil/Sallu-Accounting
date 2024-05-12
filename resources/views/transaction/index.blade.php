@@ -1,5 +1,19 @@
 <x-app-layout>
-   
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+    @else
+        @php
+            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+            $role = 'admin';
+        @endphp
+    @endif
         <div class="container mt-5 w-[50%] mx-auto">
             @if(session('success'))
                 <div class="alert alert-success">
@@ -9,6 +23,7 @@
             <h1 class="mb-4 text-xl font-semibold">Add Transaction Method</h1>
     
             <div class="addagent">
+                @if(in_array('entry', $permissionsArray))
                 <form action="/transaction_add" method="post" class="flex gap-4 items-center shadow-lg p-3 rounded-sm bg-white mb-3" >
                     
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
@@ -32,6 +47,11 @@
         
                     <button type="submit" class="px-4 py-2 mt-3 bg-black text-white rounded-md font-semibold ">Submit</button>
                 </form>
+                @else
+                <div class="alert alert-warning">
+                    Don't have permission to entry
+                </div>
+                @endif
             </div>
     
         <div class="allagents bg-white shadow-lg p-3">
@@ -53,8 +73,12 @@
                                
                                 <td>{{ $transaction->description }}</td>
                                 <td>
+                                    @if(in_array('edit', $permissionsArray))
                                     <a href="{{ route('transaction.edit', ['id' => encrypt($transaction->id)]) }}" class=""><i class="fa fa-pencil fa-fw text-xl"></i></a>
+                                    @endif
+                                    @if(in_array('delete', $permissionsArray))
                                     <a href="{{ route('transaction.delete', ['id' => $transaction->id]) }}" class=""><i class="fa fa-trash fa-fw text-xl"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

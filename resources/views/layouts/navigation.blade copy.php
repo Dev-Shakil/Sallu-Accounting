@@ -1,22 +1,6 @@
-@if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-@else
-    @php
-        $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-        $role = 'admin';
-    @endphp
-@endif
-
-<nav x-data="{ open: false }" class="z-50 bg-white border-b border-gray-100 dark:border-gray-700 sticky top-0">
+<nav x-data="{ open: false }" class="z-50 bg-[#00959E] border-b border-gray-100 dark:border-gray-700 sticky top-0">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-[90%] mx-auto bg-white px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[90%] mx-auto bg-[#00959E] px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <div class="flex">
                 <!-- Logo -->
@@ -84,9 +68,8 @@
             
                     <div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                         <div class="py-1">
-                            @if($role != 'employee')
-                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">{{ __('Profile') }}</a>
-                            @endif
+                            {{-- <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">{{ __('Profile') }}</a> --}}
+                            
                             <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 @csrf
                                 <button type="submit" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
@@ -127,11 +110,10 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                @if($role != 'employee')
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-                @endif
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

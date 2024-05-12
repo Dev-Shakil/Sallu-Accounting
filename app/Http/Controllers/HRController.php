@@ -77,18 +77,29 @@ class HrController extends Controller
     
 
     public function store(Request $request){
-        // dd($request->all());
-        $employee = new Employee();
+        if(Auth::user()){
+            $employee = new Employee();
       
-        $employee->name = $request->employeeName;
-        $employee->designation = $request->designation;
-        $employee->phone = $request->mobileNumber;
-        $employee->email = $request->email;
-        $employee->address = $request->address;
-        $employee->salary = $request->salary;
-        $employee->user = Auth::id();
-        $employee->save();
-        return redirect()->route('stuff_details.view')->with('success', 'Employee added successfully');
+            $employee->name = $request->employeeName;
+            $employee->designation = $request->designation;
+            $employee->phone = $request->mobileNumber;
+            $employee->email = $request->email;
+            $employee->address = $request->address;
+            $employee->salary = $request->salary;
+            $employee->user = Auth::id();
+            
+            $permissionsString = implode(',', $request->permissions);
+            // dd($permissionsString);
+            $employee->permission = $permissionsString;
+            $employee->password = md5($request->password);
+            $employee->save();
+    
+            return redirect()->route('stuff_details.view')->with('success', 'Employee added successfully');
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
 
     public function salary_store(Request $request){
@@ -151,6 +162,9 @@ class HrController extends Controller
             $employee->address = $request->address;
             $employee->salary = $request->salary;
         
+            $permissionsString = implode(',', $request->permissions);
+            // dd($permissionsString);
+            $employee->permission = $permissionsString;
             // Save the updated airline record
             $employee->save();
         
@@ -166,7 +180,6 @@ class HrController extends Controller
         
         
     }
-
     public function salary_update(Request $request)
     {
         // dd($request->all());

@@ -1,4 +1,19 @@
 <x-app-layout>
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+    @else
+        @php
+            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+            $role = 'admin';
+        @endphp
+    @endif
     <div class="container mx-auto mt-5">
         @if(session('success'))
             <div class="bg-green-200 text-green-800 p-4 mb-4">
@@ -13,35 +28,41 @@
         <div id="addSupplier" class="py-2">
         
             <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[60%] p-6 mb-8">
-                <form action="/addsupplier" method="post">
-                    @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-semibold text-gray-600">Name:</label>
-                            <input type="text" class="form-input mt-1 block w-full border p-2" id="name" name="name" placeholder="Enter your name" required>
+                @if(in_array('entry', $permissionsArray))
+                    <form action="/addsupplier" method="post">
+                        @csrf <!-- Add this line to include CSRF protection in Laravel -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-semibold text-gray-600">Name:</label>
+                                <input type="text" class="form-input mt-1 block w-full border p-2" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="phone" class="block text-sm font-semibold text-gray-600">Phone:</label>
+                                <input type="tel" class="form-input mt-1 block w-full border p-2" id="phone" name="phone" placeholder="Enter your phone number" required>
+                            </div>
                         </div>
-                        <div class="mb-4">
-                            <label for="phone" class="block text-sm font-semibold text-gray-600">Phone:</label>
-                            <input type="tel" class="form-input mt-1 block w-full border p-2" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-semibold text-gray-600">Email:</label>
+                                <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email">
+                            </div>
+                            <div class="mb-4">
+                                <label for="company" class="block text-sm font-semibold text-gray-600">Company:</label>
+                                <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company">
+                            </div>
                         </div>
+                        <div class="mb-4 w-[49%]">
+                            <label for="description" class="block text-sm font-semibold text-gray-600">Description:</label>
+                            <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description"></textarea>
+                        </div>
+            
+                        <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+                    </form>
+                @else
+                    <div class="alert alert-warning">
+                        Don't have permission to entry
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-semibold text-gray-600">Email:</label>
-                            <input type="text" class="form-input mt-1 block w-full border p-2" id="email" name="email" placeholder="Enter an Email">
-                        </div>
-                        <div class="mb-4">
-                            <label for="company" class="block text-sm font-semibold text-gray-600">Company:</label>
-                            <input type="text" class="form-input mt-1 block w-full border p-2" id="company" name="company" placeholder="Enter a company">
-                        </div>
-                    </div>
-                    <div class="mb-4 w-[49%]">
-                        <label for="description" class="block text-sm font-semibold text-gray-600">Description:</label>
-                        <textarea class="form-input mt-1 block w-full border p-2" id="description" name="description" placeholder="Enter a description"></textarea>
-                    </div>
-        
-                    <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
-                </form>
+                @endif
             </div>
         </div>
         <div class="bg-white shadow-md p-6 w-[100%] mx-auto">
@@ -67,8 +88,12 @@
                             <td class="px-4 py-2 ">{{ $supplier->company }}</td>
                             <td class="px-4 py-2 ">{{ $supplier->description }}</td>
                             <td class="px-4 py-2  w-[75px]">
+                                @if(in_array('edit', $permissionsArray))
                                 <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class=" hover:underline"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                @endif
+                                @if(in_array('delete', $permissionsArray))
                                 <a href="{{ route('supplier.delete', ['id' => $supplier->id]) }}" class=" hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

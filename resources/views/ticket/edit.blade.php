@@ -1,6 +1,6 @@
 <x-app-layout>
 <h2
-class="text-4xl py-4 flex justify-center font-extrabold bg-[#01919A] text-white"
+class="text-4xl py-4 flex justify-center font-extrabold  "
 >
 Ticket Invoicing
 </h2>
@@ -207,11 +207,11 @@ Ticket Invoicing
       </div>
       <div class="flex flex-wrap gap-x-6 mb-4">
           <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-              <label for="agent_price" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent
+              <label for="agent_price_gds" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Agent
                   Price</label>
-              <input type="text" id="agent_price"
+              <input type="text" id="agent_price_gds"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                  name="agent_price">
+                  name="agent_price_gds">
           </div>
           <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
               <label for="gds_payment" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">GDS
