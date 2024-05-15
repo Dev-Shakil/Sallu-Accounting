@@ -11,16 +11,22 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        // dd($suppliers);
-        return view('supplier/index', compact('suppliers'));
+        if(Auth::user()){
+            $user = Auth::id();
+            $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            // dd($suppliers);
+            return view('supplier/index', compact('suppliers'));
+        }
+        else{
+            return view('welcome');
+        }
+      
     }
 
     public function store(Request $request)
     {
-        
-
+        if(Auth::user()){
+            
             $supplier = new Supplier();
             $supplier->name = $request['name'];
             $supplier->phone = $request['phone'];
@@ -34,20 +40,32 @@ class SupplierController extends Controller
             if($isdone){
                 return redirect()->route('supplier.view')->with('success', 'Supplier added successfully');
             }
-        // $validatedData['user'] = Auth::id();
-        // Supplier::create($validatedData);
-        return redirect()->route('supplier.view')->with('error', 'Supplier is not added');
+            // $validatedData['user'] = Auth::id();
+            // Supplier::create($validatedData);
+            return redirect()->route('supplier.view')->with('error', 'Supplier is not added');
+        }
+        else{
+            return view('welcome');
+        }
+
     }
 
     public function edit($id)
     {
-        $id = decrypt($id);
-        $supplier = Supplier::findOrFail($id);
-        return view('supplier.edit', compact('supplier'));
+        if(Auth::user()){
+            $id = decrypt($id);
+            $supplier = Supplier::findOrFail($id);
+            return view('supplier.edit', compact('supplier'));
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
         public function update(Request $request, $id)
         {
-            // dd($request->all(), $id);
+            if(Auth::user()){
+                  // dd($request->all(), $id);
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:20',
@@ -74,19 +92,30 @@ class SupplierController extends Controller
             }         
 
             return redirect()->route('supplier.view')->with('error', 'Supplier updated failed');
+            }
+            else{
+                return view('welcome');
+            }
+          
         }
 
     public function delete($id)
     {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->is_delete = 1;
-        if($supplier->save()){
-            return redirect()->route('supplier.view')->with('success', 'Supplier deleted successfully');
-        }
-        else{
+        if(Auth::user()){
+            $supplier = Supplier::findOrFail($id);
+            $supplier->is_delete = 1;
+            if($supplier->save()){
+                return redirect()->route('supplier.view')->with('success', 'Supplier deleted successfully');
+            }
+            else{
+                return redirect()->route('supplier.view')->with('error', 'Supplier deleted failed');
+            }
             return redirect()->route('supplier.view')->with('error', 'Supplier deleted failed');
         }
-        return redirect()->route('supplier.view')->with('error', 'Supplier deleted failed');
+        else{
+            return view('welcome');
+        }
+        
         
     }
 }

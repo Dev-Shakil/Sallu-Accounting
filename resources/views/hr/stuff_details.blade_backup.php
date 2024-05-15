@@ -315,7 +315,7 @@
                                     </div>
                                 </fieldset>
                             </div>
-              </div>
+                        </div>
                         <button type="submit"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
                     </form>
@@ -371,12 +371,12 @@
                         $('#empid').val(response.id);
                         var permissionsArray = response.permission.split(',');
                         // console.log(permissionsArray);
-                        // $.each(permissionsArray, function(index, permission) {
-                        //     // console.log(permission);
-                        //     if ($(#${permission}_edit).length) { // Corrected concatenation
-                        //         $(#${permission}_edit).prop('checked', true);
-                        //     }
-                        // });
+                        $.each(permissionsArray, function(index, permission) {
+                            // console.log(permission);
+                            if ($(#${permission}_edit).length) { // Corrected concatenation
+                                $(#${permission}_edit).prop('checked', true);
+                            }
+                        });
 
                         $('.modal').modal('show');
                     },

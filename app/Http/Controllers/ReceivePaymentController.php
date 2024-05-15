@@ -16,32 +16,53 @@ class ReceivePaymentController extends Controller
 {
     public function index()
     {
-        // Assuming 'is_deleted' is the correct column name in the Agent model
-        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
-        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
-        return view('receive_payment.index', compact('agents', 'suppliers', 'methods'));
+        if(Auth::user()){
+             // Assuming 'is_deleted' is the correct column name in the Agent model
+            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+            $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+            return view('receive_payment.index', compact('agents', 'suppliers', 'methods'));
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
     public function payment_index()
     {
-        // Assuming 'is_deleted' is the correct column name in the Agent model
-        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
-        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
-        return view('receive_payment.payment', compact('agents', 'suppliers', 'methods'));
+        if(Auth::user()){
+             // Assuming 'is_deleted' is the correct column name in the Agent model
+            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+            $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+            return view('receive_payment.payment', compact('agents', 'suppliers', 'methods'));
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
     public function receive_index()
     {
-        // Assuming 'is_deleted' is the correct column name in the Agent model
-        $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-        $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
-        $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
-        return view('receive_payment.receive', compact('agents', 'suppliers', 'methods'));
+        if(Auth::user()){
+                // Assuming 'is_deleted' is the correct column name in the Agent model
+            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
+            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
+            $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+            return view('receive_payment.receive', compact('agents', 'suppliers', 'methods'));
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
 
     
 
     public function payment(Request $request){
+
+        if(Auth::user()){
+            
         // dd($request->all())
         $supplierName = $request->supplierName;
 
@@ -110,11 +131,18 @@ class ReceivePaymentController extends Controller
         $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
         // return view('receive_payment.index', compact('agents', 'suppliers', 'methods'))->with('success', 'Payment successfully submitted.');
         return response()->json(['message' => 'Payment successfully submitted', 'success' => true]);
+    
+        }
+        else{
+            return view('welcome');
+        }
     }
 
 
     
     public function receive(Request $request){
+        if(Auth::user()){
+            
         // dd($request->all());
         $clientName = $request->clientName;
 
@@ -186,142 +214,165 @@ class ReceivePaymentController extends Controller
         ];
         return response()->json(['fullEntry' => $fullEntry, 'message' => 'Receive successfully submitted', 'success' => true]);
         // return view('receive_payment.index', compact('agents', 'suppliers','methods'))->with('success', 'Receive successfully submitted.');
+        }  
+        else{
+            return view('welcome');
+        } 
     }
 
     public function getlastid_receive(){
-        try {
-            $lastId = Receiver::latest('id')->value('id');
-            $newInvoice = 0;
-
-            if ($lastId) {
-                $receive = Receiver::find($lastId);
-                if ($receive) {
-                    $invoice = $receive->invoice;
-                    $parts = explode("-", $invoice);
-                    $partAfterHyphen = end($parts); // Extract part after hyphen
-                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
-                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
-                    
-                } else {
-                   
+        if(Auth::user()){
+            try {
+                $lastId = Receiver::latest('id')->value('id');
+                $newInvoice = 0;
+    
+                if ($lastId) {
+                    $receive = Receiver::find($lastId);
+                    if ($receive) {
+                        $invoice = $receive->invoice;
+                        $parts = explode("-", $invoice);
+                        $partAfterHyphen = end($parts); // Extract part after hyphen
+                        $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                        $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                        
+                    } else {
+                       
+                    }
                 }
-            }
-            else{
-                $lastId = 0;
-                $newInvoice = "RV-0001";
-            }
-        //   dd($newInvoice, $lastId);
-
-            // Return the last ID and associated invoice as JSON response
-            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
-
-        } catch (\Exception $e) {
-            // Handle any exceptions that might occur during the process
-            return response()->json(['error' => 'Error fetching last ID'], 500);
-        }     
+                else{
+                    $lastId = 0;
+                    $newInvoice = "RV-0001";
+                }
+           
+                return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+    
+            } catch (\Exception $e) {
+                // Handle any exceptions that might occur during the process
+                return response()->json(['error' => 'Error fetching last ID'], 500);
+            }    
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
 
     public function getlastid_payment(){
-        try {
-            $lastId = Payment::latest('id')->value('id');
-            $newInvoice = 0;
-
-            if ($lastId) {
-                $payment = Payment::find($lastId);
-                if ($payment) {
-                    $invoice = $payment->invoice;
-                    $parts = explode("-", $invoice);
-                    $partAfterHyphen = end($parts); // Extract part after hyphen
-                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
-                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
-                    
-                } else {
-                   
+        if(Auth::user()){
+            try {
+                $lastId = Payment::latest('id')->value('id');
+                $newInvoice = 0;
+    
+                if ($lastId) {
+                    $payment = Payment::find($lastId);
+                    if ($payment) {
+                        $invoice = $payment->invoice;
+                        $parts = explode("-", $invoice);
+                        $partAfterHyphen = end($parts); // Extract part after hyphen
+                        $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                        $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                        
+                    } else {
+                       
+                    }
                 }
-            }
-            else{
-                $lastId = 0;
-                $newInvoice = "PV-0001";
-            }
-        //   dd($newInvoice, $lastId);
-
-            // Return the last ID and associated invoice as JSON response
-            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
-
-        } catch (\Exception $e) {
-            // Handle any exceptions that might occur during the process
-            return response()->json(['error' => 'Error fetching last ID'], 500);
-        }     
+                else{
+                    $lastId = 0;
+                    $newInvoice = "PV-0001";
+                }
+          
+                return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+    
+            } catch (\Exception $e) {
+                // Handle any exceptions that might occur during the process
+                return response()->json(['error' => 'Error fetching last ID'], 500);
+            } 
+        }
+        else{
+            return view('welcome');
+        }
     }
 
     public function delete_receive($id) {
-        DB::beginTransaction();
+        if(Auth::user()){
+            DB::beginTransaction();
     
-        try {
-            $receive = Receiver::find($id);
-            $transaction = Transaction::where('id', $receive->method)->first();
-    
-            // Update transaction amount
-            $transaction->amount -= $receive->amount;
-            $transaction->save();
-    
-            // Update agent's or supplier's amount based on receive_from
-            if($receive->receive_from == 'agent') {
-                $agent = Agent::find($receive->agent_supplier_id);
-                $agent->amount += $receive->amount;
-                $agent->save();
-            } else {
-                $supplier = Supplier::find($receive->agent_supplier_id);
-                $supplier->amount -= $receive->amount;
-                $supplier->save();
+            try {
+                $receive = Receiver::find($id);
+                $transaction = Transaction::where('id', $receive->method)->first();
+        
+                // Update transaction amount
+                $transaction->amount -= $receive->amount;
+                $transaction->save();
+        
+                // Update agent's or supplier's amount based on receive_from
+                if($receive->receive_from == 'agent') {
+                    $agent = Agent::find($receive->agent_supplier_id);
+                    $agent->amount += $receive->amount;
+                    $agent->save();
+                } else {
+                    $supplier = Supplier::find($receive->agent_supplier_id);
+                    $supplier->amount -= $receive->amount;
+                    $supplier->save();
+                }
+        
+             
+                $receive->delete();
+        
+                DB::commit();
+        
+                return redirect()->route('receive_report_index');
+            } catch (\Exception $e) {
+                DB::rollback();
+          
+                return redirect()->back()->with('error', 'An error occurred while deleting the receive record.');
             }
-    
-         
-            $receive->delete();
-    
-            DB::commit();
-    
-            return redirect()->route('receive_report_index');
-        } catch (\Exception $e) {
-            DB::rollback();
-      
-            return redirect()->back()->with('error', 'An error occurred while deleting the receive record.');
         }
+        else{
+            return view('welcome');
+        }
+      
     }
 
     
     public function delete_payment($id) {
-        DB::beginTransaction();
+        if(Auth::user()){
+            DB::beginTransaction();
     
-        try {
-            $payment = Payment::find($id);
-            $transaction = Transaction::where('id', $payment->method)->first();
-    
-            // Update transaction amount
-            $transaction->amount += $payment->amount;
-            $transaction->save();
-    
-            // Update agent's or supplier's amount based on receive_from
-            if($payment->receive_from == 'agent') {
-                $agent = Agent::find($payment->agent_supplier_id);
-                $agent->amount -= $payment->amount;
-                $agent->save();
-            } else {
-                $supplier = Supplier::find($payment->agent_supplier_id);
-                $supplier->amount += $payment->amount;
-                $supplier->save();
+            try {
+                $payment = Payment::find($id);
+                $transaction = Transaction::where('id', $payment->method)->first();
+        
+                // Update transaction amount
+                $transaction->amount += $payment->amount;
+                $transaction->save();
+        
+                // Update agent's or supplier's amount based on receive_from
+                if($payment->receive_from == 'agent') {
+                    $agent = Agent::find($payment->agent_supplier_id);
+                    $agent->amount -= $payment->amount;
+                    $agent->save();
+                } else {
+                    $supplier = Supplier::find($payment->agent_supplier_id);
+                    $supplier->amount += $payment->amount;
+                    $supplier->save();
+                }
+        
+             
+                $payment->delete();
+        
+                DB::commit();
+        
+                return redirect()->route('payment_report_index');
+            } catch (\Exception $e) {
+                DB::rollback();
+          
+                return redirect()->back()->with('error', 'An error occurred while deleting the payment record.');
             }
-    
-         
-            $payment->delete();
-    
-            DB::commit();
-    
-            return redirect()->route('payment_report_index');
-        } catch (\Exception $e) {
-            DB::rollback();
-      
-            return redirect()->back()->with('error', 'An error occurred while deleting the payment record.');
         }
+        else{
+            return view('welcome');
+        }
+      
     }
 }

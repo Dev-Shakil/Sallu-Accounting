@@ -1,19 +1,4 @@
 <x-app-layout>
-    @if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-    @else
-        @php
-            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-            $role = 'admin';
-        @endphp
-    @endif
     @if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
@@ -31,7 +16,7 @@
       ADM Invoicing
     </h2>
     <div class="flex bg-gray-50 flex-col justify-center items-center p-6 rounded-lg shadow-lg lg:w-3/4 w-full mx-auto my-2">
-    @if(in_array('entry', $permissionsArray)) 
+      
     <form action="{{ route('adm_entry') }}" method="post" class="w-full">
         @csrf
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
@@ -182,12 +167,6 @@
         </div>
 
     </form>
-    @else
-    <div class="alert alert-warning">
-        Don't have permission to entry
-    </div>
-    @endif
-
 
         
 
@@ -245,7 +224,7 @@
 
                 <td class="px-2 py-2 text-gray-700">{{ $ticket->remark }}</td>
                 <td class="px-2 py-2 text-gray-700 flex items-center justify-around">
-                    {{-- <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
+                    <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
                         class="text-blue-500 hover:text-blue-700 mr-1">
                         <i class="fa fa-pencil fa-fw text-xl"></i>
                     </a>
@@ -256,7 +235,7 @@
                     <a href="#" onclick="confirmDelete('{{ route('ticket.delete', ['id' => $ticket->id]) }}')"
                       class="text-red-800 hover:text-red-900 mr-1">
                       <i class="fa fa-trash fa-fw text-xl"></i>
-                   </a> --}}
+                   </a>
                     {{-- <a href="{{ route('ticket_print', ['id' => $ticket->id]) }}" class="text-red-500 hover:text-red-700">
                 <i class="fas fa-print"></i> Print
             </a> --}}

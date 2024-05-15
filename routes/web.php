@@ -16,6 +16,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\MoneyTransferController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
@@ -26,6 +27,9 @@ use App\Models\Agent;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\SslCommerzPaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +46,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     $user = Auth::user();
-//     return view('dashboard',compact('user'));
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
 Route::get('/dashboard', function () {
    
         
@@ -267,6 +282,14 @@ Route::get('/salary/delete/{id}', [HrController::class, 'salary_delete'])->name(
 
 Route::post('/addorder_multiple', [OrderController::class, 'store_multiple'])->name('addorder.multiple');
 
+
+Route::get('moneytransfer/view', function () {
+    return app(MoneyTransferController::class)->index();
+})->name('moneytransfer.view');
+Route::post('/moneytransfer/add', [MoneyTransferController::class, 'store'])->name('moneytransfer.add');
+Route::get('/moneytransfers/{id}', [MoneyTransferController::class, 'destroy'])->name('moneytransfer.delete');
+
+
 Route::get('transaction/view', function () {
     return app(TransactionController::class)->index();
 })->name('transaction.view');
@@ -279,13 +302,6 @@ Route::get('/get-last-id-order', [OrderController::class, 'getlastid'])->name('g
 Route::get('/get-last-id-payment', [ReceivePaymentController::class, 'getlastid_payment'])->name('get-last-id-payment');
 Route::get('/get-last-id-receive', [ReceivePaymentController::class, 'getlastid_receive'])->name('get-last-id-receive');
 
-// Route::get('airlines/view', function () {
-//     return app(AirlineController::class)->index();
-// })->name('airlines.view');
-// Route::post('/transaction_add', [AirlineController::class, 'store'])->name('airlines.store');
-// Route::get('/airlines/edit/{id}', [AirlineController::class, 'edit'])->name('airlines.edit');
-// Route::post('/airlines/update/{id}', [AirlineController::class, 'update'])->name('airlines.update');
-// Route::get('/airlines/delete/{id}', [AirlineController::class, 'delete'])->name('airlines.delete');
 
 Route::get('change_password/view', function () {
     return app(SettingsController::class)->index();

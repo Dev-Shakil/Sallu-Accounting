@@ -1,19 +1,4 @@
 <x-app-layout>
-    @if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-    @else
-        @php
-            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-            $role = 'admin';
-        @endphp
-    @endif
     <div class="container mt-5">
         @if(session('success'))
             <div class="alert alert-success">
@@ -23,7 +8,6 @@
         <h1 class="mb-4 w-[100%] lg:w-[60%] mx-auto font-bold text-3xl">Add Type</h1>
 
         <div class="addagent w-[100%] lg:w-[60%] mx-auto bg-white p-5 shadow-lg rounded-lg">
-            @if(in_array('entry', $permissionsArray))
             <form action="/addtype" method="post" class="flex gap-14 items-center">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
                 <div class="row w-full">
@@ -35,11 +19,6 @@
     
                 <button type="submit" class="mt-3 px-8 py-2 bg-black rounded-xl text-white h-[40px]">Submit</button>
             </form>
-            @else
-            <div class="alert alert-warning">
-                Don't have permission to entry
-            </div>
-            @endif
         </div>
 
         <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%] mx-auto">
@@ -64,12 +43,8 @@
                             <th scope="row" class="px-4 py-2">{{ $index + 1}}</th>
                             <td class="px-4 py-2 ">{{ $type->name }}</td>
                             <td class="px-4 py-2 flex justify-center">
-                                @if(in_array('edit', $permissionsArray))
                                 <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class=""><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                @endif
-                                @if(in_array('delete', $permissionsArray))
                                 <a href="{{ route('type.delete', ['id' => $type->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
-                                @endif
                             </td>
                         </tr>
                     @endforeach

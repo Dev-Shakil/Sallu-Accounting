@@ -1337,7 +1337,8 @@ class ReportController extends Controller
                 $end_date = $request->end_date;
                 $id = $request->agent_supplier_id;
     
-                $receive = Ticket::where('agent', $id);
+                $receive = Ticket::where([['agent', $id], ['reissued_new_ticket', 1]]);
+
                 $receive = $receive->where('user', Auth::id());
                 $refund = Refund::where('user', Auth::id());
                 // $order = Order::where('user', Auth::id());
@@ -1467,12 +1468,7 @@ class ReportController extends Controller
                             
                                 
                         <main class="flex-1 mx-auto max-w-7xl px-10 ">
-                        <div class="justify-end flex gap-3 p-5 ">
-                            <button class="text-white bg-green-400 font-bold text-md py-2 px-4">Send</button>
-                            <button id="printBtn" class="text-white bg-[#882278] font-bold text-md py-2 px-4">Print</button>
-                            
-                            <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-                        </div>
+                       
                         <div id="printSection" class="shadow-lg p-3 bg-white">
                             <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                             <div class="flex items-center justify-between mb-2">
@@ -1736,7 +1732,7 @@ class ReportController extends Controller
                 $end_date = $request->end_date;
                 $id = $request->agent_supplier_id;
     
-                $receive = Ticket::where('supplier', $id);
+                $receive = Ticket::where([['supplier', $id], ['reissued_new_ticket', 1]]);
                 // dd($receive);
                 $refund = Refund::where('user', Auth::id());
     
@@ -1863,11 +1859,7 @@ class ReportController extends Controller
                 $html = ' 
                                 
                             <main class="flex-1  mx-auto max-w-7xl px-10">
-                                <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-                                    <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-                                    <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
-                                    <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-                                </div>
+                                
                                 <div id="printSection" class="shadow-lg p-3 bg-white">
                                         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
                                         <div class="flex items-center justify-between mb-2">
@@ -3305,7 +3297,7 @@ class ReportController extends Controller
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
-                <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                 <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
             </div>
             <div class="flex items-center">
@@ -3441,7 +3433,7 @@ class ReportController extends Controller
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
-                <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                 <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
             </div>
             <div class="flex items-center">
@@ -3557,13 +3549,14 @@ class ReportController extends Controller
         }
         $alldata = $query->get();
 
+        // dd(Auth::user()->name);
         // dd($alldata, $supplier, $agent);
 
         $htmlTable = '
             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
                 <div class="text-lg">
-                    <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                    <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                     <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to' . $end_date . ' </p>
                 </div>
                 <div class="flex items-center">
@@ -3746,7 +3739,7 @@ class ReportController extends Controller
             <h2 class="text-center font-bold text-3xl my-2">Sales Report (Visa)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . ' </p>
                     </div>
                     <div class="flex items-center">
@@ -3922,7 +3915,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -3973,7 +3966,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -4027,7 +4020,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -4085,7 +4078,7 @@ class ReportController extends Controller
             <h2 class="text-center font-bold text-3xl my-2">Void Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
                 <div class="text-lg">
-                    <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                    <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                     <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                 <div class="flex items-center">
@@ -4189,7 +4182,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -4240,7 +4233,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -4294,7 +4287,7 @@ class ReportController extends Controller
                 <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-lg">
-                        <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                        <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                         <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                     <div class="flex items-center">
@@ -4352,7 +4345,7 @@ class ReportController extends Controller
             <h2 class="text-center font-bold text-3xl my-2">Reissue Report (Ticket)</h2>
             <div class="flex items-center justify-between mb-2">
                 <div class="text-lg">
-                    <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                    <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                     <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                     </div>
                 <div class="flex items-center">
@@ -4906,7 +4899,13 @@ class ReportController extends Controller
                 'paymenttotalAmount' => $paymentAmount,
             ];
         }
-        return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
+        // return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
+        $html = ViewFacade::make('report.sales_analysis.sales_analysis', [
+            'tableData' => $tableData,
+            'start_date' => $start_date,
+            'end_date' => $end_date
+        ])->render();
+        return response()->json(['html' => $html]);
     }
     else{
         return view('welcome');
@@ -4985,7 +4984,7 @@ class ReportController extends Controller
         $alldata = $query->get();
         $groupedData = $alldata->groupBy('stuff');
 
-
+        // dd($groupedData);
         // dd($groupedData, $supplier, $agent, $stuff, $show_profit, $show_supplier, $show_agent);
         $htmlTable = '';
 
@@ -4996,7 +4995,7 @@ class ReportController extends Controller
         $htmlTable .= '<h2 class="text-center font-bold text-3xl my-2">Sales Exicutive Report</h2>
                     <div class="flex items-center justify-between mb-2">
                         <div class="text-lg">
-                            <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
+                            <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
                             <p><span class="font-semibold">Period Date :</span>' . $start_date . ' to ' . $end_date . '</p> 
                             </div>
                         <div class="flex items-center">

@@ -11,27 +11,46 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $user = Auth::id();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        return view('agent/index', compact('agents'));
+        if(Auth::user()){
+            $user = Auth::id();
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            return view('agent/index', compact('agents'));
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->all();
-        $validatedData['user'] = Auth::id();
-        Agent::create($validatedData);
-        return redirect()->route('agent.view')->with('success', 'Agent added successfully');
+        if(Auth::user()){
+            $validatedData = $request->all();
+            $validatedData['user'] = Auth::id();
+            Agent::create($validatedData);
+            return redirect()->route('agent.view')->with('success', 'Agent added successfully');
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
     public function edit($id)
     {
-        $id = decrypt($id);
-        $agent = Agent::findOrFail($id);
-        return view('agent.edit', compact('agent'));
+        if(Auth::user()){
+            $id = decrypt($id);
+            $agent = Agent::findOrFail($id);
+            return view('agent.edit', compact('agent'));
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
         public function update(Request $request, $id)
         {
-            // dd($request->all(), $id);
+            if(Auth::user()){
+                   // dd($request->all(), $id);
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:20',
@@ -57,19 +76,30 @@ class AgentController extends Controller
             }         
 
             return redirect()->route('agent.view')->with('error', 'Agent updated failed');
+            }
+            else{
+                return view('welcome');
+            }
+         
         }
 
     public function delete($id)
     {
-        $agent = Agent::findOrFail($id);
-        $agent->is_delete = 1;
-        if($agent->save()){
-            return redirect()->route('agent.view')->with('success', 'Agent deleted successfully');
-        }
-        else{
+        if(Auth::user()){
+            $agent = Agent::findOrFail($id);
+            $agent->is_delete = 1;
+            if($agent->save()){
+                return redirect()->route('agent.view')->with('success', 'Agent deleted successfully');
+            }
+            else{
+                return redirect()->route('agent.view')->with('error', 'Agent deleted failed');
+            }
             return redirect()->route('agent.view')->with('error', 'Agent deleted failed');
         }
-        return redirect()->route('agent.view')->with('error', 'Agent deleted failed');
+        else{
+            return view('welcome');
+        }
+       
         
     }
 }

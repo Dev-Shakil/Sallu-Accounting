@@ -47,6 +47,14 @@
             </div>
         </form>
     </div>
+
+    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
+        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
+        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
+        <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
+    </div> 
+    
     <div class="reportdiv " id="reportdiv">
 
     </div>
@@ -108,16 +116,18 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the "Print" button
-            const printButton = document.getElementById('printBtn');
-            const printSection = document.getElementById('printSection');
-
-            // Attach a click event listener to the "Print" button
-            printButton.addEventListener('click', function() {
-                // Open the print dialog for the printSection
-                window.print();
-            });
+        // Function to print the content of the reportdiv
+        function printReport() {
+            var printContents = document.getElementById("reportdiv").innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    
+        // Add event listener to the "Print" button
+        document.querySelector("#printButton").addEventListener("click", function() {
+            printReport();
         });
     </script>
 

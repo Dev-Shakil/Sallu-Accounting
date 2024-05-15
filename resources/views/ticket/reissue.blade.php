@@ -1,19 +1,4 @@
 <x-app-layout>
-    @if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-    @else
-        @php
-            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-            $role = 'admin';
-        @endphp
-    @endif
     <div class="container-fluid mx-auto mt-5">
         @if(session('success'))
             <div class="alert alert-success">
@@ -30,15 +15,25 @@
         <h1 class="mb-4 text-3xl font-bold w-[100%] mx-auto lg:w-[75%]">Ticket Reissue Invoicing</h1>
     
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
-            @if(in_array('entry', $permissionsArray))
             <form action="{{ route('ticket_reissue') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                
+                <div class="mb-4 flex items-center justify-between gap-6">
+                    <label for="name" class="block text-md font-semibold text-black ">Reissue Number:</label>
+                    <input
+                            type="text"
+                            class="form-input mt-1 block text-sm w-[65%] border p-1 w-full"
+                            placeholder="invoice"
+                            aria-label="invoice"
+                            id="invoice"
+                            name="invoice" readonly
+                            aria-describedby="basic-addon1" />
+                </div>
                 <div class="grid grid-cols-2 gap-x-14">
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="ticket" class="block text-md font-semibold text-black ">Ticket Search:</label>
                         {{-- <input type="text" class="bg-green-50 rounded-lg shadow-lg border-2 border-green-400 mt-1 block w-[65%] p-1" id="ticket" name="ticket" required> --}}
                         <div class="w-[65%] flex items-center border-2 border-black">
+                        
                         <input
                             type="text"
                             class="block py-1 border-1 bg-gray-50 px-2 leading-1.5 outline-none transition-all duration-200 ease-linear  w-full"
@@ -115,6 +110,10 @@
                         <input type="text" maxlength="13" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_ticket_number" name="new_ticket_number">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
+                        <label for="flight_date" class="block text-md font-semibold text-black ">New Flight Date</label>
+                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_flight_date" name="new_flight_date">
+                    </div>
+                    <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="reissue_date" class="block text-md font-semibold text-black ">Reissue Date</label>
                         <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="reissue_date" name="reissue_date" required>
                     </div>
@@ -132,12 +131,6 @@
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded ">Submit</button>
                 </div>
             </form>
-            @else
-            <div class="alert alert-warning">
-                Don't have permission to entry
-            </div>
-            @endif
-
         </div>
     
         <div class="bg-white shadow-md p-6">
@@ -151,6 +144,7 @@
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2 ">Serial</th>
+                        <th class="px-4 py-2 ">Invoice</th>
                         <th class="px-4 py-2 ">Reissue Date</th>
                         <th class="px-4 py-2 ">Passenger Name</th>
                         <th class="px-4 py-2 ">Ticket No</th>
@@ -166,6 +160,7 @@
                     @foreach($reissue_tickets as $index => $reissue)
                         <tr>
                             <td class="px-4 py-2 ">{{ $index + 1 }}</td>
+                            <td class="px-4 py-2 ">{{ $reissue->invoice }}</td>
                             <td class="px-4 py-2 ">{{ $reissue->date }}</td>
                             <td class="px-4 py-2 ">{{ $reissue->passenger_name }}</td>
                             <td class="px-4 py-2 ">{{ $reissue->ticket_no }}</td>
@@ -173,7 +168,7 @@
                             <td class="px-4 py-2 ">{{ $reissue->now_agent_fere }}</td>
                             <td class="px-4 py-2 ">{{ $reissue->prev_supply_amount }}</td>
                             <td class="px-4 py-2 ">{{ $reissue->now_supplier_fare }}</td>
-                            <td class="px-4 py-2 "> @if(in_array('profit', $permissionsArray)){{ $reissue->reissue_profit }}@endif</td>
+                            <td class="px-4 py-2 ">{{ $reissue->reissue_profit }}</td>
                             
                         </tr>
                     @endforeach
@@ -186,6 +181,8 @@
 
     <script>
         $(document).ready(function() {
+            generateUniqueRandomNumber();
+
             // $('.datepicker').datepicker({
             //     autoclose: true
             // });
@@ -243,6 +240,21 @@
 
             });
         });
+    </script>
+    <script>
+        function generateUniqueRandomNumber() {
+            // Generate a random number between 1 and 100000
+            var randomNumber = Math.floor(Math.random() * 100000) + 1;
+    
+            // Convert the random number to a string and pad it with zeros to ensure it has 6 digits
+            var paddedNumber = randomNumber.toString().padStart(6, '0');
+    
+            // Update the input field value with the generated number
+            $('#invoice').val(paddedNumber);
+        }
+    
+        // Call the function when the page is ready
+       
     </script>
 
     

@@ -19,55 +19,67 @@ class VoidController extends Controller
 {
     public function view(Request $request)
     {
-        $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        
-        $query = VoidTicket::where([['user',$user]]);
-
-        // Add search functionality
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where(function ($query) use ($searchTerm) {
-                $query->where('ticket_no', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('date', 'like', '%' . $searchTerm . '%');
-            });
-        }
-
-        $void_tickets = $query->paginate(10);
-        foreach($void_tickets as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
-        }
-        return view('ticket.void', compact('void_tickets'));
-    }
+        if(Auth::user()){
+            $user = Auth::id();
+            $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            
+            $query = VoidTicket::where([['user',$user]]);
     
+            // Add search functionality
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('ticket_no', 'like', '%' . $searchTerm . '%')
+                          ->orWhere('date', 'like', '%' . $searchTerm . '%');
+                });
+            }
+    
+            $void_tickets = $query->paginate(10);
+            foreach($void_tickets as $order){
+               
+                $order->agent = Agent::where('id', $order->agent)->value('name');
+                $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+            }
+            return view('ticket.void', compact('void_tickets'));
+        }
+        else{
+            return view('welcome');
+        }
+       
+    }  
 
     public function void_entry(Request $request)
     {
-        try {
-            DB::beginTransaction();
-
-            $flag = $this->voidTicket($request);
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            // Log the error or handle it as needed
-            return redirect()->back()->with('error', 'Error voiding ticket: ' . $e->getMessage());
+        if(Auth::user()){
+            try {
+                DB::beginTransaction();
+    
+                $flag = $this->voidTicket($request);
+    
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+    
+                // Log the error or handle it as needed
+                return redirect()->back()->with('error', 'Error voiding ticket: ' . $e->getMessage());
+            }
+    
+            $message = $flag ? 'Void Ticket added successfully' : 'Adding Void Ticket failed';
+            $type = $flag ? 'success' : 'error';
+    
+            return redirect()->route('void.view')->with($type, $message);
         }
-
-        $message = $flag ? 'Void Ticket added successfully' : 'Adding Void Ticket failed';
-        $type = $flag ? 'success' : 'error';
-
-        return redirect()->route('void.view')->with($type, $message);
+        else{
+            return view('welcome');
+        }
+       
     }
 
     private function voidTicket(Request $request)
     {
-        $ticket = Ticket::where('ticket_no', $request->ticket)->first();
+        if(Auth::user()){
+            $ticket = Ticket::where('ticket_no', $request->ticket)->first();
 
         if (!$ticket) {
             return false; // Ticket not found
@@ -124,34 +136,45 @@ class VoidController extends Controller
         $flag = $this->updateTicket($ticketParams);
         
         return $flag;
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
 
     private function updateTicket(array $params)
     {
-        $voidticket = $params['voidTicket'];
-        $ticket = $params['ticket'];
-        $agentFare = $params['agentFare'];
-        $supplierFare = $params['supplierFare'];
-        $agent = $params['agentId'];
-        $supplier = $params['supplierId'];
-        $profit = $params['profit'];
-        $agentRefundFare = $params['agentRefundFare'];
-        $supplierRefundFare = $params['supplierRefundFare'];
-
+        if(Auth::user()){
+            $voidticket = $params['voidTicket'];
+            $ticket = $params['ticket'];
+            $agentFare = $params['agentFare'];
+            $supplierFare = $params['supplierFare'];
+            $agent = $params['agentId'];
+            $supplier = $params['supplierId'];
+            $profit = $params['profit'];
+            $agentRefundFare = $params['agentRefundFare'];
+            $supplierRefundFare = $params['supplierRefundFare'];
+    
+           
+            // Your existing logic for updating ticket, agent, and supplier
+            $ticket->is_void = 1;
+            $ticket->void_profit = $profit;
+    
+            $agent = Agent::where('id', $agent)->first();
+            $agent->amount -= $agentFare;
+            $agent->amount += $agentRefundFare;
+            
+            $supplier = Supplier::where('id', $supplier)->first();
+            $supplier->amount -= $supplierFare;
+            $supplier->amount += $supplierRefundFare;
+    
+            return $ticket->save() && $agent->save() && $supplier->save() &&  $voidticket->save();
+        }
+        else{
+            return view('welcome');
+        }
        
-        // Your existing logic for updating ticket, agent, and supplier
-        $ticket->is_void = 1;
-        $ticket->void_profit = $profit;
-
-        $agent = Agent::where('id', $agent)->first();
-        $agent->amount -= $agentFare;
-        $agent->amount += $agentRefundFare;
-        
-        $supplier = Supplier::where('id', $supplier)->first();
-        $supplier->amount -= $supplierFare;
-        $supplier->amount += $supplierRefundFare;
-
-        return $ticket->save() && $agent->save() && $supplier->save() &&  $voidticket->save();
     }
 
 }

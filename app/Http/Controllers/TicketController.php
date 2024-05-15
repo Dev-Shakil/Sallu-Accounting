@@ -21,21 +21,27 @@ class TicketController extends Controller
 {
     public function index()
     {
-        $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
-        $airlines = Airline::get();
-
-        foreach($tickets as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+        if(Auth::user()){
+            $user = Auth::id();
+            $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
+            $airlines = Airline::get();
+    
+            foreach($tickets as $order){
+               
+                $order->agent = Agent::where('id', $order->agent)->value('name');
+                $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+            }
+            // dd($orders);
+            // dd($suppliers);
+            return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets','airlines'));
         }
-        // dd($orders);
-        // dd($suppliers);
-        return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets','airlines'));
+        else{
+            return view('welcome');
+        }
+       
     }
 
     public function searchAirline(Request $request)
@@ -72,8 +78,8 @@ class TicketController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        $ticketNoKeys = array_keys($request['ticket_no']);
+        if(Auth::user()){
+            $ticketNoKeys = array_keys($request['ticket_no']);
         $passengerNameKeys = array_keys($request['passenger_name']);
         $user = Auth::id();
 
@@ -204,13 +210,21 @@ class TicketController extends Controller
                 return redirect()->back()->with('error', 'Error adding tickets: ' . $e->getMessage());
             }
         }
+
+        }
+        else{
+            return view('welcome');
+        }
+        // dd($request->all());
+        
         
     }
     
     public function store_single(Request $request)
     {
         // dd($request->all());
-        $user = Auth::id();
+        if(Auth::user()){
+            $user = Auth::id();
 
        
         try {
@@ -311,31 +325,41 @@ class TicketController extends Controller
                     return redirect()->route('ticket.view')->with('error', 'Something went wrong');
                 }
             
-            }
-            catch (\Exception $e) {
-                // Something went wrong, rollback the transaction
-                DB::rollBack();
-            
-                // Log the error or handle it as needed
-                return redirect()->back()->with('error', 'Error adding tickets: ' . $e->getMessage());
-            }
+        }
+        catch (\Exception $e) {
+            // Something went wrong, rollback the transaction
+            DB::rollBack();
         
-        
+            // Log the error or handle it as needed
+            return redirect()->back()->with('error', 'Error adding tickets: ' . $e->getMessage());
+        }
+        }
+        else{
+            return view('welcome');
+        }
+    
     }
 
     public function edit($id)
     {
-        // $id = decrypt($id);
-        $user = Auth::id();
-        $ticket = Ticket::findOrFail($id);
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        return view('ticket.edit', compact('ticket', 'suppliers', 'agents'));
+        if(Auth::user()){
+                // $id = decrypt($id);
+            $user = Auth::id();
+            $ticket = Ticket::findOrFail($id);
+            $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            return view('ticket.edit', compact('ticket', 'suppliers', 'agents'));
+        }
+        else{
+            return view('welcome');
+        }
+      
     }
     
     public function update(Request $request)
     {
         // dd($request->all());
+      if(Auth::user()){
         if($request['ticket_id'] != null){
             $ticket = Ticket::findOrFail($request['ticket_id']); 
             $ticket->agent = $request['agent'];
@@ -362,26 +386,40 @@ class TicketController extends Controller
         }
         
         return redirect()->route('ticket.view')->with('error', 'Ticket updated failed');
+      }
+      else{
+        return view('welcome');
+      }
     }
 
     public function delete($id)
     {
-        $ticket = Ticket::findOrFail($id);
-        $ticket->is_delete = 1;
-        if($ticket->save()){
-            return redirect()->route('ticket.view')->with('success', 'Ticket deleted successfully');
-        }
-        else{
+        if(Auth::user()){
+            $ticket = Ticket::findOrFail($id);
+            $ticket->is_delete = 1;
+            if($ticket->save()){
+                return redirect()->route('ticket.view')->with('success', 'Ticket deleted successfully');
+            }
+            else{
+                return redirect()->route('ticket.view')->with('error', 'Ticket deleted failed');
+            }
             return redirect()->route('ticket.view')->with('error', 'Ticket deleted failed');
         }
-        return redirect()->route('ticket.view')->with('error', 'Ticket deleted failed');
+        else{
+            return view('welcome');
+        }
         
     }
 
     public function view($id){
-        $ticket = Ticket::findOrFail($id); 
-        $agent = Agent::where('id', $ticket->agent)->value('name');
-        return view('ticket.view', compact('ticket', 'agent'));
+        if(Auth::user()){
+            $ticket = Ticket::findOrFail($id); 
+            $agent = Agent::where('id', $ticket->agent)->value('name');
+            return view('ticket.view', compact('ticket', 'agent'));
+        }
+        else{
+            return view('welcome');
+        }
     }
 
     // public function refundindex(){
@@ -389,7 +427,8 @@ class TicketController extends Controller
     // }
     public function refundindex(Request $request)
     {
-        $user = Auth::id();
+        if(Auth::user()){
+            $user = Auth::id();
         $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
         
@@ -412,26 +451,38 @@ class TicketController extends Controller
         }
         
         return view('ticket.refund', compact('refund_ticket'));
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
 
     public function searchTicket(Request $request){
-        $ticketNumber = $request->ticketNumber;
-        $ticket = Ticket::where('ticket_no', $ticketNumber)->first();
+        if(Auth::user()){
+            $ticketNumber = $request->ticketNumber;
+            $ticket = Ticket::where('ticket_no', $ticketNumber)->first();
 
-        if ($ticket) {
-            // Ticket found
-            $agent = Agent::where('id', $ticket->agent)->value('name');
-            $supplier = Supplier::where('id', $ticket->supplier)->value('name');
-            return response()->json(['status' => 'success', 'ticket' => $ticket, 'agent' => $agent, 'supplier' => $supplier]);
-        } else {
-            // Ticket not found
-            return response()->json(['status' => 'error', 'message' => 'Ticket not found']);
+            if ($ticket) {
+                // Ticket found
+                $agent = Agent::where('id', $ticket->agent)->value('name');
+                $supplier = Supplier::where('id', $ticket->supplier)->value('name');
+                return response()->json(['status' => 'success', 'ticket' => $ticket, 'agent' => $agent, 'supplier' => $supplier]);
+            } else {
+                // Ticket not found
+                return response()->json(['status' => 'error', 'message' => 'Ticket not found']);
+            }
         }
+        else{
+            return view('welcome');
+        }
+        
     }
 
     public function receiveAmount(Request $request)
     {
-        // $receiver = DB::table($request->agent_supplier)->where('id', $request->agent_supplier_id)->first();
+        if(Auth::user()){
+                 // $receiver = DB::table($request->agent_supplier)->where('id', $request->agent_supplier_id)->first();
         $tableName = $request->agent_supplier;
 
         $receiver = DB::table($tableName)->where('id', $request->agent_supplier_id)->first();
@@ -477,23 +528,34 @@ class TicketController extends Controller
 
         // Optionally, you might want to return a response indicating success or failure
         return response()->json(['message' => 'Amount received successfully']);
+        }
+        else{
+            return view('welcome');
+        }
+       
     }
 
 
     public function getAgentSupplier(Request $request){
-        $who = $request->input('who');
-        $allowedTables = ['agent', 'supplier']; // Update with your allowed table names
-        if (!in_array($who, $allowedTables)) {
-            return response()->json(['error' => 'Invalid table name'], 400);
+        if(Auth::user()){
+            $who = $request->input('who');
+            $allowedTables = ['agent', 'supplier']; // Update with your allowed table names
+            if (!in_array($who, $allowedTables)) {
+                return response()->json(['error' => 'Invalid table name'], 400);
+            }
+        
+            $list_all = DB::table($who)
+                            ->where('is_delete', 0)
+                            ->where('is_active', 1)
+                            ->where('user', Auth::id())
+                            ->get();
+        
+            return response()->json($list_all);
         }
-    
-        $list_all = DB::table($who)
-                        ->where('is_delete', 0)
-                        ->where('is_active', 1)
-                        ->where('user', Auth::id())
-                        ->get();
-    
-        return response()->json($list_all);
+        else{
+            return view('welcome');
+        }
+        
     }
 
     // public function getlastid(){
@@ -507,49 +569,61 @@ class TicketController extends Controller
     // }
 
     public function getlastid(){
-        try {
-            $lastId = Ticket::latest('id')->value('id');
-            $newInvoice = 0;
-
-            if ($lastId) {
-                $ticket = Ticket::find($lastId);
-                if ($ticket) {
-                    $invoice = $ticket->invoice;
-                    $parts = explode("-", $invoice);
-                    $partAfterHyphen = end($parts); // Extract part after hyphen
-                    $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
-                    $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
-                    
-                } else {
-                   
+        if(Auth::user()){
+            try {
+                $lastId = Ticket::latest('id')->value('id');
+                $newInvoice = 0;
+    
+                if ($lastId) {
+                    $ticket = Ticket::find($lastId);
+                    if ($ticket) {
+                        $invoice = $ticket->invoice;
+                        $parts = explode("-", $invoice);
+                        $partAfterHyphen = end($parts); // Extract part after hyphen
+                        $newPartAfterHyphen = floatval($partAfterHyphen) + 1; // Increment invoice number
+                        $newInvoice = $parts[0] . "-" . str_pad($newPartAfterHyphen, strlen($partAfterHyphen), '0', STR_PAD_LEFT); // Concatenate back to original format
+                        
+                    } else {
+                       
+                    }
                 }
-            }
-            else{
-                $lastId = 0;
-                $newInvoice = "INVT-0000001";
-            }
-      
-            return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
-
-        } catch (\Exception $e) {
-           
-            return response()->json(['error' => 'Error fetching last ID'], 500);
-        }     
+                else{
+                    $lastId = 0;
+                    $newInvoice = "INVT-0000001";
+                }
+          
+                return response()->json(['lastId' => $lastId, 'invoice' => $newInvoice]);
+    
+            } catch (\Exception $e) {
+               
+                return response()->json(['error' => 'Error fetching last ID'], 500);
+            }  
+        }
+        else{
+            return view('welcome');
+        }
+          
     }
     public function deportee() {
-        $user = Auth::id();
-        $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-        $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
-        foreach($tickets as $order){
-           
-            $order->agent = Agent::where('id', $order->agent)->value('name');
-            $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+        if(Auth::user()){
+            $user = Auth::id();
+            $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $types = Type::where([['is_delete',0],['is_active',1],['user',$user]])->get();
+            $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
+            foreach($tickets as $order){
+               
+                $order->agent = Agent::where('id', $order->agent)->value('name');
+                $order->supplier = Supplier::where('id', $order->supplier)->value('name');
+            }
+            // dd($orders);
+            // dd($suppliers);
+            return view('deportee.index', compact('suppliers', 'agents', 'types', 'tickets'));
         }
-        // dd($orders);
-        // dd($suppliers);
-        return view('deportee.index', compact('suppliers', 'agents', 'types', 'tickets'));
+        else{
+            return view('welcome');
+        }
+      
     }
     
     

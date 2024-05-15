@@ -1,19 +1,4 @@
 <x-app-layout>
-    @if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-    @else
-        @php
-            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-            $role = 'admin';
-        @endphp
-    @endif
     <div class="container-fluid mx-auto mt-5">
         @if(session('success'))
             <div class="alert alert-success">
@@ -30,7 +15,6 @@
         <h1 class="mb-4 text-3xl font-bold w-[100%] mx-auto lg:w-[75%]">Ticket Void Invoicing</h1>
     
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
-            @if(in_array('entry', $permissionsArray))
             <form action="{{ route('ticket_void') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
                 <div class="mb-4 flex items-center gap-6">
@@ -128,11 +112,6 @@
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded ">Submit</button>
                 </div>
             </form>
-            @else
-            <div class="alert alert-warning">
-                Don't have permission to entry
-            </div>
-            @endif
         </div>
     
         <div class="bg-white shadow-md p-6">
@@ -168,7 +147,7 @@
                             <td class="px-4 py-2 ">{{ $void->supplier }}</td>
                             <td class="px-4 py-2 ">{{ $void->now_agent_fere }}</td>
                             <td class="px-4 py-2 ">{{ $void->now_supplier_fare }}</td>
-                            <td class="px-4 py-2 "> @if(in_array('profit', $permissionsArray)){{ $void->void_profit }}@endif</td>
+                            <td class="px-4 py-2 ">{{ $void->void_profit }}</td>
                             
                         </tr>
                     @endforeach

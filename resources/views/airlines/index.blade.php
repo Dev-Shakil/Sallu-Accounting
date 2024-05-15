@@ -1,19 +1,5 @@
 <x-app-layout>
-    @if(session('employee'))
-    @php
-        $employee = session('employee');
-        // dd($employee['permission']);
-        $permissionString = $employee['permission'];
-        $permissionsArray = explode(',', $permissionString);
-        $role = $employee['role'];
-        // dd($role, $employee);
-    @endphp
-    @else
-        @php
-            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
-            $role = 'admin';
-        @endphp
-    @endif
+   
     <div class="container mt-5">
         @if(session('success'))
             <div class="alert alert-success">
@@ -30,7 +16,6 @@
             <h1 class="mb-4 font-semibold w-[90%] md:w-[60%] mx-auto text-lg">Add Airlines</h1>
 
             <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
-                @if(in_array('entry', $permissionsArray))
                 <form action="/addairline" method="POST">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
@@ -54,11 +39,6 @@
         
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
                 </form>
-                @else
-                <div class="alert alert-warning">
-                    Don't have permission to entry
-                </div>
-                 @endif
             </div>
         </div>
     
@@ -86,12 +66,8 @@
                             <td class="px-4 py-2">{{ $airline->Full }}</td>
                           
                             <td class="px-4 py-2 flex">
-                                @if(in_array('edit', $permissionsArray))
                                 <a href="{{ route('airline.edit', ['id' => encrypt($airline->ID)]) }}" class=" text-green-800 px-2 py-1 rounded-md"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                @endif;
-                                @if(in_array('delete', $permissionsArray))
                                 <a href="{{ route('airline.delete', ['id' => $airline->ID]) }}" class="text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
-                                @endif
                             </td>
                         </tr>
                     @endforeach
