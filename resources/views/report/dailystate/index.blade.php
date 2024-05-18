@@ -1,17 +1,17 @@
 <x-app-layout>
-    <div class="container-fluid bg-white shadow-lg p-4 rounded-lg">
+    <div class="container-fluid bg-white shadow-lg px-4 rounded-lg">
         {{-- <h3>fsdsdf</h3> --}}
         <form id="reportForm" action="{{ route('dailystate_report') }}" method="POST">
           @csrf
-          <div class="flex items-center">
+          <div class="flex items-center p-2 gap-5">
             
             
        
-            <div class="form-group col-md-2">
+            <div class="flex gap-3 items-center">
                 <label for="start_date">Date</label>
                 <div class="input-group date" style="width: 100%">
-                    <input type="text" class="form-control datepicker" name="date" id="date" placeholder="Date" />
-                </div>      
+                    <input type="text" class="form-control datepicker" name="date" id="date" placeholder="Date"/>
+                </div>
             </div>
             
             <div class="flex items-center">
@@ -22,10 +22,11 @@
     </div>
 
     <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-        <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
+       
+        <button id="printButton" class="text-white bg-red-600
+         font-bold text-md py-2 px-4">Print</button>
+      
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div> 
 
     <div class="reportdiv mt-5" id="reportdiv">

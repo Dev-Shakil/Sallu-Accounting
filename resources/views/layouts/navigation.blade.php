@@ -14,9 +14,9 @@
     @endphp
 @endif
 
-<nav x-data="{ open: false }" class="z-50 bg-white border-b border-gray-100 dark:border-gray-700 sticky top-0">
+<nav x-data="{ open: false }" class="z-50 bg-[#00959E] border-b border-gray-100 dark:border-gray-700 sticky top-0">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-[90%] mx-auto bg-white px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[100%] mx-auto bg-[#00959E] px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <div class="flex">
                 <!-- Logo -->
@@ -73,29 +73,40 @@
                     </x-slot>
                 </x-dropdown>
             </div> --}}
-            <div x-data="{ open: false }" class="hidden sm:flex sm:items-center sm:ms-6">
+            <div x-data="{ open: false }" class="hidden  sm:flex sm:items-center tracking-wider sm:gap-10 sm:ms-6">
                 <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" class="btn btn-secondary flex items-center">
+                    <button @click="open = !open" class="text-white font-semibold text-xl flex items-center">
                         <span>{{Auth::user()->name }}</span>
-                        <svg class="h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
+                        
                     </button>
             
-                    <div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                    {{-- <div x-show="open" @click.away="open = false" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                         <div class="py-1">
                             @if($role != 'employee')
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">{{ __('Profile') }}</a>
                             @endif
-                            <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300  dark:hover:bg-gray-700">
                                 @csrf
-                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700" role="menuitem">
                                     {{ __('Log Out') }}
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
+                    
                 </div>
+                {{-- @if($role != 'employee')
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">{{ __('Profile') }}</a>
+                            @endif --}}
+                            <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300 ">
+                                @csrf
+                                <button type="submit" class="block px-4 py-2 text-sm  dark:text-gray-300 text-white font-bold  dark:hover:bg-gray-700" role="menuitem">
+                                    <svg class="font-bold" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                      </svg>
+                                </button>
+                            </form>
             </div>
 
             

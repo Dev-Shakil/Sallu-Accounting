@@ -1,4 +1,19 @@
 <x-app-layout>
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+@else
+    @php
+        $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+        $role = 'admin';
+    @endphp
+@endif
     <div class="">
         @if (session('success'))
             <div class="alert alert-success">
@@ -383,7 +398,7 @@
                             <td class="text-sm w-[150px]">
                                 @foreach ($suppliers as $supplier)
                                     @if ($order->supplier == $supplier->id)
-                                        {{ $supplier->name }} <span class="font-bold">{{ $supplier->company }}</span>
+                                        {{ $supplier->name }} <span class="">{{ $supplier->company }}</span>
                                     @endif
                                 @endforeach
                             </td>

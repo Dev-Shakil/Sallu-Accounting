@@ -46,10 +46,10 @@
     </div>
 
     <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-        <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
+        
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
+        
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div> 
 
     <div class="reportdiv mt-5" id="reportdiv">

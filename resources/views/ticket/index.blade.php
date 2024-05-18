@@ -803,7 +803,7 @@
                     (airlines_name || airlines_code) && // either airlines name or code should be available
                     number_of_tickets>1 &&
                     agent_price_1 && sector && stuff &&
-                    supplier_price && invoice_no && pnr && person && classOpt && class_code
+                    supplier_price && invoice_no && pnr && person && classOpt
                 ) {
                     var csrfToken = "{{ csrf_token() }}";
                     var tableHtml =
@@ -893,7 +893,7 @@
                 (airlines_name || airlines_code) && // either airlines name or code should be available
                 number_of_tickets == 1 &&
                 agent_price_1 && sector &&
-                supplier_price && invoice_no && pnr && person && classOpt && class_code)
+                supplier_price && invoice_no && pnr && person && classOpt )
                 {
                   var csrfToken = "{{ csrf_token() }}";
                   var dataToSend = {

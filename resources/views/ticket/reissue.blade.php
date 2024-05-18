@@ -17,17 +17,7 @@
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
             <form action="{{ route('ticket_reissue') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="mb-4 flex items-center justify-between gap-6">
-                    <label for="name" class="block text-md font-semibold text-black ">Reissue Number:</label>
-                    <input
-                            type="text"
-                            class="form-input mt-1 block text-sm w-[65%] border p-1 w-full"
-                            placeholder="invoice"
-                            aria-label="invoice"
-                            id="invoice"
-                            name="invoice" readonly
-                            aria-describedby="basic-addon1" />
-                </div>
+               
                 <div class="grid grid-cols-2 gap-x-14">
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="ticket" class="block text-md font-semibold text-black ">Ticket Search:</label>
@@ -65,6 +55,20 @@
                         </button>
                         <input type="hidden" class=" mt-1 block w-[65%] border p-1" id="ticket_code" name="ticket_code">
                     </div>
+                </div>
+                {{-- <div class="mb-4 flex items-center justify-between gap-6 ">
+                   
+                </div> --}}
+                <div class="mb-4 flex items-center justify-between gap-6 ">
+                    <label for="name" class="block text-md font-semibold text-black ">Invoice No:</label>
+                    <input
+                            type="text"
+                            class="form-input mt-1 block text-sm w-[65%] border p-1"
+                            placeholder="invoice"
+                            aria-label="invoice"
+                            id="invoice"
+                            name="invoice" readonly
+                            aria-describedby="basic-addon1" />
                 </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="name" class="block text-md font-semibold text-black ">Passenger Name:</label>
@@ -106,17 +110,22 @@
                        
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
+                       
+                    </div>
+                    
+                    <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="supplier_fare" class="block text-md font-semibold text-black ">New Ticket Number</label>
                         <input type="text" maxlength="13" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_ticket_number" name="new_ticket_number">
-                    </div>
-                    <div class="mb-4 flex items-center justify-between gap-6">
-                        <label for="flight_date" class="block text-md font-semibold text-black ">New Flight Date</label>
-                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_flight_date" name="new_flight_date">
                     </div>
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="reissue_date" class="block text-md font-semibold text-black ">Reissue Date</label>
                         <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="reissue_date" name="reissue_date" required>
                     </div>
+                    <div class="mb-4 flex items-center justify-between gap-6">
+                        <label for="flight_date" class="block text-md font-semibold text-black ">New Flight Date</label>
+                        <input type="date" class="form-input mt-1 block text-sm w-[65%] border p-1" id="new_flight_date" name="new_flight_date">
+                    </div>
+                    
                     <div class="mb-4 flex items-center justify-between gap-6">
                         <label for="agent_reissuefare" class="block text-md font-semibold text-black ">Client Reissue Charge</label>
                         <input type="text" class="form-input mt-1 block text-sm w-[65%] border p-1" id="agent_reissuefare" name="agent_reissuefare" required>
@@ -250,7 +259,7 @@
             var paddedNumber = randomNumber.toString().padStart(6, '0');
     
             // Update the input field value with the generated number
-            $('#invoice').val(paddedNumber);
+            $('#invoice').val("RI-"+paddedNumber);
         }
     
         // Call the function when the page is ready

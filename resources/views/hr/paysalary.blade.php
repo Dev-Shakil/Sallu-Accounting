@@ -248,7 +248,7 @@
                             <td class="px-4 py-2">
                               @foreach($employees as $index => $employee)
                                   @if($salary->employee == $employee->id)
-                                      {{ $employee->name }}
+                                      {{ $employee->id }}
                                   @endif
                               @endforeach
                             </td>
