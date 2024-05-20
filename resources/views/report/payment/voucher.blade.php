@@ -2,9 +2,9 @@
 
     <div
         class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
-        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
+        
         <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
-        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
+        
     </div>
     <main id="printSection" class="flex-1 m-4 mx-auto max-w-[1060px] shadow-3xl border-t border-gray-200 px-6 py-9">
 

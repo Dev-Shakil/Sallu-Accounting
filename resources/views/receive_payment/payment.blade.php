@@ -98,7 +98,15 @@
                             timer: 2500
                             }).then((result) => {
                                 // Reload the page after the alert is closed
-                                window.location.reload();
+                                if (response && response.fullEntry) {
+                                    const lastId = response.fullEntry.payment.id
+                                    console.log(lastId);
+                                    // Redirect to the receive_voucher with the lastId
+                                    window.location.href = `/payment_voucher/${lastId}`;
+                                } else {
+                                    // Handle the case where lastId is missing in the result
+                                    console.error("lastId not found in result:", response);
+                                }
                             });
                         }
                         else{

@@ -129,8 +129,13 @@ class ReceivePaymentController extends Controller
         $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
         $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
         $methods = Transaction::where('is_delete', 0)->where('user', Auth::id())->get();
+        $fullEntry = [
+            'payment' => $payment,
+            // 'receiver' => $receiver,
+            // Add other data you want to include in the full entry here
+        ];
         // return view('receive_payment.index', compact('agents', 'suppliers', 'methods'))->with('success', 'Payment successfully submitted.');
-        return response()->json(['message' => 'Payment successfully submitted', 'success' => true]);
+        return response()->json(['fullEntry' => $fullEntry,'message' => 'Payment successfully submitted', 'success' => true]);
     
         }
         else{

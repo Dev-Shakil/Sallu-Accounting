@@ -75,7 +75,7 @@
             </div> --}}
             <div x-data="{ open: false }" class="hidden  sm:flex sm:items-center tracking-wider sm:gap-10 sm:ms-6">
                 <div class="relative" x-data="{ open: false }">
-                    <button @click="open = !open" class="text-white font-semibold text-xl flex items-center">
+                    <button @click="open = !open" class="text-white font-semibold text-xl flex items-center focus:outline-none">
                         <span>{{Auth::user()->name }}</span>
                         
                     </button>
