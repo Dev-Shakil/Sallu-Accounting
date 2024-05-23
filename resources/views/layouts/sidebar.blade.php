@@ -22,7 +22,7 @@
     <div class="flex items-center flex-wrap  justify-between w-full px-3 mt-3" href="#">
         <div class="flex items-center flex-col justify-center w-full">
             {{-- <img src="{{ 'public/' . Auth::user()->company_logo }}" alt="logo" width="100px" height="69px"/> --}}
-            <img src="{{ url(Auth::user()->company_logo)}}" alt="logo" width="100px" height="69px"/>
+            <img src="{{ Auth::user()->company_logo}}" alt="logo" width="100px" height="69px"/>
             <span class="ml-2 text-sm font-bold">{{ Auth::user()->name }}</span>
             {{-- <p class="ml-2 text-sm font-bold w-full">{{ Auth::user()->company_logo }}</p> --}}
         </div>
