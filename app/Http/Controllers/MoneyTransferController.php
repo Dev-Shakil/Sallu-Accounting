@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\Expenditure;
+use App\Models\ExpenditureMain;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\MoneyTransfer;
@@ -40,6 +43,56 @@ class MoneyTransferController extends Controller
             
             // dd($transfers);
             return view('moneytransfer.index', compact('transactions', 'transfers', 'company_name'));
+            
+        }
+        else{
+            return view('welcome');
+        }
+        
+    }
+
+
+    public function expanditure_index(){
+        if(Auth::user()){
+            $transactions = Transaction::where([
+                ['is_delete', 0],
+                ['is_active', 1],
+                ['user', Auth::id()]
+            ])->get();
+
+            $employees = Employee::where([
+                ['is_delete',0],
+                ['user', Auth::id()],
+            ])->get();
+
+            $expenditures = Expenditure::where([
+                ['user', Auth::id()],
+            ])->get();
+
+            $expendituresmain = ExpenditureMain::where([
+                ['user', Auth::id()],
+            ])->get();
+
+
+            $transfers = MoneyTransfer::where([
+                ['user', Auth::id()]
+            ])->get();
+
+            $company_name = Auth::user()->name;
+            // dd($company_name);
+
+            foreach ($transfers as $transfer) {
+                // Fetch the name of the transaction associated with the 'from' ID
+                $fromTransaction = Transaction::find($transfer->from);
+                $transfer->from = $fromTransaction ? $fromTransaction->name : 'Unknown';
+            
+                // Fetch the name of the transaction associated with the 'to' ID
+                $toTransaction = Transaction::find($transfer->to);
+                $transfer->to = $toTransaction ? $toTransaction->name : 'Unknown';
+            }
+            
+            // dd($transfers);
+            return view('expanditure.index', compact('transactions', 'transfers', 'company_name', 'expenditures','expendituresmain', 'employees'));
             
         }
         else{
@@ -144,6 +197,49 @@ class MoneyTransferController extends Controller
             }
         } else {
             return redirect()->route('welcome')->with('error', 'User not authenticated.');
+        }
+    }
+
+   
+    public function add_expenditure_towards(Request $request){
+        // Create a new Expenditure instance
+        $expenditure = new Expenditure();
+        $expenditure->name = $request->name;
+        $expenditure->description = $request->description;
+        
+        // Assign the authenticated user's ID to the 'user_id' attribute
+        $expenditure->user = Auth::id();
+
+        // Save the expenditure to the database
+        if($expenditure->save()){
+            return redirect()->back()->with("success", "Expenditure toward added successfully");
+        } else {
+            return redirect()->back()->with("error", "Failed to add expenditure");
+        }
+    }
+
+    public function addExpenditureMain( Request $request){
+        if(Auth::user()){
+            // dd($request->all());
+            $expenditureMain = new ExpenditureMain();
+            $expenditureMain->company_name = $request->branch;
+            $expenditureMain->date = $request->transaction_date;
+            $expenditureMain->receive_from = $request->account_type;
+            $expenditureMain->from_account = $request->from_account;
+            $expenditureMain->toward = $request->towards;
+            $expenditureMain->amount = $request->amount;
+            $expenditureMain->method = $request->method;
+            $expenditureMain->remark = $request->remarks;
+            $expenditureMain->user = Auth::id();
+
+            if ($expenditureMain->save()){
+                return redirect()->back()->with("success", "Expenditure added successfully");
+            } else {
+                return redirect()->back()->with("error", "Failed to add expenditure");
+            }
+        }
+        else{
+            return view('welcome');
         }
     }
 }

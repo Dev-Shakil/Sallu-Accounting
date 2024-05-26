@@ -265,7 +265,7 @@ class TicketController extends Controller
                 $ticket->ticket_code = $request['ticket_code'];
                 $ticket->agent = $request['agent'];
                 $ticket->supplier = $request['supplier'];
-                $ticket->agent_price = $request['agent_price_1'];
+                $ticket->agent_price = $request['agent_price'];
                 $ticket->supplier_price = $request['supplier_price'];
                 $ticket->flight_no = $request['flight_no'];
                 $ticket->remark = $request['remark'];

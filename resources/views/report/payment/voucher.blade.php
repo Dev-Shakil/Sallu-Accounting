@@ -11,10 +11,10 @@
         <div class="flex justify-between items-center pb-2">
             <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
             <div>
-                <h3 class="company-name font-bold text-2xl ">Sallu Air Service</h3>
-                <p class="company-address font-medium">291, Fakirapool, Motijheel, Dhaka</p>
-                <p class="company-phone font-medium">Tel : 39420394023</p>
-                <p class="company-email font-medium">Email : salluairservice@gmail.com</p>
+                <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
+                <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
             </div>
         </div>
         <hr class="h-[2px] bg-gray-600" />

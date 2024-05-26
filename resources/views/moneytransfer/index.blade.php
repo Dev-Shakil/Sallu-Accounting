@@ -68,7 +68,7 @@
             </form>
         </div>
     </div>
-    <div class="allagents mt-8 shadow-lg bg-white rounded-lg">
+    <div class=" mt-8 shadow-lg bg-white rounded-lg">
         <table class="table table-striped table-hover no-wrap w-full" id="agenttable">
             <thead class="bg-[#7CB0B2]">
                 <tr>

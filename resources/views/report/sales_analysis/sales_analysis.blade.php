@@ -43,7 +43,7 @@ foreach($tableData as $row) {
   
   <main class="mx-auto w-full ">
     <div class=" px-7 py-3 shadow-2xl">
-      <h2 class="text-center text-3xl my-2">SALLU AIR SERVICE</h2>
+      <h2 class="text-center text-3xl my-2">{{Auth::user()->name}}</h2>
       <h2 class="text-center font-bold text-xl my-2 underline">Profit Report</h2>
       <div class="flex items-center w-[35%] mx-auto justify-between mb-2">
           <div class="text-md">

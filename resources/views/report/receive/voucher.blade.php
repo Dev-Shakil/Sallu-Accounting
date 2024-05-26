@@ -161,11 +161,11 @@
                     $amount = $receive_voucher->amount;
                     $amountInWords = numberToWords($amount);
                 echo $amountInWords; @endphp Only</span></div>
-                <div class="flex  flex-col gap-y-2 w-[35%]">
+                 <div class="flex  flex-col gap-y-2 w-[35%]">
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Current Amount</p>
                         <p>
-                            <td>{{ number_format($receive_voucher->current_amount, 0, '.', ',') }}</td>
+                            <td>{{ number_format($receive_voucher->previous_amount, 0, '.', ',') }}</td>
                         </p>
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3 font-bold">
@@ -174,7 +174,7 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $receive_voucher->current_amount - $receive_voucher->amount }}</p>
+                        <p>{{ $receive_voucher->previous_amount - $receive_voucher->amount }}</p>
                     </div>
                 </div>
             </div>
@@ -226,6 +226,7 @@
                     </tr>
                 </tbody>
             </table>
+           
             <div class="w-full flex justify-between">
                 <div>Amount in Words : <span class="">@php 
 
@@ -237,7 +238,7 @@
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Current Amount</p>
                         <p>
-                            <td>{{ number_format($receive_voucher->current_amount, 0, '.', ',') }}</td>
+                            <td>{{ number_format($receive_voucher->previous_amount, 0, '.', ',') }}</td>
                         </p>
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3 font-bold">
@@ -246,7 +247,7 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $receive_voucher->current_amount - $receive_voucher->amount }}</p>
+                        <p>{{ $receive_voucher->previous_amount - $receive_voucher->amount }}</p>
                     </div>
                 </div>
             </div>

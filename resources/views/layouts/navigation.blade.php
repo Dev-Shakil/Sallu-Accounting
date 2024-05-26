@@ -98,7 +98,14 @@
                 {{-- @if($role != 'employee')
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">{{ __('Profile') }}</a>
                             @endif --}}
-                            <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300 ">
+                            <button id="logoutBtn" class="block px-4 py-2 text-sm  dark:text-gray-300 text-white font-bold  dark:hover:bg-gray-700" role="menuitem">
+                                <svg class="font-bold" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                  </svg>
+                            </button>
+                            
+                            {{-- <form method="POST" action="{{ route('logout') }}" class="block text-sm text-gray-700 dark:text-gray-300 ">
                                 @csrf
                                 <button type="submit" class="block px-4 py-2 text-sm  dark:text-gray-300 text-white font-bold  dark:hover:bg-gray-700" role="menuitem">
                                     <svg class="font-bold" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -106,7 +113,18 @@
                                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
                                       </svg>
                                 </button>
+                            </form> --}}
+
+                            <form id="logoutForm" method="POST" action="{{ route('logout') }}" class="hidden text-sm text-gray-700 dark:text-gray-300">
+                                @csrf
+                                <button type="button" id="logoutBtn" class="block px-4 py-2 text-sm dark:text-gray-300 text-white font-bold dark:hover:bg-gray-700" role="menuitem">
+                                    <svg class="font-bold" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5.5 0 0 0 1.5 14h8a1.5.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                    </svg>
+                                </button>
                             </form>
+                            
             </div>
 
             
@@ -157,3 +175,32 @@
         </div>
     </div>
 </nav>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#logoutBtn').click(function(){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Log Out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Logged Out!",
+                    text: "You have been logged out.",
+                    icon: "success"
+                }).then(() => {
+                    // Submit the form
+                    $('#logoutForm').submit();
+                });
+            }
+        });
+    });
+});
+
+</script>

@@ -1,6 +1,13 @@
 <x-guest-layout>
+    @include('layouts.head')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <main class="flex flex-col md:flex-row mx-auto w-full md:w-[90%] lg:w-[80%] xl:w-[70%] shadow-2xl bg-white rounded-lg border border-gray-300">
         <div class="w-full md:w-[35%] flex flex-col bg-gray-100 px-5 py-10 md:rounded-l-lg">
@@ -13,15 +20,20 @@
             <form method="POST" action="{{ route('emp_login') }}">
                 @csrf
 
-                <div class="flex items-cener flex-col gap-2 mb-4">
+                {{-- <div class="flex items-cener flex-col gap-2 mb-4">
                     <label for="user" class="block text-sm font-medium text-gray-700">Company</label>
-                    <select id="user" name="user" class="mt-1 p-2 w-full border " placeholder="Enter an from_account">
+                    <select id="user" name="user" class="mt-1 p-2 w-full border select2" placeholder="Enter an from_account">
                         <option value="">Company Name</option>
                         @foreach ($users as $user)
                             <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
                     </select>
+                </div> --}}
+                <div class="flex items-center flex-col gap-2 mb-4">
+                    <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
+                    <input type="text" class="form-control" placeholder="Company Name" name="user" id="usersearch" required>
                 </div>
+                
 
                 <div class="flex items-cener flex-col gap-2 mb-4 ">
                     <label for="email" class="text-gray-800 font-semibold w-[40%]">Email</label>
@@ -120,5 +132,23 @@
         </div>
 
     </main>
+
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: 'search-user', // Specify your endpoint URL here
+                method: 'GET', // Specify the HTTP method (GET, POST, etc.)
+                data: { name: name }, // Pass any data you need to send to the server
+                dataType: 'json', // Specify the expected data type of the response
+                success: function(response) {
+                    
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                    console.error(error);
+                }
+            });
+        });
+    </script>
     
 </x-guest-layout>

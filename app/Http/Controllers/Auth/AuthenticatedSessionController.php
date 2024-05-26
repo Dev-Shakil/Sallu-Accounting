@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 
@@ -49,13 +50,33 @@ class AuthenticatedSessionController extends Controller
         $email = $request->email;
         $password = $request->password;
         $userId = $request->user;
+        
+        
+       
+        // $emp = Employee::where('email', $email)
+        //     ->where('name', 'like', '%' . $userId . '%')
+        //     ->first();
+        // $emp = User::where('email', $email)
+        //             ->get();
+       
+        DB::enableQueryLog();
+
+        // Execute the query
+        $user = User::where('name', 'like', '%' . $userId . '%')->first();
+
+        if($user){
+            $userId = $user->id;
+            $emp = Employee::where('email', $email)
+            ->where('user', $userId)
+            ->first();
+        }
+      
+        $sql = DB::getQueryLog();
+
+        // Dump the results and the SQL query log
+        // dd($emp, md5($password));
+
     
-        // Retrieve the user by email
-        $emp = Employee::where([
-            ['email', $email],
-            ['user', $userId]
-        ])->first();
-        // dd(md5($password));
         // Check if the user exists and the password is correct
         if ($emp) {
             // Check if the user ID matches

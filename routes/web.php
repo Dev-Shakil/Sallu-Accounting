@@ -21,13 +21,17 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
 use App\Http\Controllers\VoidController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Deportee;
 use App\Models\Ticket;
 use App\Models\Agent;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
+use App\Models\Receiver;
+use App\Models\Payment;
+use App\Models\Transaction;
+Use Carbon\Carbon;
 use App\Http\Controllers\SslCommerzPaymentController;
 
 
@@ -79,10 +83,59 @@ Route::get('/dashboard', function () {
         $ticket->supplier = Supplier::where('id', $ticket->supplier)->value('name');
     }
 
-    // dd($closetickets, $start_date->format('Y-m-d'), $end_date->format('Y-m-d'), $current_date->format('Y-m-d'));
+    $current_date = Carbon::now()->toDateString();
+    $total_receive = 0;
+    $total_pay = 0;
+    $total_amount = 0;
 
-    return view('dashboard', compact('closetickets'));
+    $receives = Receiver::where([
+        ['user', Auth::id()],
+        ['date', $current_date]
+    ])->get();
+
+    foreach ($receives as $receive){
+        if($receive->receive_from == "agent"){
+            $receive->name = Agent::where('id', $receive->agent_supplier_id)->value('name');
+        }
+        else{
+            $receive->name = Supplier::where('id', $receive->agent_supplier_id)->value('name');
+        }
+        $receive->method = Transaction::where('id', $receive->method)->value('name');
+        $total_receive += $receive->amount;
+    }
+
+    $payments = Payment::where([
+        ['user', Auth::id()],
+        ['date', '=', $current_date]
+    ])->get();
+
+    foreach ($payments as $payment){
+        if($payment->receive_from == "agent"){
+            $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');
+        }
+        else{
+            $payment->name = Supplier::where('id', $payment->agent_supplier_id)->value('name');
+        }
+        $payment->method = Transaction::where('id', $payment->method)->value('name');
+        $total_pay += $payment->amount;
+    }
+
+    $current_date = Carbon::now()->toDateString();
+
+    
+    $transactions = Transaction::where('user', Auth::id())
+        ->whereDate('updated_at', '=', $current_date)
+        ->get();
+    $total_amount = Transaction::where('user', Auth::id())
+        ->whereDate('updated_at', '=', $current_date)
+        ->sum('amount');
+
+
+    // dd($receives, $payments, $current_date, $transactions);
+
+    return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/layout.app', function () {
     $user = Auth::user();
     return view('layout.app',compact('user'));
@@ -288,6 +341,13 @@ Route::get('moneytransfer/view', function () {
 })->name('moneytransfer.view');
 Route::post('/moneytransfer/add', [MoneyTransferController::class, 'store'])->name('moneytransfer.add');
 Route::get('/moneytransfers/{id}', [MoneyTransferController::class, 'destroy'])->name('moneytransfer.delete');
+
+Route::get('expanditure/view', function () {
+    return app(MoneyTransferController::class)->expanditure_index();
+})->name('expanditure.view');
+Route::post('/add-expenditure-towards', [MoneyTransferController::class, 'add_expenditure_towards'])
+    ->name('add_expenditure_towards');
+Route::post('/add_expenditure_main', [MoneyTransferController::class, 'addExpenditureMain'])->name('add_expenditure_main');
 
 
 Route::get('transaction/view', function () {

@@ -334,8 +334,8 @@ class ReportController extends Controller
     //                                     <div class="flex items-center">
 
     //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">STS International</h2>
-    //                                             <p>Motijheel, Dhaka</p>
+    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
+    //                                             <p>'.Auth::user()->company_address .'</p>
     //                                         </div>
     //                                     </div>
     //                                 </div>
@@ -506,8 +506,8 @@ class ReportController extends Controller
     //                                     <div class="flex items-center">
 
     //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">STS International</h2>
-    //                                             <p>Motijheel, Dhaka</p>
+    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
+    //                                             <p>'.Auth::user()->company_address .'</p>
     //                                         </div>
     //                                     </div>
     //                                 </div>
@@ -780,8 +780,8 @@ class ReportController extends Controller
     //                                     <div class="flex items-center">
 
     //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">STS International</h2>
-    //                                             <p>Motijheel, Dhaka</p>
+    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
+    //                                             <p>'.Auth::user()->company_address .'</p>
     //                                         </div>
     //                                     </div>
     //                                 </div>
@@ -1133,8 +1133,8 @@ class ReportController extends Controller
     //                                     <div class="flex items-center">
 
     //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">STS International</h2>
-    //                                             <p>Motijheel, Dhaka</p>
+    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
+    //                                             <p>'.Auth::user()->company_address .'</p>
     //                                         </div>
     //                                     </div>
     //                                 </div>
@@ -2860,7 +2860,7 @@ class ReportController extends Controller
             <main class="flex-1 mx-auto max-w-7xl px-10">
            
             <div class="">
-                 <h2 class="text-center font-light text-3xl my-2">SALLU AIR SERVICE</h2>
+                 <h2 class="text-center font-light text-3xl my-2">'.Auth::user()->name. '</h2>
                  <h2 class="text-center font-bold text-xl my-2 underline">AIT Report</h2>
                  <div class="flex items-center w-[35%] mx-auto justify-between mb-2">
                      <div class="text-md">
