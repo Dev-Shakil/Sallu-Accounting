@@ -6,22 +6,20 @@
     </style>
     <main class="flex-1 m-4 mx-auto max-w-[1060px] px-10">
         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-           <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-           <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
-           <a href="{{route('ticket.view')}}" class="text-white hover:no-underline bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</a>
+           <button class="text-white bg-black font-bold text-md py-2 px-4" id="printBtn">Print</button>
+           <a href="{{route('order.view')}}" class="text-white hover:no-underline bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</a>
            <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
         </div>
          <div class="my-4 bg-white shadow-lg p-5" id="printSection" >
            <div class="flex justify-between items-center py-5">
                <div class=""><img src="logo.jpeg" alt="logo" width="200" height="100"/></div>
                
-               <div class="text-end ">
-                 <h2 class="text-3xl font-bold">Sallu Air Service</h2>
-                 <p>291, Fakirapool, Motijheel , Dhaka </p>
-                 <p>Tel : 000000000</p>
-                 <p>IATA : 6464</p>
-                 <p>Email : sallu2097@gmail.com</p>
-               </div>
+               <div>
+                <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
+                <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
+            </div>
            </div>
            <hr class="mb-3 h-[3px] bg-gray-400 border-none"/>
            <div class="font-bold text-3xl text-center">INVOICE DETAILS</div>

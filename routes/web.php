@@ -315,8 +315,9 @@ Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_
 Route::get('/sales_exicutive_stuff', [ReportController::class, 'sales_exicutive_stuff'])->name('sales_exicutive_stuff');
 Route::post('/seles_executive_report_stuff', [ReportController::class, 'seles_executive_report_stuff'])->name('seles_executive_report_stuff');
 
-Route::get('stuff_details/view', function () {
-    return app(HrController::class)->index();
+
+Route::any('stuff_details/view', function (Request $request) {
+    return app(HrController::class)->index($request);
 })->name('stuff_details.view');
 Route::post('/addstuff', [HrController::class, 'store'])->name('addstuff.store');
 Route::get('/stuff/edit/{id}', [HrController::class, 'edit'])->name('stuff.edit');

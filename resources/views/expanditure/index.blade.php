@@ -2,56 +2,56 @@
 
     <main class="mx-auto w-[85%] ">
         <div id="addAgent mt-8">
-            <h1 class="mb-4 text-3xl w-[90%] mx-auto font-bold">Add Expenditure</h1>
-            <div class="addagent w-[90%] md:w-[90%] p-7 mx-auto bg-white shadow-lg rounded-lg">
+            <h1 class="mb-4 text-3xl w-[90%] md:w-[60%] mx-auto font-bold">Add Expenditure</h1>
+            <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
                 
                 <form action="/add_expenditure_main" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">
                             <label for="branch" class="block text-sm font-medium text-gray-700">Banch:</label>
-                            <input type="text" id="branch" name="branch" class="mt-1 p-2 w-full border " placeholder="Enter your name" value="{{Auth::user()->name}}" readonly>
+                            <input type="text" id="branch" name="branch" class="mt-1 py-1 px-2 w-full border " placeholder="Enter your name" value="{{Auth::user()->name}}" readonly>
                         </div>
         
                         <div class="mb-4">
                             <label for="transaction_date" class="block text-sm font-medium text-gray-700">Transaction Date:</label>
-                            <input type="date" id="transaction_date" name="transaction_date" class="mt-1 p-2 w-full border " required placeholder="Enter your phone number" required>
+                            <input type="date" id="transaction_date" name="transaction_date" class="mt-1 px-2 py-1 w-full border " required placeholder="Enter your phone number" required>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
                             {{-- <div class="flex gap-2">
-                                <select id="from_account" name="name" class="mt-1 p-2 w-[39%] border" placeholder="Enter a from_account" required>
+                                <select id="from_account" name="name" class="mt-1 px-2 py-1 w-[39%] border" placeholder="Enter a from_account" required>
                                     <option value="">Select</option>
                                     <option value="admin">Admin</option>
                                     <option value="stuff">Stuff</option>
                                     <option value="others">Others</option>
                                 </select>
-                                <select id="stuff_list" name="from_account" class="mt-1 p-2 w-[59%] border" placeholder="Enter a from_account">
+                                <select id="stuff_list" name="from_account" class="mt-1 px-2 py-1 w-[59%] border" placeholder="Enter a from_account">
                                     @foreach($employees as $employee)
                                         <option value="{{$employee->id}}">{{$employee->name}}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" name="from_account" value="admin" class="mt-1 p-2 w-full border "  id="admin_part" readonly >
-                                <input type="text" name="from_account" class="mt-1 p-2 w-full border "  id="other_part" >
+                                <input type="text" name="from_account" value="admin" class="mt-1 px-2 py-1 w-full border "  id="admin_part" readonly >
+                                <input type="text" name="from_account" class="mt-1 px-2 py-1 w-full border "  id="other_part" >
                             </div> --}}
                             <div class="flex gap-2">
-                                <select id="from_account" name="account_type" class="mt-1 p-2 w-[39%] border" placeholder="Enter a from_account" required>
+                                <select id="from_account" name="account_type" class="mt-1 px-2 py-1 w-[39%] border" placeholder="Enter a from_account" required>
                                     <option value="">Select</option>
                                     <option value="admin">Admin</option>
                                     <option value="stuff">Stuff</option>
                                     <option value="others">Others</option>
                                 </select>
                             
-                                <select id="stuff_list" name="from_account" class="mt-1 p-2 w-[59%] border " placeholder="Enter a from_account">
+                                <select id="stuff_list" name="from_account" class="mt-1 px-2 py-1 w-[59%] border " placeholder="Enter a from_account">
                                     @foreach($employees as $employee)
                                         <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
                                 </select>
                             
-                                <input type="text" id="admin_part" value="admin" class="mt-1 p-2 w-full border " readonly>
-                                <input type="text" id="other_part" class="mt-1 p-2 w-full border ">
+                                <input type="text" id="admin_part" value="admin" class="mt-1 px-2 py-1 w-full border " readonly>
+                                <input type="text" id="other_part" class="mt-1 px-2 py-1 w-full border ">
                             
                                 <!-- Hidden input field to hold the selected from_account value -->
                                 <input type="hidden" name="from_account" id="selected_account">
@@ -62,7 +62,8 @@
             
                         <div class="mb-4">
                             <label for="towards" class="block text-sm font-medium text-gray-700">Towards:</label>
-                            <select id="towards" name="towards" class="mt-1 p-2 w-2/3 border" placeholder="Enter a to_account" required>
+                            <div class="flex items-center gap-2">
+                            <select id="towards" name="towards" class="mt-1 px-2 py-1 w-11/12 border" placeholder="Enter a to_account" required>
                                 <option value="">Towards</option>
                                 @foreach ($expenditures as $expenditure)
                                     <option value="{{ $expenditure->id }}">{{ $expenditure->name }}</option>
@@ -72,15 +73,16 @@
                                +
                             </button>
                         </div>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">
                             <label for="amount" class="block text-sm font-medium text-gray-700">Amount:</label>
-                            <input type="text" id="amount" name="amount" class="mt-1 p-2 w-full border " placeholder="Enter a amount" required>
+                            <input type="text" id="amount" name="amount" class="mt-1 px-2 py-1 w-full border " placeholder="Enter a amount" required>
                         </div>
                         <div class="mb-4">
                             <label for="remarks" class="block text-sm font-medium text-gray-700">Method:</label>
-                            <select id="method" name="method" class="mt-1 p-2 w-2/3 border" placeholder="Enter a method" required>
+                            <select id="method" name="method" class="mt-1 px-2 py-1 w-full border" placeholder="Enter a method" required>
                                 <option value="">Method</option>
                                 @foreach ($transactions as $transfer)
                                     <option value="{{ $transfer->id }}">{{ $transfer->name }}</option>
@@ -94,7 +96,7 @@
                         
                         <div class="mb-4">
                             <label for="remarks" class="block text-sm font-medium text-gray-700">Remarks:</label>
-                            <textarea id="remarks" name="remarks" class="mt-1 p-2 w-full border " placeholder="Enter an remarks" ></textarea>
+                            <textarea id="remarks" name="remarks" class="mt-1 px-2 py-1 w-full border " placeholder="Enter an remarks" ></textarea>
                         </div>
             
                       
@@ -200,7 +202,7 @@
                         <th class="px-4 py-2 text-left">Serial</th>
                         <th class="px-4 py-2 text-left">Date</th>
                         <th class="px-4 py-2 text-left">From</th>
-                        <th class="px-4 py-2 text-left">To</th>
+                        <th class="px-4 py-2 text-left">To Account</th>
                         <th class="px-4 py-2 text-left">Towards</th>
                         <th class="px-4 py-2 text-left">Amount</th>
                         <th class="px-4 py-2 text-left">Method</th>
@@ -214,7 +216,12 @@
                             <td class="px-4 py-2"> {{$index + 1}} </td>
                             <td class="px-4 py-2">{{$expan->date}}</td>
                             <td class="px-4 py-2">{{$expan->receive_from}}</td>
-                            <td class="px-4 py-2">{{$expan->from_account}}</td>
+                            <td class="px-4 py-2"> @foreach ($employees as $index => $emp)
+                                @if($emp->id == $expan->from_account)
+                                     {{$emp->name}}
+                                
+                                @endif
+                            @endforeach</td>
                             <td class="px-4 py-2">
                                 @foreach ($expenditures as $index => $ex)
                                     @if($ex->id == $expan->toward)
@@ -224,10 +231,17 @@
                                 @endforeach
                                 </td>
                             <td class="px-4 py-2">{{$expan->amount}}</td>
-                            <td class="px-4 py-2">{{$expan->method}}</td>
+                            <td class="px-4 py-2">
+                                @foreach ($transactions as $index => $tran)
+                                @if($tran->id == $expan->method)
+                                     {{$tran->name}}
+                                
+                                @endif
+                            @endforeach</td>
                             <td class="px-4 py-2">{{$expan->remark}}</td>
                             <td class="px-4 py-2">
-                                <a href="{{ route('moneytransfer.delete', ['id' => $transfer->id]) }}" class="text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                <a href="{{ route('moneytransfer.edit', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-eye fa-fw"></i></a>
+                                <a href="{{ route('moneytransfer.delete', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         <tr>
                     @endforeach

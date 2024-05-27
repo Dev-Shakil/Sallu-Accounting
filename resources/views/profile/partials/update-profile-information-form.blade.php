@@ -22,11 +22,21 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autofocus autocomplete="email" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
+        </div>
+        <div>
+            <x-input-label for="mobile_no" :value="__('Mobile No')" />
+            <x-text-input id="mobile_no" name="mobile_no" type="text" class="mt-1 block w-full" :value="old('mobile_no', $user->mobile_no)" required autofocus autocomplete="mobile_no" />
+            <x-input-error class="mt-2" :messages="$errors->get('mobile_no')" />
+        </div>
+
+        <div>
+            <x-input-label for="company_address" :value="__('Company Address')" />
+            <x-text-input id="company_address" name="company_address" type="company_address" class="mt-1 block w-full" :value="old('company_address', $user->company_address)" required autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('company_address')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>

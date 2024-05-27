@@ -34,7 +34,7 @@
                     <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
                 </form> --}}
                 <div class="text-center font-bold text-xl mb-8">Add New Employee</div>
-            <form class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post">
+            <form class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post" autocomplete="off">
                 @csrf
                 <div class="flex items-center">
                     <label for="employeeName" class="w-1/2  mr-4">Employee Name <stong class="text-red-600 text-2xl">*</strong></label>
@@ -109,9 +109,9 @@
 
             </div>
         </div>
-        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">
+        <div class="bg-white shadow-md px-6 py-2 my-3 w-full md:w-[100%]">
             
-        <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
+        <form method="GET" action="{{ route('stuff_details.view') }}" class=" flex justify-end ">
                 <div class="flex items-center gap-3">
                     <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
                     <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
@@ -150,6 +150,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $employees->links() }}
     </div>
 
     <div class="modal" tabindex="-1">

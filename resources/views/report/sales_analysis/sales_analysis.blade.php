@@ -41,10 +41,10 @@ foreach($tableData as $row) {
 
 <body class="flex ">
   
-  <main class="mx-auto w-full ">
+  <main class="mx-auto w-[95%] md:w-[980px] ">
     <div class=" px-7 py-3 shadow-2xl">
       <h2 class="text-center text-3xl my-2">{{Auth::user()->name}}</h2>
-      <h2 class="text-center font-bold text-xl my-2 underline">Profit Report</h2>
+      <h2 class="text-center font-bold text-xl my-2 underline">Sales Analysis Report</h2>
       <div class="flex items-center w-[35%] mx-auto justify-between mb-2">
           <div class="text-md">
               <!-- <h2 class="font-semibold">Company Name : Sallu Air Service</h2>
@@ -61,10 +61,10 @@ foreach($tableData as $row) {
       </div>
 
       <div>
-        <table class="table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
+        <table class="table-auto w-full mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
             <thead>
-                <tr class="border-y-2 border-black bg-cyan-700">
-                    <th class="text-start">SL</th>
+                <tr class="border-y-2 border-black bg-cyan-700 text-white">
+                    <th class="text-start px-2">SL</th>
                     <th class="text-start">Trans. Date</th>
                     <th class="text-start">Sale Amount</th>
                     <th class="text-start">Purchase Amount</th>
@@ -76,23 +76,23 @@ foreach($tableData as $row) {
             <tbody class="divide-y-2">
                 @foreach($tableData as $index => $row)
                 <tr class="text-black ">
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $row['date'] }}</td>
-                    <td>{{ $row['salestotalAmount'] }}</td>
-                    <td>{{ $row['purchasetotalAmount'] }}</td>
-                    <td>{{ $row['profittotalAmount'] }}</td>
-                    <td>{{ $row['receivetotalAmount'] }}</td>
-                    <td>{{ $row['paymenttotalAmount'] }}</td>
+                    <td class="px-2 py-2">{{ $index + 1 }}</td>
+                    <td class="py-2">{{ $row['date'] }}</td>
+                    <td class="py-2">{{ $row['salestotalAmount'] }}</td>
+                    <td class="py-2">{{ $row['purchasetotalAmount'] }}</td>
+                    <td class="py-2">{{ $row['profittotalAmount'] }}</td>
+                    <td class="py-2">{{ $row['receivetotalAmount'] }}</td>
+                    <td class="py-2">{{ $row['paymenttotalAmount'] }}</td>
                 </tr>
                 @endforeach
                 <tr class="text-black font-bold">
-                    <td>Total Amount</td>
-                    <td></td> <!-- No date for total -->
-                    <td>{{ $totalSales }}</td>
-                    <td>{{ $totalPurchase }}</td>
-                    <td>{{ $totalProfit }}</td>
-                    <td>{{ $totalReceive }}</td>
-                    <td>{{ $totalPayment }}</td>
+                    <td class="px-2 py-2">Total Amount</td>
+                    <td class="py-2"></td> <!-- No date for total -->
+                    <td class="py-2">{{ $totalSales }}</td>
+                    <td class="py-2">{{ $totalPurchase }}</td>
+                    <td class="py-2">{{ $totalProfit }}</td>
+                    <td class="py-2">{{ $totalReceive }}</td>
+                    <td class="py-2">{{ $totalPayment }}</td>
                 </tr>
             </tbody>
         </table>
