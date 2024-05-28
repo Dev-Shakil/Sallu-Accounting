@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 
+/.env
+.env
 .env.backup
 .env.production
 .phpunit.result.cache
