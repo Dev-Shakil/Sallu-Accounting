@@ -9,7 +9,7 @@
     <main id="printSection" class="flex-1 m-4 mx-auto max-w-[1060px] shadow-3xl border-t border-gray-200 px-6 py-9">
 
         <div class="flex justify-between items-center pb-2">
-            <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
+            <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
             <div>
                 <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                 <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>

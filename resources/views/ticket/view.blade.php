@@ -13,7 +13,7 @@
     </div>
      <div class="my-4 bg-white shadow-lg p-5" id="printSection" >
        <div class="flex justify-between items-center py-5">
-           <div class=""><img src="logo.jpeg" alt="logo" width="200" height="100"/></div>
+           <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/></div>
            
            <div class="text-end ">
              <h2 class="text-3xl font-bold">Sallu Air Service</h2>

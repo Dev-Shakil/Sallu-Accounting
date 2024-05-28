@@ -10,7 +10,7 @@
         <div class="flex-1 mt-2 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
                 <div>
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
@@ -187,7 +187,7 @@
             class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-3 pt-4">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
                 <div>
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
