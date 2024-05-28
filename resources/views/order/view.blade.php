@@ -6,8 +6,8 @@
     </style>
     <main class="flex-1 m-4 mx-auto max-w-[1060px] px-10">
         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-           <button class="text-white bg-black font-bold text-md py-2 px-4" id="printBtn">Print</button>
-           <a href="{{route('order.view')}}" class="text-white hover:no-underline bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</a>
+           <button class="text-white bg-red-600 font-bold text-md py-2 px-4" id="printBtn">Print</button>
+           
            <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
         </div>
          <div class="my-4 bg-white shadow-lg p-5" id="printSection" >

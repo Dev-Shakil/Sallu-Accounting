@@ -1467,7 +1467,7 @@ class ReportController extends Controller
                 $html = '
                             
                                 
-                        <main class="flex-1 mx-auto max-w-7xl px-10 ">
+                        <main class="flex-1 mx-auto md:max-w-7xl px-10 ">
                        
                         <div id="printSection" class="shadow-lg p-3 bg-white">
                             <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
@@ -1478,10 +1478,12 @@ class ReportController extends Controller
                                 </div>
                                 <div class="flex items-center">
                                 
-                                    <div class="mb-8">
-                                        <h2 class="font-bold text-xl">STS International</h2>
-                                        <p>Motijheel, Dhaka</p>
-                                    </div>
+                                <div>
+                                <h3 class="company-name font-bold text-3xl "> ' .Auth::user()->name.'</h3>
+                                <p class="company-address text-lg font-medium">'.Auth::user()->company_address.'</p>
+                                <p class="company-phone text-lg font-medium">Tel : '.Auth::user()->mobile_no.'</p>
+                                <p class="company-email text-lg font-medium">Email : '.Auth::user()->email.'</p>
+                            </div>
                                 </div>
                             </div>
                             <table class="table-auto w-full border-y-2 table-stripe devide-2 devide-gray-700 text-sm my-1">

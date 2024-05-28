@@ -3,15 +3,15 @@
     
     <div
         class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
-        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
-        <button id="printButton" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
-        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
+        
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div>
-    <div id="printSection" class="bg-white py-10">
+    <div id="printSection" class="bg-white py-10 max-w-[1060px] mx-auto">
         <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="{{ asset('storage/' . Auth::user()->company_logo) }}" alt="Company Logo" height="150px" width="180px" />
+                <img class="" src="{{ url(Auth::user()->company_logo) }}" alt="Company Logo" height="150px" width="180px" />
                 <div class="w-[30%] flex-wrap flex">
                     <h3 class="company-name font-bold text-3xl ">{{ Auth::user()->name }}</h3>
                     <p class="company-address text-lg font-medium">Address : {{ Auth::user()->company_address }}</p>
@@ -36,7 +36,7 @@
                 <thead class="border-y border-black bg-gray-50">
                     <tr>
 
-                        <th class="text-lg">Particulars</th>
+                        <th class="text-lg">Employer Name</th>
                         <th class="text-lg">Month</th>
                         <th class="text-lg">Year</th>
 

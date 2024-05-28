@@ -250,11 +250,11 @@ background: #555; /* Or any other color you prefer */
             <table class="  my-5 text-sm text-black border table table-hover" >
               <thead>
                 <tr class="border-b bg-[#7CB0B2]">
-                  <th class="w-1/12 px-4 py-1 text-left text-gray-700 font-medium">Date</th>
+                  {{-- <th class="w-1/12 px-4 py-1 text-left text-gray-700 font-medium">Date</th> --}}
                   <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
 
                   <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
+                  <th class="w-1/6 px-4 py-1 text-end pr-14 text-gray-700 font-medium">Amount</th>
 
                 </tr>
               </thead>
@@ -262,12 +262,12 @@ background: #555; /* Or any other color you prefer */
 
                 @foreach($transactions as $bank)
                   <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-2 text-gray-700">{{ (new DateTime($bank->updated_at))->format('d/m/Y') }}</td>
+                    {{-- <td class="px-4 py-2 text-gray-700">{{ (new DateTime($bank->updated_at))->format('d/m/Y') }}</td> --}}
                     <td class="px-4 py-2 text-gray-700">{{$bank->name}}</td>
 
                     <td class="px-4 py-2 text-gray-700">{{$bank->description}}</td>
                  
-                    <td class="px-4 py-2 text-gray-700">{{$bank->amount}}</td>
+                    <td class="px-4 py-2 text-gray-700 pr-14 text-end">{{$bank->amount}}</td>
 
                   </tr>
                 @endforeach

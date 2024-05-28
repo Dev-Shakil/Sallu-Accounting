@@ -48,14 +48,14 @@
         </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 shadow-lg p-5 w-[1200px] mx-auto">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
        
         <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div> 
     
-    <div class="reportdiv " id="reportdiv">
+    <div class="reportdiv" id="reportdiv">
 
     </div>
     </div>

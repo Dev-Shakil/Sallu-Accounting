@@ -69,7 +69,7 @@ class DeporteeController extends Controller
         $ticket->flight_no = $request['flight_no'];
         $ticket->remark = $request['remark'];
         $ticket->user = $user;
-        
+        // dd($ticket);
         try {
             // Save the ticket to the database
             $ticket->save();
