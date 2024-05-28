@@ -51,8 +51,8 @@ class RegisteredUserController extends Controller
         // }
         if ($request->hasFile('company_logo')) {
             $logo = $request->file('company_logo');
-            $logo->move(public_path('image'), $logo->getClientOriginalName());
-            $user->company_logo = 'image/' . $logo->getClientOriginalName();
+            $logo->move(public_path('company_log'), $logo->getClientOriginalName());
+            $user->company_logo = 'company_logo/' . $logo->getClientOriginalName();
         }
         $user->save();
         event(new Registered($user));
