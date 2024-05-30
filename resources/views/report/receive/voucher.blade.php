@@ -10,17 +10,17 @@
         <div class="flex-1 mt-2 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px" class="w-[220px] h-[80px]"/>
                 <div>
-                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
+                    <h3 class="company-name font-semibold text-2xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-lg">Mobile No : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-lg">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
-            <h1 class="text-2xl font-bold text-center my-1">Money Receipt (Customer Copy)</h1>
-            <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Customer Copy)</h1>
+            <div class="flex justify-between items-center py-4">
                 <div>
                     <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
@@ -184,20 +184,20 @@
             </div>
         </div>
         <div
-            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-3 pt-4">
+            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl mt-4 border-t border-dashed border-gray-400 px-6 pb-3 pt-14">
 
             <div class="flex justify-between items-center pb-2">
-                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px" class="w-[220px] h-[80px]"/>
                 <div>
-                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
+                    <h3 class="company-name font-semibold text-2xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-lg">Mobile No : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-lg">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
-            <h1 class="text-2xl font-bold text-center my-1">Money Receipt (Office Copy)</h1>
-            <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Office Copy)</h1>
+            <div class="flex justify-between items-center py-4">
                 <div>
                     <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
@@ -251,7 +251,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between mt-[80px]">
+            <div class="flex justify-between mt-[100px]">
                 <p class="border-t border-gray-400 border-dashed px-4">Authority Signature</p>
                 <p class="border-t border-gray-400 border-dashed px-4">Customer Signature</p>
             </div>

@@ -3354,8 +3354,8 @@ class ReportController extends Controller
                         <td class="py-2"></td> 
                         
                         <td colspan="2" class="font-bold text-md">Total Segment: </td>
-                        <td class="py-2">' . $totalCount . '</td>
-                        <td class="py-2">' . $totalSupplierPrice . '</td>
+                        <td class="py-2 font-bold">' . $totalCount . '</td>
+                        <td class="py-2 font-bold">' . $totalSupplierPrice . '</td>
                         </tr>';
 
         // Close the HTML table
@@ -3486,9 +3486,9 @@ class ReportController extends Controller
                         <td py-2></td> 
                         <td py-2></td> 
                         
-                        <td colspan="2">Total Segment: </td>
-                        <td py-2>' . $totalCount . '</td>
-                        <td py-2>' . $totalSupplierPrice . '</td>
+                        <td colspan="2" class="font-bold">Total Segment: </td>
+                        <td class="py-2 font-bold">' . $totalCount . '</td>
+                        <td class="py-2 font-bold">' . $totalSupplierPrice . '</td>
                         </tr>';
 
         // Close the HTML table
@@ -4513,8 +4513,8 @@ class ReportController extends Controller
           <main class=" mx-auto w-[100%] bg-white shadow-lg py-6">
            
             <div class=" px-7 py-3 flex flex-col gap-y-2 shadow-2xl">
-                <h2 class="text-center font-medium text-2xl ">Company Name : SALLU AIR SERVICE</h2>
-                <p class="text-center text-lg">Company Address : 291, Inner Circular Road, Fakirapool, Jomider palace Dhaka, 1000, Bangladesh</p>
+                <h2 class="text-center font-medium text-2xl ">Company Name : ' .Auth::user()->name.'</h2>
+                <p class="text-center text-lg">Company Address : ' .Auth::user()->company_address.'</p>
                 <p class="text-center font-semibold text-xl underline">Report: Profit/Loss A/c</p>
                 <p class="text-center font-semibold text-xl">Form Date : ' . $start_date .  ' To Date : ' . $end_date . '</p>
                 

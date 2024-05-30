@@ -10,50 +10,6 @@
     @endif
 
     <main class="flex flex-col md:flex-row mx-auto w-full md:w-[90%] lg:w-[80%] xl:w-[70%] shadow-2xl bg-white rounded-lg border border-gray-300">
-        <div class="w-full md:w-[35%] flex flex-col bg-gray-100 px-5 py-10 md:rounded-l-lg">
-            <div class="flex justify-center flex-col items-center">
-                <img src={{url('/image/ban1.jpeg')}} alt="logo" class="flex justify-center items-center " height="80px"
-                    width="100px" />
-                <h3 class=" text-gray-900 font-bold text-2xl my-4">Login</h3>
-            </div>
-
-            <form method="POST" action="{{ route('emp_login') }}">
-                @csrf
-
-                {{-- <div class="flex items-cener flex-col gap-2 mb-4">
-                    <label for="user" class="block text-sm font-medium text-gray-700">Company</label>
-                    <select id="user" name="user" class="mt-1 p-2 w-full border select2" placeholder="Enter an from_account">
-                        <option value="">Company Name</option>
-                        @foreach ($users as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-                <div class="flex items-center flex-col gap-2 mb-4">
-                    <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
-                    <input type="text" class="form-control" placeholder="Company Name" name="user" id="usersearch" required>
-                </div>
-                
-
-                <div class="flex items-cener flex-col gap-2 mb-4 ">
-                    <label for="email" class="text-gray-800 font-semibold w-[40%]">Email</label>
-                    <input type="text" id="email" placeholder="example@mail.com" name="email" required
-                        class="border rounded-md p-2 h-10 text-black bg-white" />
-                </div>
-                <div class="flex items-cener flex-col gap-2 mb-4 ">
-                    <label for="paymentMethod" class="text-gray-800 font-semibold w-[40%]">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password"
-                        class=" border rounded-md p-2 h-10 text-black bg-white" />
-                </div>
-                <div class="flex flex-col gap-3">
-                    <button class="bg-cyan-700 px-7 py-2 rounded-lg text-lg font-medium text-white"
-                        type="submit">Submit</button>
-                    @if (Route::has('password.request'))
-                        <a class="font-medium text-md text-blue-800" href="{{ route('password.request') }}">forgot password?</a>
-                    @endif
-                </div>
-            </form>
-        </div>
         <div class="w-full md:w-[65%] ">
 
             <div id="default-carousel" class="relative " data-carousel="slide">
@@ -130,6 +86,50 @@
 
 
         </div>
+        <div class="w-full md:w-[35%] flex flex-col bg-gray-100 px-5 py-10 md:rounded-l-lg">
+            <div class="flex justify-center flex-col items-center">
+                
+                <h3 class=" text-gray-900 font-bold text-2xl my-2">Employee Login</h3>
+            </div>
+
+            <form method="POST" action="{{ route('emp_login') }}">
+                @csrf
+
+                {{-- <div class="flex items-cener flex-col gap-2 mb-4">
+                    <label for="user" class="block text-sm font-medium text-gray-700">Company</label>
+                    <select id="user" name="user" class="mt-1 p-2 w-full border select2" placeholder="Enter an from_account">
+                        <option value="">Company Name</option>
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
+                <div class="flex  flex-col gap-2 mb-2">
+                    <label for="company" class="text-gray-800 font-semibold w-[40%]">Company</label>
+                    <input type="text" class="form-control" placeholder="Company Name" name="user" id="usersearch" required>
+                </div>
+                
+
+                <div class="flex items-cener flex-col gap-2 mb-2 ">
+                    <label for="email" class="text-gray-800 font-semibold w-[40%]">Email</label>
+                    <input type="text" id="email" placeholder="example@mail.com" name="email" required
+                        class="border rounded-md p-2 h-10 text-black bg-white" />
+                </div>
+                <div class="flex items-cener flex-col gap-2 mb-2 ">
+                    <label for="paymentMethod" class="text-gray-800 font-semibold w-[40%]">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password"
+                        class=" border rounded-md p-2 h-10 text-black bg-white" />
+                </div>
+                <div class="flex flex-col gap-3">
+                    <button class="bg-cyan-700 px-7 py-2 rounded-lg text-lg font-medium text-white"
+                        type="submit">Submit</button>
+                    @if (Route::has('password.request'))
+                        <a class="font-medium text-md text-blue-800" href="{{ route('password.request') }}">forgot password?</a>
+                    @endif
+                </div>
+            </form>
+        </div>
+        
 
     </main>
 
