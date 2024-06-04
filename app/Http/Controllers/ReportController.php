@@ -4703,7 +4703,7 @@ class ReportController extends Controller
             <div class="flex mb-10">
             <table class="table-auto w-full ">
                 <thead>
-                  <tr class="bg-[#0E7490] text-white flex justify-between">
+                  <tr class="bg-[#00959E] text-white flex justify-between">
                     <th class="px-4 py-2 text-left">Particular</th>
                     <th class="px-4 py-2 text-left">Amount</th>
                    
@@ -4715,74 +4715,24 @@ class ReportController extends Controller
                     <td class="px-2 py-2 font-semibold">' . $total_purchase . '</td>
                     
                   </tr>
-                  <tr class="flex justify-between px-2 pl-8">
+                  <tr class="flex justify-between px-2 ">
                     <td class="px-2  w-[30%]">Tickets</td>
+                    <td class="px-2 "></td>
                     <td class="px-2 ">' . $ticket_purchase . '</td>
-                    <td class="px-2 "></td>
                     
                   </tr>
-                  <tr class="flex justify-between px-2 pl-8">
-                    <td class="px-2  w-[30%]">Umra</td>
-                    <td class="px-2 "></td>
-                    <td class="px-2 "></td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 pl-8">
-                    <td class="px-2  w-[30%]">Manpower</td>
-                    <td class="px-2 "></td>
-                    <td class="px-2 "></td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 pl-8">
+                 
+                  <tr class="flex justify-between px-2 ">
                     <td class="px-2  w-[30%]">Visa</td>
                     <td class="px-2 "></td>
                     <td class="px-2 "></td>
                     
                   </tr>
+                
+                
+               
                   <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Refund Purchase c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $refund_purchase . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Reissue Purchase c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $reissueticket_purchase . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Void Ticket Purchase c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $voidticket_purchase . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Ticket Profit</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $tickets . '</td>
-                    
-                    </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Refund Profit</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $refundticket . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Reissue Profit</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $reissueticket . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Void Ticket Profit</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $voidticket . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Gross Profit c/o</td>
+                    <td class="px-2 py-2 w-[30%]">Gross Profit</td>
                     <td class="px-2 py-2"></td>
                     <td class="px-2 py-2 font-semibold">' . $gross_profit . '</td>
                     
@@ -4793,37 +4743,7 @@ class ReportController extends Controller
                     <td class="px-2  font-semibold border-y border-black"></td>
                     
                   </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                        
-                    <td class="px-2 w-[30%] font-semibold">Inderct Expenses</td>
-                    <td class="px-2"></td>
-                    <td class="px-2 font-semibold"></td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    
-                    <td class="px-2 w-[30%]">Donations & Gifts</td>
-                    
-                    <td class="px-2 font-semibold"></td>
-                    <td class="px-2"></td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    
-                    <td class="px-2 w-[30%]">Office Equipments</td>
-                    
-                    <td class="px-2 font-semibold"></td>
-                    <td class="px-2"></td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    
-                    <td class="px-2 w-[30%]">Mobile Charge</td>
-                    
-                    <td class="px-2 font-semibold"></td>
-                    <td class="px-2"></td>
-                    
-                  </tr>
+                  
                   <tr class="flex justify-between px-2 py-1">
                         
                     <td class="px-2 py-2 w-[30%]">Net Profit</td>
@@ -4838,7 +4758,7 @@ class ReportController extends Controller
 
                 <table class="table-auto w-full">
                 <thead>
-                    <tr class="bg-[#0E7490] text-white flex justify-between">
+                    <tr class="bg-[#00959E] text-white flex justify-between">
                       <th class="px-4 py-2 text-left">Particular</th>
                       <th class="px-4 py-2 text-left">Amount</th>
                      
@@ -4850,48 +4770,20 @@ class ReportController extends Controller
                         <td class="px-2 py-2 font-semibold">' . $total_sell . '</td>
                     
                     </tr>
-                    <tr class="flex justify-between px-2 pl-8">
+                    <tr class="flex justify-between px-2 ">
                       <td class="px-2 w-[30%]">Tickets</td>
+                      <td class="px-2"></td>
                       <td class="px-2">' . $ticket_sell . '</td>
-                      <td class="px-2"></td>
                       
                     </tr>
-                    <tr class="flex justify-between px-2 pl-8">
-                      <td class="px-2 w-[30%]">Umra</td>
-                      <td class="px-2"></td>
-                      <td class="px-2"></td>
-                      
-                    </tr>
-                    <tr class="flex justify-between px-2 pl-8">
-                      <td class="px-2 w-[30%]">Manpower</td>
-                      <td class="px-2"></td>
-                      <td class="px-2"></td>
-                      
-                    </tr>
-                    <tr class="flex justify-between px-2 pl-8">
+                  
+                    <tr class="flex justify-between px-2 ">
                       <td class="px-2 w-[30%]">Visa</td>
                       <td class="px-2"></td>
                       <td class="px-2"></td>
                       
                     </tr>
-                    <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Refund Sell c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $refund_sell . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Reissue Sell c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $reissueticket_sell . '</td>
-                    
-                  </tr>
-                  <tr class="flex justify-between px-2 py-1">
-                    <td class="px-2 py-2 w-[30%]">Void Ticket Sell c/o</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold">' . $voidticket_sell . '</td>
-                    
-                  </tr>
+                   
                     <tr class="flex justify-between px-2 py-1">
                         <td class="px-2 py-2 w-[30%]"></td>
                         <td class="px-2 py-2"></td>
@@ -4901,7 +4793,7 @@ class ReportController extends Controller
                       </tr>
                       <tr class="flex justify-between px-2 py-1 mb-auto">
                         
-                        <td class="px-2 py-2 w-[30%]">Gross Profit c/o</td>
+                        <td class="px-2 py-2 w-[30%]">Gross Profit</td>
                         <td class="px-2 py-2"></td>
                         <td class="px-2 py-2 font-semibold"></td>
                         

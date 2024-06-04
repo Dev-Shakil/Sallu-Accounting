@@ -51,17 +51,17 @@
                 
             </div>
         </div>
-        <table class=" table-auto w-full border-2 border-gray-400 devide-2 text-lg my-1">
+        <table class=" table-auto w-full border border-black devide-2 text-lg my-1">
             <thead class="py-2">
               <tr class=" bg-cyan-700 py-4 text-white">
                 <th class="text-start px-2 py-2 w-[70%]">Particular</th>
-                <th class="text-end px-2 py-2">Debit</th>
-                <th class="text-end px-2 py-2">Cradit</th>
+                <th class="text-center px-2 py-2">Debit</th>
+                <th class="text-end px-2 py-2">Credit</th>
                
                 
               </tr>
             </thead>
-            <tbody class="divide-y-2">
+            <tbody class="divide-y divide-black">
               {{-- <tr class="">
                <td class="w-[70%] px-2 py-2">Cash in Hand</td>
                <td class="text-end px-2 py-2">{{$totalincash_debit}}</td>
@@ -70,13 +70,13 @@
               </tr> --}}
               <tr class="">
                <td class="w-[70%] px-2 py-2">Ticket Sales</td>
-               <td class="text-end px-2 py-2">{{$totalTicketAgentPrice}}</td>
+               <td class="text-center px-2 py-2">{{$totalTicketAgentPrice}}</td>
                <td class="text-end px-2 py-2">0</td>
             
               </tr>
               <tr class="">
                <td class="w-[70%] px-2 py-2">Ticket Purchase</td>
-               <td class="text-end px-2 py-2">0</td>
+               <td class="text-center px-2 py-2">0</td>
                <td class="text-end px-2 py-2">{{$totalTicketSupplierPrice}}</td>
             
               </tr>
@@ -88,27 +88,27 @@
               </tr> --}}
               <tr class="">
                <td class="w-[70%] px-2 py-2">Visa Sales</td>
-               <td class="text-end px-2 py-2">{{$totalOrderAgentPrice}}</td>
+               <td class="text-center px-2 py-2">{{$totalOrderAgentPrice}}</td>
                <td class="text-end px-2 py-2">0</td>
             
               </tr>
               <tr class="">
                <td class="w-[70%] px-2 py-2">Visa Purchase</td>
-               <td class="text-end px-2 py-2">0</td>
+               <td class="text-center px-2 py-2">0</td>
                <td class="text-end px-2 py-2">{{$totalOrderSupplierPrice}}</td>
             
               </tr>
               @foreach ($totals as $method => $total)
                   <tr>
                       <td class="w-[70%] px-2 py-2">{{ $method }}</td>
-                      <td class="text-end px-2 py-2">{{ $total['debit'] }}</td>
+                      <td class="text-center px-2 py-2">{{ $total['debit'] }}</td>
                       <td class="text-end px-2 py-2">{{ $total['credit'] }}</td>
                   </tr>
               @endforeach
               <tr class=" text-black font-bold">
                
                <td class="w-[70%] text-lg px-2 py-2">Total</td>
-               <td class="text-end px-2 py-2">{{$totalDebit}}</td>
+               <td class="text-center px-2 py-2">{{$totalDebit}}</td>
                <td class="text-end px-2 py-2">{{$totalCredit}}</td>
               </tr>
             
