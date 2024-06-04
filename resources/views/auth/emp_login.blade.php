@@ -9,19 +9,19 @@
         </div>
     @endif
 
-    <main class="flex flex-col md:flex-row mx-auto w-full md:w-[90%] lg:w-[80%] xl:w-[70%] shadow-2xl bg-white rounded-lg border border-gray-300">
-        <div class="w-full md:w-[65%] ">
+    <main class="flex flex-col md:flex-row mx-auto w-full md:w-[80%] lg:w-[70%] xl:w-[60%] shadow-2xl bg-white rounded-lg border border-gray-300">
+        <div class="w-full md:w-[60%] ">
 
             <div id="default-carousel" class="relative " data-carousel="slide">
                 <!-- Carousel wrapper -->
-                <div class="overflow-hidden relative min-h-[485px] rounded-r-lg ">
+                <div class="overflow-hidden relative h-[485px] rounded-r-lg ">
                     <!-- Item 1 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                         <span
                             class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl dark:text-gray-800">First
                             Slide</span>
                         <img src={{url('/image/ban4.jpeg')}} title="source: imgur.com"
-                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                            class="block absolute top-1/2  left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
                             alt="Banner">
                     </div>
 
@@ -29,18 +29,18 @@
                     <!-- Item 2 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                         <img src={{url('/image/ban1.jpeg')}}
-                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                            class="block absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
                             alt="Banner">
                     </div>
                     <!-- Item 3 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                         <img src={{url('/image/ban2.jpeg')}}
-                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                            class="block absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
                             alt="Banner">
                     </div>
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                         <img src={{url('/image/ban3.jpeg')}}
-                            class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+                            class="block absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
                             alt="Banner">
                     </div>
                 </div>
@@ -86,13 +86,20 @@
 
 
         </div>
-        <div class="w-full md:w-[35%] flex flex-col bg-gray-100 px-5 py-10 md:rounded-l-lg">
-            <div class="flex justify-center flex-col items-center">
+        <div class="w-full md:w-[40%] flex flex-col bg-white md:rounded-l-lg">
+            <div class="flex justify-end mb-3" >
+                <a href="{{ route('login') }}" class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 px-5">Log in</a>
+
+                @if (Route::has('emp_login'))
+                    <a href="{{ route('emp_login') }}" class="font-semibold py-2 px-5 hover:text-gray-900 dark:text-gray-400 hover:no-underline dark:hover:text-white bg-[#00959F] text-white border-2 hover:bg-white hover:border-2 border-[#00959F] duration-300">Employer Login</a>
+                @endif
+            </div>
+            <div class="flex justify-center flex-col items-center px-5">
                 
                 <h3 class=" text-gray-900 font-bold text-2xl my-2">Employee Login</h3>
             </div>
 
-            <form method="POST" action="{{ route('emp_login') }}">
+            <form method="POST" action="{{ route('emp_login') }}" class="px-5">
                 @csrf
 
                 {{-- <div class="flex items-cener flex-col gap-2 mb-4">

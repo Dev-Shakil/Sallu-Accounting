@@ -1,3 +1,104 @@
+{{-- <x-app-layout>
+    <div class="container mt-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        <div class="mb-2 flex items-center gap-6">
+            <p class="font-bold text-2xl">List of Stuff</p>
+            <button
+                class="py-2 px-4 border-green-700 hover:bg-green-700 hover:text-white duration-300 border-2 text-green-700  rounded-2xl font-bold "
+                onchange="toggleVisibility()" id="addnewbtn">Add
+                New Stuff</button>
+        </div>
+        <div id="stuff-form">
+
+            <div class="addagent w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
+                
+                <div class="text-center font-bold text-xl mb-8">Add New Employee</div>
+            <form class="grid grid-cols-1 gap-4" action="submit_employee_data.php" method="post">
+                <div class="flex items-center">
+                    <label for="employeeName" class="w-1/2  mr-4">Employee Name <stong class="text-red-600 text-2xl">*</strong></label>
+                    <input type="text" id="employeeName" name="employeeName"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div class="flex items-center">
+                    <label for="designation" class="w-1/2  mr-4">Employee Designation <stong class="text-red-600 text-2xl">*</strong></label>
+                    <input type="text" id="designation" name="designation"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div class="flex items-center">
+                    <label for="mobileNumber" class="w-1/2  mr-4">Mobile Number <stong class="text-red-600 text-2xl">*</strong></label>
+                    <input type="tel" id="mobileNumber" name="mobileNumber"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div class="flex items-center">
+                    <label for="email" class="w-1/2  mr-4">E-mail ID <stong class="text-red-600 text-2xl">*</strong></label>
+                    <input type="email" id="email" name="email"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+                <div class="flex items-center">
+                    <label for="address" class="w-1/2  mr-4">Address</label>
+                    <textarea id="address" name="address" rows="2"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="flex items-center">
+                    <label for="salary" class="w-1/2  mr-4">Salary</label>
+                    <input type="number" id="salary" name="salary"
+                        class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                </div>
+               
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
+            </form>
+            </div>
+        </div>
+        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">
+            
+        <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
+                <div class="flex items-center gap-3">
+                    <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
+                    <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
+                </div>
+            </form>
+
+
+
+        
+    </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                autoclose: true
+            });
+
+            $('.select2').select2({
+                theme: 'classic',
+            });
+
+
+
+        });
+        var addnewBtn = document.getElementById('addnewbtn');
+        var addStuff = document.getElementById('stuff-form');
+        addStuff.style.display = 'none';
+
+        addnewBtn.addEventListener('click', function() {
+            toggleVisibility();
+        });
+
+        function toggleVisibility() {
+            if (addStuff.style.display === 'none') {
+                addStuff.style.display = 'block';
+            } else {
+                addStuff.style.display = 'none';
+            }
+        }
+    </script>
+</x-app-layout> --}}
 <x-app-layout>
     <div class="container mt-5">
         @if (session('success'))
@@ -20,7 +121,7 @@
         </div>
         <div id="stuff-form">
 
-            <div class="addagent w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
+            <div class="addagent my-3 w-[100%] lg:w-[50%] bg-white p-5 shadow-lg rounded-lg">
                 {{-- <form action="/addtype" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="row">
@@ -92,65 +193,55 @@
                                 <label for="print">Print</label>
                             </div>
                             <div>
-                                <input type="checkbox" id="profit" name="permissions[]" value="profit" />
-                                <label for="profit">Profit</label>
-                            </div>
-                            <div>
                                 <input type="checkbox" id="delete" name="permissions[]" value="delete" />
                                 <label for="delete">Delete</label>
                             </div>
                         </fieldset>
                     </div>
-                </div>
-               
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                    class="bg-black w-fit text-white font-bold py-2 px-4 rounded-md focus:outline-none">Submit</button>
+                </div>
             </form>
 
             </div>
         </div>
-        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">
-            
-        {{-- <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
-                <div class="flex items-center gap-3">
-                    <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
-                    <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
-                </div>
-        </form> --}}
-
-
-
-           
-    </div>
-        <table class="table table-striped table-hover no-wrap " id="typetable">
-            <thead class="bg-[#5dc8cc]">
-                <tr>
-                    <th scope="col" class="px-4 py-2 ">Serial</th>
-                    <th scope="col" class="px-4 py-2 ">Name</th>
-                    <th scope="col" class="px-4 py-2 ">Designation</th>
-                    <th scope="col" class="px-4 py-2 ">Phone</th>
-                    <th scope="col" class="px-4 py-2 ">Email</th>
-                    
-                    <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($employees as $index => $employee)
+        <div class="bg-white p-3 shadow-lg">
+            <table class="table table-striped table-hover no-wrap " id="stufftable">
+                <thead class="bg-[#5dc8cc]">
                     <tr>
-                        <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
-                        <td class="px-4 py-2 ">{{ $employee->name }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->designation }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->phone }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->email }}</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                            <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
-                            <a href="{{ route('stuff.report', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-eye fa-fw text-x"></i></a>
-                        </td>
+                        <th scope="col" class="px-4 py-2 ">Serial</th>
+                        <th scope="col" class="px-4 py-2 ">Date</th>
+                        <th scope="col" class="px-4 py-2 ">Name</th>
+                        <th scope="col" class="px-4 py-2 ">Designation</th>
+                        <th scope="col" class="px-4 py-2 ">Phone</th>
+                        <th scope="col" class="px-4 py-2 ">Email</th>
+                        <th scope="col" class="px-4 py-2 ">Salary</th>
+                        
+                        <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($employees as $index => $employee)
+                        <tr>
+                            <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
+                            <th class="px-4 py-2">{{ date('d-m-Y', strtotime($employee->created_at)) }}</th>
+                            <td class="px-4 py-2 ">{{ $employee->name }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->designation }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->phone }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->email }}</td>
+                            <td class="px-4 py-2 ">{{ $employee->salary }}</td>
+                            <td class="px-4 py-2 flex justify-center">
+                                <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal" tabindex="-1">
@@ -243,7 +334,12 @@
             $('.datepicker').datepicker({
                 autoclose: true
             });
-
+            new DataTable('#stufftable', {
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
             $('.select2').select2({
                 theme: 'classic',
             });
@@ -277,8 +373,8 @@
                         // console.log(permissionsArray);
                         $.each(permissionsArray, function(index, permission) {
                             // console.log(permission);
-                            if ($(`#${permission}_edit`).length) { // Corrected concatenation
-                                $(`#${permission}_edit`).prop('checked', true);
+                            if ($(#${permission}_edit).length) { // Corrected concatenation
+                                $(#${permission}_edit).prop('checked', true);
                             }
                         });
 

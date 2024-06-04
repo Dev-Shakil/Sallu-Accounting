@@ -68,7 +68,7 @@
                             <td class="px-4 py-2 ">{{ $supplier->description }}</td>
                             <td class="px-4 py-2  w-[75px]">
                                 <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class=" hover:underline"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                <a href="{{ route('supplier.delete', ['id' => $supplier->id]) }}" class=" hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                <a href="#" onclick="confirmDelete('{{ route('supplier.delete', ['id' => $supplier->id]) }}')" class=" hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -77,6 +77,15 @@
         </div>
     </div>
     <script>
+         function confirmDelete(deleteUrl) {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+            // If the user confirms, proceed with the delete action
+            if (isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        }
         $(document).ready(function() {
             $('.datepicker').datepicker({
                 autoclose: true

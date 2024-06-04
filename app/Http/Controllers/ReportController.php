@@ -3687,6 +3687,151 @@ class ReportController extends Controller
 
 
 
+    // public function sales_report_visa(Request $request)
+    // {
+    //     if(Auth::user()){
+            
+    //     $agent = $request->input('agent') ?? null;
+    //     $supplier = $request->input('supplier') ?? null;
+    //     $type = $request->input('type') ?? null;
+
+    //     $show_profit = $request->input('show_profit') ?? null;
+    //     $show_supplier = $request->input('show_supplier') ?? null;
+    //     $show_agent = $request->input('show_agent') ?? null;
+
+    //     $start_date = $request->input('start_date') ?? null;
+    //     $end_date = $request->input('end_date') ?? null;
+
+    //     if ($start_date) {
+    //         $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //     }
+
+    //     if ($end_date) {
+    //         $end_date = (new DateTime($end_date))->format('Y-m-d');
+    //     }
+
+    //     $user = Auth::id();
+
+    //     $query = DB::table('order')
+    //         ->where([
+    //             ['is_active', 1],
+    //             ['is_delete', 0],
+    //             ['user', $user],
+    //         ]);
+
+    //     if ($agent !== null) {
+    //         $query->where('agent', $agent);
+    //     }
+
+    //     if ($supplier !== null) {
+    //         $query->where('supplier', $supplier);
+    //     }
+
+    //     if ($type !== null) {
+    //         $query->where('type', $type);
+    //     }
+
+    //     if ($start_date !== null && $end_date !== null) {
+    //         $query->whereBetween('date', [$start_date, $end_date]);
+    //     }
+    //     $alldata = $query->get();
+
+    //     // dd($alldata, $supplier, $agent);
+    //     $htmlTable = '
+    //         <h2 class="text-center font-bold text-3xl my-2">Sales Report (Visa)</h2>
+    //             <div class="flex items-center justify-between mb-2">
+    //                 <div class="text-lg">
+    //                     <h2 class="font-semibold">Company Name : '.Auth::user()->name.'</h2>
+    //                     <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . ' </p>
+    //                 </div>
+    //                 <div class="flex items-center">
+                       
+                        
+    //                 </div>
+    //             </div>
+    //             <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
+    //             <thead>
+    //             <tr class="border-y-2 border-black bg-cyan-700 text-white ">
+    //                 <th class="text-start">Booking Date</th>
+    //                 <th class="text-start">Invoice No</th>
+                   
+    //                 <th class="text-start">Type</th>
+    //                 <th class="text-start">Passenger Name</th>
+    //                 <th class="text-start">Passport No</th>
+    //                 <th class="text-start">Country</th>';
+    //     if ($show_agent != null) {
+    //         $htmlTable .= '
+    //                     <th class="text-start">Agent</th>
+    //                     <th class="text-start">Agent Price</th>
+    //                     ';
+    //     }
+    //     if ($show_supplier != null) {
+    //         $htmlTable .= '
+    //                     <th class="text-start">Supplier</th>
+    //                     <th class="text-start">Supplier Price</th>
+    //                     ';
+    //     }
+    //     if ($show_profit != null) {
+    //         $htmlTable .= '
+    //                     <th class="text-start">Profit</th>
+                    
+    //                     ';
+    //     }
+
+    //     $htmlTable .= '  
+                    
+    //             </tr>
+    //             </thead>
+    //             <tbody class="border-y-2">';
+
+    //     // Loop through each record in $alldata and add a row to the table
+    //     foreach ($alldata as $data) {
+    //         // dd($data->profit);
+    //         $agent = Agent::where('id', $data->agent)->value('name');
+    //         $supplier = Supplier::where('id', $data->supplier)->value('name');
+    //         $type = Type::where('id', $data->type)->value('name');
+
+    //         $htmlTable .= '<tr class="py-4 border-gray-300 border-y">
+    //                     <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+    //                     <td class="py-2">' . $data->invoice . '</td>
+    //                     <td class="py-2">' . $type . '</td>
+    //                     <td class="py-2">' . $data->name . '</td>
+    //                     <td class="py-2">' . $data->passport_no . '</td>
+    //                     <td class="py-2">' . $data->country . '</td>';
+    //         if ($show_agent != null) {
+    //             $htmlTable .= '
+    //                         <td class="py-2">' . $agent . '</td>
+    //                         <td class="py-2">' . $data->contact_amount . '</td>
+    //                         ';
+    //         }
+    //         if ($show_supplier != null) {
+    //             $htmlTable .= '
+    //                         <td class="py-2">' . $supplier . '</td>
+    //                         <td class="py-2">' . $data->payable_amount . '</td>
+    //                         ';
+    //         }
+    //         if ($show_profit != null) {
+    //             $htmlTable .= '
+    //                         <td>' . $data->profit . '</td>
+                         
+    //                         ';
+    //         }
+
+
+
+    //         $htmlTable .= '</tr>';
+    //     }
+
+    //     // Close the HTML table
+    //     $htmlTable .= '</tbody></table>';
+
+
+    //     return $htmlTable;
+    //     }
+    //     else{
+    //         return view('welcome');
+    //     }
+    // }
     public function sales_report_visa(Request $request)
     {
         if(Auth::user()){
@@ -3785,19 +3930,36 @@ class ReportController extends Controller
                 <tbody class="border-y-2">';
 
         // Loop through each record in $alldata and add a row to the table
+        // Initialize total variables
+        $totalAgentAmount = 0;
+        $totalSupplierAmount = 0;
+        $totalProfit = 0;
+
         foreach ($alldata as $data) {
-            // dd($data->profit);
+            // Fetch related data
             $agent = Agent::where('id', $data->agent)->value('name');
             $supplier = Supplier::where('id', $data->supplier)->value('name');
             $type = Type::where('id', $data->type)->value('name');
 
+            // Increment total amounts
+            if ($show_agent != null) {
+                $totalAgentAmount += $data->contact_amount;
+            }
+            if ($show_supplier != null) {
+                $totalSupplierAmount += $data->payable_amount;
+            }
+            if ($show_profit != null) {
+                $totalProfit += $data->profit;
+            }
+
+            // Build table row
             $htmlTable .= '<tr class="py-4 border-gray-300 border-y">
-                        <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
-                        <td class="py-2">' . $data->invoice . '</td>
-                        <td class="py-2">' . $type . '</td>
-                        <td class="py-2">' . $data->name . '</td>
-                        <td class="py-2">' . $data->passport_no . '</td>
-                        <td class="py-2">' . $data->country . '</td>';
+                            <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
+                            <td class="py-2">' . $data->invoice . '</td>
+                            <td class="py-2">' . $type . '</td>
+                            <td class="py-2">' . $data->name . '</td>
+                            <td class="py-2">' . $data->passport_no . '</td>
+                            <td class="py-2">' . $data->country . '</td>';
             if ($show_agent != null) {
                 $htmlTable .= '
                             <td class="py-2">' . $agent . '</td>
@@ -3813,14 +3975,33 @@ class ReportController extends Controller
             if ($show_profit != null) {
                 $htmlTable .= '
                             <td>' . $data->profit . '</td>
-                         
                             ';
             }
-
-
-
             $htmlTable .= '</tr>';
         }
+
+        // Append the totals row
+        $htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
+                        <td class="py-2 pl-2" colspan="' . ($show_agent != null ? '7' : '5') . '">Total</td>';
+        if ($show_agent != null) {
+            $htmlTable .= '
+                        <td class="py-2">' . $totalAgentAmount . '</td>';
+        }
+        if ($show_supplier != null) {
+            
+            $htmlTable .= '
+            <td></td>
+            
+            <td class="py-2">' . $totalSupplierAmount . '</td>';
+            
+        }
+        if ($show_profit != null)
+        {
+            $htmlTable .= '
+                        
+                        <td>' . $totalProfit . '</td>';
+        }
+        $htmlTable .= '</tr>';
 
         // Close the HTML table
         $htmlTable .= '</tbody></table>';
@@ -4778,6 +4959,141 @@ class ReportController extends Controller
         }
     }
 
+    // public function sales_analysis_report(Request $request)
+    // {
+    //     if(Auth::user()){
+            
+    //     $start_date = $request->input('start_date') ?? null;
+    //     $end_date = $request->input('end_date') ?? null;
+    //     if ($start_date) {
+    //         $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //     }
+
+    //     if ($end_date) {
+    //         $end_date = (new DateTime($end_date))->format('Y-m-d');
+    //     }
+
+    //     $user = Auth::id();
+
+    //     $query1 = Receiver::where('user', $user);
+    //     $query2 = Payment::where('user', $user);
+    //     $query3 = Ticket::where('user', $user);
+    //     // $query4 = Ticket::where('user', $user);
+
+    //     // Apply date checks if start_date and/or end_date are provided
+    //     if ($start_date) {
+    //         $query1->whereDate('date', '>=', $start_date);
+    //         $query2->whereDate('date', '>=', $start_date);
+    //         $query3->whereDate('invoice_date', '>=', $start_date);
+    //         // $query4->whereDate('invoice_date', '>=', $start_date);
+    //     }
+
+    //     if ($end_date) {
+    //         $query1->whereDate('date', '<=', $end_date);
+    //         $query2->whereDate('date', '<=', $end_date);
+    //         $query3->whereDate('invoice_date', '<=', $end_date);
+    //         // $query4->whereDate('invoice_date', '<=', $end_date);
+    //     }
+
+    //     // Fetch results from the queries
+    //     $results1 = $query1->get();
+    //     $results2 = $query2->get();
+    //     $results3 = $query3->get();
+    //     // $results4 = $query4->get();
+
+
+    //     $sumsByDay = [
+    //         'receivetotalAmount' => [],
+    //         'salestotalAmount' => [],
+    //         'purchasetotalAmount' => [],
+    //         'profittotalAmount' => [],
+    //         'paymenttotalAmount' => []
+    //     ];
+
+    //     // Calculate sums day-wise
+    //     foreach ($results1 as $result) {
+    //         $createdAt = $result->date; // Assuming 'created_at' is a DateTime object
+    //         $amount = $result->amount; // Assuming 'amount' is the attribute containing the amount value
+    //         $type = 'receivetotalAmount'; // Assuming 'type' is the attribute indicating receive or payment
+
+    //         // Initialize the sum for the day if it doesn't exist
+    //         if (!isset($sumsByDay[$type][$createdAt])) {
+    //             $sumsByDay[$type][$createdAt] = 0;
+    //         }
+
+    //         // Update the sum for the day
+    //         $sumsByDay[$type][$createdAt] += $amount;
+    //     }
+    //     // Calculate sums day-wise
+    //     foreach ($results2 as $result) {
+    //         $createdAt = $result->date; // Assuming 'created_at' is a DateTime object
+    //         $amount = $result->amount; // Assuming 'amount' is the attribute containing the amount value
+    //         $type = 'paymenttotalAmount'; // Assuming 'type' is the attribute indicating receive or payment
+
+    //         // Initialize the sum for the day if it doesn't exist
+    //         if (!isset($sumsByDay[$type][$createdAt])) {
+    //             $sumsByDay[$type][$createdAt] = 0;
+    //         }
+
+    //         // Update the sum for the day
+    //         $sumsByDay[$type][$createdAt] += $amount;
+    //     }
+
+    //     foreach ($results3 as $result) {
+    //         $createdAt = $result->invoice_date; // Assuming 'created_at' is a DateTime object
+    //         $sale = $result->agent_price; // Assuming 'agent_price' is the attribute containing the sales price
+    //         $purchase = $result->supplier_price; // Assuming 'supplier_price' is the attribute containing the purchase price
+
+    //         // Calculate profit
+    //         $profit = $result->profit;
+
+    //         // Initialize the sum for the day if it doesn't exist
+    //         if (!isset($sumsByDay['salestotalAmount'][$createdAt])) {
+    //             $sumsByDay['salestotalAmount'][$createdAt] = 0;
+    //         }
+    //         if (!isset($sumsByDay['purchasetotalAmount'][$createdAt])) {
+    //             $sumsByDay['purchasetotalAmount'][$createdAt] = 0;
+    //         }
+    //         if (!isset($sumsByDay['profittotalAmount'][$createdAt])) {
+    //             $sumsByDay['profittotalAmount'][$createdAt] = 0;
+    //         }
+
+    //         // Update the sums for the day
+    //         $sumsByDay['salestotalAmount'][$createdAt] += $sale;
+    //         $sumsByDay['purchasetotalAmount'][$createdAt] += $purchase;
+    //         $sumsByDay['profittotalAmount'][$createdAt] += $profit;
+    //     }
+
+
+    //     $tableData = [];
+
+    //     foreach ($sumsByDay['receivetotalAmount'] as $day => $receivetotalAmount) {
+    //         $salesAmount = isset($sumsByDay['salestotalAmount'][$day]) ? $sumsByDay['salestotalAmount'][$day] : 0;
+    //         $purchaseAmount = isset($sumsByDay['purchasetotalAmount'][$day]) ? $sumsByDay['purchasetotalAmount'][$day] : 0;
+    //         $profitAmount = isset($sumsByDay['profittotalAmount'][$day]) ? $sumsByDay['profittotalAmount'][$day] : 0;
+    //         $paymentAmount = isset($sumsByDay['paymenttotalAmount'][$day]) ? $sumsByDay['paymenttotalAmount'][$day] : 0;
+
+    //         $tableData[] = [
+    //             'date' => $day,
+    //             'receivetotalAmount' => $receivetotalAmount,
+    //             'salestotalAmount' => $salesAmount,
+    //             'purchasetotalAmount' => $purchaseAmount,
+    //             'profittotalAmount' => $profitAmount,
+    //             'paymenttotalAmount' => $paymentAmount,
+    //         ];
+    //     }
+    //     // return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
+    //     $html = ViewFacade::make('report.sales_analysis.sales_analysis', [
+    //         'tableData' => $tableData,
+    //         'start_date' => $start_date,
+    //         'end_date' => $end_date
+    //     ])->render();
+    //     return response()->json(['html' => $html]);
+    // }
+    // else{
+    //     return view('welcome');
+    // }
+    // }
     public function sales_analysis_report(Request $request)
     {
         if(Auth::user()){
@@ -4859,13 +5175,12 @@ class ReportController extends Controller
         }
 
         foreach ($results3 as $result) {
-            $createdAt = $result->invoice_date; // Assuming 'created_at' is a DateTime object
+            // Convert DateTime to string for array key
+            $createdAt = $result->invoice_date; // Assuming 'invoice_date' is a DateTime object
             $sale = $result->agent_price; // Assuming 'agent_price' is the attribute containing the sales price
             $purchase = $result->supplier_price; // Assuming 'supplier_price' is the attribute containing the purchase price
-
-            // Calculate profit
-            $profit = $result->profit;
-
+            $profit = $result->profit; // Calculate profit
+        
             // Initialize the sum for the day if it doesn't exist
             if (!isset($sumsByDay['salestotalAmount'][$createdAt])) {
                 $sumsByDay['salestotalAmount'][$createdAt] = 0;
@@ -4876,17 +5191,43 @@ class ReportController extends Controller
             if (!isset($sumsByDay['profittotalAmount'][$createdAt])) {
                 $sumsByDay['profittotalAmount'][$createdAt] = 0;
             }
-
+        
             // Update the sums for the day
             $sumsByDay['salestotalAmount'][$createdAt] += $sale;
             $sumsByDay['purchasetotalAmount'][$createdAt] += $purchase;
             $sumsByDay['profittotalAmount'][$createdAt] += $profit;
+
+            // dd($createdAt, $sale, $purchase, $profit);
         }
+      
+
+        // $tableData = [];
+
+        // foreach ($sumsByDay['receivetotalAmount'] as $day => $receivetotalAmount) {
+        //     $salesAmount = isset($sumsByDay['salestotalAmount'][$day]) ? $sumsByDay['salestotalAmount'][$day] : 0;
+        //     $purchaseAmount = isset($sumsByDay['purchasetotalAmount'][$day]) ? $sumsByDay['purchasetotalAmount'][$day] : 0;
+        //     $profitAmount = isset($sumsByDay['profittotalAmount'][$day]) ? $sumsByDay['profittotalAmount'][$day] : 0;
+        //     $paymentAmount = isset($sumsByDay['paymenttotalAmount'][$day]) ? $sumsByDay['paymenttotalAmount'][$day] : 0;
+
+        //     $tableData[] = [
+        //         'date' => $day,
+        //         'receivetotalAmount' => $receivetotalAmount,
+        //         'salestotalAmount' => $salesAmount,
+        //         'purchasetotalAmount' => $purchaseAmount,
+        //         'profittotalAmount' => $profitAmount,
+        //         'paymenttotalAmount' => $paymentAmount,
+        //     ];
+        // }
+
+        // Step 1: Collect all unique dates
+        $allDates = $this->getDateRange($start_date, $end_date);
 
 
+        // Step 2: Iterate over all unique dates and build the table data
         $tableData = [];
 
-        foreach ($sumsByDay['receivetotalAmount'] as $day => $receivetotalAmount) {
+        foreach ($allDates as $day) {
+            $receivetotalAmount = isset($sumsByDay['receivetotalAmount'][$day]) ? $sumsByDay['receivetotalAmount'][$day] : 0;
             $salesAmount = isset($sumsByDay['salestotalAmount'][$day]) ? $sumsByDay['salestotalAmount'][$day] : 0;
             $purchaseAmount = isset($sumsByDay['purchasetotalAmount'][$day]) ? $sumsByDay['purchasetotalAmount'][$day] : 0;
             $profitAmount = isset($sumsByDay['profittotalAmount'][$day]) ? $sumsByDay['profittotalAmount'][$day] : 0;
@@ -4901,6 +5242,8 @@ class ReportController extends Controller
                 'paymenttotalAmount' => $paymentAmount,
             ];
         }
+
+        // dd($allDates);
         // return view('report.sales_analysis.index', compact('tableData', 'start_date', 'end_date'));
         $html = ViewFacade::make('report.sales_analysis.sales_analysis', [
             'tableData' => $tableData,
@@ -4913,7 +5256,6 @@ class ReportController extends Controller
         return view('welcome');
     }
     }
-
     public function sales_exicutive_stuff()
     {
         if(Auth::user()){
@@ -5464,6 +5806,160 @@ class ReportController extends Controller
             ])->render();
             return response()->json(['html' => $html]);
             // return view('report.profitreport.ProfitReport', compact('typeData'));
+        }
+        else{
+            return view('welcome');
+        }
+    }
+    public function trialbalance(){
+        if(Auth::user()){
+            return view('report.trailbalance.index');
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+    public function trialbalance_report(Request $request){
+        if(Auth::user()){
+            // dd($request->all());
+            $start_date = $request->input('start_date') ?? null;
+            $end_date = $request->input('end_date') ?? null;
+
+               
+           // Convert start_date and end_date to DateTime objects if they are provided
+            if ($start_date) {
+                $start_date = (new DateTime($start_date))->format('Y-m-d');
+            }
+
+            if ($end_date) {
+                $end_date = (new DateTime($end_date))->format('Y-m-d');
+            }
+
+            // Get the authenticated user ID
+            $user = Auth::id();
+
+            // Initialize query builders for each model
+            $receives = Receiver::where('user', $user);
+            $payments = Payment::where('user', $user);
+            $tickets = Ticket::where([['user', $user],['is_delete',0]]);
+            $orders = Order::where([['user', $user],['is_delete',0]]);
+
+            // Apply date-wise search if start_date and end_date are available
+            if ($start_date && $end_date) {
+                $receives->whereBetween('date', [$start_date, $end_date]);
+                $payments->whereBetween('date', [$start_date, $end_date]);
+                $tickets->whereBetween('invoice_Date', [$start_date, $end_date]);
+                $orders->whereBetween('date', [$start_date, $end_date]);
+            } elseif ($start_date) {
+                // Apply only start_date filter if available
+                $receives->where('date', '>=', $start_date);
+                $payments->where('date', '>=', $start_date);
+                $tickets->where('invoice_date', '>=', $start_date);
+                $orders->where('date', '>=', $start_date);
+            } elseif ($end_date) {
+                // Apply only end_date filter if available
+                $receives->where('date', '<=', $end_date);
+                $payments->where('date', '<=', $end_date);
+                $tickets->where('invoice_date', '<=', $end_date);
+                $orders->where('date', '<=', $end_date);
+            }
+
+            // Execute queries to retrieve data
+            $receivesData = $receives->get();
+            $paymentsData = $payments->get();
+            // $ticketsData = $tickets->get();
+            // $ordersData = $orders->get();
+            // Get the sum of amount for receives
+          
+            // Get the sum of agent_price for tickets
+            $totalTicketAgentPrice = $tickets->sum('agent_price');
+
+            // Get the sum of supplier_price for tickets
+            $totalTicketSupplierPrice = $tickets->sum('supplier_price');
+
+            // Get the sum of agent_price for orders
+            $totalOrderAgentPrice = $orders->sum('contact_amount');
+
+            // Get the sum of supplier_price for orders
+            $totalOrderSupplierPrice = $orders->sum('payable_amount');
+
+            // $transaction_Cash = Transaction::where('user', $user);
+            // // dd($receivesData, $transaction);
+
+            // $totalincash_debit = $totalinbank_debit = 0;
+            // $totalincash_credit = $totalinbank_credit = 0;
+
+            // foreach($receivesData as $receive){
+            //     if($receive->method == $transaction_Cash){
+            //         $totalincash_debit += $receive->amount;
+            //     }
+            //     else{
+            //         $totalinbank_debit += $receive->amount;
+            //     }
+
+            // }
+            // foreach($paymentsData as $payment){
+            //     if($payment->method == $transaction_Cash){
+            //         $totalincash_credit += $payment->amount;
+            //     }
+            //     else{
+            //         $totalinbank_credit += $payment->amount;
+            //     }
+
+            // }
+
+            // Initialize arrays to store totals
+            $transactionMethods = Transaction::where('user', $user)->distinct()->pluck('name', 'id');
+
+            $totals = [];
+            $totalDebit = 0;
+            $totalCredit = 0;
+
+            $totalDebit += $totalOrderAgentPrice + $totalTicketAgentPrice;
+            $totalCredit += $totalOrderSupplierPrice + $totalTicketSupplierPrice;
+
+            foreach ($transactionMethods as $id => $name) {
+                $totals[$name] = [
+                    'debit' => 0,
+                    'credit' => 0
+                ];
+            }
+
+            // Calculate debit totals from receivesData
+            foreach ($receivesData as $receive) {
+                $methodName = $transactionMethods[$receive->method];
+                $totals[$methodName]['debit'] += $receive->amount;
+                $totalDebit += $receive->amount;
+            }
+
+            // Calculate credit totals from paymentsData
+            foreach ($paymentsData as $payment) {
+                $methodName = $transactionMethods[$payment->method];
+                $totals[$methodName]['credit'] += $payment->amount;
+                $totalCredit += $payment->amount;
+            }
+            // dd($totals);
+            $html = ViewFacade::make('report.trailbalance.TrialBalance', [
+              
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                // 'totalincash_debit' => $totalincash_debit,
+                // 'totalinbank_debit' => $totalinbank_debit,
+                // 'totalincash_credit' => $totalincash_credit,
+                // 'totalinbank_credit' => $totalinbank_credit,
+                'totals' => $totals,
+                'totalOrderAgentPrice' => $totalOrderAgentPrice,
+                'totalOrderSupplierPrice' => $totalOrderSupplierPrice,
+                'totalTicketAgentPrice' => $totalTicketAgentPrice,
+                'totalTicketSupplierPrice' => $totalTicketSupplierPrice,
+                'totalDebit' => $totalDebit,
+                'totalCredit' => $totalCredit,
+            ])->render();
+            
+            return response()->json(['html' => $html]);
+            // dd($totalinbank, $totalincash, $totalOrderAgentPrice, $totalOrderSupplierPrice, $totalTicketAgentPrice, $totalTicketSupplierPrice);
+            
         }
         else{
             return view('welcome');

@@ -114,7 +114,7 @@
                                     <a href="{{ route('agent.edit', ['id' => encrypt($agent->id)]) }}" class=" text-green-800 px-2 py-1 rounded-md"><i class="text-xl fa fa-pencil fa-fw"></i></a>
                                 @endif
                                 @if(in_array('delete', $permissionsArray))
-                                    <a href="{{ route('agent.delete', ['id' => $agent->id]) }}" class=" text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                    <a href="#" onclick="confirmDelete('{{ route('agent.delete', ['id' => $agent->id]) }}')" class=" text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                                 @endif
                             </td>
                         </tr>
@@ -124,6 +124,15 @@
         </div>
     </div>
     <script>
+        function confirmDelete(deleteUrl) {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+            // If the user confirms, proceed with the delete action
+            if (isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        }
         $(document).ready(function() {
             $('.datepicker').datepicker({
                 autoclose: true

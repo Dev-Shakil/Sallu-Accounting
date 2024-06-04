@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <form id="reportForm" action="{{ route('sales_analysis_report') }}" method="POST">
             @csrf
-            <div class="row">
+            <div class="row flex items-center bg-white shadow-lg rounded-md mb-2">
                
                 <div class="form-group col-md-3">
                     <label for="start_date">Start Date</label>
@@ -19,21 +19,21 @@
                
                 
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary bg-black">Submit</button>
                 </div>
             </div>
         </form>
   </div>
 
     
-  <main class="flex-1 mx-auto max-w-7xl px-10">
+  <main class="flex-1 mx-auto w-full">
   
    
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-        <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
+    <div class="buttons justify-end flex gap-3 shadow-lg p-1 ">
+        
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
+       
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div> 
 
         <!-- <p class="">From Date : 14-09-2024 </p> -->

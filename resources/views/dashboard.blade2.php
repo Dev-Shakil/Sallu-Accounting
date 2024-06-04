@@ -19,87 +19,7 @@ background: #7CB0B2; /* Or any other color you prefer */
 background: #555; /* Or any other color you prefer */
 }
   </style>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
-    {{-- <div class="py-12 bg-green-500">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('agent.view') }}" class="bg-blue-500 text-gray-800 font-bold py-3 px-4 rounded">
-                        Agent
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('supplier.view') }}" class="text-gray-800">Supplier</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('order.view') }}" class="text-gray-800">Place Order</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('type.view') }}" class="text-gray-800">Types</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('report.view') }}" class="text-gray-800">Report</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('ticket.view') }}" class="text-gray-800">Ticket</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    
     <div class="grid grid-cols-3 md:grid-cols-5  gap-y-3 gap-x-4">
         <a href={{route('ticket.view')}} class="text-white text-center bg-[#84857C] font-bold py-3 px-4 rounded hover:no-underline">
           New Ticket Invoice
@@ -250,11 +170,11 @@ background: #555; /* Or any other color you prefer */
             <table class="  my-5 text-sm text-black border table table-hover" >
               <thead>
                 <tr class="border-b bg-[#7CB0B2]">
-                  <th class="w-1/12 px-4 py-1 text-left text-gray-700 font-medium">Date</th>
+                  {{-- <th class="w-1/12 px-4 py-1 text-left text-gray-700 font-medium">Date</th> --}}
                   <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
 
                   <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
+                  <th class="w-1/6 px-4 py-1 text-end pr-14 text-gray-700 font-medium">Amount</th>
 
                 </tr>
               </thead>
@@ -262,12 +182,12 @@ background: #555; /* Or any other color you prefer */
 
                 @foreach($transactions as $bank)
                   <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-2 text-gray-700">{{ (new DateTime($bank->updated_at))->format('d/m/Y') }}</td>
+                    {{-- <td class="px-4 py-2 text-gray-700">{{ (new DateTime($bank->updated_at))->format('d/m/Y') }}</td> --}}
                     <td class="px-4 py-2 text-gray-700">{{$bank->name}}</td>
 
                     <td class="px-4 py-2 text-gray-700">{{$bank->description}}</td>
                  
-                    <td class="px-4 py-2 text-gray-700">{{$bank->amount}}</td>
+                    <td class="px-4 py-2 text-gray-700 pr-14 text-end">{{$bank->amount}}</td>
 
                   </tr>
                 @endforeach

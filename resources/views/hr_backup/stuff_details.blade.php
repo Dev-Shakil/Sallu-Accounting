@@ -34,7 +34,7 @@
                     <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
                 </form> --}}
                 <div class="text-center font-bold text-xl mb-8">Add New Employee</div>
-            <form class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post">
+            <form class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post" autocomplete="off">
                 @csrf
                 <div class="flex items-center">
                     <label for="employeeName" class="w-1/2  mr-4">Employee Name <stong class="text-red-600 text-2xl">*</strong></label>
@@ -109,48 +109,48 @@
 
             </div>
         </div>
-        <div class="bg-white shadow-md p-6 my-3 w-full md:w-[60%]">
+        <div class="bg-white shadow-md px-6 py-2 my-3 w-full md:w-[100%]">
             
-        {{-- <form method="GET" action="{{ route('type.index') }}" class=" flex justify-end mb-3">
+        <form method="GET" action="{{ route('stuff_details.view') }}" class=" flex justify-end ">
                 <div class="flex items-center gap-3">
                     <input type="text" class="form-control" name="search" placeholder="Search" value="{{ request('search') }}">
                     <button type="submit" class="bg-black px-5 py-1.5 rounded text-white">Search</button>
                 </div>
-        </form> --}}
+        </form>
 
 
 
            
     </div>
-        <table class="table table-striped table-hover no-wrap " id="typetable">
-            <thead class="bg-[#5dc8cc]">
+    <table class="table table-striped table-hover no-wrap " id="typetable">
+        <thead class="bg-[#5dc8cc]">
+            <tr>
+                <th scope="col" class="px-4 py-2 ">Serial</th>
+                <th scope="col" class="px-4 py-2 ">Name</th>
+                <th scope="col" class="px-4 py-2 ">Designation</th>
+                <th scope="col" class="px-4 py-2 ">Phone</th>
+                <th scope="col" class="px-4 py-2 ">Email</th>
+                
+                <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($employees as $index => $employee)
                 <tr>
-                    <th scope="col" class="px-4 py-2 ">Serial</th>
-                    <th scope="col" class="px-4 py-2 ">Name</th>
-                    <th scope="col" class="px-4 py-2 ">Designation</th>
-                    <th scope="col" class="px-4 py-2 ">Phone</th>
-                    <th scope="col" class="px-4 py-2 ">Email</th>
-                    
-                    <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
+                    <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
+                    <td class="px-4 py-2 ">{{ $employee->name }}</td>
+                    <td class="px-4 py-2 ">{{ $employee->designation }}</td>
+                    <td class="px-4 py-2 ">{{ $employee->phone }}</td>
+                    <td class="px-4 py-2 ">{{ $employee->email }}</td>
+                    <td class="px-4 py-2 flex justify-center">
+                        <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                        <a onclick="confirmDelete('{{ route('stuff.delete', ['id' => $employee->id]) }}')" href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($employees as $index => $employee)
-                    <tr>
-                        <th scope="row" class="px-4 py-2">{{ $index + 1 }}</th>
-                        <td class="px-4 py-2 ">{{ $employee->name }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->designation }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->phone }}</td>
-                        <td class="px-4 py-2 ">{{ $employee->email }}</td>
-                        <td class="px-4 py-2 flex justify-center">
-                            <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                            <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
-                            <a href="{{ route('stuff.report', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-eye fa-fw text-x"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+            @endforeach
+        </tbody>
+    </table>
+    {{ $employees->links() }}
     </div>
 
     <div class="modal" tabindex="-1">
@@ -239,6 +239,15 @@
     </div>
 
     <script>
+        function confirmDelete(deleteUrl) {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+            // If the user confirms, proceed with the delete action
+            if (isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        }
         $(document).ready(function() {
             $('.datepicker').datepicker({
                 autoclose: true

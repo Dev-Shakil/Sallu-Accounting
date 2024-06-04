@@ -73,15 +73,14 @@
         </div>
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
-                <label for="ticket_no" class="w-[50%]">Ticket No /
-                    PNR</label>
+                <label for="ticket_no" class="w-[50%]">PNR</label>
                 <div class="flex w-full gap-x-4">
                     <input type="text" id="ticket_code"
-                        class="bg-gray-50 w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
+                        class="bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                         name="ticket_code">
-                    <input type="text" id="ticket_no" maxlength="10"
+                    {{-- <input type="text" id="ticket_no" maxlength="10"
                         class="bg-gray-50 w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                        name="ticket_no">
+                        name="ticket_no"> --}}
                 </div>
             </div>
             {{-- <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">

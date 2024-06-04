@@ -54,7 +54,7 @@
                                 <td>{{ $transaction->description }}</td>
                                 <td>
                                     <a href="{{ route('transaction.edit', ['id' => encrypt($transaction->id)]) }}" class=""><i class="fa fa-pencil fa-fw text-xl"></i></a>
-                                    <a href="{{ route('transaction.delete', ['id' => $transaction->id]) }}" class=""><i class="fa fa-trash fa-fw text-xl"></i></a>
+                                    <a href="" onclick="confirmDelete('{{ route('transaction.delete', ['id' => $transaction->id]) }}')" class=""><i class="fa fa-trash fa-fw text-xl"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -65,6 +65,15 @@
     
         </div>
         <script type="text/javascript">
+            function confirmDelete(deleteUrl) {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+            // If the user confirms, proceed with the delete action
+            if (isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        }
             $('#transaction_table').DataTable();
         </script>
 </x-app-layout>

@@ -240,8 +240,8 @@
                             @endforeach</td>
                             <td class="px-4 py-2">{{$expan->remark}}</td>
                             <td class="px-4 py-2">
-                                <a href="{{ route('moneytransfer.edit', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-eye fa-fw"></i></a>
-                                <a href="{{ route('moneytransfer.delete', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                {{-- <a href="{{ route('moneytransfer.edit', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-eye fa-fw"></i></a>
+                                <a href="{{ route('moneytransfer.delete', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a> --}}
                             </td>
                         <tr>
                     @endforeach

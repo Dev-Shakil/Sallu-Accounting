@@ -44,7 +44,7 @@
                             <td class="px-4 py-2 ">{{ $type->name }}</td>
                             <td class="px-4 py-2 flex justify-center">
                                 <a href="{{ route('type.edit', ['id' => encrypt($type->id)]) }}" class=""><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                <a href="{{ route('type.delete', ['id' => $type->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                <a onclick="confirmDelete('{{ route('type.delete', ['id' => $type->id]) }}')" href="" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -55,6 +55,15 @@
 
     </div>
     <script>
+        function confirmDelete(deleteUrl) {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+            // If the user confirms, proceed with the delete action
+            if (isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        }
         $(document).ready(function() {
             $('.datepicker').datepicker({
                 autoclose: true

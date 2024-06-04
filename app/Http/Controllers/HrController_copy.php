@@ -8,17 +8,19 @@ use App\Models\Salary;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View as ViewFacade;
-use Illuminate\Support\Facades\Response;
 
 
 class HrController extends Controller
 {
-    public function index(){
-        $employees = Employee::where([
+    public function index(Request $request){
+        $query = Employee::where([
             ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
             ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
-        ])->get();
+        ]);
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+        $employees = $query->paginate(10);
                 // dd($employees);
         return view('hr.stuff_details', compact('employees'));
     }
@@ -60,21 +62,20 @@ class HrController extends Controller
     public function payslip($id){
         // dd($id);
 
-        // $employees = Employee::where([
-        //     ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
-        //     ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
-        // ])->get();
-        $employee = Employee::findOrFail($id);
+        $employees = Employee::where([
+            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
+            ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
+        ])->get();
+        // $employee = Employee::findOrFail($id);
         $methods = Transaction::where('user', Auth::id())->get();
 
-        $salaries = Salary::where([
-            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
-        ])->paginate(10);
-        $lastSalaryId = $lastSalary ? $lastSalary->id : null;
-        $nextID = $lastSalaryId +1;
+        $salary = Salary::where([
+            ['user', Auth::id()],['id',$id] // Filter by the 'user' column matching the authenticated user's ID
+        ])->get()->first();
+        $employee = Employee::findOrFail($salary->employee);
         
         // dd($nextID);
-        return view('hr.paysalary', compact('salaries', 'methods', 'employee', 'nextID' ));
+        return view('hr.voucher', compact('salary', 'methods', 'employee', ));
     }
 
     
@@ -255,89 +256,6 @@ class HrController extends Controller
             return redirect()->route('stuff_details.view')->with('success', 'Employee deleted successfully');
         } else {
             return redirect()->route('stuff_details.view')->with('error', 'Failed to delete Employee');
-        }
-    }
-
-    private function getMonthName($monthNumber) {
-        $months = [
-            1 => 'January',
-            2 => 'February',
-            3 => 'March',
-            4 => 'April',
-            5 => 'May',
-            6 => 'June',
-            7 => 'July',
-            8 => 'August',
-            9 => 'September',
-            10 => 'October',
-            11 => 'November',
-            12 => 'December'
-        ];
-
-        return $months[$monthNumber] ?? 'Unknown';
-    }
-
-    public function report($id, Request $request){
-        if(Auth::user()){
-            if ($request->isMethod('get')) {
-                $salaries = Salary::where([
-                    ['user', Auth::id()],
-                    ['employee', $id]
-                ])->get();
-    
-                // $html = ViewFacade::make('hr.report', [
-                //     'tableData' => $salaries,
-                //     'emp_id' => $id,
-                // ])->render();
-                foreach ($salaries as $salary) {
-                    $salary->employee = Employee::where('id', $salary->employee)->value('name');
-                }
-                $salaries = $salaries->map(function ($salary) {
-                    $salary->month = $this->getMonthName($salary->month);
-                    return $salary;
-                });
-                // dd($salaries);
-                return view('hr.report', compact('salaries', 'id')); // Or return a view directly
-            }
-            else{
-                // dd($request->all());
-                $month = $request->month;
-                $year = $request->year;
-
-                $salaries = Salary::where([
-                    ['user', Auth::id()],
-                    ['employee', $request->emp_id]
-                ]);
-
-                if($month != null){
-                    $salaries->where('month', $month);
-                }
-                if($year != null){
-                    $salaries->where('year', $year);
-                }
-
-                $salaries = $salaries->get();
-
-                foreach ($salaries as $salary) {
-                    $salary->employee = Employee::where('id', $salary->employee)->value('name');
-                }
-                $salaries = $salaries->map(function ($salary) {
-                    $salary->month = $this->getMonthName($salary->month);
-                    return $salary;
-                });
-
-                $html = ViewFacade::make('hr.reportdiv', [
-                    'salaries' => $salaries,
-                    'id' => $id,
-                ])->render();
-
-                return Response::json(['html' => $html]);
-            }
-            
-          
-        }
-        else{
-            return view('welcome');
         }
     }
 

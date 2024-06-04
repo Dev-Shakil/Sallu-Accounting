@@ -1,29 +1,34 @@
-<x-app-layout>
 
+<x-app-layout>
+    
     <div
         class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
-        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
-        <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
-        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
+        
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
     </div>
-    <div id="printSection" class="bg-white py-10">
+    <div id="printSection" class="bg-white py-10 max-w-[1060px] mx-auto">
         <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
-                <div>
-                    <h3 class="company-name font-bold text-3xl ">Sallu Air Service</h3>
-                    <p class="company-address text-lg font-medium">291, Fakirapool, Motijheel, Dhaka</p>
-                    <p class="company-phone text-lg font-medium">Tel : 39420394023</p>
-                    <p class="company-email text-lg font-medium">Email : salluairservice@gmail.com</p>
+                <img class="" src="{{ url(Auth::user()->company_logo) }}" alt="Company Logo" height="150px" width="180px" />
+                <div class="w-[30%] flex-wrap flex">
+                    <h3 class="company-name font-bold text-3xl ">{{ Auth::user()->name }}</h3>
+                    <p class="company-address text-lg font-medium">Address : {{ Auth::user()->company_address }}</p>
+                    <p class="company-phone text-lg font-medium">Mobile No : {{ Auth::user()->mobile_no }}</p>
+                    <p class="company-email text-md font-medium">Email : {{ Auth::user()->email }}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
             <h1 class="text-2xl font-bold text-center my-3">Pay Slip</h1>
             <div class="flex justify-between items-center">
                 <div>
-                    <div><span class="font-semibold">Date</span> : 14-09-2024</div>
-                    <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
+                    
+                    @php
+                        $today = date('d-m-Y');
+                    @endphp
+                    <div><span class="font-semibold">Date</span> : {{ $today }}</div>
+                    <div><span class="font-semibold">Receipt No</span> : {{$salary->ref_id}} </div>
                 </div>
                
             </div>
@@ -31,14 +36,36 @@
                 <thead class="border-y border-black bg-gray-50">
                     <tr>
 
-                        <th class="text-lg">Particulars</th>
+                        <th class="text-lg">Employer Name</th>
+                        <th class="text-lg">Month</th>
+                        <th class="text-lg">Year</th>
+
                         <th class="text-lg text-center">Amount</th>
                     </tr>
                 </thead>
                 <tbody class="h-[50px]">
                     <tr class=" py-2">
                         <td class="text-xl">{{ $employee->name }}</td>
-                        <td class="text-xl text-center">{{ number_format($employee->amount, 0, '.', ',') }}</td>
+                            @php
+                            $months = [
+                                1 => 'January',
+                                2 => 'February',
+                                3 => 'March',
+                                4 => 'April',
+                                5 => 'May',
+                                6 => 'June',
+                                7 => 'July',
+                                8 => 'August',
+                                9 => 'September',
+                                10 => 'October',
+                                11 => 'November',
+                                12 => 'December'
+                            ];
+                        @endphp
+
+                        <td class="text-xl">{{ $months[$salary->month] }}</td>
+                        <td class="text-xl">{{ $salary->year }}</td>
+                        <td class="text-xl text-center">{{ number_format($salary->amount, 0, '.', ',') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -151,7 +178,7 @@
                     }
 
                     // Example usage:
-                    $amount = $employee->amount;
+                    $amount = $salary->amount;
                     $amountInWords = numberToWords($amount);
                 echo $amountInWords; @endphp Only</span></div>
                 
@@ -162,4 +189,19 @@
             </div>
         </div>
     </div>
+    <script>
+        // Function to print the content of the reportdiv
+        function printReport() {
+            var printContents = document.getElementById("printSection").innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+        // Add event listener to the "Print" button
+        document.querySelector("#printButton").addEventListener("click", function() {
+            printReport();
+        });
+    </script>
 </x-app-layout>

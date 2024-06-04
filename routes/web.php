@@ -65,6 +65,77 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
+// Route::get('/dashboard', function () {
+   
+        
+//     $current_date = new DateTime();
+//     $start_date = clone $current_date; // Today
+//     $end_date = $current_date->modify('+2 days'); // Next 4 days
+
+//     $closetickets = Ticket::where([
+//         ['user', Auth::id()],
+//         ['flight_date', '>=', $start_date->format('Y-m-d')],
+//         ['flight_date', '<=', $end_date->format('Y-m-d')]
+//     ])->get();
+
+//     foreach ($closetickets as $ticket){
+//         $ticket->agent = Agent::where('id', $ticket->agent)->value('name');
+//         $ticket->supplier = Supplier::where('id', $ticket->supplier)->value('name');
+//     }
+
+//     $current_date = Carbon::now()->toDateString();
+//     $total_receive = 0;
+//     $total_pay = 0;
+//     $total_amount = 0;
+
+//     $receives = Receiver::where([
+//         ['user', Auth::id()],
+//         ['date', $current_date]
+//     ])->get();
+
+//     foreach ($receives as $receive){
+//         if($receive->receive_from == "agent"){
+//             $receive->name = Agent::where('id', $receive->agent_supplier_id)->value('name');
+//         }
+//         else{
+//             $receive->name = Supplier::where('id', $receive->agent_supplier_id)->value('name');
+//         }
+//         $receive->method = Transaction::where('id', $receive->method)->value('name');
+//         $total_receive += $receive->amount;
+//     }
+
+//     $payments = Payment::where([
+//         ['user', Auth::id()],
+//         ['date', '=', $current_date]
+//     ])->get();
+
+//     foreach ($payments as $payment){
+//         if($payment->receive_from == "agent"){
+//             $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');
+//         }
+//         else{
+//             $payment->name = Supplier::where('id', $payment->agent_supplier_id)->value('name');
+//         }
+//         $payment->method = Transaction::where('id', $payment->method)->value('name');
+//         $total_pay += $payment->amount;
+//     }
+
+//     $current_date = Carbon::now()->toDateString();
+
+    
+//     $transactions = Transaction::where('user', Auth::id())
+//         ->whereDate('updated_at', '=', $current_date)
+//         ->get();
+//     $total_amount = Transaction::where('user', Auth::id())
+//         ->whereDate('updated_at', '=', $current_date)
+//         ->sum('amount');
+
+
+//     // dd($receives, $payments, $current_date, $transactions);
+
+//     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard', function () {
    
         
@@ -88,10 +159,9 @@ Route::get('/dashboard', function () {
     $total_pay = 0;
     $total_amount = 0;
 
-    $receives = Receiver::where([
-        ['user', Auth::id()],
-        ['date', $current_date]
-    ])->get();
+    $receives = Receiver::where('user', Auth::id())
+    ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
+    ->get();
 
     foreach ($receives as $receive){
         if($receive->receive_from == "agent"){
@@ -106,8 +176,10 @@ Route::get('/dashboard', function () {
 
     $payments = Payment::where([
         ['user', Auth::id()],
-        ['date', '=', $current_date]
-    ])->get();
+        // ['date', '=', $current_date]
+    ])
+    ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
+    ->get();
 
     foreach ($payments as $payment){
         if($payment->receive_from == "agent"){
@@ -124,14 +196,15 @@ Route::get('/dashboard', function () {
 
     
     $transactions = Transaction::where('user', Auth::id())
-        ->whereDate('updated_at', '=', $current_date)
+        // ->whereDate('updated_at', '=', $current_date)
+        ->orderBy('id', 'asc') // Change 'desc' to 'asc' if you need ascending order
         ->get();
     $total_amount = Transaction::where('user', Auth::id())
-        ->whereDate('updated_at', '=', $current_date)
+        // ->whereDate('updated_at', '=', $current_date)
         ->sum('amount');
 
 
-    // dd($receives, $payments, $current_date, $transactions);
+    // dd($receives, $payments, $current_date, $total_amount);
 
     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -161,7 +234,8 @@ Route::get('/supplier/delete/{id}', [SupplierController::class, 'delete'])->name
 // Route::get('type/view', function () {
 //     return app(TypeController::class)->index();
 // })->name('type.view');
-
+Route::get('/trialbalance', [ReportController::class, 'trialbalance'])->name('trialbalance.view');
+Route::post('/trialbalance_report', [ReportController::class, 'trialbalance_report'])->name('trialbalance_report');
 
 Route::get('/types', [TypeController::class, 'index'])->name('type.index');
 Route::post('/addtype', [TypeController::class, 'store'])->name('addtype.store');
@@ -178,6 +252,9 @@ Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('order.vi
 Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::get('/order/delete/{id}', [OrderController::class, 'delete'])->name('order.delete');
 
+Route::any('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
+// Route::post('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
+Route::post('/get-staff-details', [HrController::class, 'getStaffDetails']);
 // Route::get('/ticket/view', function () {
 //     return app(TicketController::class)->index();
 // })->name('ticket.view');

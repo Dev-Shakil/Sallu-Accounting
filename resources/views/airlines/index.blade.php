@@ -67,7 +67,7 @@
                           
                             <td class="px-4 py-2 flex">
                                 <a href="{{ route('airline.edit', ['id' => encrypt($airline->ID)]) }}" class=" text-green-800 px-2 py-1 rounded-md"><i class="text-xl fa fa-pencil fa-fw"></i></a>
-                                <a href="{{ route('airline.delete', ['id' => $airline->ID]) }}" class="text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                {{-- <a href="{{ route('airline.delete', ['id' => $airline->ID]) }}" class="text-red-900 px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a> --}}
                             </td>
                         </tr>
                     @endforeach
