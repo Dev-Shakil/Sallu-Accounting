@@ -12,13 +12,17 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @include('layouts.head')
-    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+   
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
     @if (Route::has('login'))
-    <div>
-        <div class="sticky py-4 px-auto flex justify-between bg-white top-0 z-50 w-[95%] mx-auto md:w-[75%] items-center">
+    <div class="!bg-white">
+        <div class="sticky py-4 px-auto flex justify-between  top-0 z-50 w-[95%] mx-auto md:w-[75%] items-center">
             @auth
                 <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 ">Dashboard</a>
             @else
@@ -37,7 +41,7 @@
     </div>
     @endif
 
-    <div class="min-h-[94vh] flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-[94vh] flex flex-col sm:justify-center items-center pt-6 sm:pt-0  dark:bg-gray-900">
         {{-- <div>
             <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />

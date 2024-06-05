@@ -32,7 +32,7 @@ class RefundController extends Controller
         
                 $refund->agent = $request->agent;
                 $refund->supplier = $request->supplier;
-                // $refund->passenger_name = $request->name;
+                $refund->passenger_name = $request->name;
         
                 $refund->prev_agent_amount = $request->agent_fare;
                 $refund->prev_supply_amount = $request->supplier_fare;

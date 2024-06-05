@@ -54,24 +54,7 @@ class VoidController extends Controller
         if(Auth::user()){
             try {
                 DB::beginTransaction();
-                // dd($request->all());
-                $ticket = Ticket::where('ticket_no', $request->ticket)->first();
-                $agent = Agent::find($ticket->agent);
-                $supplier = Supplier::find($ticket->supplier);
-
-                $agent->amount -= $ticket->agent_price;
-                $agent->amount += $request->agent_refundfare;
-                $agent->save();
-
-                $supplier->amount -= $ticket->supplier_price;
-                $supplier->amount += $request->supplier_refundfare;
-                $supplier->save();
-                // dd($ticket);
-                $ticket->is_active = 0;
-                $ticket->agent_price = $request->agent_refundfare;
-                $ticket->supplier_price = $request->supplier_refundfare;
-                $ticket->save();
-
+    
                 $flag = $this->voidTicket($request);
     
                 DB::commit();
@@ -107,7 +90,7 @@ class VoidController extends Controller
         $voidticket->ticket_code = $request->ticket_code;
         $voidticket->date = now();
         $voidticket->agent = $request->agent;
-        // $voidticket->passenger_name = $request->name;
+        $voidticket->passenger_name = $request->name;
         $voidticket->supplier = $request->supplier;
         $voidticket->prev_agent_amount = $request->agent_fare;
         $voidticket->prev_supply_amount = $request->supplier_fare;

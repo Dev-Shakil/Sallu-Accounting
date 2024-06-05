@@ -1,26 +1,26 @@
 <x-app-layout>
 
     <div
-        class="buttons justify-end  flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 w-full mt-5 mx-auto">
-        {{-- <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button> --}}
-        <button id="printBtn" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
-        <button class="text-white bg-black font-bold text-md py-1 px-4" onclick="goBack()">Go Back</button>
+        class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
+        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
+        <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
+        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
     </div>
     <div id="printSection" class="bg-white py-10">
-        <div class="flex-1 mt-2 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
+        <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px" class="w-[220px] h-[80px]"/>
+                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
                 <div>
-                    <h3 class="company-name font-semibold text-2xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg">Mobile No : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg">Email : {{Auth::user()->email}}</p>
+                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
             <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Customer Copy)</h1>
-            <div class="flex justify-between items-center py-4">
+            <div class="flex justify-between items-center">
                 <div>
                     <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
@@ -32,7 +32,7 @@
                     <p class="text-lg">Mob : {{ $agent->phone }}</p>
                 </div>
             </div>
-            <table class="w-full my-2 border-y border-black">
+            <table class="w-full my-3 border-y border-black">
                 <thead class="border-y border-black bg-gray-50">
                     <tr>
 
@@ -161,7 +161,7 @@
                     $amount = $receive_voucher->amount;
                     $amountInWords = numberToWords($amount);
                 echo $amountInWords; @endphp Only</span></div>
-                 <div class="flex  flex-col gap-y-2 w-[35%]">
+                <div class="flex  flex-col gap-y-2 w-[35%]">
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Current Amount</p>
                         <p>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $receive_voucher->previous_amount - $receive_voucher->amount }}</p>
+                        <p>{{ $receive_voucher->current_amount }}</p>
                     </div>
                 </div>
             </div>
@@ -184,20 +184,20 @@
             </div>
         </div>
         <div
-            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl mt-4 border-t border-dashed border-gray-400 px-6 pb-3 pt-14">
+            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-5 pt-7">
 
             <div class="flex justify-between items-center pb-2">
-                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px" class="w-[220px] h-[80px]"/>
+                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
                 <div>
-                    <h3 class="company-name font-semibold text-2xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg">Mobile No : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg">Email : {{Auth::user()->email}}</p>
+                    <h3 class="company-name font-bold text-3xl ">Sallu Air Service</h3>
+                    <p class="company-address text-lg font-medium">291, Fakirapool, Motijheel, Dhaka</p>
+                    <p class="company-phone text-lg font-medium">Tel : 39420394023</p>
+                    <p class="company-email text-lg font-medium">Email : salluairservice@gmail.com</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
             <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Office Copy)</h1>
-            <div class="flex justify-between items-center py-4">
+            <div class="flex justify-between items-center">
                 <div>
                     <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
@@ -209,7 +209,7 @@
                     <p class="text-lg">Mob : {{ $agent->phone }}</p>
                 </div>
             </div>
-            <table class="w-full my-2 border-y border-black">
+            <table class="w-full my-3 border-y border-black">
                 <thead class="border-y border-black bg-gray-50">
                     <tr>
 
@@ -226,7 +226,6 @@
                     </tr>
                 </tbody>
             </table>
-           
             <div class="w-full flex justify-between">
                 <div>Amount in Words : <span class="">@php 
 
@@ -247,11 +246,11 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $receive_voucher->previous_amount - $receive_voucher->amount }}</p>
+                        <p>{{ $receive_voucher->current_amount}}</p>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between mt-[100px]">
+            <div class="flex justify-between mt-[80px]">
                 <p class="border-t border-gray-400 border-dashed px-4">Authority Signature</p>
                 <p class="border-t border-gray-400 border-dashed px-4">Customer Signature</p>
             </div>
@@ -268,7 +267,6 @@
                     window.print();
                 });
             });
-            
         </script>
 
         <style>

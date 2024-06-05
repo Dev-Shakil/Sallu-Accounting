@@ -260,1072 +260,799 @@ class ReportController extends Controller
     }
 
 
+   
     // public function general_ledger_report(Request $request)
     // {
-    //     $who = $request->agent_supplier;
-    //     $html = '';
+    //     if(Auth::user()){
+    //         $who = $request->agent_supplier;
+    //         $html = '';
+    
+    //         if ($who == 'agent') {
+    //             $start_date = $request->start_date;
+    //             $end_date = $request->end_date;
+    //             $id = $request->agent_supplier_id;
+    
+    //             $receive = Ticket::where([['agent', $id], ['reissued_new_ticket', 1]]);
 
-    //     if ($who == 'agent') {
-    //         $start_date = $request->start_date;
-    //         $end_date = $request->end_date;
-    //         $id = $request->agent_supplier_id;
-
-    //         $receive = Ticket::where('agent', $id);
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receive->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('invoice_date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('invoice_date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receive = $receive->get();
-
-    //         $receiver = Receiver::where([
-    //             ['receive_from', '=', 'agent'],
-    //             ['agent_supplier_id', '=', $id]
-    //         ]);
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receiver->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receiver = $receiver->get();
-
-    //         $mergedCollection = $receive->merge($receiver);
-    //         $sortedCollection = $mergedCollection->sortBy('created_at');
-
-    //         $html = '
-
-
-    //                         <main class="flex-1 mx-auto max-w-7xl px-10">
-    //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-    //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-    //                             <button id="printBtn" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-    //                             <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-    //                             <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-    //                         </div>
-    //                         <div id="printSection" class="shadow-lg p-3">
-    //                                 <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
-    //                                 <div class="flex items-center justify-between mb-2">
-    //                                     <div class="text-lg">
-    //                                         <h2 class="font-semibold">Account Name : Jane Alam</h2>
-    //                                         <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //                                     </div>
-    //                                     <div class="flex items-center">
-
-    //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
-    //                                             <p>'.Auth::user()->company_address .'</p>
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                                 <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
-    //                                     <thead>
-    //                                     <tr class="border-y-2 border-black">
-    //                                         <th class="">Date</th>
-    //                                         <th class="">Invoice No</th>
-    //                                         <th class="">Ticket No</th>
-    //                                         <th class="">Details</th>
-    //                                         <th class="">Debit</th>
-    //                                         <th class="">Credit</th>
-
-    //                                         <th class="">Balance</th>
-    //                                     </tr>
-    //                                     </thead>
-    //                                     <tbody class="divide-y-2">
-    //                             ';
-
-    //         foreach ($sortedCollection as $index => $item) {
-    //             // dd($item->getTable());
-    //             if ($item->getTable() == "tickets") {
-    //                 // Handle logic specific to Ticket model
-    //                 $html .= <<<HTML
-    //                                             <tr>
-    //                                                 <td class="w-[10%]"> $item->invoice_date </td>
-    //                                                 <td class="w-[11%]"> $item->invoice </td>
-    //                                                 <td class="w-[15%]"> $item->ticket_no </td>
-    //                                                 <td class="w-[28%] pr-3">
-    //                                                     PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-    //                                                     PNR:  $item->ticket_code ,  $item->sector <br>
-    //                                                     FLIGHT DATE:  $item->flight_date <br>
-    //                                                     $item->airline_code -  $item->airline_name <br>
-    //                                                     Remarks:  $item->remark 
-    //                                                 </td>
-    //                                                 <td class="w-[12%] "> $item->agent_price </td>
-    //                                                 <td class="w-[12%] "></td>
-    //                                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-    //                                                 <td class="w-[12%] "> $item->agent_new_amount  Dr</td>
-    //                                             </tr>
-    //                                         HTML;
-    //             } elseif ($item->getTable() == "receive") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="font-weight: bold;  color: green">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%]  "></td>
-    //                                             <td class="w-[12%]">{$item->amount}</td>
-    //                                             <td class="w-[12%] ">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             // if($index%2 == 0){
-
-    //             // }
-    //         }
-
-    //         $html .= '
-
-    //                                     </tbody>
-    //                                 </table>
-    //                         </div>
-
-
-    //                         </main>
-
-
-    //                         <style>
-    //                             @media print {
-    //                                 body * {
-    //                                     visibility: hidden;
-    //                                 }
-
-    //                                 #printSection, #printSection * {
-    //                                     visibility: visible;
-    //                                 }
-
-    //                                 #printSection {
-    //                                     position: absolute;
-    //                                     left: 0;
-    //                                     top: 0;
-    //                                     width: 100%;
-    //                                     max-width: 100%;
-    //                                     box-sizing: border-box;
-    //                                     padding: 10px; /* Adjust padding as needed */
-    //                                 }
-    //                             }
-    //                         </style>
-
-    //                 ';
-    //     } elseif ($who == 'supplier') {
-    //         // dd($who);
-    //         $start_date = $request->start_date;
-    //         $end_date = $request->end_date;
-    //         $id = $request->agent_supplier_id;
-
-    //         $receive = Ticket::where('supplier', $id);
-    //         // dd($receive);
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receive->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('invoice_date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('invoice_date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receive = $receive->get();
-    //         // dd($receive);
-
-    //         $receiver = Payment::where([
-    //             ['receive_from', '=', 'supplier'],
-    //             ['agent_supplier_id', '=', $id]
-    //         ]);
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receiver->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receiver = $receiver->get();
-
-    //         // dd($receiver);
-    //         $mergedCollection = $receive->merge($receiver);
-    //         $sortedCollection = $mergedCollection->sortBy('created_at');
-    //         // dd($sortedCollection);
-
-    //         $html = ' 
-
-    //                     <main class="flex-1 mx-auto max-w-7xl px-10">
-    //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-    //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-    //                             <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
-    //                             <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-    //                             <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-    //                         </div>
-    //                         <div id="printSection" class="shadow-lg p-3">
-    //                                 <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
-    //                                 <div class="flex items-center justify-between mb-2">
-    //                                     <div class="text-lg">
-    //                                         <h2 class="font-semibold">Account Name : Jane Alam</h2>
-    //                                         <p><span class="font-semibold">Period Date :</span> 14-09-2023 to 15-09-2023 </p>
-    //                                     </div>
-    //                                     <div class="flex items-center">
-
-    //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
-    //                                             <p>'.Auth::user()->company_address .'</p>
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                                 <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
-    //                                     <thead>
-    //                                     <tr class="border-y-2 border-black">
-    //                                         <th class="">Date</th>
-    //                                         <th class="">Invoice No</th>
-    //                                         <th class="">Ticket No</th>
-    //                                         <th class=" pl-6">Details</th>
-    //                                         <th class="">Debit</th>
-    //                                         <th class="">Credit</th>
-
-    //                                         <th class="">Balance</th>
-    //                                     </tr>
-    //                                     </thead>
-    //                                     <tbody class="divide-y-2">
-    //                             ';
-
-    //         foreach ($sortedCollection as $index => $item) {
-    //             // dd($item->getTable());
-    //             if ($item->getTable() == "tickets") {
-    //                 // Handle logic specific to Ticket model
-    //                 $html .= <<<HTML
-    //                                             <tr>
-    //                                                 <td class="w-[10%]"> $item->invoice_date </td>
-    //                                                 <td class="w-[11%]"> $item->invoice </td>
-    //                                                 <td class="w-[15%]"> $item->ticket_no </td>
-    //                                                 <td class="w-[28%] pr-2">
-    //                                                     PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-    //                                                     PNR:  $item->ticket_code ,  $item->sector <br>
-    //                                                     FLIGHT DATE:  $item->flight_date <br>
-    //                                                     $item->airline_code -  $item->airline_name <br>
-    //                                                     Remarks:  $item->remark 
-    //                                                 </td>
-
-    //                                                 <td class="w-[12%] "></td>
-    //                                                 <td class="w-[12%]  "> $item->supplier_price </td>
-    //                                                 <!-- <td class="w-[12%] "> $item->previous_amount  Dr</td> -->
-    //                                                 <td class="w-[12%] "> $item->supplier_new_amount  Dr</td>
-    //                                             </tr>
-    //                                         HTML;
-    //             } elseif ($item->getTable() == "payment") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark}<br> 
-    //                                                 Method:   {$item->method}
-    //                                             </td>
-    //                                             <td class="w-[12%]">{$item->amount}</td>
-    //                                             <td class="w-[12%]"></td>
-    //                                             <td class="w-[12%]">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             // if($index%2 == 0){
-
-    //             // }
-    //         }
-
-    //         $html .= ' 
-    //                                     <tr class="py-2 text-xl">
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td class="text-lg font-semibold">Total Closing Balance</td>
-    //                                         <td class="w-[12%]  font-bold">409393</td>
-    //                                         <td class="w-[12%]  font-bold">70000</td>
-    //                                         <td class="w-[12%]  font-bold">5000.00 Dr</td>
-    //                                     </tr>
-    //                                     </tbody>
-    //                                 </table>
-    //                         </div>
-
-
-    //                     </main>
-    //                     <style>
-    //                     @media print {
-    //                         body * {
-    //                             visibility: hidden;
-    //                         }
-
-    //                         #printSection, #printSection * {
-    //                             visibility: visible;
-    //                         }
-
-    //                         #printSection {
-    //                             position: absolute;
-    //                             left: 0;
-    //                             top: 0;
-    //                             width: 100%;
-    //                             max-width: 100%;
-    //                             box-sizing: border-box;
-    //                             padding: 10px; /* Adjust padding as needed */
-    //                         }
+    //             $receive = $receive->where('user', Auth::id());
+    //             $refund = Refund::where('user', Auth::id());
+    //             // $order = Order::where('user', Auth::id());
+    
+    //             if (!is_null($start_date) || !is_null($end_date)) {
+    //                 $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //                 $end_date = (new DateTime($end_date))->format('Y-m-d');
+    
+    //                 $receive->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('invoice_date', '>=', $start_date);
     //                     }
-    //                 </style>
-
-
-
-    //                 ';
-    //     } else {
-    //         // Your logic for other cases goes here
-    //     }
-
-    //     return $html;
-    // }
-    // public function general_ledger_report(Request $request)
-    // {
-    //     $who = $request->agent_supplier;
-    //     $html = '';
-
-    //     if ($who == 'agent') {
-    //         $start_date = $request->start_date;
-    //         $end_date = $request->end_date;
-    //         $id = $request->agent_supplier_id;
-
-    //         $receive = Ticket::where('agent', $id);
-    //         $receive = $receive->where('user', Auth::id());
-    //         $refund = Refund::where('user', Auth::id());
-    //         // $order = Order::where('user', Auth::id());
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receive->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('invoice_date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('invoice_date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receive = $receive->get();
-
-    //         $receiver = Receiver::where([
-    //             ['receive_from', '=', 'agent'],
-    //             ['agent_supplier_id', '=', $id],
-    //             ['user', Auth::id()]
-    //         ]);
-
-    //         $refund = $refund->where([
-    //             ['agent', $id],
-    //         ]);
-
-    //         $paymenter = Payment::where([
-    //             ['receive_from', '=', 'agent'],
-    //             ['agent_supplier_id', '=', $id],
-    //             ['user', Auth::id()]
-    //         ]);
-
-    //         // $order = $order->where(['agent', $id]);
-
-    //         $void_ticket = VoidTicket::where([ ['user', Auth::id()], ['agent', $id]]);
-    //         $reissue = ReissueTicket::where([['agent', $id],['user', Auth::id()]]);
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receiver->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             $refund->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             $paymenter->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             $void_ticket->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             // $order->where(function ($query) use ($start_date, $end_date) {
-    //             //     if (!is_null($start_date)) {
-    //             //         $query->where('date', '>=', $start_date);
-    //             //     }
-
-    //             //     if (!is_null($end_date)) {
-    //             //         $query->where('date', '<=', $end_date);
-    //             //     }
-    //             // });
-    //             $reissue->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receiver = $receiver->get();
-    //         $paymenter = $paymenter->get();
-    //         $void_ticket = $void_ticket->get();
-    //         $reissue = $reissue->get();
-    //         $refund = $refund->get();
-
-    //         $order = Order::where('user', Auth::id())
-    //           ->where('agent', $id);
-    //         $order = $order->where(function ($query) use ($start_date, $end_date) {
-    //             if (!is_null($start_date)) {
-    //                 $query->where('date', '>=', $start_date);
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('invoice_date', '<=', $end_date);
+    //                     }
+    //                 });
     //             }
-
-    //             if (!is_null($end_date)) {
-    //                 $query->where('date', '<=', $end_date);
+    
+    //             $receive = $receive->get();
+    
+    //             $receiver = Receiver::where([
+    //                 ['receive_from', '=', 'agent'],
+    //                 ['agent_supplier_id', '=', $id],
+    //                 ['user', Auth::id()]
+    //             ]);
+    
+    //             $refund = $refund->where([
+    //                 ['agent', $id],
+    //             ]);
+    
+    //             $paymenter = Payment::where([
+    //                 ['receive_from', '=', 'agent'],
+    //                 ['agent_supplier_id', '=', $id],
+    //                 ['user', Auth::id()]
+    //             ]);
+    
+    //             // $order = $order->where(['agent', $id]);
+    
+    //             $void_ticket = VoidTicket::where([['user', Auth::id()], ['agent', $id]]);
+    //             $reissue = ReissueTicket::where([['agent', $id], ['user', Auth::id()]]);
+    
+    //             if (!is_null($start_date) || !is_null($end_date)) {
+    //                 $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //                 $end_date = (new DateTime($end_date))->format('Y-m-d');
+    
+    //                 $receiver->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $refund->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $paymenter->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $void_ticket->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+                   
+    //                 $reissue->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
     //             }
+    
+    //             $receiver = $receiver->get();
+    //             $paymenter = $paymenter->get();
+    //             $void_ticket = $void_ticket->get();
+    //             $reissue = $reissue->get();
+    //             $refund = $refund->get();
+    
+    //             $order = Order::where('user', Auth::id())
+    //                 ->where('agent', $id);
+    //             $order = $order->where(function ($query) use ($start_date, $end_date) {
+    //                 if (!is_null($start_date)) {
+    //                     $query->where('date', '>=', $start_date);
+    //                 }
+    
+    //                 if (!is_null($end_date)) {
+    //                     $query->where('date', '<=', $end_date);
+    //                 }
     //             });
-    //         $order = $order->get();
-
-
-    //         // $order = $order->get();
-    //         // dd($order, $void_ticket);
-    //         $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
-    //         $sortedCollection = $mergedCollection->sortBy('created_at');
-    //         // dd($mergedCollection);
-    //         $acountname = Agent::where('id', $id)->value('name');
-    //         $html = '
-
-
-    //                         <main class="flex-1 mx-auto max-w-7xl px-10">
-    //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-    //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-    //                             <button id="printBtn" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-    //                             <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-    //                             <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
+    //             $order = $order->get();
+    
+    
+    //             // $order = $order->get();
+    //             // dd($order, $void_ticket);
+    //             $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
+    //             $sortedCollection = $mergedCollection->sortBy('created_at');
+    //             // dd($mergedCollection);
+    //             $acountname = Agent::where('id', $id)->value('name');
+    
+    //             $balance =  0;
+    //             $debit = 0;
+    //             $credit = 0;
+    
+    //             $html = '
+                            
+                                
+    //                     <main class="flex-1 mx-auto md:max-w-7xl px-10 ">
+                       
+    //                     <div id="printSection" class="shadow-lg p-3 bg-white">
+    //                         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
+    //                         <div class="flex items-center justify-between mb-2">
+    //                             <div class="text-lg">
+    //                                 <h2 class="font-semibold">Account Name : ' . $acountname . '</h2>
+    //                                 <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . '</p>
+    //                             </div>
+    //                             <div class="flex items-center">
+                                
+    //                             <div>
+    //                             <h3 class="company-name font-bold text-3xl "> ' .Auth::user()->name.'</h3>
+    //                             <p class="company-address text-lg font-medium">'.Auth::user()->company_address.'</p>
+    //                             <p class="company-phone text-lg font-medium">Tel : '.Auth::user()->mobile_no.'</p>
+    //                             <p class="company-email text-lg font-medium">Email : '.Auth::user()->email.'</p>
     //                         </div>
-    //                         <div id="printSection" class="shadow-lg p-3">
-    //                                 <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
-    //                                 <div class="flex items-center justify-between mb-2">
-    //                                     <div class="text-lg">
-    //                                         <h2 class="font-semibold">Account Name : '. $acountname. '</h2>
-    //                                         <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
-    //                                     </div>
-    //                                     <div class="flex items-center">
-
-    //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
-    //                                             <p>'.Auth::user()->company_address .'</p>
-    //                                         </div>
-    //                                     </div>
-    //                                 </div>
-    //                                 <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
-    //                                     <thead>
-    //                                     <tr class="border-y-2 border-black">
-    //                                         <th class="">Date</th>
-    //                                         <th class="">Invoice No</th>
-    //                                         <th class="">Ticket No</th>
-    //                                         <th class="">Details</th>
-    //                                         <th class="">Debit</th>
-    //                                         <th class="">Credit</th>
-
-    //                                         <th class="">Balance</th>
-    //                                     </tr>
-    //                                     </thead>
-    //                                     <tbody class="divide-y-2">
-    //                             ';
-
-    //         foreach ($sortedCollection as $index => $item) {
-    //             // dd($item->getTable());
-    //             if ($item->getTable() == "tickets") {
-    //                 // Handle logic specific to Ticket model
-    //                 $html .= <<<HTML
+    //                             </div>
+    //                         </div>
+    //                         <table class="table-auto w-full border-y-2 table-stripe devide-2 devide-gray-700 text-sm my-1">
+    //                             <thead>
+    //                             <tr class="border-y-2 border-black">
+    //                                 <th class="">Date</th>
+    //                                 <th class="">Invoice No</th>
+    //                                 <th class="">Ticket No</th>
+    //                                 <th class="">Details</th>
+    //                                 <th class="">Debit</th>
+    //                                 <th class="">Credit</th>
+                                    
+    //                                 <th class="">Balance</th>
+    //                             </tr>
+    //                             </thead>
+    //                             <tbody class="divide-y devide-gray-600">
+    //                     ';
+    
+    
+    //             foreach ($sortedCollection as $index => $item) {
+    //                 // dd($item->getTable());
+    //                 if ($item->getTable() == "tickets") {
+    //                     // Handle logic specific to Ticket model
+    //                     $balance += $item->agent_price;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $debit += $item->agent_price;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    //                     $html .= <<<HTML
+    //                                                 <tr>
+    //                                                     <td class="w-[10%]"> $item->invoice_date </td>
+    //                                                     <td class="w-[11%]"> $item->invoice </td>
+    //                                                     <td class="w-[15%]"> {$ticket->airline_code}/{$item->ticket_no} </td>
+    //                                                     <td class="w-[28%] pr-3">
+    //                                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+    //                                                         PNR:  $item->pnr ,  $item->sector <br>
+    //                                                         FLIGHT DATE:  $item->flight_date <br>
+    //                                                         $item->airline_code -  $item->airline_name <br>
+    //                                                         Remarks:  $item->remark 
+    //                                                     </td>
+    //                                                     <td class="w-[12%] totaldebit"> $item->agent_price </td>
+    //                                                     <td class="w-[12%] totalcredit"></td>
+    //                                                     <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
+    //                                                     <td class="w-[12%] totaltotal"> $currentAmount </td>
+    //                                                 </tr>
+    //                              HTML;
+    //                 } elseif ($item->getTable() == "receive") {
+    //                     // $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
+    //                     $balance -= $item->amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $credit += $item->amount;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    //                     $html .= <<<HTML
     //                                             <tr>
-    //                                                 <td class="w-[10%]"> $item->invoice_date </td>
-    //                                                 <td class="w-[11%]"> $item->invoice </td>
-    //                                                 <td class="w-[15%]"> $item->ticket_no </td>
-    //                                                 <td class="w-[28%] pr-3">
-    //                                                     PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-    //                                                     PNR:  $item->ticket_code ,  $item->sector <br>
-    //                                                     FLIGHT DATE:  $item->flight_date <br>
-    //                                                     $item->airline_code -  $item->airline_name <br>
-    //                                                     Remarks:  $item->remark 
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no}</td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Remarks:  {$item->remark} <br>
+    //                                                     <b>Receive</b>
     //                                                 </td>
-    //                                                 <td class="w-[12%] totaldebit"> $item->agent_price </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->amount}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "payment") {
+    //                     // $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
+    
+    //                     $balance += $item->amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $debit += $item->amount;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr>
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Remarks:  {$item->remark} <br>
+    //                                                     <b>Payment<b>
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->amount}</td>
     //                                                 <td class="w-[12%] totalcredit"></td>
-    //                                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-    //                                                 <td class="w-[12%] totaltotal"> $item->agent_new_amount  Dr</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
     //                                             </tr>
-    //                                         HTML;
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "reissue") {
+    //                     // $currentAmount = $item->now_agent_amount;
+    //                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
+    
+    //                     $balance += $item->now_agent_fere;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $debit += $item->now_agent_debit;
+    
+    //                     $agentname = Agent::where('id', $id)->value('name');
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Remarks:  {$item->remark} 
+    //                                                     <b>Reissue</b> to Customer : $agentname ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->now_agent_fere}</td>
+    //                                                 <td class="w-[12%] totalcredit"></td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "refund") {
+    //                     // dd($item);
+    //                     $balance -= $item->now_agent_fere;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $credit += $item->now_agent_fere;
+    
+    //                     $agentname = Agent::where('id', $id)->value('name');
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     <!-- Remarks:  Refund
+    //                                                     Agent New Amount: {$item->now_agent_fere}
+    //                                                     Agent Previous Amount: {$item->prev_agent_amount} -->
+    //                                                     <b>Refund</b> to Customer : $agentname ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+    //                                                     Remark: {$item->remark}
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->now_agent_fere}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "order") {
+    //                     // $currentAmount = $item->agent_new_amount;
+    //                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
+    //                     $balance += $item->contact_amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $debit += $item->contact_amount;
+    
+    //                     $typeneme = Type::where('id', $item->type)->value('name');
+    //                     $html .= <<<HTML
+    //                                             <tr>
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$typeneme} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Passenger: {$item->name} <br>
+    //                                                     Passport: {$item->passport_no}<br>
+    //                                                     Remarks:  {$item->remark}
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->contact_amount}</td>
+    //                                                 <td class="w-[12%] totalcredit"></td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "voidTicket") {
+    //                     // $currentAmount = $item->now_agent_amount;
+    //                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
+    
+    //                     $balance += $item->now_agent_fere;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //                     $debit += $item->now_agent_fere;
+    //                     // dd($item->date, $currentAmount);
+    
+    //                     $agentname = Agent::where('id', $id)->value('name');
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     <b>Void</b> to Customer : $agentname ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+    //                                                     <b>Remarks</b>:  {$item->remark}
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->now_agent_fere}</td>
+    //                                                 <td class="w-[12%] totalcredit"></td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 }
+    
+    //                 // if($index%2 == 0){
+    
+    //                 // }
     //             }
-    //             elseif ($item->getTable() == "receive") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="font-weight: bold;  color: green">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit"></td>
-    //                                             <td class="w-[12%] totalcredit">{$item->amount}</td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "payment") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr>
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit">{$item->amount}</td>
-    //                                             <td class="w-[12%] totalcredit"></td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "reissue") {
-    //                 $currentAmount = $item->now_agent_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="color: orange">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit">{$item->now_agent_fere}</td>
-    //                                             <td class="w-[12%] totalcredit"></td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "refund") {
-    //                 $currentAmount = $item->current_agent_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-    //                 $agentname = Agent::where('id', $id)->value('name');
-    //                 $ticket = Ticket::where([['user', Auth::id()],['ticket_no', $item->ticket_no]])->first();
-    //                 $html .= <<<HTML
-    //                                         <tr >
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 <!-- Remarks:  Refund
-    //                                                 Agent New Amount: {$item->now_agent_fere}
-    //                                                 Agent Previous Amount: {$item->prev_agent_amount} -->
-    //                                                 Refund to Customer : $agentname ,  
-    //                                                 {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
-    //                                                 Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit"></td>
-    //                                             <td class="w-[12%] totalcredit">{$item->now_agent_fere}</td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "order") {
-    //                 $currentAmount = $item->agent_new_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-    //                 $typeneme = Type::where('id', $item->type)->value('name');
-    //                 $html .= <<<HTML
-    //                                         <tr>
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$typeneme} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} <br>
-    //                                                 Passenger: {$item->name} <br>
-    //                                                 Passport: {$item->passport_no}
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit">{$item->contact_amount}</td>
-    //                                             <td class="w-[12%] totalcredit"></td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "voidTicket") {
-    //                 $currentAmount = $item->now_agent_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="color: blue">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit">{$item->now_agent_fere}</td>
-    //                                             <td class="w-[12%] totalcredit"></td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             // if($index%2 == 0){
-
-    //             // }
-    //         }
-
-    //         $html .= '
-    //                                     <tr class="py-2 text-xl">
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td class="text-lg font-semibold">Total Closing Balance</td>
-    //                                         <td class="w-[12%]" id="sumtotaldebit"></td>
-    //                                         <td class="w-[12%]  font-bold" id="sumtotalcredit"></td>
-    //                                         <td class="w-[12%]  font-bold" id="sumtotal">r</td>
-    //                                     </tr>
-    //                                     </tbody>
-    //                                 </table>
-    //                         </div>
-
-
-    //                         </main>
-
-
-    //                         <style>
-    //                             @media print {
-    //                                 body * {
-    //                                     visibility: hidden;
+    
+    //             $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+    //             $html .= ' 
+    //             <tr class="py-4">
+    //             <td class="w-[12%] font-bold" >To Receive :  BDT</td>
+    //             <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
+    //             <td class="w-[12%] text-md font-bold" ></td>
+    //             <td class="text-lg font-semibold"></td>
+    //             <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . '</td>
+    //             <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . '</td>
+    //             <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
+    //         </tr>
+    //                                         </tbody>
+    //                                     </table>
+    //                             </div>
+                                
+                                
+    //                             </main>
+                               
+        
+    //                             <style>
+    //                                 @media print {
+    //                                     body * {
+    //                                         visibility: hidden;
+    //                                     }
+                                
+    //                                     #printSection, #printSection * {
+    //                                         visibility: visible;
+    //                                     }
+                                
+    //                                     #printSection {
+    //                                         position: absolute;
+    //                                         left: 0;
+    //                                         top: 0;
+    //                                         width: 100%;
+    //                                         max-width: 100%;
+    //                                         box-sizing: border-box;
+    //                                         padding: 10px; /* Adjust padding as needed */
+    //                                     }
     //                                 }
-
-    //                                 #printSection, #printSection * {
-    //                                     visibility: visible;
-    //                                 }
-
-    //                                 #printSection {
-    //                                     position: absolute;
-    //                                     left: 0;
-    //                                     top: 0;
-    //                                     width: 100%;
-    //                                     max-width: 100%;
-    //                                     box-sizing: border-box;
-    //                                     padding: 10px; /* Adjust padding as needed */
-    //                                 }
-    //                             }
-    //                         </style>
-
-    //                         <script>
-    //                         // Get all elements with the specified classes
-    //                         const totaldebitElements = document.querySelectorAll(".totaldebit");
-    //                         const totalcreditElements = document.querySelectorAll(".totalcredit");
-    //                         const totaltotalElements = document.querySelectorAll(".totaltotal");
-
-    //                         // Initialize variables to hold the sum of each class
-    //                         let sumTotalDebit = 0;
-    //                         let sumTotalCredit = 0;
-    //                         let sumTotal = 0;
-
-    //                         // Iterate over each element and sum their values
-    //                         totaldebitElements.forEach(function(element) {
-    //                             sumTotalDebit += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                         });
-    //                         totalcreditElements.forEach(function(element) {
-    //                             sumTotalCredit += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                         });
-    //                         totaltotalElements.forEach(function(element) {
-    //                             sumTotal += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                         });
-
-    //                         // Set the sum values to the respective elements
-    //                         document.getElementById("sumtotaldebit").textContent = sumTotalDebit.toFixed(2); // Format to 2 decimal places
-    //                         document.getElementById("sumtotalcredit").textContent = sumTotalCredit.toFixed(2); // Format to 2 decimal places
-    //                         document.getElementById("sumtotal").textContent = (sumTotalDebit - sumTotalCredit).toFixed(2) + " Dr"; // Format to 2 decimal places and append "Dr"
-    //                         </script>
-
-
-    //                 ';
-    //     } 
-    //     elseif ($who == 'supplier') {
-    //         // dd($who);
-    //         $start_date = $request->start_date;
-    //         $end_date = $request->end_date;
-    //         $id = $request->agent_supplier_id;
-
-    //         $receive = Ticket::where('supplier', $id);
-    //         // dd($receive);
-
-    //         $receiver = Receiver::where([
-    //             ['receive_from', '=', 'supplier'],
-    //             ['agent_supplier_id', '=', $id],
-    //             ['user', Auth::id()]
-    //         ]);
-
-    //         $paymenter = Payment::where([
-    //             ['receive_from', '=', 'supplier'],
-    //             ['agent_supplier_id', '=', $id],
-    //             ['user', Auth::id()]
-    //         ]);
-    //         $void_ticket = VoidTicket::where([ ['user', Auth::id()], ['supplier', $id]]);
-    //         $reissue = ReissueTicket::where([['supplier', $id],['user', Auth::id()]]);
-    //         // dd($receive);
-
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receive->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('invoice_date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('invoice_date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         if (!is_null($start_date) || !is_null($end_date)) {
-    //             $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //             $end_date = (new DateTime($end_date))->format('Y-m-d');
-
-    //             $receiver->where(function ($query) use ($start_date, $end_date) {
+    //                             </style>
+                                                        
+                             
+                          
+    //                     ';
+    //         } elseif ($who == 'supplier') {
+    //             // dd($who);
+    //             $start_date = $request->start_date;
+    //             $end_date = $request->end_date;
+    //             $id = $request->agent_supplier_id;
+    
+    //             $receive = Ticket::where([['supplier', $id], ['reissued_new_ticket', 1]]);
+    //             // dd($receive);
+    //             $refund = Refund::where('user', Auth::id());
+    
+    //             $receiver = Receiver::where([
+    //                 ['receive_from', '=', 'supplier'],
+    //                 ['agent_supplier_id', '=', $id],
+    //                 ['user', Auth::id()]
+    //             ]);
+    
+    //             $paymenter = Payment::where([
+    //                 ['receive_from', '=', 'supplier'],
+    //                 ['agent_supplier_id', '=', $id],
+    //                 ['user', Auth::id()]
+    //             ]);
+    
+    //             $refund = $refund->where([
+    //                 ['supplier', $id],
+    //             ]);
+    
+    //             $void_ticket = VoidTicket::where([['user', Auth::id()], ['supplier', $id]]);
+    //             $reissue = ReissueTicket::where([['supplier', $id], ['user', Auth::id()]]);
+    //             // dd($receive);
+    
+    
+    //             if (!is_null($start_date) || !is_null($end_date)) {
+    //                 $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //                 $end_date = (new DateTime($end_date))->format('Y-m-d');
+    
+    //                 $receive->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('invoice_date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('invoice_date', '<=', $end_date);
+    //                     }
+    //                 });
+    //             }
+    
+    //             if (!is_null($start_date) || !is_null($end_date)) {
+    //                 $start_date = (new DateTime($start_date))->format('Y-m-d');
+    //                 $end_date = (new DateTime($end_date))->format('Y-m-d');
+    
+    //                 $receiver->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $paymenter->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $void_ticket->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $reissue->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //                 $refund->where(function ($query) use ($start_date, $end_date) {
+    //                     if (!is_null($start_date)) {
+    //                         $query->where('date', '>=', $start_date);
+    //                     }
+    
+    //                     if (!is_null($end_date)) {
+    //                         $query->where('date', '<=', $end_date);
+    //                     }
+    //                 });
+    //             }
+    
+    //             $receive = $receive->get();
+    //             $receiver = $receiver->get();
+    //             $paymenter = $paymenter->get();
+    //             $void_ticket = $void_ticket->get();
+    //             $refund = $refund->get();
+    //             $reissue = $reissue->get();
+    
+    //             $order = Order::where('user', Auth::id())
+    //                 ->where('supplier', $id);
+    //             $order = $order->where(function ($query) use ($start_date, $end_date) {
     //                 if (!is_null($start_date)) {
     //                     $query->where('date', '>=', $start_date);
     //                 }
-
+    
     //                 if (!is_null($end_date)) {
     //                     $query->where('date', '<=', $end_date);
     //                 }
     //             });
-    //             $paymenter->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             $void_ticket->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //             $reissue->where(function ($query) use ($start_date, $end_date) {
-    //                 if (!is_null($start_date)) {
-    //                     $query->where('date', '>=', $start_date);
-    //                 }
-
-    //                 if (!is_null($end_date)) {
-    //                     $query->where('date', '<=', $end_date);
-    //                 }
-    //             });
-    //         }
-
-    //         $receive = $receive->get();
-    //         $receiver = $receiver->get();
-    //         $paymenter = $paymenter->get();
-    //         $void_ticket = $void_ticket->get();
-    //         $reissue = $reissue->get();
-
-    //         $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue);
-    //         $sortedCollection = $mergedCollection->sortBy('created_at');
-    //         // dd($mergedCollection);
-
-    //         $acountname = Supplier::where('id', $id)->value('name');
-    //         // dd($acountname, $id);
-    //         $html = ' 
-
-    //                     <main class="flex-1 mx-auto max-w-7xl px-10">
-    //                         <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-    //                             <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-    //                             <button class="text-white bg-blue-700 font-bold text-md py-2 px-4" id="printBtn">Print</button>
-    //                             <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-    //                             <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-    //                         </div>
-    //                         <div id="printSection" class="shadow-lg p-3">
-    //                                 <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
-    //                                 <div class="flex items-center justify-between mb-2">
-    //                                     <div class="text-lg">
-    //                                     <h2 class="font-semibold">Account Name : '. $acountname. '</h2>
-    //                                     <p><span class="font-semibold">Period Date :</span> '. $start_date.' to '. $end_date . '</p>
-    //                                 </div>
-    //                                     <div class="flex items-center">
-
-    //                                         <div class="mb-8">
-    //                                             <h2 class="font-bold text-xl">'.Auth::user()->name .'</h2>
-    //                                             <p>'.Auth::user()->company_address .'</p>
+    //             $order = $order->get();
+    
+    
+    //             // $order = $order->get();
+    //             // dd($order, $void_ticket);
+    //             $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
+    //             $sortedCollection = $mergedCollection->sortBy('created_at');
+    
+    //             $balance = 0;
+    //             $debit = 0;
+    //             $credit = 0;
+    //             // dd($mergedCollection);
+    
+    //             $supplierName = Supplier::where('id', $id)->value('name');
+    //             // dd($acountname, $id);
+    //             $html = ' 
+                                
+    //                         <main class="flex-1  mx-auto max-w-7xl px-10">
+                                
+    //                             <div id="printSection" class="shadow-lg p-3 bg-white">
+    //                                     <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
+    //                                     <div class="flex items-center justify-between mb-2">
+    //                                         <div class="text-lg">
+    //                                         <h2 class="font-semibold">Account Name : ' . $supplierName . '</h2>
+    //                                         <p><span class="font-semibold">Period Date :</span> ' . $start_date . ' to ' . $end_date . '</p>
+    //                                     </div>
+    //                                         <div class="flex items-center">
+                                            
+    //                                             <div class="mb-8">
+    //                                                 <h2 class="font-bold text-xl">STS International</h2>
+    //                                                 <p>Motijheel, Dhaka</p>
+    //                                             </div>
     //                                         </div>
     //                                     </div>
-    //                                 </div>
-    //                                 <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
-    //                                     <thead>
-    //                                     <tr class="border-y-2 border-black">
-    //                                         <th class="">Date</th>
-    //                                         <th class="">Invoice No</th>
-    //                                         <th class="">Ticket No</th>
-    //                                         <th class=" pl-6">Details</th>
-    //                                         <th class="">Debit</th>
-    //                                         <th class="">Credit</th>
-
-    //                                         <th class="">Balance</th>
-    //                                     </tr>
-    //                                     </thead>
-    //                                     <tbody class="divide-y-2">
-    //                             ';
-
-    //         foreach ($sortedCollection as $index => $item) {
-    //             // dd($item->getTable());
-    //             if ($item->getTable() == "tickets") {
-    //                 // Handle logic specific to Ticket model
-    //                 $html .= <<<HTML
-    //                                             <tr>
-    //                                                 <td class="w-[10%]"> $item->invoice_date </td>
-    //                                                 <td class="w-[11%]"> $item->invoice </td>
-    //                                                 <td class="w-[15%]"> $item->ticket_no </td>
-    //                                                 <td class="w-[28%] pr-3">
-    //                                                     PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
-    //                                                     PNR:  $item->ticket_code ,  $item->sector <br>
-    //                                                     FLIGHT DATE:  $item->flight_date <br>
-    //                                                     $item->airline_code -  $item->airline_name <br>
-    //                                                     Remarks:  $item->remark 
+    //                                     <table class="table-auto w-full table-stripe devide-2 text-sm my-1">
+    //                                         <thead>
+    //                                         <tr class="border-y-2 border-black">
+    //                                             <th class="">Date</th>
+    //                                             <th class="">Invoice No</th>
+    //                                             <th class="">Ticket No</th>
+    //                                             <th class=" pl-6">Details</th>
+    //                                             <th class="">Debit</th>
+    //                                             <th class="">Credit</th>
+                                                
+    //                                             <th class="">Balance</th>
+    //                                         </tr>
+    //                                         </thead>
+    //                                         <tbody class="divide-y divide-gray-600">
+    //                                 ';
+    
+    //             foreach ($sortedCollection as $index => $item) {
+    //                 // dd($item->getTable());
+                  
+    //                 if ($item->getTable() == "tickets") {
+    //                     // Handle logic specific to Ticket model
+    //                     $credit += $item->supplier_price;
+    //                     $balance += $item->supplier_price;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+                        
+    //                     $html .= <<<HTML
+    //                                                 <tr>
+    //                                                     <td class="w-[10%]"> $item->invoice_date </td>
+    //                                                     <td class="w-[11%]"> $item->invoice </td>
+    //                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                     <td class="w-[28%] pr-3">
+    //                                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+    //                                                         PNR:  $item->pnr ,  $item->sector <br>
+    //                                                         FLIGHT DATE:  $item->flight_date <br>
+    //                                                         $item->airline_code -  $item->airline_name <br>
+    //                                                         Remarks:  $item->remark 
+    //                                                     </td>
+    //                                                     <td class="w-[12%] totaldebit"> </td>
+    //                                                     <td class="w-[12%] totalcredit">$item->supplier_price </td>
+    //                                                     <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
+    //                                                     <td class="w-[12%] totaltotal">$currentAmount</td>
+    //                                                 </tr>
+    //                                             HTML;
+    //                 }
+    //                 elseif ($item->getTable() == "refund") {
+    //                     // dd($item);
+    //                     $balance -= $item->now_supplier_fare;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $debit += $item->now_supplier_fare;
+    
+    //                     $agentname = Agent::where('id', $id)->value('name');
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     <!-- Remarks:  Refund
+    //                                                     Agent New Amount: {$item->now_supplier_fare}
+    //                                                     Agent Previous Amount: {$item->prev_agent_amount} -->
+    //                                                     <b>Refund</b> to Customer : $agentname ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
+    //                                                     Remarks: {$item->remark}
     //                                                 </td>
-    //                                                 <td class="w-[12%] totaldebit"> </td>
-    //                                                 <td class="w-[12%] totalcredit">$item->supplier_price </td>
-    //                                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-    //                                                 <td class="w-[12%] totaltotal"> $item->supplier_new_amount  Cr</td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->now_supplier_fare}</td>
+    //                                                 <td class="w-[12%] totalcredit"></td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
     //                                             </tr>
-    //                                         HTML;
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "receive") {
+    //                     // dd($item);
+    //                     $balance += $item->amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $credit += $item->amount;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    //                     $html .= <<<HTML
+    //                                             <tr>
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Remarks:  {$item->remark} <br>
+    //                                                     <b>Receive<b>
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->amount}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "payment") {
+    
+    //                     $balance -= $item->amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $debit += $item->amount;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr>
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     Remarks:  {$item->remark} <br>
+    //                                                     <b>Payment<b>
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit">{$item->amount}</td>
+    //                                                 <td class="w-[12%] totalcredit"></td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "reissue") {
+    //                     // $currentAmount = $item->now_supplier_amount;
+    //                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
+    //                     // dd($item);
+    //                     $balance += $item->now_supplier_fare;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    //                     $credit += $item->now_supplier_fare;
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+                                                         
+    //                                                     <b>Reissue</b> to Customer : $supplierName ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br/>
+    //                                                     Remarks:  {$item->remark}
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "voidTicket") {
+    //                     // dd($item);
+    //                     // $currentAmount = $item->now_supplier_amount;
+    //                     // $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
+    //                     $balance += $item->now_supplier_fare;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $credit += $item->now_supplier_fare;
+    //                     $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+    
+    //                     $html .= <<<HTML
+    //                                             <tr >
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no} </td>
+    //                                                 <td class="w-[28%]">
+    //                                                     <b>Void</b> to Customer : $supplierName ,  
+    //                                                     {$item->invoice}<br> Ticket No : {$item->airline_code}/{$item->ticket_no}, <br>
+    //                                                     Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br>
+    //                                                     Remarks:  {$item->remark}
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 } elseif ($item->getTable() == "order") {
+                        
+    //                     $balance += $item->payable_amount;
+    //                     $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //                     $credit += $item->payable_amount;
+    
+    //                     $typeneme = Type::where('id', $item->type)->value('name');
+    //                     $html .= <<<HTML
+    //                                             <tr>
+    //                                                 <td class="w-[10%]"> {$item->date} </td>
+    //                                                 <td class="w-[11%]"> {$item->invoice} </td>
+    //                                                 <td class="w-[15%]"> {$typeneme} </td>
+    //                                                 <td class="w-[28%]">
+                                                        
+    //                                                     Passenger: {$item->name} <br>
+    //                                                     Passport: {$item->passport_no}<br>
+    //                                                     Remarks:  {$item->remark} <br>
+    //                                                 </td>
+    //                                                 <td class="w-[12%] totaldebit"></td>
+    //                                                 <td class="w-[12%] totalcredit">{$item->payable_amount}</td>
+    //                                                 <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //                                             </tr>
+    //                                             HTML;
+    //                 }
     //             }
-    //             elseif ($item->getTable() == "receive") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="font-weight: bold;  color: green">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit"></td>
-    //                                             <td class="w-[12%] totalcredit">{$item->amount}</td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
+    //             $balance = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+    //             $html .= '                  
+    //                                         <tr class="py-4">
+    //                                             <td class="w-[12%] font-bold" >To Receive :  BDT</td>
+    //                                             <td class="w-[12%] font-bold id="sumtotal2"">' . $balance . '</td>
+    //                                             <td class="w-[12%] text-md font-bold" ></td>
+    //                                             <td class="text-lg font-semibold"></td>
+    //                                             <td class="w-[12%] font-bold text-md" id="sumtotaldebit2">' . $debit . '</td>
+    //                                             <td class="w-[12%] text-md font-bold" id="sumtotalcredit2">' . $credit . '</td>
+    //                                             <td class="w-[12%] text-md font-bold" id="sumtotal2">' . $balance . '</td>
     //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "payment") {
-    //                 $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="font-weight: bold;  color: red">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit">{$item->amount}</td>
-    //                                             <td class="w-[12%] totalcredit"></td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "reissue") {
-    //                 $currentAmount = $item->now_supplier_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="color: orange">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit"></td>
-    //                                             <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
-
-    //             elseif ($item->getTable() == "voidTicket") {
-    //                 $currentAmount = $item->now_supplier_amount;
-    //                 $currentAmount = $currentAmount >= 0 ? $currentAmount . ' DR' : $currentAmount . ' CR';
-
-    //                 $html .= <<<HTML
-    //                                         <tr style="color: blue">
-    //                                             <td class="w-[10%]"> {$item->date} </td>
-    //                                             <td class="w-[11%]"> {$item->invoice} </td>
-    //                                             <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
-    //                                             <td class="w-[28%]">
-    //                                                 Remarks:  {$item->remark} 
-    //                                             </td>
-    //                                             <td class="w-[12%] totaldebit"></td>
-    //                                             <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
-    //                                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
-    //                                         </tr>
-    //                                         HTML;
-    //             }
+    //                                         </tbody>
+    //                                     </table>
+    //                             </div>
+                                
+                                
+    //                         </main>
+    //                         <style>
+    //                         @media print {
+    //                             body * {
+    //                                 visibility: hidden;
+    //                             }
+                        
+    //                             #printSection, #printSection * {
+    //                                 visibility: visible;
+    //                             }
+                        
+    //                             #printSection {
+    //                                 position: absolute;
+    //                                 left: 0;
+    //                                 top: 0;
+    //                                 width: 100%;
+    //                                 max-width: 100%;
+    //                                 box-sizing: border-box;
+    //                                 padding: 10px; /* Adjust padding as needed */
+    //                             }
+    //                         }
+    //                     </style>
+                       
+    //                     ';
+    //         } else {
+    //             // Your logic for other cases goes here
     //         }
-
-    //         $html .= ' 
-    //                                     <tr class="py-2 text-xl">
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td></td>
-    //                                         <td class="text-lg font-semibold">Total Closing Balance</td>
-    //                                         <td class="w-[12%]" id="sumtotaldebit2"></td>
-    //                                         <td class="w-[12%]  font-bold" id="sumtotalcredit2"></td>
-    //                                         <td class="w-[12%]  font-bold" id="sumtotal2"></td>
-    //                                     </tr>
-    //                                     </tbody>
-    //                                 </table>
-    //                         </div>
-
-
-    //                     </main>
-    //                     <style>
-    //                     @media print {
-    //                         body * {
-    //                             visibility: hidden;
-    //                         }
-
-    //                         #printSection, #printSection * {
-    //                             visibility: visible;
-    //                         }
-
-    //                         #printSection {
-    //                             position: absolute;
-    //                             left: 0;
-    //                             top: 0;
-    //                             width: 100%;
-    //                             max-width: 100%;
-    //                             box-sizing: border-box;
-    //                             padding: 10px; /* Adjust padding as needed */
-    //                         }
-    //                     }
-    //                 </style>
-
-    //                 <script>
-    //                 // Get all elements with the specified classes
-    //                 const totaldebitElements2 = document.querySelectorAll(".totaldebit");
-    //                 const totalcreditElements2 = document.querySelectorAll(".totalcredit");
-    //                 const totaltotalElements2 = document.querySelectorAll(".totaltotal");
-
-    //                 // Initialize variables to hold the sum of each class
-    //                 let sumTotalDebit = 0;
-    //                 let sumTotalCredit = 0;
-    //                 let sumTotal = 0;
-
-    //                 // Iterate over each element and sum their values
-    //                 totaldebitElements2.forEach(function(element) {
-    //                     sumTotalDebit += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                 });
-    //                 totalcreditElements2.forEach(function(element) {
-    //                     sumTotalCredit += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                 });
-    //                 totaltotalElements2.forEach(function(element) {
-    //                     sumTotal += parseFloat(element.textContent.trim()) || 0; // Convert text content to number
-    //                 });
-
-    //                 // Set the sum values to the respective elements
-    //                 document.getElementById("sumtotaldebit2").textContent = sumTotalDebit.toFixed(2); // Format to 2 decimal places
-    //                 document.getElementById("sumtotalcredit2").textContent = sumTotalCredit.toFixed(2); // Format to 2 decimal places
-    //                 document.getElementById("sumtotal2").textContent = (sumTotalDebit - sumTotalCredit).toFixed(2) + " Dr"; // Format to 2 decimal places and append "Dr"
-    //                 </script>
-
-
-    //                 ';
-    //     } else {
-    //         // Your logic for other cases goes here
+    
+    //         return $html;
     //     }
-
-    //     return $html;
+    //     else{
+    //         return view('welcome');
+    //     }
+       
     // }
+
     public function general_ledger_report(Request $request)
     {
         if(Auth::user()){
@@ -1337,7 +1064,7 @@ class ReportController extends Controller
                 $end_date = $request->end_date;
                 $id = $request->agent_supplier_id;
     
-                $receive = Ticket::where([['agent', $id], ['reissued_new_ticket', 1]]);
+                $receive = Ticket::where([['agent', $id],  ['is_active', 1]]);
 
                 $receive = $receive->where('user', Auth::id());
                 $refund = Refund::where('user', Auth::id());
@@ -1467,7 +1194,7 @@ class ReportController extends Controller
                 $html = '
                             
                                 
-                        <main class="flex-1 mx-auto md:max-w-7xl px-10 ">
+                        <main class="flex-1 mx-auto max-w-7xl px-10 ">
                        
                         <div id="printSection" class="shadow-lg p-3 bg-white">
                             <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
@@ -1478,12 +1205,10 @@ class ReportController extends Controller
                                 </div>
                                 <div class="flex items-center">
                                 
-                                <div>
-                                <h3 class="company-name font-bold text-3xl "> ' .Auth::user()->name.'</h3>
-                                <p class="company-address text-lg font-medium">'.Auth::user()->company_address.'</p>
-                                <p class="company-phone text-lg font-medium">Tel : '.Auth::user()->mobile_no.'</p>
-                                <p class="company-email text-lg font-medium">Email : '.Auth::user()->email.'</p>
-                            </div>
+                                    <div class="mb-8">
+                                        <h2 class="font-bold text-xl">STS International</h2>
+                                        <p>Motijheel, Dhaka</p>
+                                    </div>
                                 </div>
                             </div>
                             <table class="table-auto w-full border-y-2 table-stripe devide-2 devide-gray-700 text-sm my-1">
@@ -1511,24 +1236,50 @@ class ReportController extends Controller
                         $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                         $debit += $item->agent_price;
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
+                        if($item->reissued_new_ticket == 1){
+                            $html .= <<<HTML
+                                <tr>
+                                    <td class="w-[10%]"> $item->invoice_date </td>
+                                    <td class="w-[11%]"> $item->invoice </td>
+                                    <td class="w-[15%]"> {$ticket->ticket_code}/{$item->ticket_no} </td>
+                                    <td class="w-[28%] pr-3">
+                                        PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                        PNR:  $item->pnr ,  $item->sector <br>
+                                        FLIGHT DATE:  $item->flight_date <br>
+                                        $item->airline_code -  $item->airline_name <br>
+                                        Remarks:  $item->remark 
+                                    </td>
+                                    
+                                    <td class="w-[12%] totaldebit"> $item->agent_price </td>
+                                    <td class="w-[12%] totalcredit"></td>
+                                    <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
+                                    <td class="w-[12%] totaltotal"> $currentAmount </td>
+                                </tr>
+                            HTML;
+                        }
+                        else{
+
+                        
                         $html .= <<<HTML
                                                     <tr>
                                                         <td class="w-[10%]"> $item->invoice_date </td>
                                                         <td class="w-[11%]"> $item->invoice </td>
-                                                        <td class="w-[15%]"> {$ticket->airline_code}/{$item->ticket_no} </td>
+                                                        <td class="w-[15%]"> {$item->ticket_no} </td>
                                                         <td class="w-[28%] pr-3">
                                                             PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
                                                             PNR:  $item->pnr ,  $item->sector <br>
                                                             FLIGHT DATE:  $item->flight_date <br>
                                                             $item->airline_code -  $item->airline_name <br>
-                                                            Remarks:  $item->remark 
+                                                            Remarks:  Reissue
                                                         </td>
+                                                        
                                                         <td class="w-[12%] totaldebit"> $item->agent_price </td>
                                                         <td class="w-[12%] totalcredit"></td>
                                                         <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
                                                         <td class="w-[12%] totaltotal"> $currentAmount </td>
                                                     </tr>
-                                 HTML;
+                            HTML;
+                        }
                     } elseif ($item->getTable() == "receive") {
                         // $currentAmount = $item->current_amount >= 0 ? $item->current_amount . ' DR' : $item->current_amount . ' CR';
                         $balance -= $item->amount;
@@ -1539,7 +1290,7 @@ class ReportController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no}</td>
+                                                    <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Receive</b>
@@ -2819,18 +2570,23 @@ class ReportController extends Controller
         }
 
         $user = Auth::id();
-        $query1 = AIT::where('ait.user', $user); // Specify 'receive.user'
+        $query1 = DB::table('ait')
+            ->leftJoin('tickets', 'ait.ticket_invoice', '=', 'tickets.invoice')
+            ->where('ait.user', $user)
+            ->select(
+                'ait.*', 
+                'tickets.*'
+            );
 
         if ($start_date) {
-            $query1->whereDate('created_at', '>=', $start_date);
+            $query1->whereDate('ait.created_at', '>=', $start_date);
         }
 
         if ($end_date) {
-            $query1->whereDate('created_at', '<=', $end_date);
+            $query1->whereDate('ait.created_at', '<=', $end_date);
         }
 
         $result = $query1->get();
-
         // dd($result);
         $html = '
             <!doctype html>
@@ -2862,7 +2618,7 @@ class ReportController extends Controller
             <main class="flex-1 mx-auto max-w-7xl px-10">
            
             <div class="">
-                 <h2 class="text-center font-light text-3xl my-2">'.Auth::user()->name. '</h2>
+                 <h2 class="text-center font-light text-3xl my-2">SALLU AIR SERVICE</h2>
                  <h2 class="text-center font-bold text-xl my-2 underline">AIT Report</h2>
                  <div class="flex items-center w-[35%] mx-auto justify-between mb-2">
                      <div class="text-md">
@@ -2883,28 +2639,29 @@ class ReportController extends Controller
                      </div>
                  </div>
                  <!-- <p class="">From Date : 14-09-2024 </p> -->
-                 <table class=" table-auto w-[100%] md:w-[60%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
+                 <table class=" table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
                      <thead>
                        <tr class="border-y-2 border-black bg-cyan-700 text-white">
                          <th class="text-start">SL</th>
+                         <th class="text-start">Ticket No</th>
                          <th class="text-start">Air Name</th>
-                         <th class="text-start">Sector</th>
                          <th class="text-center">AIT AMOUNT</th>
-                       
+                         <th class="text-center"> AMOUNT</th>
+                        
                         
                        </tr>
                      </thead>
                      <tbody class="divide-y-2">';
         foreach ($result as $index => $item) :
-
+            $index++;
             $html .= <<<HTML
                         
                        <tr class="">
                         <td>$index</td>
+                        <td>$item->ticket_code - $item->ticket_no</td>
                         <td>$item->airline_name</td>
-                       
-                        <td>$item->sector</td>
-                        <td class="amount text-center">$item->total_amount</td>
+                        <td class="ait_amount text-center">$item->ait_amount</td>
+                        <td class="amount text-center">$item->supplier_price</td>
                         <!-- <td class="px-2 py-1 flex gap-2"><button type="button" class="bg-green-700 text-white px-3 rounded-md text-sm">Print</button><button type="button" class="bg-red-700 text-white px-3 rounded-md text-sm">Download</button></td> -->
                        </tr>
                        HTML;
@@ -2912,13 +2669,14 @@ class ReportController extends Controller
 
         $html .= '
                        <tr class="bg-white text-black font-bold">
-                        <td></td>
                         
                        
                         <td>Total Amount</td>
+                        <td></td>
+                        <td></td>
+                        <td id="total_ait"></td>
                         <td id="total_amount"></td>
-                        <td></td>
-                        <td></td>
+                        
                         
                        </tr>
                      
@@ -2932,8 +2690,10 @@ class ReportController extends Controller
            <script type="text/javascript">
                 function calculateTotalAmount() {
                     const amountElements = document.querySelectorAll(".amount");
+                    const ait_amountElements = document.querySelectorAll(".ait_amount");
                 
                     let totalAmount = 0;
+                    let totalAmount_ait = 0;
                     
                     amountElements.forEach(element => {
                         // Parse the text content of the element to get the numeric value
@@ -2941,9 +2701,16 @@ class ReportController extends Controller
                         // Add the amount to the total
                         totalAmount += amount;
                     });
+                    ait_amountElements.forEach(element => {
+                        // Parse the text content of the element to get the numeric value
+                        const amount = parseFloat(element.textContent);
+                        // Add the amount to the total
+                        totalAmount_ait += amount;
+                    });
                     document.getElementById("total_amount").innerHTML = totalAmount;
+                    document.getElementById("total_ait").innerHTML = totalAmount_ait;
                     
-                    console.log("Total amount:", totalAmount);
+                    // console.log("Total amount:", totalAmount);
                 }
                 calculateTotalAmount();
                 
@@ -2964,121 +2731,97 @@ class ReportController extends Controller
     }
     public function due_reminder()
     {
-        //    dd('as');
-        if(Auth::user()){
-            $agentIds = Agent::where([
+        if (Auth::user()) {
+            $userId = Auth::id();
+
+            // Fetch all active and non-deleted agents and suppliers
+            $agents = Agent::where([
                 ['is_delete', 0],
                 ['is_active', 1],
-                ['user', Auth::id()]
-            ])->pluck('id');
-    
-            $supplierIds = Supplier::where([
+                ['user', $userId]
+            ])->get();
+
+            $suppliers = Supplier::where([
                 ['is_delete', 0],
                 ['is_active', 1],
-                ['user', Auth::id()]
-            ])->pluck('id');
-    
-            $agentIds = $agentIds->toArray(); // Convert the collection to an array
-            $supplierIds = $supplierIds->toArray(); // Convert the collection to an array
-    
-            $latestReceives = [];
-            $latestPayments = [];
-    
-            foreach ($agentIds as $agentId) {
-    
-                $latestReceive = Receiver::where('agent_supplier_id', $agentId)
+                ['user', $userId]
+            ])->get();
+
+            $latestTransactions = [];
+
+            // Get latest transactions for agents
+            foreach ($agents as $agent) {
+                $latestReceive = Receiver::where('agent_supplier_id', $agent->id)
                     ->where('receive_from', 'agent')
                     ->orderBy('created_at', 'desc')
-                    ->first(); // Retrieve the latest receive record for this agent
-    
-                $latestPayment = Payment::where('agent_supplier_id', $agentId)
+                    ->first();
+
+                $latestPayment = Payment::where('agent_supplier_id', $agent->id)
                     ->where('receive_from', 'agent')
                     ->orderBy('created_at', 'desc')
-                    ->first(); // Retrieve the latest receive record for this agent
-    
-                $latestReceives[] = $latestReceive; // Add the latest receive record to the array
-                $latestPayments[] = $latestPayment; // Add the latest receive record to the array
+                    ->first();
+
+                $latestTransactions[] = [
+                    'entity' => $agent,
+                    'latest_receive' => $latestReceive,
+                    'latest_payment' => $latestPayment,
+                    'type' => 'agent'
+                ];
             }
-    
-            foreach ($supplierIds as $supplierId) {
-    
-                $latestReceive = Receiver::where('agent_supplier_id', $supplierId)
+
+            // Get latest transactions for suppliers
+            foreach ($suppliers as $supplier) {
+                $latestReceive = Receiver::where('agent_supplier_id', $supplier->id)
                     ->where('receive_from', 'supplier')
                     ->orderBy('created_at', 'desc')
-                    ->first(); // Retrieve the latest receive record for this supplier
-    
-                $latestPayment = Payment::where('agent_supplier_id', $supplierId)
+                    ->first();
+
+                $latestPayment = Payment::where('agent_supplier_id', $supplier->id)
                     ->where('receive_from', 'supplier')
                     ->orderBy('created_at', 'desc')
-                    ->first(); // Retrieve the latest receive record for this agent
-    
-                $latestReceives[] = $latestReceive; // Add the latest receive record to the array
-                $latestPayments[] = $latestPayment; // Add the latest receive record to the array
+                    ->first();
+
+                $latestTransactions[] = [
+                    'entity' => $supplier,
+                    'latest_receive' => $latestReceive,
+                    'latest_payment' => $latestPayment,
+                    'type' => 'supplier'
+                ];
             }
-    
-    
-            // dd($latestReceives, $agentIds, $latestPayments);
-            // Merge the $latestReceives and $latestPayments collections
-            // Convert $latestReceives and $latestPayments arrays to collections
-            $latestReceivesCollection = collect($latestReceives);
-            $latestPaymentsCollection = collect($latestPayments);
-    
-            // Merge the collections
-            $allTransactions = $latestReceivesCollection->merge($latestPaymentsCollection);
-    
-            // Sort the merged collection by created_at timestamp in descending order
-            $latestTransaction = $allTransactions->sortByDesc('created_at');
-    
-            // Output the result
-            $filteredTransactions = [];
-    
-            foreach ($latestTransaction as $transaction) {
-                // Check if the transaction is not empty
-                if (!empty($transaction)) {
-                    // Check if there's already a transaction with the same receive_from and agent_supplier_id
-                    $existingTransaction = collect($filteredTransactions)->first(function ($filteredTransaction) use ($transaction) {
-                        return $filteredTransaction['receive_from'] == $transaction['receive_from']
-                            && $filteredTransaction['agent_supplier_id'] == $transaction['agent_supplier_id'];
-                    });
-    
-                    // If no existing transaction found, add the current transaction to the filtered transactions
-                    if (!$existingTransaction) {
-                        $filteredTransactions[] = $transaction;
-                    }
-                }
-            }
-    
-            // Output the filtered transactions
-            // dd($filteredTransactions);
+
+            // Prepare transactions with names and other details
             $filteredTransactionsWithNames = [];
-    
-            foreach ($filteredTransactions as $transaction) {
-                // Determine the model based on the value of receive_from
-                $modelName = ($transaction['receive_from'] === 'agent') ? 'App\Models\Agent' : 'App\Models\Supplier';
-    
-                // Retrieve the model instance
-                $model = $modelName::find($transaction['agent_supplier_id']);
-    
-                // If the model instance is found, add its name to the transaction
-                if ($model) {
-                    $transaction['agent_supplier_name'] = $model->name;
-                    $transaction['agent_supplier_email'] = $model->email;
-                    $transaction['agent_supplier_phone'] = $model->phone;
-                    $transaction['agent_supplier_company'] = $model->company;
-                    $filteredTransactionsWithNames[] = $transaction;
+            foreach ($latestTransactions as $transaction) {
+                $entity = $transaction['entity'];
+                $type = $transaction['type'];
+                $receiveFrom = $type == 'agent' ? 'agent' : 'supplier';
+                $latestReceive = $transaction['latest_receive'];
+                $latestPayment = $transaction['latest_payment'];
+
+                if($type === 'agent'){
+                    $due_amount = Agent::where('id', $entity->id)->value('amount');
                 }
+                else{
+                    $due_amount = Supplier::where('id', $entity->id)->value('amount');
+                }
+                $transactionDetails = [
+                    'agent_supplier_id' => $entity->id,
+                    'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $receiveFrom . '</span>)',
+                    'agent_supplier_email' => $entity->email,
+                    'agent_supplier_phone' => $entity->phone,
+                    'agent_supplier_company' => $entity->company,
+                    'due_amount' => $due_amount,
+                    'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
+                    'amount' => $latestReceive ? $latestReceive->amount : ($latestPayment ? $latestPayment->amount : null)
+                ];
+
+                $filteredTransactionsWithNames[] = $transactionDetails;
             }
-            $agents = Agent::where('is_delete', 0)->where('user', Auth::id())->get();
-            $suppliers = Supplier::where('is_delete', 0)->where('user', Auth::id())->get();
-    
-            // Output the filtered transactions with names
-            // dd($filteredTransactionsWithNames);
-            return view('report.due_reminder.DueReminder', compact('filteredTransactions', 'agents', 'suppliers'));
-        }
-        else{
+
+            return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
+        } else {
             return view('welcome');
         }
-       
     }
     public function due_reminder_specific(Request $request)
     {
@@ -4650,14 +4393,40 @@ class ReportController extends Controller
         if ($start_date !== null && $end_date !== null) {
             $query4->whereBetween('invoice_date', [$start_date, $end_date]);
         }
+
+        $query5 = DB::table('order')
+        ->where([
+            ['is_active', 1],
+            ['is_delete', 0],
+            ['user', $user],
+        ]);
+        $orderprofit = $query5->sum('profit');
+
+        $orderloss = DB::table('order')
+            ->where('is_active', 1)
+            ->where('is_delete', 0)
+            ->where('user', $user)
+            ->where('profit', '<', 0) // Only consider negative profits
+            ->sum('profit');
+        $ticketloss = DB::table('tickets')
+            ->where('is_active', 1)
+            ->where('is_delete', 0)
+            ->where('user', $user)
+            ->where('profit', '<', 0) // Only consider negative profits
+            ->sum('profit');
+
+        $netloss = $orderloss + $ticketloss;
+        $order_purchase = $query5->sum('payable_amount');
+        $order_sell = $query5->sum('contact_amount');
+
         $reissueticket = $query4->sum('reissue_profit');
         $reissueticket_purchase = $query4->sum('supplier_price');
         $reissueticket_sell = $query4->sum('agent_price');
 
-        $gross_profit = $tickets + $reissueticket + $refundticket + $voidticket;
-        $total_purchase = $ticket_purchase + $reissueticket_purchase + $refund_purchase + $voidticket_purchase;
-        $total_sell = $ticket_sell + $reissueticket_sell + $refund_sell + $voidticket_sell;
-
+        $gross_profit = $tickets + $reissueticket + $refundticket + $voidticket + $orderprofit;
+        $total_purchase = $ticket_purchase + $reissueticket_purchase + $refund_purchase + $voidticket_purchase + $order_purchase;
+        $total_sell = $ticket_sell + $reissueticket_sell + $refund_sell + $voidticket_sell + $order_sell;
+        // dd(Auth::user());
         // dd($reissueticket_purchase, $reissueticket_sell, $voidticket_sell, $voidticket_purchase, $refund_purchase, $refund_sell, $ticket_purchase, $ticket_sell);
         $htmlTable = '';
 
@@ -4694,8 +4463,8 @@ class ReportController extends Controller
           <main class=" mx-auto w-[100%] bg-white shadow-lg py-6">
            
             <div class=" px-7 py-3 flex flex-col gap-y-2 shadow-2xl">
-                <h2 class="text-center font-medium text-2xl ">Company Name : ' .Auth::user()->name.'</h2>
-                <p class="text-center text-lg">Company Address : ' .Auth::user()->company_address.'</p>
+                <h2 class="text-center font-medium text-2xl ">Company Name : '.Auth::user()->name.'</h2>
+                <p class="text-center text-lg">Company Address : '.Auth::user()->company_address.'</p>
                 <p class="text-center font-semibold text-xl underline">Report: Profit/Loss A/c</p>
                 <p class="text-center font-semibold text-xl">Form Date : ' . $start_date .  ' To Date : ' . $end_date . '</p>
                 
@@ -4703,7 +4472,7 @@ class ReportController extends Controller
             <div class="flex mb-10">
             <table class="table-auto w-full ">
                 <thead>
-                  <tr class="bg-[#00959E] text-white flex justify-between">
+                  <tr class="bg-[#0E7490] text-white flex justify-between">
                     <th class="px-4 py-2 text-left">Particular</th>
                     <th class="px-4 py-2 text-left">Amount</th>
                    
@@ -4711,25 +4480,23 @@ class ReportController extends Controller
                 </thead>
                 <tbody id="data" class="text-lg px-2 border ">
                   <tr class="flex justify-between px-2 border-y">
-                    <td class="px-2 py-2 font-semibold">Purchage Accounts</td>
+                    <td class="px-2 py-2 font-semibold">Purchase Accounts</td>
                     <td class="px-2 py-2 font-semibold">' . $total_purchase . '</td>
                     
                   </tr>
-                  <tr class="flex justify-between px-2 ">
+                  <tr class="flex justify-between px-2 pl-8">
                     <td class="px-2  w-[30%]">Tickets</td>
-                    <td class="px-2 "></td>
                     <td class="px-2 ">' . $ticket_purchase . '</td>
+                    <td class="px-2 "></td>
+                    
+                  </tr>
+                  <tr class="flex justify-between px-2 pl-8">
+                    <td class="px-2  w-[30%]">Visas</td>
+                    <td class="px-2 ">' . $order_purchase . '</td>
+                    <td class="px-2 "></td>
                     
                   </tr>
                  
-                  <tr class="flex justify-between px-2 ">
-                    <td class="px-2  w-[30%]">Visa</td>
-                    <td class="px-2 "></td>
-                    <td class="px-2 "></td>
-                    
-                  </tr>
-                
-                
                
                   <tr class="flex justify-between px-2 py-1">
                     <td class="px-2 py-2 w-[30%]">Gross Profit</td>
@@ -4743,22 +4510,12 @@ class ReportController extends Controller
                     <td class="px-2  font-semibold border-y border-black"></td>
                     
                   </tr>
-                  
-                  <tr class="flex justify-between px-2 py-1">
-                        
-                    <td class="px-2 py-2 w-[30%]">Net Profit</td>
-                    <td class="px-2 py-2"></td>
-                    <td class="px-2 py-2 font-semibold"></td>
-                    
-                  </tr>
-                  
-                  
                   </tbody>
               </table>
 
                 <table class="table-auto w-full">
                 <thead>
-                    <tr class="bg-[#00959E] text-white flex justify-between">
+                    <tr class="bg-[#0E7490] text-white flex justify-between">
                       <th class="px-4 py-2 text-left">Particular</th>
                       <th class="px-4 py-2 text-left">Amount</th>
                      
@@ -4770,38 +4527,25 @@ class ReportController extends Controller
                         <td class="px-2 py-2 font-semibold">' . $total_sell . '</td>
                     
                     </tr>
-                    <tr class="flex justify-between px-2 ">
+                    <tr class="flex justify-between px-2 pl-8">
                       <td class="px-2 w-[30%]">Tickets</td>
-                      <td class="px-2"></td>
                       <td class="px-2">' . $ticket_sell . '</td>
+                      <td class="px-2"></td>
                       
                     </tr>
                   
-                    <tr class="flex justify-between px-2 ">
+                    <tr class="flex justify-between px-2 pl-8">
                       <td class="px-2 w-[30%]">Visa</td>
-                      <td class="px-2"></td>
+                      <td class="px-2">'.$order_sell.'</td>
                       <td class="px-2"></td>
                       
                     </tr>
-                   
-                    <tr class="flex justify-between px-2 py-1">
-                        <td class="px-2 py-2 w-[30%]"></td>
-                        <td class="px-2 py-2"></td>
-                        <td class="px-2  font-semibold border-y border-black"></td>
-                        
-                        
-                      </tr>
-                      <tr class="flex justify-between px-2 py-1 mb-auto">
-                        
-                        <td class="px-2 py-2 w-[30%]">Gross Profit</td>
-                        <td class="px-2 py-2"></td>
-                        <td class="px-2 py-2 font-semibold"></td>
-                        
-                      </tr>
+                
+                 
                       <tr class="flex justify-between px-2 py-1">
                         
                         <td class="px-2 py-2 w-[30%]">Net Loss</td>
-                        <td class="px-2 py-2"></td>
+                        <td class="px-2 py-2 font-bold">'.$netloss.'</td>
                         <td class="px-2 py-2 font-semibold"></td>
                         
                       </tr>
@@ -5776,31 +5520,6 @@ class ReportController extends Controller
             // Get the sum of supplier_price for orders
             $totalOrderSupplierPrice = $orders->sum('payable_amount');
 
-            // $transaction_Cash = Transaction::where('user', $user);
-            // // dd($receivesData, $transaction);
-
-            // $totalincash_debit = $totalinbank_debit = 0;
-            // $totalincash_credit = $totalinbank_credit = 0;
-
-            // foreach($receivesData as $receive){
-            //     if($receive->method == $transaction_Cash){
-            //         $totalincash_debit += $receive->amount;
-            //     }
-            //     else{
-            //         $totalinbank_debit += $receive->amount;
-            //     }
-
-            // }
-            // foreach($paymentsData as $payment){
-            //     if($payment->method == $transaction_Cash){
-            //         $totalincash_credit += $payment->amount;
-            //     }
-            //     else{
-            //         $totalinbank_credit += $payment->amount;
-            //     }
-
-            // }
-
             // Initialize arrays to store totals
             $transactionMethods = Transaction::where('user', $user)->distinct()->pluck('name', 'id');
 
@@ -5832,6 +5551,21 @@ class ReportController extends Controller
                 $totalCredit += $payment->amount;
             }
             // dd($totals);
+            $agents = [];
+            $suppliers = [];
+            $allagents = Agent::where('user', Auth::id())->get();
+            $allsuppliers = Supplier::where('user', Auth::id())->get();
+
+            foreach ($allagents as $agent) {
+                $agents[$agent->name] = $agent->amount;
+                $totalDebit += $agent->amount;
+            }
+
+            foreach ($allsuppliers as $supplier) {
+                $suppliers[$supplier->name] = $supplier->amount;
+                $totalCredit += $supplier->amount;
+            }
+
             $html = ViewFacade::make('report.trailbalance.TrialBalance', [
               
                 'start_date' => $start_date,
@@ -5845,6 +5579,8 @@ class ReportController extends Controller
                 'totalOrderSupplierPrice' => $totalOrderSupplierPrice,
                 'totalTicketAgentPrice' => $totalTicketAgentPrice,
                 'totalTicketSupplierPrice' => $totalTicketSupplierPrice,
+                'agents' => $agents,
+                'suppliers' => $suppliers,
                 'totalDebit' => $totalDebit,
                 'totalCredit' => $totalCredit,
             ])->render();
