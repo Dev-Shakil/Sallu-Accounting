@@ -15,6 +15,21 @@
             {{ session('success') }}
         </div>
     @endif
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+    @else
+        @php
+            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+            $role = 'admin';
+        @endphp
+    @endif
 
     <h2 class="text-2xl py-4 flex xl:w-3/4 lg:w-4/4 w-full  font-bold
     px-2  text-gray-900">
@@ -34,7 +49,7 @@
     </div>
    
     <div id="container" class="border-t bg-white border-gray-2  flex-col justify-center items-center rounded-lg flex shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
-
+        @if(in_array('entry', $permissionsArray))
         <form class="w-full p-6" id="ticket_form">
                 @csrf
                 <div class="grid grid-cols-2 w-full gap-3">
@@ -346,7 +361,12 @@
             </div>
 
         </form>
-
+        @else
+        <div class="alert alert-warning">
+            Don't have permission to entry
+        </div>
+    @endif;
+    @if(in_array('entry', $permissionsArray))
         <form class="w-full p-6" id="ticket_form_single" action="{{ route('addsingleticket.store') }}" method="POST">
             @csrf
                 <div class="grid grid-cols-2 w-full gap-3">
@@ -645,7 +665,11 @@
 
         
         </form>
-
+        @else
+        <div class="alert alert-warning">
+            Don't have permission to entry
+        </div>
+    @endif;
     </div>
 
 
@@ -694,18 +718,24 @@
 
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->remark }}</td>
                     <td class="px-2 py-2 text-gray-700 flex items-center justify-around">
+                        @if(in_array('edit', $permissionsArray))
                         <a href="{{ route('ticket_edit', ['id' => $ticket->id]) }}"
                             class=" mr-1">
                             <i class="fa fa-pencil fa-fw text-xl"></i>
                         </a>
+                        @endif
+                        @if(in_array('view', $permissionsArray))
                         <a href="{{ route('ticket_view', ['id' => $ticket->id]) }}"
                             class=" mr-1">
                             <i class="fa fa-eye fa-fw text-xl"></i>
                         </a>
+                        @endif
+                        @if(in_array('delete', $permissionsArray))
                         <a href="#" onclick="confirmDelete('{{ route('ticket.delete', ['id' => $ticket->id]) }}')"
                           class=" mr-1">
                           <i class="fa fa-trash fa-fw text-xl"></i>
                        </a>
+                       	@endif
                         {{-- <a href="{{ route('ticket_print', ['id' => $ticket->id]) }}" class="text-red-500 hover:text-red-700">
                     <i class="fas fa-print"></i> Print
                 </a> --}}

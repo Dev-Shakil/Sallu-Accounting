@@ -1,4 +1,19 @@
 <x-app-layout>
+    @if(session('employee'))
+    @php
+        $employee = session('employee');
+        // dd($employee['permission']);
+        $permissionString = $employee['permission'];
+        $permissionsArray = explode(',', $permissionString);
+        $role = $employee['role'];
+        // dd($role, $employee);
+    @endphp
+    @else
+        @php
+            $permissionsArray = ['entry', 'edit', 'delete', 'print', 'view'];
+            $role = 'admin';
+        @endphp
+    @endif
     <div class="container mx-auto mt-5">
         @if(session('success'))
             <div class="bg-green-200 text-green-800 p-4 mb-4">
@@ -13,6 +28,7 @@
         <div id="addSupplier" class="py-2">
         
             <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[60%] p-6 mb-8">
+                @if(in_array('entry', $permissionsArray))
                 <form action="/addsupplier" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="grid grid-cols-2 gap-4">
@@ -42,6 +58,12 @@
         
                     <button type="submit" class="bg-black text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
                 </form>
+                @else
+                    <div class="alert alert-warning">
+                        Don't have permission to entry
+                    </div>
+                @endif
+
             </div>
         </div>
         <div class="bg-white shadow-md p-6 w-[100%] mx-auto">
@@ -67,8 +89,12 @@
                             <td class="px-4 py-2 ">{{ $supplier->company }}</td>
                             <td class="px-4 py-2 ">{{ $supplier->description }}</td>
                             <td class="px-4 py-2  w-[75px]">
+                                @if(in_array('edit', $permissionsArray))
                                 <a href="{{ route('supplier.edit', ['id' => encrypt($supplier->id)]) }}" class=" hover:underline"><i class="text-xl fa fa-pencil fa-fw"></i></a>
+                                @endif
+                                @if(in_array('delete', $permissionsArray))
                                 <a href="#" onclick="confirmDelete('{{ route('supplier.delete', ['id' => $supplier->id]) }}')" class=" hover:underline ml-2"><i class="text-xl fa fa-trash-o fa-fw"></i></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -435,7 +435,7 @@ class TicketController extends Controller
     public function view($id){
         if(Auth::user()){
             $ticket = Ticket::findOrFail($id); 
-            $agent = Agent::where('id', $ticket->agent)->value('name');
+            $agent = Agent::where('id', $ticket->agent)->first();
             return view('ticket.view', compact('ticket', 'agent'));
         }
         else{

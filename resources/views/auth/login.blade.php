@@ -22,8 +22,8 @@
       top: 50%;
     }
     .background .shape{
-      height: 200px;
-      width: 200px;
+      height: 120px;
+      width: 120px;
       position: absolute;
       border-radius: 50%;
     }
@@ -32,8 +32,8 @@
           #1845ad,
           #23a2f6
       );
-      left: -80px;
-      top: -80px;
+      left: -50px;
+      top: -20px;
     }
     .shape:last-child{
       background: linear-gradient(
@@ -42,7 +42,7 @@
           #f09819
       );
       right: -30px;
-      bottom: -80px;
+      bottom: -70px;
     }
     form{
       height: 520px;
@@ -50,7 +50,7 @@
       background-color: rgba(255,255,255,0.13);
       position: absolute;
       transform: translate(-50%,-50%);
-      top: 50%;
+      top: 55%;
       left: 50%;
       border-radius: 10px;
       backdrop-filter: blur(10px);
@@ -74,7 +74,7 @@
     
     label{
       display: block;
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 16px;
       font-weight: 500;
     }
@@ -93,7 +93,7 @@
       color: #e5e5e5;
     }
     button{
-      margin-top: 50px;
+      margin-top: 20px;
       width: 100%;
       background-color: #ffffff;
       color: #080710;
@@ -125,8 +125,48 @@
     .social i{
     margin-right: 4px;
     }
+    @media (max-width: 1000px) {
+            .background {
+                width: 330px;
+                height: 420px;
+            }
+            .shape:first-child {
+                left: -80px;
+                top: -80px;
+            }
+            .shape:last-child {
+                right: -80px;
+                bottom: -80px;
+            }
+            form {
+                width: 400px;
+                height: 520px;
+            }
+            .background .shape{
+            height: 120px;
+            width: 120px;
+            position: absolute;
+            border-radius: 50%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .background {
+                flex-direction: column;
+                height: 100%;
+                padding: 20px;
+            }
+            .shape:first-child,
+            .shape:last-child {
+                display: none;
+            }
+            form {
+                padding: 30px 20px;
+            }
+        }
     
     </style>
+    
     {{-- <main class="flex flex-col md:flex-row mx-auto w-full md:w-[80%] lg:w-[70%] xl:w-[60%] shadow-2xl bg-white rounded-lg border border-gray-300">
         
         <div class="w-full md:w-[60%] ">

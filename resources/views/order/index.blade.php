@@ -32,6 +32,7 @@
     px-2  text-gray-900">
         Invoicing
     </h2>
+    @if(in_array('entry', $permissionsArray))
         <form action="/addorder" method="POST" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
             @csrf
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
@@ -360,6 +361,11 @@
 
 
         </form>
+        @else
+        <div class="alert alert-warning">
+            Don't have permission to entry
+        </div>
+    @endif
 
         <div class="p-6 rounded-lg mt-5 bg-white py-3">
             <table class="table divide-y divide-gray-200 table-hover no-wrap" id="ordertable">
@@ -408,16 +414,22 @@
 
 
                             <td>
-                                <section class="flex gap-2 text-lg"> <a
-                                        href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i
-                                            class="fa fa-pencil fa-fw"></i> </a>
+                                <section class="flex gap-2 text-lg">
+                                    @if(in_array('edit', $permissionsArray))
+                                     <a href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i
+                                        class="fa fa-pencil fa-fw"></i> </a>
+                                    @endif
+                                    @if(in_array('delete', $permissionsArray))
                                     <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
                                         data-toggle="modal" data-target="#confirmDeleteModal"><i
                                             class="fa fa-trash-o fa-fw"></i></a>
+                                    @endif;
+                                    @if(in_array('view', $permissionsArray))
                                             <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
                                                 class=" hover:text-green-700 mr-1">
                                                 <i class="fa fa-eye fa-fw text-xl"></i>
                                             </a>
+                                    @endif
                                 </section>
                             </td>
                         </tr>
