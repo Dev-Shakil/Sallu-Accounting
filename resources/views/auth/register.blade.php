@@ -118,7 +118,9 @@
                         Logo</label>
                     <input type="file" id="company_logo" name="company_logo"
                         class="px-4 py-2 rounded-lg border focus:outline-none w-full focus:shadow-outline">
+                        
                 </div>
+                <p class="text-red-600">The company logo field must not be greater than 2048 kilobytes.</p>
                 <x-input-error :messages="$errors->get('company_logo')" class="mt-2" />
                 <div class="flex justify-between items-center">
                     <button type="submit"

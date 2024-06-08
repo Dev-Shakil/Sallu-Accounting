@@ -14,7 +14,7 @@
             $role = 'admin';
         @endphp
     @endif
-        <div class="container mt-5 w-[50%] mx-auto">
+        <div class="container mt-5 xl:w-[50%] w-[80%] mx-auto">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

@@ -19,7 +19,7 @@
       position: absolute;
       transform: translate(-50%,-50%);
       left: 50%;
-      top: 50%;
+      top: 60%;
     }
     .background .shape{
       height: 120px;
@@ -33,7 +33,7 @@
           #23a2f6
       );
       left: -50px;
-      top: -20px;
+      top: -50px;
     }
     .shape:last-child{
       background: linear-gradient(
@@ -50,7 +50,7 @@
       background-color: rgba(255,255,255,0.13);
       position: absolute;
       transform: translate(-50%,-50%);
-      top: 55%;
+      top: 60%;
       left: 50%;
       border-radius: 10px;
       backdrop-filter: blur(10px);
@@ -97,7 +97,7 @@
       width: 100%;
       background-color: #ffffff;
       color: #080710;
-      padding: 15px 0;
+      padding: 10px 0;
       font-size: 18px;
       font-weight: 600;
       border-radius: 5px;
@@ -141,6 +141,18 @@
             form {
                 width: 400px;
                 height: 520px;
+            }
+            input{
+                display: block;
+                height: 30px;
+                width: 100%;
+                background-color: rgba(255,255,255,0.07);
+                border-radius: 3px;
+                padding: 0 10px;
+                margin-top: 8px;
+                font-size: 11px;
+                font-weight: 300;
+                
             }
             .background .shape{
             height: 120px;

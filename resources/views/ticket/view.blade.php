@@ -49,7 +49,7 @@
            </thead>
            <tbody class="text-gray-700 border-black border-b-2">
              <tr>
-               <td class="py-2 px-4">{{$ticket->invoice}}/{{$ticket->invoice}}</td>
+               <td class="py-2 px-4">{{$ticket->invoice}}</td>
                <td class="py-2 px-4 font-bold uppercase">{{$ticket->passenger}}</td>
                <td class="py-2 px-4">
                  <p>Ticket No: {{$ticket->ticket_code}}/{{$ticket->ticket_no}}</p>
