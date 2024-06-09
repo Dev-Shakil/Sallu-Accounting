@@ -12,7 +12,7 @@
         </div>
          <div class="my-4 bg-white shadow-lg p-5" id="printSection" >
            <div class="flex justify-between items-center py-5">
-               <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/></div>
+               <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/></div>
                
                <div>
                 <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
@@ -23,17 +23,17 @@
            </div>
            <hr class="mb-3 h-[3px] bg-gray-400 border-none"/>
            <div class="font-bold text-3xl text-center">INVOICE DETAILS</div>
-           <div class="flex justify-between items-center text-lg">
+           <div class="flex justify-between items-center text-lg mt-6">
              <div>
                <p><span class="font-bold">Date</span>: {{ \Carbon\Carbon::now()->format('d/m/y') }}</p>
                <p><span class="font-bold">Service Type : </span> {{$type}}</p>
              </div>
-             <div>
+             <div class="max-w-[360px]">
                <h3 class="font-bold text-xl">Agent Details</h3>
-               <p>Name: {{$agent}}</p>
-               <p>Address: Fakirapool, Motijheel, Dhaka</p>
-               <p>Email : sallu098@gmail.com</p>
-               <p>Mob : 0909090990</p>
+               <p><span class="font-semibold">Name:</span> {{$agent->name}}</p>
+               <p> <span class="font-semibold">Address:</span>  {{$agent->address}}</p>
+               <p><span class="font-semibold">Email :</span>  {{$agent->email}}</p>
+               <p><span class="font-semibold">Mob :</span>  {{$agent->phone}}</p>
              </div>
            </div>
            <div class="w-full overflow-hidden mt-7">

@@ -423,7 +423,7 @@
                                     <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
                                         data-toggle="modal" data-target="#confirmDeleteModal"><i
                                             class="fa fa-trash-o fa-fw"></i></a>
-                                    @endif;
+                                    @endif
                                     @if(in_array('view', $permissionsArray))
                                             <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
                                                 class=" hover:text-green-700 mr-1">

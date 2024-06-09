@@ -328,7 +328,7 @@ class OrderController extends Controller
         public function view($id){
             if(Auth::user()){
                 $order = Order::findOrFail($id); 
-                $agent = Agent::where('id', $order->agent)->value('name');
+                $agent = Agent::where('id', $order->agent)->first();
                 $type = Type::where('id', $order->type)->value('name');
                 return view('order.view', compact('order', 'agent','type'));
             }

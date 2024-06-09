@@ -66,15 +66,15 @@ class SupplierController extends Controller
         {
             if(Auth::user()){
                   // dd($request->all(), $id);
-            $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20',
-                'description' => 'string',
-                'company' => 'string|max:255',
-                'email' => 'string|max:255',
-            ]);
+            // $validatedData = $request->validate([
+            //     'name' => 'string|max:255',
+            //     'phone' => 'string|max:20',
+            //     'description' => 'string',
+            //     'company' => 'string|max:255',
+            //     'email' => 'string|max:255',
+            // ]);
 
-            if($validatedData){
+            // if($validatedData){
                 $supplier = Supplier::find($id);
                 $supplier->name = $request->name;
                 $supplier->phone = $request->phone;
@@ -89,7 +89,7 @@ class SupplierController extends Controller
                 else{
                     return redirect()->route('supplier.view')->with('error', 'Supplier updated failed');
                 }
-            }         
+                  
 
             return redirect()->route('supplier.view')->with('error', 'Supplier updated failed');
             }

@@ -1191,10 +1191,7 @@ class ReportController extends Controller
                 $debit = 0;
                 $credit = 0;
     
-                $html = '
-                            
-                                
-                        <main class="flex-1 mx-auto max-w-7xl px-10 ">
+                $html = '<main class="flex-1 mx-auto max-w-7xl px-10 ">
                        
                         <div id="printSection" class="shadow-lg p-3 bg-white">
                             <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
@@ -1206,8 +1203,8 @@ class ReportController extends Controller
                                 <div class="flex items-center">
                                 
                                     <div class="mb-8">
-                                        <h2 class="font-bold text-xl">STS International</h2>
-                                        <p>Motijheel, Dhaka</p>
+                                        <h2 class="font-bold text-xl">'. Auth::user()->name.'</h2>
+                                        <p>'. Auth::user()->company_address .'</p>
                                     </div>
                                 </div>
                             </div>
@@ -1290,7 +1287,7 @@ class ReportController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
+                                                    <td class="w-[15%]"> </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Receive</b>
@@ -1312,7 +1309,7 @@ class ReportController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]"> </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Payment<b>
@@ -1623,8 +1620,8 @@ class ReportController extends Controller
                                             <div class="flex items-center">
                                             
                                                 <div class="mb-8">
-                                                    <h2 class="font-bold text-xl">STS International</h2>
-                                                    <p>Motijheel, Dhaka</p>
+                                                <h2 class="font-bold text-xl">'. Auth::user()->name.'</h2>
+                                                <p>'. Auth::user()->company_address .'</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1711,7 +1708,7 @@ class ReportController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]"></td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Receive<b>
@@ -1732,7 +1729,7 @@ class ReportController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Payment<b>
@@ -5005,12 +5002,12 @@ class ReportController extends Controller
                                 <th class="text-start">Airlines</th>';
             if ($show_agent != null) {
                 $htmlTable .= '
-                                        <th class="text-start">Agent</th>
+                                        <th class="text-start max-w-[150px]">Agent</th>
                                         <th class="text-start">Agent Amount</th>';
             }
             if ($show_supplier != null) {
                 $htmlTable .= '
-                                        <th class="text-start">Supplier</th>
+                                        <th class="text-start max-w-[150px]">Supplier</th>
                                         <th class="text-start">Supplier Amount</th>';
             }
             if ($show_profit != null) {
@@ -5043,20 +5040,20 @@ class ReportController extends Controller
                             <td class="py-2">' . $data->airline_name . '</td>';
                 if ($show_agent != null) {
                     $htmlTable .= '
-                                    <td class="py-2">' . Agent::where('id', $data->agent)->value('name') . '</td>
-                                    <th class="text-start">' . $data->agent_price . '</th>';
+                                    <td class="py-2 max-w-[150px]">' . Agent::where('id', $data->agent)->value('name') . '</td>
+                                    <td class="text-center">' . $data->agent_price . '</td>';
                 }
                 if ($show_supplier != null) {
                     $htmlTable .= '
-                                    <td class="py-2">' . Supplier::where('id', $data->supplier)->value('name') . '</td>
-                                    <th class="text-start">' . $data->supplier_price . '</th>';
+                                    <td class="py-2 max-w-[150px]">' . Supplier::where('id', $data->supplier)->value('name') ."-". Supplier::where('id', $data->supplier)->value('company') . '</td>
+                                    <td class="text-center">' . $data->supplier_price . '</td>';
                 }
                 if ($show_profit != null) {
                     $htmlTable .= '
-                                    <th class="text-start">' . $data->profit . '</th>';
+                                    <td class="text-center">' . $data->profit . '</td>';
                 }
                 $htmlTable .= '
-                            <td class="py-2">' . $data->agent_new_amount . '</td>
+                            <td class="py-2 text-center">' . $data->agent_new_amount . '</td>
                         </tr>';
             }
             $htmlTable .= '<tr class="w-100 py-2" style="background:white; "><td><b>Total Ticket: ' . $count . '</b></td>
@@ -5068,22 +5065,22 @@ class ReportController extends Controller
             if ($show_agent != null) {
                 $htmlTable .= '
                         <td></td>
-                        <td class="text-start py-2"><b>' . $total_agent_price . '</td>';
+                        <td class="text-center py-2"><b>' . $total_agent_price . '</td>';
             }
 
             if ($show_supplier != null) {
                 $htmlTable .= '
                         <td></td>
-                        <td class="text-start py-2"><b>' . $total_supplier_price . '</td>';
+                        <td class="text-center py-2"><b>' . $total_supplier_price . '</td>';
             }
 
             if ($show_profit != null) {
                 $htmlTable .= '
                        
-                        <td class="text-start py-2"><b>' . $total_profit . '</td>';
+                        <td class="text-center py-2"><b>' . $total_profit . '</td>';
             }
             $htmlTable .= '
-                         <td class="text-start py-2"><b>' . $total_balance . '</td>
+                         <td class="text-center py-2"><b>' . $total_balance . '</td>
                         
                     </tr>';
 

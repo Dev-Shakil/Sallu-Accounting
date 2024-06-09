@@ -3,17 +3,18 @@
     <div
         class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
         
-        <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
+        <button id="printBtn" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
+        <button onclick="goBack()" class="text-white bg-black font-bold text-md py-1 px-4">Go Back</button>
         
     </div>
-    <main id="printSection" class="flex-1 m-4 mx-auto max-w-[1060px] shadow-3xl border-t border-gray-200 px-6 py-9">
+    <main id="printSection" class="flex-1 m-4 mx-auto bg-white max-w-[1060px] shadow-3xl border-gray-200 px-6 py-9">
 
         <div class="flex justify-between items-center pb-2">
-            <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="150px" height="180px"/>
-            <div>
+            <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/>
+            <div class="w-[350px]">
                 <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                 <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
                 <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
             </div>
         </div>
@@ -21,14 +22,15 @@
         <h1 class="text-2xl font-bold text-center my-7">Payment Voucher</h1>
         <div class="flex justify-between items-center">
             <div>
-                <div><span class="font-semibold">Date</span> : <?php echo date('d-m-Y', strtotime($payment_voucher->created_at)); ?></div>
+                <div><span class="font-semibold">Date</span> : <?php echo date('d-m-Y', strtotime($payment_voucher->date)); ?></div>
                 <div><span class="font-semibold">Service Type</span> : Ticket Booking</div>
             </div>
-            <div class="flex flex-col gap-y-2">
+            <div class="flex flex-col gap-y-1 max-w-[360px]">
                 <h3 class="font-bold text-xl">Client Details</h3>
-                <p class="text-lg">Client Name : {{ $supplier->name }}</p>
-                <p class="text-lg">Email : {{ $supplier->email }}</p>
-                <p class="text-lg">Mob : {{ $supplier->phone }}</p>
+                <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $supplier->name }}</p>
+                <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $supplier->address }}</p>
+                <p class="text-lg"><span class="font-semibold">Email :</span> {{ $supplier->email }}</p>
+                <p class="text-lg"><span class="font-semibold">Mob :</span> {{ $supplier->phone }}</p>
             </div>
         </div>
         <table class=" w-full my-3 border-y border-black">

@@ -158,8 +158,9 @@ Route::get('/dashboard', function () {
     $total_receive = 0;
     $total_pay = 0;
     $total_amount = 0;
-
+    $receive_date = Receiver::where('user', Auth::id())->value("date");
     $receives = Receiver::where('user', Auth::id())
+    // ->whereDate('date', $receive_date)
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
 
@@ -178,9 +179,11 @@ Route::get('/dashboard', function () {
         ['user', Auth::id()],
         // ['date', '=', $current_date]
     ])
+    ->whereDate('created_at', Carbon::today())
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
 
+   
     foreach ($payments as $payment){
         if($payment->receive_from == "agent"){
             $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');

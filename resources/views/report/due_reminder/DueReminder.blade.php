@@ -41,7 +41,6 @@
             <tr class="bg-[#0E7490] text-white">
                 <th class="px-4 py-2 text-left text-md">SN</th>
                 <th class="px-4 py-2 text-left text-md">Customer</th>
-                <th class="px-4 py-2 text-left text-md">Office Name</th>
                 <th class="px-4 py-2 text-left text-md">Email</th>
                 <th class="px-4 py-2 text-left text-md">Mobile</th>
                 <th class="px-4 py-2 text-left text-md">Last Date</th>
@@ -53,8 +52,8 @@
             @foreach($filteredTransactionsWithNames as $index => $data)
                 <tr>
                     <td class="px-4 py-2 text-sm">{{ $index + 1 }}</td>
-                    <td class="px-4 py-2 text-sm">{!! $data['agent_supplier_name'] !!}</td>
-                    <td class="px-4 py-2 text-sm">{{ $data['agent_supplier_company'] }}</td>
+                    <td class="px-4 py-2 text-sm">{!! $data['agent_supplier_name'] !!} - {{ $data['agent_supplier_company'] }}</td>
+                    
                     <td class="px-4 py-2 text-sm">{{ $data['agent_supplier_email'] }}</td>
                     <td class="px-4 py-2 text-sm">{{ $data['agent_supplier_phone'] }}</td>
                     <td class="px-4 py-2 text-sm">{{ $data['date'] }}</td>
