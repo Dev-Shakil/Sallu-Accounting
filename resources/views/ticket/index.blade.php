@@ -64,7 +64,7 @@
                         <label for="agent_name" class="block w-[50%]">Agent
                             Name</label>
 
-                        <select name="agent" id="agent_multiple" class="select2 bg-white w-[80%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1">
+                        <select name="agent" id="agent_multiple" class="select2 bg-white w-[80%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" required>
                             <option value="">Select Agent</option>
                             @foreach ($agents as $agent)
                                 <option value="{{ $agent->id }}">{{ $agent->name }}</option>
@@ -84,7 +84,7 @@
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="flight_date" class="w-[50%]">Flight Date</label>
                         <div class="w-full flex gap-x-2">
-                            <input type="date" id="flight_date" class="bg-white md:w-[90%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date">
+                            <input type="date" id="flight_date" class="bg-white md:w-[90%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" name="flight_date" required>
                             <button id="toggle_return_section" class="bg-[#00959E] font-bold w-[8%] text-white text-xl rounded-xl flex justify-center items-center p-1">+</button>
                         </div>
                     </div>
@@ -122,10 +122,10 @@
                         <div class="flex w-full gap-x-4">
                             <input type="text" id="ticket_code"
                                 class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                                name="ticket_code">
+                                name="ticket_code" required>
                             <input type="text" id="ticket_no" maxlength="10" minlength="10"
                                 class="bg-white w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
-                                name="ticket_no">
+                                name="ticket_no" required>
                         </div>
                     </div>
                 
@@ -142,7 +142,7 @@
                         <label for="pnr" class="w-[50%]">PNR</label>
                         <input type="text" id="pnr"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="pnr">
+                            name="pnr" required>
                     </div>
                     
                 
@@ -153,7 +153,7 @@
                             Name</label>
                         <input type="text" id="passenger_name"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="passenger_name">
+                            name="passenger_name" required>
                     </div>
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="person" class="w-[50%]">Person</label>
@@ -185,7 +185,7 @@
                         <label for="sector" class="w-[50%]">Sector</label>
                         <input type="text" id="sector"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="sector">
+                            name="sector" required>
                     </div>
                     
                     
@@ -197,13 +197,13 @@
                         <label for="flight_no" class="w-[50%]">Flight No</label>
                         <input type="text" id="flight_no"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="flight_no">
+                            name="flight_no" required>
                     </div>
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="supplier" class="w-[50%]">Supplier</label>
 
                         <select name="supplier" id="supplier_multiple"
-                            class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
+                            class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1" required>
                             <option value="">Select Supplier</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
@@ -217,7 +217,7 @@
                             Price</label>
                         <input type="text" id="agent_price_1"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="agent_price">
+                            name="agent_price" required>
                     </div>
 
                     <div class="w-full px-4 mb-2 flex items-center">
@@ -236,7 +236,7 @@
                         <label for="stuff" class="w-[50%]">Stuff</label>
                         <input type="text" id="stuff"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="stuff">
+                            name="stuff" required>
                     </div>
                     
                     <div class="w-full px-4 mb-2 flex items-center">

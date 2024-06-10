@@ -56,6 +56,16 @@
                 </div>
             @endif
         </div>
+        <div>
+          
+            <x-input-label for="company_logo" :value="__('company_logo')" />
+            <input type="file" id="company_logo" name="company_logo" class="mt-1 w-full hidden">
+            <x-input-error class="mt-2" :messages="$errors->get('company_logo')" />
+            
+                @if($user->company_logo)
+                <img src="{{ url($user->company_logo) }}" alt="{{ $user->company_logo }}" id="profilePicturePreview" class="mt-2 object-cover cursor-pointer" width="200px" height="220px" />
+            @endif
+        </div>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
@@ -71,4 +81,19 @@
             @endif
         </div>
     </form>
+    <script>
+        document.getElementById('profilePicturePreview').addEventListener('click', function() {
+            document.getElementById('company_logo').click();
+        });
+    
+        document.getElementById('company_logo').addEventListener('change', function(event) {
+            if (event.target.files && event.target.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePicturePreview').src = e.target.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+    </script>
 </section>
