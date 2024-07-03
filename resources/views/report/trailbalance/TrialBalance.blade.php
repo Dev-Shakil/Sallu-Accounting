@@ -105,6 +105,20 @@
                       <td class="text-end px-2 py-2">{{ $total['credit'] }}</td>
                   </tr>
               @endforeach
+              @foreach ($agents as $agent)
+                  <tr>
+                      <td class="w-[70%] px-2 py-2">{{ $agent['name'] }}<span style="color:red">(Agent)</span></td>
+                      <td class="text-center px-2 py-2">{{ $agent['amount'] }}</td>
+                      <td class="text-end px-2 py-2">0</td>
+                  </tr>
+              @endforeach
+              @foreach ($suppliers as $agent)
+                  <tr>
+                      <td class="w-[70%] px-2 py-2">{{ $agent['name'] }}<span style="color:red">(Supplier)</span></td>
+                      <td class="text-center px-2 py-2">0</td>
+                      <td class="text-end px-2 py-2">{{ $agent['amount'] }}</td>
+                  </tr>
+              @endforeach
               <tr class=" text-black font-bold">
                
                <td class="w-[70%] text-lg px-2 py-2">Total</td>

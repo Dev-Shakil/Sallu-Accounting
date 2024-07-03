@@ -57,24 +57,14 @@ class HrController extends Controller
         // dd($nextID);
         return view('hr.paysalary', compact('salaries', 'methods', 'employees', 'nextID'));
     }
+
     public function payslip($id){
-        // dd($id);
-
-        // $employees = Employee::where([
-        //     ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
-        //     ['is_delete', 0]      // Filter by the 'is_delete' column being 0 (assuming 0 means not deleted)
-        // ])->get();
-        $employee = Employee::findOrFail($id);
-        $methods = Transaction::where('user', Auth::id())->get();
-
-        $salaries = Salary::where([
-            ['user', Auth::id()], // Filter by the 'user' column matching the authenticated user's ID
-        ])->paginate(10);
-        $lastSalaryId = $lastSalary ? $lastSalary->id : null;
-        $nextID = $lastSalaryId +1;
-        
-        // dd($nextID);
-        return view('hr.paysalary', compact('salaries', 'methods', 'employee', 'nextID' ));
+        $salary = Salary::join('employee', 'salary.employee', '=', 'employee.id')
+        ->select('salary.*', 'employee.*')
+        ->where('salary.id', $id)
+        ->firstOrFail();
+        // dd(Auth::user());
+        return view('hr.voucher', compact('salary'));
     }
 
     

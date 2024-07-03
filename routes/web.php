@@ -11,18 +11,18 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReceivePaymentController;
 use App\Http\Controllers\RefundController;
+use App\Http\Controllers\GeneralLedgerController;
 use App\Http\Controllers\ReissueController;
+use App\Http\Controllers\MoneyTransferController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\MoneyTransferController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
 use App\Http\Controllers\VoidController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
 
 use App\Models\Deportee;
 use App\Models\Ticket;
@@ -31,7 +31,11 @@ use App\Models\Supplier;
 use App\Models\Receiver;
 use App\Models\Payment;
 use App\Models\Transaction;
-Use Carbon\Carbon;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 use App\Http\Controllers\SslCommerzPaymentController;
 
 
@@ -65,77 +69,6 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
-// Route::get('/dashboard', function () {
-   
-        
-//     $current_date = new DateTime();
-//     $start_date = clone $current_date; // Today
-//     $end_date = $current_date->modify('+2 days'); // Next 4 days
-
-//     $closetickets = Ticket::where([
-//         ['user', Auth::id()],
-//         ['flight_date', '>=', $start_date->format('Y-m-d')],
-//         ['flight_date', '<=', $end_date->format('Y-m-d')]
-//     ])->get();
-
-//     foreach ($closetickets as $ticket){
-//         $ticket->agent = Agent::where('id', $ticket->agent)->value('name');
-//         $ticket->supplier = Supplier::where('id', $ticket->supplier)->value('name');
-//     }
-
-//     $current_date = Carbon::now()->toDateString();
-//     $total_receive = 0;
-//     $total_pay = 0;
-//     $total_amount = 0;
-
-//     $receives = Receiver::where([
-//         ['user', Auth::id()],
-//         ['date', $current_date]
-//     ])->get();
-
-//     foreach ($receives as $receive){
-//         if($receive->receive_from == "agent"){
-//             $receive->name = Agent::where('id', $receive->agent_supplier_id)->value('name');
-//         }
-//         else{
-//             $receive->name = Supplier::where('id', $receive->agent_supplier_id)->value('name');
-//         }
-//         $receive->method = Transaction::where('id', $receive->method)->value('name');
-//         $total_receive += $receive->amount;
-//     }
-
-//     $payments = Payment::where([
-//         ['user', Auth::id()],
-//         ['date', '=', $current_date]
-//     ])->get();
-
-//     foreach ($payments as $payment){
-//         if($payment->receive_from == "agent"){
-//             $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');
-//         }
-//         else{
-//             $payment->name = Supplier::where('id', $payment->agent_supplier_id)->value('name');
-//         }
-//         $payment->method = Transaction::where('id', $payment->method)->value('name');
-//         $total_pay += $payment->amount;
-//     }
-
-//     $current_date = Carbon::now()->toDateString();
-
-    
-//     $transactions = Transaction::where('user', Auth::id())
-//         ->whereDate('updated_at', '=', $current_date)
-//         ->get();
-//     $total_amount = Transaction::where('user', Auth::id())
-//         ->whereDate('updated_at', '=', $current_date)
-//         ->sum('amount');
-
-
-//     // dd($receives, $payments, $current_date, $transactions);
-
-//     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/dashboard', function () {
    
         
@@ -158,9 +91,8 @@ Route::get('/dashboard', function () {
     $total_receive = 0;
     $total_pay = 0;
     $total_amount = 0;
-    $receive_date = Receiver::where('user', Auth::id())->value("date");
+
     $receives = Receiver::where('user', Auth::id())
-    // ->whereDate('date', $receive_date)
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
 
@@ -179,11 +111,9 @@ Route::get('/dashboard', function () {
         ['user', Auth::id()],
         // ['date', '=', $current_date]
     ])
-    ->whereDate('created_at', Carbon::today())
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
 
-   
     foreach ($payments as $payment){
         if($payment->receive_from == "agent"){
             $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');
@@ -212,6 +142,7 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::get('/layout.app', function () {
     $user = Auth::user();
     return view('layout.app',compact('user'));
@@ -237,8 +168,7 @@ Route::get('/supplier/delete/{id}', [SupplierController::class, 'delete'])->name
 // Route::get('type/view', function () {
 //     return app(TypeController::class)->index();
 // })->name('type.view');
-Route::get('/trialbalance', [ReportController::class, 'trialbalance'])->name('trialbalance.view');
-Route::post('/trialbalance_report', [ReportController::class, 'trialbalance_report'])->name('trialbalance_report');
+
 
 Route::get('/types', [TypeController::class, 'index'])->name('type.index');
 Route::post('/addtype', [TypeController::class, 'store'])->name('addtype.store');
@@ -255,9 +185,6 @@ Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('order.vi
 Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::get('/order/delete/{id}', [OrderController::class, 'delete'])->name('order.delete');
 
-Route::any('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
-// Route::post('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
-Route::post('/get-staff-details', [HrController::class, 'getStaffDetails']);
 // Route::get('/ticket/view', function () {
 //     return app(TicketController::class)->index();
 // })->name('ticket.view');
@@ -296,7 +223,6 @@ Route::get('/get_agent_supplier', [TicketController::class, 'getAgentSupplier'])
 Route::get('/get-last-id', [TicketController::class, 'getlastid'])->name('get-last-id');
 
 
-// Route::get('/refund_ticket', [RefundController::class, 'index'])->name('refund_ticket');
 Route::post('/receive_only', [TicketController::class, 'receiveAmount'])->name('receive_only');
 Route::get('/deportee/index', function (Request $request) {
     return app(DeporteeController::class)->view($request);
@@ -358,9 +284,9 @@ Route::get('/report/view', function () {
     return app(ReportController::class)->index();
 })->name('report.view');
 Route::post('/generate-report', [ReportController::class, 'generate'])->name('generate.report');
-Route::get('/general-ledger', [ReportController::class, 'general_ledger'])->name('general_ledger');
+Route::get('/general-ledger', [GeneralLedgerController::class, 'general_ledger'])->name('general_ledger');
 Route::get('/ticket_seles_report', [ReportController::class, 'ticket_seles_report'])->name('ticket_seles_report');
-Route::post('/general-ledger-report', [ReportController::class, 'general_ledger_report'])->name('general_ledger_report');
+Route::post('/general-ledger-report', [GeneralLedgerController::class, 'general_ledger_report'])->name('general_ledger_report');
 
 Route::get('/receive_report_index', [ReportController::class, 'receive_report_index'])->name('receive_report_index');
 Route::post('/receive_report_info', [ReportController::class, 'receive_report_info'])->name('receive_report_info');
@@ -377,11 +303,19 @@ Route::get('/profit_loss/view', function () {
 })->name('profit_loss.view');
 Route::post('/profit_loss_report', [ReportController::class, 'profit_loss_report'])->name('profit_loss_report');
 
+Route::get('/income_statement/view', function () {
+    return app(ReportController::class)->income_statement_view();
+})->name('income_statement.index');
+Route::post('/income_statement_report', [ReportController::class, 'income_statement_report'])->name('income_statement_report');
+
 Route::get('/ait_report_index', [ReportController::class, 'ait_report_index'])->name('ait_report_index');
 Route::post('/ait_report_info', [ReportController::class, 'ait_report_info'])->name('ait_report_info');
 
 Route::get('/due_reminder', [ReportController::class, 'due_reminder'])->name('due_reminder');
 Route::get('/due_reminder_specific', [ReportController::class, 'due_reminder_specific'])->name('due_reminder_specific');
+
+Route::get('/trialbalance', [ReportController::class, 'trialbalance'])->name('trialbalance.view');
+Route::post('/trialbalance_report', [ReportController::class, 'trialbalance_report'])->name('trialbalance_report');
 
 Route::get('/sales_ticket', [ReportController::class, 'sales_ticket'])->name('sales_ticket');
 Route::post('/sales_report_ticket', [ReportController::class, 'sales_report_ticket'])->name('seles_report_ticket');
@@ -395,14 +329,15 @@ Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_
 Route::get('/sales_exicutive_stuff', [ReportController::class, 'sales_exicutive_stuff'])->name('sales_exicutive_stuff');
 Route::post('/seles_executive_report_stuff', [ReportController::class, 'seles_executive_report_stuff'])->name('seles_executive_report_stuff');
 
-
-Route::any('stuff_details/view', function (Request $request) {
-    return app(HrController::class)->index($request);
+Route::get('stuff_details/view', function () {
+    return app(HrController::class)->index();
 })->name('stuff_details.view');
 Route::post('/addstuff', [HrController::class, 'store'])->name('addstuff.store');
 Route::get('/stuff/edit/{id}', [HrController::class, 'edit'])->name('stuff.edit');
 Route::post('/stuff/update/', [HrController::class, 'update'])->name('stuff.update');
 Route::get('/stuff/delete/{id}', [HrController::class, 'delete'])->name('stuff.delete');
+Route::any('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
+// Route::post('/stuff/report/{id}', [HrController::class, 'report'])->name('stuff.report');
 Route::post('/get-staff-details', [HrController::class, 'getStaffDetails']);
 
 Route::get('pay_salary/view', function () {
@@ -422,13 +357,6 @@ Route::get('moneytransfer/view', function () {
 })->name('moneytransfer.view');
 Route::post('/moneytransfer/add', [MoneyTransferController::class, 'store'])->name('moneytransfer.add');
 Route::get('/moneytransfers/{id}', [MoneyTransferController::class, 'destroy'])->name('moneytransfer.delete');
-
-Route::get('expanditure/view', function () {
-    return app(MoneyTransferController::class)->expanditure_index();
-})->name('expanditure.view');
-Route::post('/add-expenditure-towards', [MoneyTransferController::class, 'add_expenditure_towards'])
-    ->name('add_expenditure_towards');
-Route::post('/add_expenditure_main', [MoneyTransferController::class, 'addExpenditureMain'])->name('add_expenditure_main');
 
 
 Route::get('transaction/view', function () {
@@ -476,4 +404,55 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/pending-accounts', [AdminController::class, 'showPendingAccounts'])->name('admin.pending_accounts');
+//     Route::post('/admin/approve-account/{user}', [AdminController::class, 'approveAccount'])->name('admin.approve_account');
+//     Route::post('/admin/deny-account/{user}', [AdminController::class, 'denyAccount'])->name('admin.deny_account');
+// });
+
+Route::get('/admin/login', [AdminController::class, 'showAdminLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'adminLogin']);
+
+// Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/pending-users', [App\Http\Controllers\AdminController::class, 'showPendingUsers'])->name('admin.pending_users');
+    Route::post('/admin/approve-user/{id}', [App\Http\Controllers\AdminController::class, 'approveUser'])->name('admin.approve_user');
+// });
 require __DIR__.'/auth.php';
+
+Route::get('expanditure/view', function () {
+    return app(MoneyTransferController::class)->expanditure_index();
+})->name('expanditure.view');
+Route::post('/add-expenditure-towards', [MoneyTransferController::class, 'add_expenditure_towards'])
+    ->name('add_expenditure_towards');
+Route::post('/add_expenditure_main', [MoneyTransferController::class, 'addExpenditureMain'])->name('add_expenditure_main');
+
+
+use App\Http\Controllers\Admin\UserApprovalController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('user/approve/{id}', [UserApprovalController::class, 'approve'])->name('admin.user.approve');
+    Route::get('user/deny/{id}', [UserApprovalController::class, 'deny'])->name('admin.user.deny');
+});
+
+
+
+use App\Http\Controllers\BkashTokenizePaymentController;
+Route::any('/payment/index', [BkashTokenizePaymentController::class, 'payment_index'])->name('payment.index');
+
+// Route::group(['middleware' => ['web']], function () {
+    // Payment Routes for bKash
+    Route::get('/bkash/payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'index']);
+    Route::get('/bkash/create-payment', [App\Http\Controllers\BkashTokenizePaymentController::class,'createPayment'])->name('bkash-create-payment');
+    Route::get('/bkash/callback', [App\Http\Controllers\BkashTokenizePaymentController::class,'callBack'])->name('bkash-callBack');
+
+    //search payment
+    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\BkashTokenizePaymentController::class,'searchTnx'])->name('bkash-serach');
+
+    //refund payment routes
+    Route::get('/bkash/refund', [App\Http\Controllers\BkashTokenizePaymentController::class,'refund'])->name('bkash-refund');
+    Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class,'refundStatus'])->name('bkash-refund-status');
+
+// });

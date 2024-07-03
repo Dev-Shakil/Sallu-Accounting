@@ -10,20 +10,20 @@
         <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
+                <img class="" src="{{ asset(Auth::user()->company_logo) }}" alt="Company Logo" height="150px" width="180px" />
                 <div>
-                    <h3 class="company-name font-bold text-3xl ">Sallu Air Service</h3>
-                    <p class="company-address text-lg font-medium">291, Fakirapool, Motijheel, Dhaka</p>
-                    <p class="company-phone text-lg font-medium">Tel : 39420394023</p>
-                    <p class="company-email text-lg font-medium">Email : salluairservice@gmail.com</p>
+                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
             <h1 class="text-2xl font-bold text-center my-3">Pay Slip</h1>
             <div class="flex justify-between items-center">
                 <div>
-                    <div><span class="font-semibold">Date</span> : 14-09-2024</div>
-                    <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
+                    <div><span class="font-semibold">Date</span> : {{(new DateTime())->format('d-m-Y')}}</div>
+                    <div><span class="font-semibold">Receipt No</span> : {{ $salary->ref_id }}</div>
                 </div>
                
             </div>
@@ -37,8 +37,8 @@
                 </thead>
                 <tbody class="h-[50px]">
                     <tr class=" py-2">
-                        <td class="text-xl">{{ $employee->name }}</td>
-                        <td class="text-xl text-center">{{ number_format($employee->amount, 0, '.', ',') }}</td>
+                        <td class="text-xl">{{ $salary->name }}</td>
+                        <td class="text-xl text-center">{{ number_format($salary->amount, 0, '.', ',') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -151,7 +151,7 @@
                     }
 
                     // Example usage:
-                    $amount = $employee->amount;
+                    $amount = $salary->amount;
                     $amountInWords = numberToWords($amount);
                 echo $amountInWords; @endphp Only</span></div>
                 

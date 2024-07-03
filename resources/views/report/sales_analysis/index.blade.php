@@ -7,13 +7,13 @@
                 <div class="form-group col-md-3">
                     <label for="start_date">Start Date</label>
                     <div class="input-group date" style="width: 100%">
-                        <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
+                        <input type="text" class="form-control datepicker" name="start_date" id="start_date" required placeholder="Start Date" />
                     </div>      
                 </div>
                 <div class="form-group col-md-3">
                     <label for="end_date">End Date</label>
                     <div class="input-group date" style="width: 100%">
-                        <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
+                        <input type="text" class="form-control datepicker" name="end_date" id="end_date" required placeholder="End Date" />
                     </div>      
                 </div>
                

@@ -41,6 +41,7 @@
                     </a>
                     <div class="" >
                         <a href="{{ route('login') }}" class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 rounded-md px-5">Log in</a>
+                        <a class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 rounded-md px-5" href="{{ route('admin.login') }}">Admin Panel</a>
                         {{-- <a href="{{ route('emp_login') }}" class=" text-gray-600 hover:text-gray-100 dark:text-gray-400 hover:no-underline hover:bg-[#00959F] dark:hover:text-white border-2 border-[#00959F] duration-300 font-semibold py-2 rounded-md px-5">Employee Login</a> --}}
 
                         @if (Route::has('register'))
