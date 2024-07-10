@@ -1,5 +1,14 @@
 <x-guest-layout>
     <!-- Session Status -->
+    @if ($errors->any())
+                <div class="alert z-50 w-fit mx-auto mb-[500px] alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
     <x-auth-session-status class="mb-4" :status="session('status')" />
     
     <style media="screen">
@@ -293,6 +302,7 @@
         </div>
 
     </main> --}}
+    
     <main class="!bg-gray-200">
     <div class="background">
         <div class="shape"></div>

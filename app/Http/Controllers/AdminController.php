@@ -62,10 +62,12 @@ class AdminController extends Controller
             'approval_token' => Str::random(60),
         ]);
 
-        $pendingUser->delete();
+        $pendingUser->is_approved = 1;
+        $pendingUser->save();
 
         Mail::to($user->email)->send(new UserApprovalMail($user));
 
         return redirect()->route('admin.pending_users')->with('status', 'User approved successfully.');
     }
+
 }

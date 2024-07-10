@@ -184,7 +184,7 @@
                         </x-nav-link>
                     </li>
                     <li class=" font-semibold">
-                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                        <x-nav-link :href="route('payment.form')" :active="request()->routeIs('payment.form')">
                             <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

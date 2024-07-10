@@ -23,14 +23,23 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                        <form action="{{ route('admin.approve_user', $user->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success">Approve</button>
-                        </form>
-                    </td>
+                    @if ($user->is_approved == 0)
+                        <td>
+                            <form action="{{ route('admin.approve_user', $user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                        </td>
+                    @else
+                        <td>
+                            <span class="text-success">
+                                <i class="fas fa-check-circle"></i> Approved
+                            </span>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
+        
         </tbody>
     </table>
 </div>

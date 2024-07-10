@@ -25,7 +25,7 @@ class HrController extends Controller
         return view('hr.stuff_details', compact('employees'));
     }
 
-    public function getStaffDetails(Request $request)
+    public function getStaffDetail(Request $request)
     {
         // Retrieve staff details based on the provided staff_id
         $staffId = $request->input('staff_id');

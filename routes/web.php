@@ -277,15 +277,18 @@ Route::post('/submit-payment', [ReceivePaymentController::class, 'payment'])->na
 Route::post('/submit-receive', [ReceivePaymentController::class, 'receive'])->name('submit.receive');
 Route::get('/receive_payment', [ReceivePaymentController::class, 'index'])->name('receive_payment');
 Route::get('/receive_payment', [ReceivePaymentController::class, 'index'])->name('receive_payment.index');
-Route::get('/payment_form', [ReceivePaymentController::class, 'payment_index'])->name('payment.index');
+Route::get('/payment_form', [ReceivePaymentController::class, 'payment_index'])->name('payment.form');
 Route::get('/receive_form', [ReceivePaymentController::class, 'receive_index'])->name('receive.index');
 
 Route::get('/report/view', function () {
     return app(ReportController::class)->index();
 })->name('report.view');
-Route::post('/generate-report', [ReportController::class, 'generate'])->name('generate.report');
-Route::get('/general-ledger', [GeneralLedgerController::class, 'general_ledger'])->name('general_ledger');
+
 Route::get('/ticket_seles_report', [ReportController::class, 'ticket_seles_report'])->name('ticket_seles_report');
+// Route::get('/general-ledger', [GeneralLedgerController::class, 'general_ledger'])->name('general_ledger');
+// Route::post('/generate-report', [ReportController::class, 'generate'])->name('generate.report');
+// Route::post('/general-ledger-report', [GeneralLedgerController::class, 'general_ledger_report'])->name('general_ledger_report');
+Route::get('/general-ledger', [GeneralLedgerController::class, 'general_ledger'])->name('general_ledger');
 Route::post('/general-ledger-report', [GeneralLedgerController::class, 'general_ledger_report'])->name('general_ledger_report');
 
 Route::get('/receive_report_index', [ReportController::class, 'receive_report_index'])->name('receive_report_index');
