@@ -110,7 +110,7 @@ background: #555; /* Or any other color you prefer */
         <a href={{route('receive.index')}} class="text-white text-center  bg-[#6A764D] font-bold py-3 px-4 rounded hover:no-underline">
           Receive
         </a>
-        <a href={{route('payment.index')}} class="text-white bg-[#A58A4C] font-bold py-3 px-4 rounded hover:no-underline text-center">
+        <a href={{route('payment.form')}} class="text-white bg-[#A58A4C] font-bold py-3 px-4 rounded hover:no-underline text-center">
           Payment
           {{-- sales report --}}
         </a>
