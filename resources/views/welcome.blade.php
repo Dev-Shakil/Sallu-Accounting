@@ -228,22 +228,22 @@
         <div class="bg-gray-200 p-5 md:px-10">
             <h2 class="text-center font-bold text-4xl text-[#101111]">Products Belongs to Us</h2>
             <div class="grid lg:grid-cols-3 sm:grid-cols-2 mx-7 md:mx-0 justify-center gap-5 py-8">
-                <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
+                <a href="https://ksavisaform.com/" target="_blank" class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] p-3 rounded-full fa-regular fa-cloud"></i></div>
                     <h2 class="text-xl text-black font-bold">KSA Visa Form</h2>
                     <p class="text-[18px] text-center text-gray-400">Get Ready KSA 4 Page Embassy Files Automatic </p>
-                </div>
-                <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
+                </a>
+                <a href="https://rampsoft.vercel.app/" target="_blank" class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] p-3 rounded-full fa-regular fa-user-plus"></i></div>
                     <h2 class="text-xl text-black font-bold">BMET File Solution</h2>
                     <p class="text-[18px] text-center text-gray-400">Easy to get ready Manpower Files for your Agency</p>
-                </div>
-                <div class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
+                </a>
+                <a href="https://www.hikmaint.com/" target="_blank" class="bg-white shadow-2xl p-3 flex items-center flex-col gap-2 text-xl text-gray-600 font-semibold justify-center py-3 min-h-[200px] rounded-lg">
                     <div><i class="fa text-3xl text-[#4d5250] bg-[#a6ebd6] rounded-full p-3 fa-user-plus"></i></div>
                    
                     <h2 class="text-xl text-black font-bold">Agency Websites</h2>
                     <p class="text-[18px] text-center text-gray-400">Any Type of Websites for your Business</p>
-                </div>
+                </a>
                 
             </div>
         </div>

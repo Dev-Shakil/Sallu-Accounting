@@ -92,7 +92,10 @@ Route::get('/dashboard', function () {
     $total_pay = 0;
     $total_amount = 0;
 
-    $receives = Receiver::where('user', Auth::id())
+    $receives = Receiver::where([
+        ['user', Auth::id()],
+        ['date', '=', $current_date]
+    ])
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
 
@@ -109,7 +112,7 @@ Route::get('/dashboard', function () {
 
     $payments = Payment::where([
         ['user', Auth::id()],
-        // ['date', '=', $current_date]
+        ['date', '=', $current_date]
     ])
     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
     ->get();
