@@ -55,7 +55,7 @@
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
 
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
-                    <label for="date" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Invoice Number
+                    <label for="date" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Quantity
                     </label>
                     <input type="number" id="num"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"

@@ -153,7 +153,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 6h16M4 10h16M4 14h16M4 18h16M8 6v12M12 6v12M16 6v12" />
                 </svg>
-                {{ __('Invoice Entry') }}
+                {{ __('Service Entry') }}
             </x-nav-link>
             
             <li class="w-full list-none">
