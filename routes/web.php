@@ -335,6 +335,11 @@ Route::post('/sales_analysis_report', [ReportController::class, 'sales_analysis_
 Route::get('/sales_exicutive_stuff', [ReportController::class, 'sales_exicutive_stuff'])->name('sales_exicutive_stuff');
 Route::post('/seles_executive_report_stuff', [ReportController::class, 'seles_executive_report_stuff'])->name('seles_executive_report_stuff');
 
+Route::get('/income_statement/view', function () {
+    return app(ReportController::class)->income_statement_view();
+})->name('income_statement.index');
+Route::post('/income_statement_report', [ReportController::class, 'income_statement_report'])->name('income_statement_report');
+
 Route::get('stuff_details/view', function () {
     return app(HrController::class)->index();
 })->name('stuff_details.view');
@@ -378,9 +383,12 @@ Route::get('/get-last-id-payment', [ReceivePaymentController::class, 'getlastid_
 Route::get('/get-last-id-receive', [ReceivePaymentController::class, 'getlastid_receive'])->name('get-last-id-receive');
 
 
-Route::get('change_password/view', function () {
+Route::post('/change_password', function () {
+    return app(SettingsController::class)->change_password();
+})->name('change_password');
+Route::get('changePass', function () {
     return app(SettingsController::class)->index();
-})->name('change_password.view');
+})->name('changePass');
 Route::get('company_profile/view', function () {
     return app(SettingsController::class)->edit_company_profile();
 })->name('company_profile.view');
@@ -407,6 +415,7 @@ Route::get('/findairlinefree', [AirlineController::class, 'findAirlineFree'])->n
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

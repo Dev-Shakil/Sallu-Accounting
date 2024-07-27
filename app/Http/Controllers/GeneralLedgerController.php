@@ -69,7 +69,7 @@ class GeneralLedgerController extends Controller
                         }
                     });
                 }
-    
+                
                 $receive = $receive->get();
     
                 $receiver = Receiver::where([
@@ -92,7 +92,9 @@ class GeneralLedgerController extends Controller
     
                 $void_ticket = VoidTicket::where([['user', Auth::id()], ['agent', $id]]);
                 $reissue = ReissueTicket::where([['agent', $id], ['user', Auth::id()]]);
-    
+
+                $opening_balance_debit = $opening_balance_credit = $opening_balance = 0;
+
                 if (!is_null($start_date) || !is_null($end_date)) {
                     $start_date = (new DateTime($start_date))->format('Y-m-d');
                     $end_date = (new DateTime($end_date))->format('Y-m-d');
@@ -144,7 +146,91 @@ class GeneralLedgerController extends Controller
                         }
                     });
                 }
+                // $until_start_date_collections = null;
+                if (!is_null($start_date)) {
+                    // dd("here");
+                    $until_start_date_receive = Ticket::where([['agent', $id], ['is_active', 1]])
+                        ->where('user', Auth::id())
+                        ->where('invoice_date', '<', $start_date)
+                        ->get();
+                
+                    $until_start_date_receiver = Receiver::where([
+                        ['receive_from', '=', 'agent'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_refund = Refund::where([
+                        ['agent', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_paymenter = Payment::where([
+                        ['receive_from', '=', 'agent'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_void_ticket = VoidTicket::where([
+                        ['user', Auth::id()],
+                        ['agent', $id],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_reissue = ReissueTicket::where([
+                        ['agent', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_order = Order::where('user', Auth::id())
+                        ->where('agent', $id)
+                        ->where('date', '<', $start_date)
+                        ->get();
+                
+                    $until_start_date_collections = $until_start_date_receive
+                        ->merge($until_start_date_receiver)
+                        ->merge($until_start_date_refund)
+                        ->merge($until_start_date_paymenter)
+                        ->merge($until_start_date_void_ticket)
+                        ->merge($until_start_date_reissue)
+                        ->merge($until_start_date_order);
+
+                    // dd($until_start_date_collections, $until_start_date_receiver, $until_start_date_paymenter, $until_start_date_refund);
+                        foreach ($until_start_date_collections as $collection){
+                            // dd($collection);
+                            if ($collection->getTable() == 'order'){
+                                $opening_balance_debit += $collection->contact_amount;
+                            }
+                            if ($collection->getTable() == 'tickets'){
+                                $opening_balance_debit += $collection->agent_price;
+                            }
+                            if ($collection->getTable() == 'payment'){
+                                $opening_balance_debit += $collection->amount;
+                            }
+                            if ($collection->getTable() == 'receive'){
+                                $opening_balance_credit += $collection->amount;
+                            }
+                            if ($collection->getTable() == 'reissue'){
+                                $opening_balance_debit += $collection->now_agent_debit;
+                            }
+                            if ($collection->getTable() == 'refund'){
+                                $opening_balance_credit += $collection->now_agent_fere;
+                            }
+                            if ($collection->getTable() == 'voidTicket'){
+                                $opening_balance_debit += $collection->now_agent_fere;
+                            }
+                            
+                        }
+                }
+                
     
+                // dd($until_start_date_collections);
+              
+                // dd($opening_balance_debit);
                 $receiver = $receiver->get();
                 $paymenter = $paymenter->get();
                 $void_ticket = $void_ticket->get();
@@ -172,7 +258,7 @@ class GeneralLedgerController extends Controller
                 // dd($mergedCollection);
                 $acountname = Agent::where('id', $id)->value('name');
     
-                $balance =  0;
+                $balance =  $opening_balance_debit - $opening_balance_credit;
                 $debit = 0;
                 $credit = 0;
 
@@ -276,8 +362,9 @@ class GeneralLedgerController extends Controller
     
                         $balance += $item->now_agent_fere;
                         $currentAmount = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
-                        $debit += $item->now_agent_debit;
+                        $debit += $item->now_agent_fere;
     
+                        // dd($debit, $item->now_agent_fere);
                         $agentname = Agent::where('id', $id)->value('name');
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
     
@@ -394,11 +481,17 @@ class GeneralLedgerController extends Controller
                     'debit' => $debit,
                     'credit' => $credit,
                     'holdername' => $agentName,
+                    'opening_balance_debit' => $opening_balance_debit,
+                    'opening_balance_credit' => $opening_balance_credit,
+                    'opening_balance' => $opening_balance,
+                    // $opening_balance_debit = $opening_balance_credit = $opening_balance = 0;
+
                    
                 ])->render();
 
                 return response()->json(['html' => $htmlpart]);
             }
+
             elseif ($who == 'supplier') {
                 // dd($who);
                 $start_date = $request->start_date;
@@ -495,6 +588,164 @@ class GeneralLedgerController extends Controller
                         }
                     });
                 }
+
+                $opening_balance_debit = $opening_balance_credit = $opening_balance = 0;
+
+                if (!is_null($start_date)) {
+                    // Operations for Agent
+                
+                    $until_start_date_receive = Ticket::where([['agent', $id], ['is_active', 1]])
+                        ->where('user', Auth::id())
+                        ->where('invoice_date', '<', $start_date)
+                        ->get();
+                
+                    $until_start_date_receiver = Receiver::where([
+                        ['receive_from', '=', 'agent'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_refund = Refund::where([
+                        ['agent', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_paymenter = Payment::where([
+                        ['receive_from', '=', 'agent'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_void_ticket = VoidTicket::where([
+                        ['user', Auth::id()],
+                        ['agent', $id],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_reissue = ReissueTicket::where([
+                        ['agent', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_order = Order::where('user', Auth::id())
+                        ->where('agent', $id)
+                        ->where('date', '<', $start_date)
+                        ->get();
+                
+                    $until_start_date_collections = $until_start_date_receive
+                        ->merge($until_start_date_receiver)
+                        ->merge($until_start_date_refund)
+                        ->merge($until_start_date_paymenter)
+                        ->merge($until_start_date_void_ticket)
+                        ->merge($until_start_date_reissue)
+                        ->merge($until_start_date_order);
+                
+                    foreach ($until_start_date_collections as $collection) {
+                        if ($collection->getTable() == 'order') {
+                            $opening_balance_debit += $collection->contact_amount;
+                        }
+                        if ($collection->getTable() == 'tickets') {
+                            $opening_balance_debit += $collection->agent_price;
+                        }
+                        if ($collection->getTable() == 'payment') {
+                            $opening_balance_debit += $collection->amount;
+                        }
+                        if ($collection->getTable() == 'receive') {
+                            $opening_balance_credit += $collection->amount;
+                        }
+                        if ($collection->getTable() == 'reissue') {
+                            $opening_balance_debit += $collection->now_agent_debit;
+                        }
+                        if ($collection->getTable() == 'refund') {
+                            $opening_balance_credit += $collection->now_agent_fere;
+                        }
+                        if ($collection->getTable() == 'voidTicket') {
+                            $opening_balance_debit += $collection->now_agent_fere;
+                        }
+                    }
+                
+                    // Operations for Supplier
+                
+                    $until_start_date_supplier_receive = Ticket::where([['supplier', $id], ['is_active', 1]])
+                        ->where('user', Auth::id())
+                        ->where('invoice_date', '<', $start_date)
+                        ->get();
+                
+                   
+                    $until_start_date_supplier_receiver = Receiver::where([
+                        ['receive_from', '=', 'supplier'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_supplier_refund = Refund::where([
+                        ['supplier', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_supplier_paymenter = Payment::where([
+                        ['receive_from', '=', 'supplier'],
+                        ['agent_supplier_id', '=', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_supplier_void_ticket = VoidTicket::where([
+                        ['user', Auth::id()],
+                        ['supplier', $id],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_supplier_reissue = ReissueTicket::where([
+                        ['supplier', $id],
+                        ['user', Auth::id()],
+                        ['date', '<', $start_date]
+                    ])->get();
+                
+                    $until_start_date_supplier_order = Order::where('user', Auth::id())
+                        ->where('supplier', $id)
+                        ->where('date', '<', $start_date)
+                        ->get();
+                
+                    $until_start_date_supplier_collections = $until_start_date_supplier_receive
+                        ->merge($until_start_date_supplier_receiver)
+                        ->merge($until_start_date_supplier_refund)
+                        ->merge($until_start_date_supplier_paymenter)
+                        ->merge($until_start_date_supplier_void_ticket)
+                        ->merge($until_start_date_supplier_reissue)
+                        ->merge($until_start_date_supplier_order);
+                
+                    foreach ($until_start_date_supplier_collections as $collection) {
+                        if ($collection->getTable() == 'order') {
+                            $opening_balance_debit += $collection->payable_amount;
+                        }
+                        if ($collection->getTable() == 'tickets') {
+                            $opening_balance_debit += $collection->supplier_price;
+                        }
+                        if ($collection->getTable() == 'payment') {
+                            $opening_balance_debit += $collection->amount;
+                        }
+                        if ($collection->getTable() == 'receive') {
+                            $opening_balance_credit += $collection->amount;
+                        }
+                        if ($collection->getTable() == 'reissue') {
+                            $opening_balance_debit += $collection->now_supplier_debit;
+                        }
+                        if ($collection->getTable() == 'refund') {
+                            $opening_balance_credit += $collection->now_supplier_fere;
+                        }
+                        if ($collection->getTable() == 'voidTicket') {
+                            $opening_balance_debit += $collection->now_supplier_fere;
+                        }
+                    }
+                }
+                
     
                 $receive = $receive->get();
                 $receiver = $receiver->get();
@@ -522,7 +773,7 @@ class GeneralLedgerController extends Controller
                 $mergedCollection = $receive->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
                 $sortedCollection = $mergedCollection->sortBy('created_at');
     
-                $balance = 0;
+                $balance = $opening_balance_credit -  $opening_balance_debit ;
                 $debit = 0;
                 $credit = 0;
                 // dd($mergedCollection);
@@ -703,8 +954,8 @@ class GeneralLedgerController extends Controller
                                                 HTML;
                     }
                 }
-                // $balance = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
-                $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
+                $balance = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
+                // $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
                 $htmlpart = ViewFacade::make('report.general_ledger.GeneralLadger', [
               
                     'start_date' => $start_date,
@@ -714,6 +965,9 @@ class GeneralLedgerController extends Controller
                     'debit' => $debit,
                     'credit' => $credit,
                     'holdername' => $supplierName,
+                    'opening_balance_debit' => $opening_balance_debit,
+                    'opening_balance_credit' => $opening_balance_credit,
+                    'opening_balance' => $opening_balance,
                    
                 ])->render();
                 return response()->json(['html' => $htmlpart]);

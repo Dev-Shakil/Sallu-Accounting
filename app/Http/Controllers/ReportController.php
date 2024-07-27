@@ -1105,139 +1105,6 @@ class ReportController extends Controller
         
     }
 
-    // public function receive_report_info(Request $request)
-    // {
-    //     $start_date = $request->input('start_date') ?? null;
-    //     $end_date = $request->input('end_date') ?? null;
-
-    //     if ($start_date) {
-    //         $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //     }
-    //     $tableName = $customerid = null;
-    //     if($request->customer){
-    //         list($tableName, $customerid) = explode('_', $request->customer);
-    //     }
-    //     if ($end_date) {
-    //         $end_date = (new DateTime($end_date))->format('Y-m-d');
-    //     }
-
-    //     $user = Auth::id();
-    //     $query1 = Receiver::leftJoin('transaction as transaction_receive', 'transaction_receive.id', '=', 'receive.method')
-    //             ->join('transaction as transaction_left', 'transaction_left.id', '=', 'receive.method');
-
-    //     if ($tableName !== null) {
-    //         $query1->join(DB::raw("$tableName as dynamicTable"), 'receive.agent_supplier_id', '=', 'dynamicTable.id')
-    //             ->where('dynamicTable.user', $user)
-    //             ->select('dynamicTable.name', 'receive.*', 'transaction_receive.name as method_name');
-    //     } else {
-    //         $query1->select('receive.*', 'transaction_receive.name as method_name');
-    //     }
-
-    //     $result = $query1->get();
-
-
-    //     // dd($result);
-    //     $html = '
-    //         <!doctype html>
-    //         <html>
-
-    //         <head>
-    //         <meta charset="UTF-8">
-    //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    //         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
-    //         <script src="https://cdn.tailwindcss.com"></script>
-    //         <script>
-    //             tailwind.config = {
-    //             theme: {
-    //                 extend: {
-    //                 colors: {
-    //                     clifford: "#da373d",
-    //                 }
-    //                 }
-    //             }
-    //             }
-    //         </script>
-    //         <style>
-
-    //         </style>
-    //         </head>
-
-    //         <body class="flex ">
-
-    //         <main class=" mx-auto w-[95%] ">
-
-    //             <div class="bg-[#23CFD3] px-7 py-3 flex justify-center gap-y-4 mb-3 shadow-2xl">
-    //                 <h2 class="text-center font-bold text-2xl">Received Report</h2>
-    //                 <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
-    //             </div>
-    //             <table class="table-auto table-striped w-full shadow-2xl">
-    //                 <thead>
-    //                 <tr class="bg-[#0E7490] text-white">
-    //                     <th class="px-2 py-2 text-left">Date</th>
-    //                     <th class="px-2 py-2 text-left">Voucher No</th>
-    //                     <th class="px-2 py-2 text-left">Receive From</th>
-    //                     <th class="px-2 py-2 text-left">Receive Mode</th>
-    //                     <th class="px-2 py-2 text-left">Narration</th>
-    //                     <th class="px-2 py-2 text-left">Amount</th>
-    //                     <th class="px-2 py-2 text-center">Actions</th>
-    //                 </tr>
-    //                 </thead>
-    //                 <tbody id="data">';
-
-    //             foreach ($result as $key => $item) :
-    //                 $printUrl = url('/receive_voucher', ['id' => $item]);
-    //                 $html .=
-    //                     '<tr class="">
-    //                                 <td class="w-[10%] px-2 py-2 text-left">' . $item->date . '</td>
-    //                                 <td class="w-[11%] px-2 py-2 text-left">' . $item->invoice . '</td>
-    //                                 <td class="w-[15%] px-2 py-2 text-left">' . $item->name . '</td>
-    //                                 <td class="w-[28%] px-4 py-2 text-left">' .
-    //                     $item->method_name .
-    //                     '</td>
-    //                                 <td class="w-[12%]  px-2 py-2 text-left">' . $item->remark . '</td>
-    //                                 <td class="w-[12%]  px-2 py-2 text-left amount">' . $item->amount . '</td>
-    //                                 <td class="px-2 py-1 text-center flex justify-center gap-2"><a href=' . $printUrl . ' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
-    //                             </tr>
-    //                             ';
-    //             endforeach;
-
-    //                     $html .= '
-
-    //                             <tr><td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
-    //                             <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
-    //                             </tr>
-    //                         </tbody>
-    //                     </table>
-    //                 </main>
-    //                 <script type="text/javascript">
-    //                 function calculateTotalAmount() {
-    //                     const amountElements = document.querySelectorAll(".amount");
-
-    //                     let totalAmount = 0;
-
-    //                     amountElements.forEach(element => {
-    //                         // Parse the text content of the element to get the numeric value
-    //                         const amount = parseFloat(element.textContent.replace(/,/g, ""));
-    //                         // Add the amount to the total
-    //                         totalAmount += amount;
-    //                     });
-
-    //                     var formattedAmount = totalAmount.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    //                     document.getElementById("total_amount").innerHTML = formattedAmount;
-
-    //                     console.log("Total amount:", totalAmount);
-    //                 }
-
-    //                 calculateTotalAmount();
-    //             </script>
-    //         <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
-    //         </body>
-
-    //         </html>
-    //     ';
-
-    //             return $html;
-    // }
     public function receive_report_info(Request $request)
     {
         if(Auth::user()){
@@ -1457,145 +1324,7 @@ class ReportController extends Controller
         }
      
     }
-    public function payment_report_info1(Request $request)
-    {
-        if(Auth::user()){
-            $start_date = $request->input('start_date') ?? null;
-            $end_date = $request->input('end_date') ?? null;
     
-            if ($start_date) {
-                $start_date = (new DateTime($start_date))->format('Y-m-d');
-            }
-            $tableName = $customerid = null;
-            if ($request->customer != null) {
-                list($tableName, $customerid) = explode('_', $request->customer);
-            }
-    
-            if ($end_date) {
-                $end_date = (new DateTime($end_date))->format('Y-m-d');
-            }
-    
-            $user = Auth::id();
-            $query1 = Payment::leftjoin(DB::raw("$tableName as dynamicTable"), 'payment.agent_supplier_id', '=', 'dynamicTable.id')
-                ->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'payment.method');
-    
-            if ($tableName !== null) {
-                $query1->where('dynamicTable.user', $user)
-                    ->select('dynamicTable.name', 'payment.*', 'transaction_left.name as method_name');
-            } else {
-                $query1->select('payment.*', 'transaction_left.name as method_name');
-            }
-    
-            $result = $query1->get();
-    
-            // dd($result);
-            $html = '
-                <!doctype html>
-                <html>
-                
-                <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
-                <script src="https://cdn.tailwindcss.com"></script>
-                <script>
-                    tailwind.config = {
-                    theme: {
-                        extend: {
-                        colors: {
-                            clifford: "#da373d",
-                        }
-                        }
-                    }
-                    }
-                </script>
-                <style>
-                
-                </style>
-                </head>
-                
-                <body class="flex ">
-                
-                <main class=" mx-auto w-[95%] ">
-                
-                    <div class="bg-[#23CFD3] px-7 py-3 flex justify-center gap-y-4 mb-3 shadow-2xl">
-                        <h2 class="text-center font-bold text-2xl">Payment Report</h2>
-                        <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
-                    </div>
-                    <table class="table-auto table-striped w-full shadow-2xl">
-                        <thead>
-                        <tr class="bg-[#0E7490] text-white">
-                        
-                            <th class="px-2 py-2 text-left">Date</th>
-                            <th class="px-2 py-2 text-left">Voucher No</th>
-                            <th class="px-2 py-2 text-left">Payment From</th>
-                            <th class="px-2 py-2 text-left">Payment Mode</th>
-                            <th class="px-2 py-2 text-left">Narration</th>
-                            <th class="px-2 py-2 text-left">Amount</th>
-                            <th class="px-2 py-2 text-center">Actions</th>
-                        </tr>
-                       
-                        </thead>
-                        <tbody id="data">';
-            foreach ($result as $key => $item) :
-                $printUrl = url('/payment_voucher', ['id' => $item->id]);
-                $deleteUrl = url('/delete_payment', ['id' => $item->id]);
-                $html .=
-                    '<tr class="">
-                                    <td class="w-[10%] px-2 py-2 text-left">' . $item->date . '</td>
-                                    <td class="w-[11%] px-2 py-2 text-left">' . $item->invoice . '</td>
-                                    <td class="w-[15%] px-2 py-2 text-left">' . $item->name . '</td>
-                                    <td class="w-[28%] px-4 py-2 text-left">' .
-                    $item->method .
-                    '</td>
-                                    <td class="w-[12%]  px-2 py-2 text-left">' . $item->remark . '</td>
-                                    <td class="w-[12%]  px-2 py-2 text-left amount">' . $item->amount . '</td>
-                                    <td class="px-2 py-1 text-center flex justify-center gap-2"><a href=' . $printUrl . ' class="bg-green-700 text-white px-3 rounded-md text-sm">Print</a><a href ='.$deleteUrl.'<button type="button" class="bg-stone-700 text-white px-3 rounded-md text-sm">Edit</button></td>
-                                </tr>
-                                ';
-            endforeach;
-    
-            $html .= '
-    
-                            <tr><td class="px-4 py-2 text-left" colspan="5">Total Amount </td>
-                            <td class="ml-5 font-bold text-xl px-2 " id="total_amount"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </main>
-                <script type="text/javascript">
-                function calculateTotalAmount() {
-                    const amountElements = document.querySelectorAll(".amount");
-            
-                    let totalAmount = 0;
-            
-                    amountElements.forEach(element => {
-                        // Parse the text content of the element to get the numeric value
-                        const amount = parseFloat(element.textContent);
-                        // Add the amount to the total
-                        totalAmount += amount;
-                    });
-            
-                    var formattedAmount = totalAmount.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-                    document.getElementById("total_amount").innerHTML = formattedAmount;
-            
-                    console.log("Total amount:", totalAmount);
-                }
-            
-                calculateTotalAmount();
-            </script>
-                </body>
-                
-                </html>
-            ';
-    
-            return $html;
-        }
-        else{
-            return view('welcome');
-        }
-      
-    }
     public function payment_report_info(Request $request)
     {
 
@@ -1693,6 +1422,7 @@ class ReportController extends Controller
                     <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
             $printUrl = url('/payment_voucher', ['id' => $item->id]);
+            $deleteUrl = url('/delete_payment', ['id' => $item]);
             $html .= <<<HTML
                             <tr class="">
                                 <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
@@ -1704,7 +1434,7 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><button type="button" class=" text-black rounded-md text-md"><i class="fa fa-pencil fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
                             </tr>
                             HTML;
         endforeach;
@@ -4670,6 +4400,79 @@ class ReportController extends Controller
         }
         else{
             return view('welcome');
+        }
+    }
+
+    public function income_statement_view(){
+        if(Auth::user()){
+            return view('report.income_statement.index');
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+    public function income_statement_report(Request $request){
+        if(Auth::user()){
+            $start_date = $request->input('start_date') ?? null;
+            $end_date = $request->input('end_date') ?? null;
+
+            $ticketsQuery = Ticket::where('is_delete', 0)
+                      ->where('is_active', 1);
+
+            if ($start_date && $end_date) {
+                $ticketsQuery->whereBetween('created_at', [$start_date, $end_date]);
+            } elseif ($start_date) {
+                $ticketsQuery->where('created_at', '>=', $start_date);
+            } elseif ($end_date) {
+                $ticketsQuery->where('created_at', '<=', $end_date);
+            }
+
+            $tickets = $ticketsQuery->get();
+
+            // Fetch orders with optional date range filtering
+            $ordersQuery = Order::where('is_active', 1)
+                                ->where('is_delete', 0);
+
+            if ($start_date && $end_date) {
+                $ordersQuery->whereBetween('created_at', [$start_date, $end_date]);
+            } elseif ($start_date) {
+                $ordersQuery->where('created_at', '>=', $start_date);
+            } elseif ($end_date) {
+                $ordersQuery->where('created_at', '<=', $end_date);
+            }
+
+            $orders = $ordersQuery->get();
+
+            $ticket_total_purchase = $tickets->sum('supplier_price');
+            $ticket_total_sell = $tickets->sum('agent_price');
+
+            $order_total_purchase = $orders->sum('payable_amount');
+            $order_total_sell = $orders->sum('contact_amount');
+            
+            $total_purchase = $ticket_total_purchase + $order_total_purchase;
+            $total_sell = $ticket_total_sell + $order_total_sell;
+
+            $profit = $total_sell - $total_purchase;
+
+            $html = ViewFacade::make('report.income_statement.IncomeStatement', [
+              
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+               
+                'total_purchase' => $total_purchase,
+                'total_sell' => $total_sell,
+                'profit' => $profit,
+                'ticket_total_purchase' => $ticket_total_purchase,
+                'ticket_total_sell' => $ticket_total_sell,
+                'order_total_purchase' => $order_total_purchase,
+                'order_total_sell' => $order_total_sell,
+              
+            ])->render();
+            
+            return response()->json(['html' => $html]);
+            // return view('report.income_statement.thumbnails.1', compact('total_purchase', 'total_sell', 'profit', 'ticket_total_purchase', 'ticket_total_sell', 'order_total_purchase', 'order_total_sell'));
+            
         }
     }
 }

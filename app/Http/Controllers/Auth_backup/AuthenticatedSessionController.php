@@ -51,8 +51,6 @@ class AuthenticatedSessionController extends Controller
         $password = $request->password;
         $userId = $request->user;
         
-        
-       
         // $emp = Employee::where('email', $email)
         //     ->where('name', 'like', '%' . $userId . '%')
         //     ->first();

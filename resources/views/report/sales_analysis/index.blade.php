@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="container-fluid">
+    <div class=" bg-white shadow-lg px-4 py-2 ">
         <form id="reportForm" action="{{ route('sales_analysis_report') }}" method="POST">
             @csrf
-            <div class="row">
+            <div class="flex items-center">
                
                 <div class="form-group col-md-3">
                     <label for="start_date">Start Date</label>
@@ -25,16 +25,16 @@
         </form>
   </div>
 
+  <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+        
+    <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
     
+    <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
+</div> 
   <main class="flex-1 mx-auto max-w-7xl px-10">
   
    
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
-        <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
-    </div> 
+    
 
         <!-- <p class="">From Date : 14-09-2024 </p> -->
     <div class="reportdiv mt-5" id="reportdiv">

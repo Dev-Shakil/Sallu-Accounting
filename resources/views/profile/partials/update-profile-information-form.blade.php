@@ -58,7 +58,7 @@
         </div>
         <div>
           
-            <x-input-label for="company_logo" :value="__('company_logo')" />
+            <x-input-label for="company_logo" :value="__('Company Logo')" />
             <input type="file" id="company_logo" name="company_logo" class="mt-1 w-full hidden">
             <x-input-error class="mt-2" :messages="$errors->get('company_logo')" />
             

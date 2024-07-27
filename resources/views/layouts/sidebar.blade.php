@@ -689,7 +689,7 @@
                                 </x-nav-link>
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
+                                <x-nav-link :href="route('income_statement.index')" :active="request()->routeIs('income_statement.index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -807,7 +807,7 @@
                             </x-nav-link>
                         </li>
                         <li class=" font-semibold">
-                            <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
+                            <x-nav-link :href="route('changePass')" :active="request()->routeIs('changePass')">
                                 <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

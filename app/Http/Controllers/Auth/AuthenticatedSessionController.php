@@ -76,16 +76,19 @@ class AuthenticatedSessionController extends Controller
 
     public function store_emp(Request $request)
     {
+        // dd($request->all());
         $email = $request->email;
         $password = $request->password;
-        $userId = $request->user;
+        $userId = User::where('name', 'LIKE', $request->company)->value('id'); 
     
         // Retrieve the user by email
         $emp = Employee::where([
             ['email', $email],
             ['user', $userId]
         ])->first();
-        // dd(md5($password));
+
+
+        // dd(md5($password), $emp, $userId);
         // Check if the user exists and the password is correct
         if ($emp) {
             // Check if the user ID matches

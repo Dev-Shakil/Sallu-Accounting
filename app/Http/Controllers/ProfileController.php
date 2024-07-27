@@ -27,17 +27,18 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        // dd(" dkk");
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        // if ($request->user()->hasFile('company_logo')) {
-        //     $logo = $request-user()->file('company_logo');
-        //     $logo->move(public_path('company_logo'), $logo->getClientOriginalName());
-        //     $request->user()->company_logo = 'company_logo/' . $logo->getClientOriginalName();
-            
-        // }    
+        if ($request->hasFile('company_logo')) {
+            // dd("652");
+            $logo = $request->file('company_logo');
+            $logoPath = $logo->storeAs('company_logo', $logo->getClientOriginalName(), 'public');
+            $request->user()->company_logo = $logoPath;
+        }
 
         $request->user()->save();
 

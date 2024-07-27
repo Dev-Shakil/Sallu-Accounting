@@ -52,12 +52,12 @@
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="flex items-center">
-                    <label for="email" class="w-1/2  mr-4">E-mail ID <stong class="text-red-600 text-2xl">*</strong></label>
+                    <label for="email" class="w-1/2  mr-4">E-mail ID</label>
                     <input type="email" id="email" name="email"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="flex items-center">
-                    <label for="password" class="w-1/2  mr-4">Password <stong class="text-red-600 text-2xl">*</strong></label>
+                    <label for="password" class="w-1/2  mr-4">Password</label>
                     <input type="password" id="password" name="password"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="flex items-center">
                     <label for="salary" class="w-1/2  mr-4">Salary</label>
-                    <input type="number" id="salary" name="salary"
+                    <input type="number" id="salary" required name="salary"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="flex items-start">
@@ -130,6 +130,7 @@
                     <th scope="col" class="px-4 py-2 ">Designation</th>
                     <th scope="col" class="px-4 py-2 ">Phone</th>
                     <th scope="col" class="px-4 py-2 ">Email</th>
+                    <th scope="col" class="px-4 py-2 ">Salary</th>
                     
                     <th scope="col" class="px-4 py-2 flex justify-center">Action</th>
                 </tr>
@@ -142,6 +143,7 @@
                         <td class="px-4 py-2 ">{{ $employee->designation }}</td>
                         <td class="px-4 py-2 ">{{ $employee->phone }}</td>
                         <td class="px-4 py-2 ">{{ $employee->email }}</td>
+                        <td class="px-4 py-2 ">{{ $employee->salary }}</td>
                         <td class="px-4 py-2 flex justify-center">
                             <a href="#" class="editEmployee" data-id="{{ $employee->id }}"><i class="text-xl fa fa-pencil fa-fw"></i></a>
                             <a href="{{ route('stuff.delete', ['id' => $employee->id]) }}" class=""><i class="text-xl fa fa-trash-o fa-fw"></i></a>
@@ -183,6 +185,14 @@
                             <label for="email" class="w-1/2  mr-4">E-mail ID <stong class="text-red-600 text-2xl">*</strong></label>
                             <input type="email" id="empemail" name="email"
                                 class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                        <div class="flex items-center">
+                            <button id="showPasswordButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Show Password Field</button>
+                        </div>
+                        <div id="passwordFieldContainer" class="items-center hidden">
+                            <label for="password" class="w-1/2  mr-4">Password <stong class="text-red-600 text-2xl">*</strong></label>
+                            <input type="text" id="emppassword" name="password"
+                                class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Type new password ">
                         </div>
                         <div class="flex items-center">
                             <label for="address" class="w-1/2  mr-4">Address</label>
@@ -307,5 +317,12 @@
                 addStuff.style.display = 'none';
             }
         }
+        document.getElementById('showPasswordButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('passwordFieldContainer').classList.remove('hidden');
+            document.getElementById('passwordFieldContainer').classList.add('flex');
+            this.style.display = 'none'; // Hide the button after clicking
+        });
     </script>
+    
 </x-app-layout>

@@ -7,26 +7,43 @@
         @endif
         <h1 class="mb-4 w-[100%] lg:w-[100%] font-bold text-2xl">Change Password</h1>
 
-        <div class="change_password w-[100%] lg:w-[100%] bg-white p-5 shadow-lg rounded-lg">
-            <form action="/change_password" method="post" class="flex gap-14 flex-col">
-                @csrf <!-- Add this line to include CSRF protection in Laravel -->
-                <div class="flex flex-col w-[80%] gap-y-2">
-                    <div class="flex gap-3 items-center">
-                        <label for="name" class="w-[40%] font-semibold">Current Password <span class="text-red-500 font-bold text-xl">*</span></label>
-                        <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Current Password" required>
-                    </div>
-                    <div class="flex gap-3 items-center">
-                        <label for="name" class="w-[40%] font-semibold">New Password <span class="text-red-500 font-bold text-xl">*</span></label>
-                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password" required>
-                    </div>
-                    <div class="flex gap-3 items-center">
-                        <label for="name" class="w-[40%] font-semibold">Confirm Password <span class="text-red-500 font-bold text-xl">*</span></label>
-                        <input type="password" class="form-control" id="c_password" name="c_password" placeholder="Confirm Password" required>
-                    </div>
+        <div class="change_password w-[60%] lg:w-[40%] bg-white p-5 shadow-lg rounded-lg">
+            
+            <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+                @csrf
+                @method('put')
+        
+                <div>
+                    <x-input-label for="current_password" :value="__('Current Password')" />
+                    <x-text-input id="current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
+                    <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                 </div>
-                <div class="flex justify-end">
-                <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white h-[40px]">Submit</button>
-                </dvi>
+        
+                <div>
+                    <x-input-label for="password" :value="__('New Password')" />
+                    <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                    <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+                </div>
+        
+                <div>
+                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                    <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+                </div>
+        
+                <div class="flex items-center gap-4">
+                    <x-primary-button>{{ __('Save') }}</x-primary-button>
+        
+                    @if (session('status') === 'password-updated')
+                        <p
+                            x-data="{ show: true }"
+                            x-show="show"
+                            x-transition
+                            x-init="setTimeout(() => show = false, 2000)"
+                            class="text-sm text-gray-600 dark:text-gray-400"
+                        >{{ __('Saved.') }}</p>
+                    @endif
+                </div>
             </form>
         </div>
 

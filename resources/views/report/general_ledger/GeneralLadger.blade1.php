@@ -1,4 +1,4 @@
-<!Doctype html>
+<!doctype html>
 <html>
 
 <head>
@@ -17,7 +17,7 @@
       }
     }
   </script>
-  {{-- <style>
+  <style>
     .hide-scroll-bar {
       -ms-overflow-style: none;
       scrollbar-width: none;
@@ -26,7 +26,7 @@
     .hide-scroll-bar::-webkit-scrollbar {
       display: none;
     }
-  </style> --}}
+  </style>
 </head>
 
 <body class="flex">
@@ -49,7 +49,6 @@
             </div>
         </div>
         <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
-        
             <thead>
               <tr class="border-y-2 border-black">
                 <th class="text-start">Date</th>
@@ -61,19 +60,11 @@
                 <th class="">Balance</th>
               </tr>
             </thead>
-            <thead class="mt-4">
-              <tr class="border-b border-black">
-                <td class="py-2" colspan="4"><b>Opening balance</b></td>
-                <td class="py-2"><b> </b></td>
-                <td class="py-2"><b> </b></td>
-                <td class="py-2" style="margin-top: 20px;"><b>{{  $opening_balance_debit - $opening_balance_credit }}</b></td></tr>
-            </thead>
             <tbody class="divide-y-2">
               
               {!! $html !!}
             </tbody>
-            
-            <tfoot class="border-t border-gray-300 px-4">
+            <tfoot>
               <tr>
                   <td colspan="4">Total</td>
                   <td><b>{{ $debit }}</b></td>

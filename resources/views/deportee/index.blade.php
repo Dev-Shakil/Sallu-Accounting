@@ -10,10 +10,9 @@
         {{ session('success') }}
     </div>
 @endif
-    <h2
-      class="text-4xl py-4 flex justify-center font-extrabold bg-[#01919A] text-white"
-    >
-      Deportee Invoicing
+    <h2 class="text-2xl py-4 flex lg:w-3/4 w-full mx-auto font-bold
+    px-2  text-gray-900">
+        Deportee Invoicing
     </h2>
     <div class="flex bg-gray-50 flex-col justify-center items-center p-6 rounded-lg shadow-lg lg:w-3/4 w-full mx-auto my-2">
       

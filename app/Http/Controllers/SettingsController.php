@@ -22,6 +22,17 @@ class SettingsController extends Controller
         }
         
     }
+    public function change_password()
+    {
+        if(Auth::user()){
+            $user = Auth::id();
+            return view('settings.change_password.index');
+        }
+        else{
+            return view('welcome');
+        }
+        
+    }
     public function edit_company_profile()
     {
         if(Auth::user()){

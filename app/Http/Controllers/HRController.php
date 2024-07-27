@@ -81,7 +81,13 @@ class HrController extends Controller
             $employee->salary = $request->salary;
             $employee->user = Auth::id();
             
-            $permissionsString = implode(',', $request->permissions);
+            if (is_string($request->permissions)) {
+                $permissions = explode(',', $request->permissions);
+            } else {
+                $permissions = is_array($request->permissions) ? $request->permissions : [];
+            }
+            
+            $permissionsString = implode(',', $permissions);
             // dd($permissionsString);
             $employee->permission = $permissionsString;
             $employee->password = md5($request->password);
@@ -154,8 +160,19 @@ class HrController extends Controller
             $employee->email = $request->email;
             $employee->address = $request->address;
             $employee->salary = $request->salary;
+
+            if (is_string($request->permissions)) {
+                $permissions = explode(',', $request->permissions);
+            } else {
+                $permissions = is_array($request->permissions) ? $request->permissions : [];
+            }
+            
+            $permissionsString = implode(',', $permissions);
+
+            if ($request->password !== null && $request->password != "") {
+                $employee->password = md5($request->password);
+            }
         
-            $permissionsString = implode(',', $request->permissions);
             // dd($permissionsString);
             $employee->permission = $permissionsString;
             // Save the updated airline record
