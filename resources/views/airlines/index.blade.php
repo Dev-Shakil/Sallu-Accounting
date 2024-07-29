@@ -43,7 +43,7 @@
         </div>
     
         <div class="allagents mt-8 shadow-lg bg-white p-3 rounded-lg">
-            <table class="table table-striped table-hover no-wrap" id="agenttable">
+            <table class="table table-hover no-wrap" id="agenttable">
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2">Serial</th>

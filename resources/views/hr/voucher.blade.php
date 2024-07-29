@@ -1,13 +1,13 @@
 <x-app-layout>
 
-    <div
-        class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
-        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
-        <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
-        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
-    </div>
-    <div id="printSection" class="bg-white py-10">
-        <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
+    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+        
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
+        
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
+    </div> 
+    <div id="printSection" class=" py-10">
+        <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
                 <img class="" src="{{ asset(Auth::user()->company_logo) }}" alt="Company Logo" height="150px" width="180px" />
@@ -162,4 +162,19 @@
             </div>
         </div>
     </div>
+    <script>
+        // Function to print the content of the reportdiv
+        function printReport() {
+            var printContents = document.getElementById("printSection").innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    
+        // Add event listener to the "Print" button
+        document.querySelector("#printButton").addEventListener("click", function() {
+            printReport();
+        });
+    </script>
 </x-app-layout>

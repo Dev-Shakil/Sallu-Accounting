@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="bg-white shadow-md p-6 w-[100%] mx-auto">
-            <table class="table divide-y divide-gray-200 table-hover table-striped" id="suppliertable">
+            <table class="table divide-y divide-gray-200 table-hover" id="suppliertable">
                 <thead class="bg-[#7CB0B2]">
                     <tr>
                         <th class="px-4 py-2 ">SL</th>

@@ -228,7 +228,7 @@
 
 
 
-        <table class="table table-striped table-hover no-wrap " id="typetable">
+        <table class="table table-hover no-wrap " id="typetable">
                 <thead class="bg-[#5dc8cc]">
                     <tr>
                         <th scope="col" class="px-4 py-2 ">Serial</th>

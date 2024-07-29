@@ -1197,8 +1197,8 @@ class ReportController extends Controller
                     </thead>
                     <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
-            $printUrl = url('/receive_voucher', ['id' => $item]);
-            $deleteUrl = url('/delete_receive', ['id' => $item]);
+            $printUrl = url('/receive_voucher', ['id' => $item->id]);
+            $deleteUrl = url('/delete_receive', ['id' => $item->id]);
             $html .= <<<HTML
                             <tr class="">
                                 <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
@@ -1210,7 +1210,11 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a>
+                                <button type="button" class="deleteBtn text-black rounded-md text-md text-danger" data-url='$deleteUrl'>
+                                    <i class="fa fa-trash fa-fw text-md"></i>
+                                </button>
+                                </td>
                             </tr>
                             HTML;
         endforeach;
@@ -1240,7 +1244,32 @@ class ReportController extends Controller
                     console.log("Total amount:", totalAmount);
                 }
                 calculateTotalAmount();
-                
+                $(document).ready(function(){
+                $(".deleteBtn").click(function(event){
+                    event.preventDefault(); // Prevent the default action of the button
+                    const deleteUrl = $(this).data("url");
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won\'t be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your item has been deleted.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirect to the delete URL
+                                window.location.href = deleteUrl;
+                            });
+                        }
+                    });
+                });
+            });
                 
             </script>
         ';
@@ -1325,7 +1354,7 @@ class ReportController extends Controller
      
     }
     
-    public function payment_report_info(Request $request)
+    public function payment_report_info_1(Request $request)
     {
 
         // dd($request->all());
@@ -1421,7 +1450,7 @@ class ReportController extends Controller
                     </thead>
                     <tbody id="data" class="divide-y divide-gray-500">';
         foreach ($result as $key => $item) :
-            $printUrl = url('/payment_voucher', ['id' => $item->id]);
+            $printUrl = url('/payment_voucher', ['id' => $item]);
             $deleteUrl = url('/delete_payment', ['id' => $item]);
             $html .= <<<HTML
                             <tr class="">
@@ -1434,7 +1463,11 @@ class ReportController extends Controller
                                 <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
                                 <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
                                 <!-- <td class="w-[12%] text-center"> $item->previous_amount  Dr</td> -->
-                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href='$deleteUrl'><button type="button" class=" text-black rounded-md text-md text-danger"><i class="fa fa-trash fa-fw text-md"></i></button></td>
+                                <td class="px-2 py-1 text-center flex justify-center gap-2"><a href='$printUrl' class=" text-black  rounded-md text-md"><i class="fa fa-fw fa-print text-md"></i></a><a href=''>
+                                <button type="button" id="deleteBtn" class="text-black rounded-md text-md text-danger">
+                                    <i class="fa fa-trash fa-fw text-md"></i>
+                                </button>
+                                </a></td>
                             </tr>
                             HTML;
         endforeach;
@@ -1467,10 +1500,217 @@ class ReportController extends Controller
                     console.log("Total amount:", totalAmount);
                 }
                 calculateTotalAmount();
+                $(document).ready(function(){
+                    $("#deleteBtn").click(function(event){
+                        event.preventDefault(); // Prevent the default action of the button
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won\'t be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your item has been deleted.",
+                                    icon: "success"
+                                }).then(() => {
+                                    // Redirect to the delete URL
+                                    window.location.href = "'.$deleteUrl.'";
+                                });
+                            }
+                        });
+                    });
+                });
                 
                 
             </script>
+           
         ';
+
+        return $html;
+        }
+        else{
+            return view('welcome');
+        }
+
+    }
+    public function payment_report_info(Request $request)
+    {
+
+        // dd($request->all());
+        if(Auth::user()){
+            
+        $start_date = $request->input('start_date') ?? null;
+        $end_date = $request->input('end_date') ?? null;
+
+        $tableName = $customerid = null;
+        if ($request->customer != null) {
+            list($tableName, $customerid) = explode('_', $request->customer);
+        }
+
+        if ($start_date) {
+            $start_date = (new DateTime($start_date))->format('Y-m-d');
+        }
+
+        if ($end_date) {
+            $end_date = (new DateTime($end_date))->format('Y-m-d');
+        }
+
+        $user = Auth::id();
+
+        $query1 = Payment::where('payment.user', $user);
+
+        if ($tableName !== null) {
+            $query1->where('receive_from', $tableName);
+        }
+
+        if ($customerid !== null) {
+            $query1->where('agent_supplier_id', $customerid);
+        }
+
+        if ($request->method !== null) {
+            $query1->where('method', $request->method);
+        }
+
+        if ($start_date !== null && $end_date !== null) {
+            $query1->whereBetween('date', [$start_date, $end_date]);
+        } elseif ($start_date !== null) {
+            $query1->whereDate('date', '>=', $start_date);
+        } elseif ($end_date !== null) {
+            $query1->whereDate('date', '<=', $end_date);
+        }
+
+        $query1->leftJoin('transaction as transaction_left', 'transaction_left.id', '=', 'payment.method');
+
+        if ($tableName !== null) {
+            $query1->leftJoin(DB::raw("$tableName as dynamicTable"), 'payment.agent_supplier_id', '=', 'dynamicTable.id')
+                ->where('dynamicTable.user', $user)
+                ->select('dynamicTable.name', 'payment.*', 'transaction_left.name as method_name');
+        } else {
+            $query1->select('payment.*', 'transaction_left.name as method_name');
+        }
+
+        $result = $query1->get();
+
+        if ($tableName === null && $customerid === null) {
+            // dd('mk');
+            foreach ($result as $row) {
+                if ($row->receive_from == 'agent' || $row->receive_from == 'Agent') {
+                    $row->name = Agent::where('id', $row->agent_supplier_id)->value('name');
+                } else {
+                    $row->name = Supplier::where('id', $row->agent_supplier_id)->value('name');
+                }
+            }
+        }
+
+
+        // dd($result);
+        $html = '
+        <main class=" mx-auto w-[95%] ">
+            <div class=" py-3 flex gap-y-4 mb-3">
+                <h2 class=" font-bold text-2xl">Payment Report</h2>
+                <!-- <button type="button" class="text-md bg-white px-3 font-medium rounded">Print</button> -->
+            </div>
+            <table class="table-auto w-full shadow-2xl">
+                <thead>
+                <tr class="bg-[#0E7490] text-white">
+                    <th class="px-4 py-2 text-md text-left">Date</th>
+                    <th class="px-4 py-2 text-md text-left">Voucher No</th>
+                    <th class="px-4 py-2 text-md text-left">Payment From</th>
+                    <th class="px-4 py-2 text-md text-left">Payment Mode</th>
+                    <th class="px-4 py-2 text-md text-left">Narration</th>
+                    <th class="px-4 py-2 text-md text-left">Amount</th>
+                    <th class="px-4 py-2 text-md text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody id="data" class="divide-y divide-gray-500">';
+
+        foreach ($result as $key => $item) {
+            $printUrl = url('/payment_voucher', ['id' => $item->id]);
+            $deleteUrl = url('/delete_payment', ['id' => $item->id]);
+
+            $html .= <<<HTML
+                <tr class="">
+                    <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
+                    <td class="w-[11%] px-4 py-2 text-sm text-left"> $item->invoice </td>
+                    <td class="w-[15%] px-4 py-2 text-sm text-left"> $item->name </td>
+                    <td class="w-[28%] px-4 py-2 text-sm text-left">
+                    $item->method_name
+                    </td>
+                    <td class="w-[12%] px-4 py-2 text-sm text-left"> $item->remark </td>
+                    <td class="w-[12%] px-4 py-2 text-sm text-left amount">$item->amount</td>
+                    <td class="px-2 py-1 text-center flex justify-center gap-2">
+                        <a href='$printUrl' class=" text-black rounded-md text-md">
+                            <i class="fa fa-fw fa-print text-md"></i>
+                        </a>
+                        <button type="button" class="deleteBtn text-black rounded-md text-md text-danger" data-url='$deleteUrl'>
+                            <i class="fa fa-trash fa-fw text-md"></i>
+                        </button>
+                    </td>
+                </tr>
+            HTML;
+        }
+
+        $html .= '
+                <tr>
+                    <td class="px-4 py-2 text-left font-bold" colspan="3"></td>
+                    <td class="px-4 py-2 text-left font-bold" colspan="2">Total Amount </td>
+                    <td class="ml-5 font-bold text-md px-2 " id="total_amount"></td>
+                </tr>
+            </tbody>
+        </table>
+        </main>
+        <script type="text/javascript">
+            function calculateTotalAmount() {
+                const amountElements = document.querySelectorAll(".amount");
+            
+                let totalAmount = 0;
+                
+                amountElements.forEach(element => {
+                    // Parse the text content of the element to get the numeric value
+                    const amount = parseFloat(element.textContent);
+                    // Add the amount to the total
+                    totalAmount += amount;
+                });
+                document.getElementById("total_amount").innerHTML = totalAmount;
+                
+                console.log("Total amount:", totalAmount);
+            }
+            calculateTotalAmount();
+            $(document).ready(function(){
+                $(".deleteBtn").click(function(event){
+                    event.preventDefault(); // Prevent the default action of the button
+                    const deleteUrl = $(this).data("url");
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won\'t be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your item has been deleted.",
+                                icon: "success"
+                            }).then(() => {
+                                // Redirect to the delete URL
+                                window.location.href = deleteUrl;
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+        ';
+
+
 
         return $html;
         }
@@ -4414,11 +4654,15 @@ class ReportController extends Controller
 
     public function income_statement_report(Request $request){
         if(Auth::user()){
+            $user = Auth::id();
+
             $start_date = $request->input('start_date') ?? null;
             $end_date = $request->input('end_date') ?? null;
 
+            // Fetch orders with optional date range filtering
             $ticketsQuery = Ticket::where('is_delete', 0)
-                      ->where('is_active', 1);
+            ->where('is_active', 1)
+            ->where('user', $user); // Add user check here
 
             if ($start_date && $end_date) {
                 $ticketsQuery->whereBetween('created_at', [$start_date, $end_date]);
@@ -4432,7 +4676,8 @@ class ReportController extends Controller
 
             // Fetch orders with optional date range filtering
             $ordersQuery = Order::where('is_active', 1)
-                                ->where('is_delete', 0);
+            ->where('is_delete', 0)
+            ->where('user', $user); // Add user check here
 
             if ($start_date && $end_date) {
                 $ordersQuery->whereBetween('created_at', [$start_date, $end_date]);
@@ -4473,6 +4718,9 @@ class ReportController extends Controller
             return response()->json(['html' => $html]);
             // return view('report.income_statement.thumbnails.1', compact('total_purchase', 'total_sell', 'profit', 'ticket_total_purchase', 'ticket_total_sell', 'order_total_purchase', 'order_total_sell'));
             
+        }
+        else{
+            return view('welcome');
         }
     }
 }

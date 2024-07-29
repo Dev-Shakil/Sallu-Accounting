@@ -494,7 +494,7 @@
                     
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="flight_no" class="w-[50%]">Flight No</label>
-                        <input type="text" id="flight_no"
+                        <input type="text" id="flight_no_single"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                             name="flight_no">
                     </div>
@@ -952,7 +952,7 @@
                     success: function(response) {
                         if (response.message == 'Success') {
                             $('#airlines_name').val(response.airline.Full).trigger('change');
-
+                            $('#flight_no').val(response.airline.Short + "-");
                             $('#airlines_code').val(response.airline.Short);
 
                         
@@ -986,7 +986,7 @@
                         if (response.message == 'Success') {
                           
                             $('#airlines_name_single').val(response.airline.Full).trigger('change');
-
+                            $('#flight_no_single').val(response.airline.Short + "-");
                             $('#airlines_code_single').val(response.airline.Short);
                         } else {
                             alert(response.message);
@@ -1016,6 +1016,7 @@
                         if (response.message == 'Success') {
                             $('#airlines_name').val(response.airline.Full);
                             $('#airlines_code').val(response.airline.Short);
+                            $('#flight_no').val(response.airline.Short + "-");
                             $('#ticket_code').val(response.airline.ID);
 
                         } else {
@@ -1047,6 +1048,7 @@
                            
                             $('#airlines_name_single').val(response.airline.Full);
                             $('#airlines_code_single').val(response.airline.Short);
+                            $('#flight_no_single').val(response.airline.Short + "-");
                             $('#ticket_code_single').val(response.airline.ID);
                         } else {
                             alert(response.message);
