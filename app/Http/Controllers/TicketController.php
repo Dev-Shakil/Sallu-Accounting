@@ -102,6 +102,7 @@ class TicketController extends Controller
                 $ticket->class_code = $request['class_code'];
                 $ticket->person = $request['person'];
                 $ticket->invoice_date = $request['invoice_date'];
+                $ticket->date = $request['invoice_date'];
                 $ticket->invoice = $request['invoice_no'];
                 $ticket->ticket_no = $ticketNumber;
                 $ticket->sector = $request['sector'];
@@ -242,6 +243,7 @@ class TicketController extends Controller
                     $ticket->class_code = $request['class_code'];
                     $ticket->person = $request['person'];
                     $ticket->invoice_date = $request['invoice_date'];
+                    $ticket->date = $request['invoice_date'];
                     $ticket->invoice = $request['invoice_no'];
                     $ticket->ticket_no = $request['ticket_no'];
                     $ticket->sector = $request['sector'];
@@ -341,6 +343,8 @@ class TicketController extends Controller
         }
     
     }
+
+   
 
     public function edit($id)
     {
