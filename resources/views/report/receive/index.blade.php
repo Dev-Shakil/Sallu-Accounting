@@ -3,7 +3,12 @@
         <form id="reportForm" action="{{ route('receive_report_info') }}" method="POST">
             @csrf
             <div class="flex items-center gap-x-5 py-2">
-                
+                <div class="w-[250px]">
+                    <label for="voucher">Invoice</label>
+                    <div class="input-group " style="width: 100%">
+                        <input type="text" class="form-control" name="voucher" id="voucher" placeholder="Receive Voucher" />
+                    </div>   
+                </div>
                 <div class="w-fit">
                     <label for="start_date">Start Date</label>
                     <div class="input-group date" style="width: 100%">

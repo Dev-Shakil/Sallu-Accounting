@@ -6,13 +6,14 @@
         <button id="printBtn" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
         <button onclick="goBack()" class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Go Back</button>
     </div>
-    <div id="printSection" class=" py-5">
-        <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-7">
+    <div id="printSection" class="">
+        <div class="flex-1 mt-3 mx-auto max-w-[1100px] bg-white shadow-3xl border-gray-200 px-3 py-2 pb-7">
 
             <div class="flex justify-between items-center pb-2">
                 <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>
                 <div class="w-[350px]">
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
                     <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
                     <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
@@ -185,7 +186,7 @@
             </div>
         </div>
         <div
-            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-5 pt-7">
+            class="flex-1 mx-auto max-w-[1100px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-3 py-3 pt-5">
 
             <div class="flex justify-between items-center pb-2">
                 <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>

@@ -4,11 +4,18 @@
             @csrf
             <div class="flex items-center gap-x-5 py-2">
                 
+                <div class="w-[250px]">
+                    <label for="voucher">Invoice</label>
+                    <div class="input-group " style="width: 100%">
+                        <input type="text" class="form-control" name="voucher" id="voucher" placeholder="Payment Voucher" />
+                    </div>   
+                </div>
                 <div class="w-fit">
+                   
                     <label for="start_date">Start Date</label>
                     <div class="input-group date" style="width: 100%">
                         <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
-                    </div>      
+                    </div>       
                 </div>
                 <div class="">
                     <label for="end_date">End Date</label>

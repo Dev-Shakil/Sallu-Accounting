@@ -1246,6 +1246,7 @@ class ReportController extends Controller
               // dd($request->all());
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
+        $invoice = $request->input('voucher') ?? null;
 
         $tableName = $customerid = null;
         if ($request->customer) {
@@ -1282,6 +1283,10 @@ class ReportController extends Controller
 
         if ($end_date !== null) {
             $query1->whereDate('date', '<=', $end_date);
+        }
+
+        if ($invoice !== null) {
+            $query1->where('invoice', $invoice);
         }
 
 
@@ -1526,6 +1531,9 @@ class ReportController extends Controller
         if ($request->method !== null) {
             $query1->where('method', $request->method);
         }
+        if ($request->voucher !== null) {
+            $query1->where('invoice', $request->voucher);
+        }
 
         if ($start_date !== null && $end_date !== null) {
             $query1->whereBetween('date', [$start_date, $end_date]);
@@ -1681,6 +1689,7 @@ class ReportController extends Controller
             
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
+        $voucher = $request->input('voucher') ?? null;
 
         $tableName = $customerid = null;
         if ($request->customer != null) {
@@ -1709,6 +1718,9 @@ class ReportController extends Controller
 
         if ($request->method !== null) {
             $query1->where('method', $request->method);
+        }
+        if ($voucher !== null) {
+            $query1->where('invoice', $voucher);
         }
 
         if ($start_date !== null && $end_date !== null) {
