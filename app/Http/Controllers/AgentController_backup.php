@@ -25,17 +25,9 @@ class AgentController extends Controller
     public function store(Request $request)
     {
         if(Auth::user()){
-            $agent = new Agent();
-            $agent->name = $request->name;
-            $agent->phone = $request->phone;
-            $agent->email = $request->email;
-            $agent->address = $request->address;
-            $agent->district = $request->district;
-            $agent->country = $request->country;
-            $agent->description = $request->description;
-            $agent->opening_balance = $request->opening_balance;
-            $agent['user'] = Auth::id();
-            $agent->save();
+            $validatedData = $request->all();
+            $validatedData['user'] = Auth::id();
+            Agent::create($validatedData);
             return redirect()->route('agent.view')->with('success', 'Agent added successfully');
         }
         else{
@@ -73,7 +65,6 @@ class AgentController extends Controller
                 $agent->district = $request->district;
                 $agent->country = $request->country;
                 $agent->description = $request->description;
-                $agent->opening_balance = $request->opening_balance;
                 
 
                 if($agent->save()){

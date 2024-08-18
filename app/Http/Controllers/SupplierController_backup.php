@@ -33,7 +33,6 @@ class SupplierController extends Controller
             $supplier->company = $request['company'];
             $supplier->email = $request['email'];
             $supplier->description = $request['description'];
-            $supplier->opening_balance = $request['opening_balance'];
            
             $supplier->user = Auth::id();
             $isdone = $supplier->save();
@@ -82,7 +81,6 @@ class SupplierController extends Controller
                 $supplier->company = $request->company;
                 $supplier->email = $request->email;
                 $supplier->description = $request->description;
-                $supplier->opening_balance = $request->opening_balance;
                 
 
                 if($supplier->save()){

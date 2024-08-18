@@ -66,19 +66,11 @@
                                 <input type="text" id="country" name="country" class="mt-1 p-2 w-full border " placeholder="Enter a Country">
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
-                            <div class="mb-4">
-                                <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
-                                <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" ></textarea>
-                            </div>
-                
-                            <div class="mb-4">
-                                <label for="opening_balance" class="block text-sm font-medium text-gray-700">Opening Balance:</label>
-                                <input type="number" id="opening_balance" name="opening_balance" class="mt-1 p-2 w-full border " placeholder="Enter Opening Balance">
-                            </div>
+                        <div class="mb-4 w-[100%] md:w-[48%]">
+                            <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                            <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" ></textarea>
                         </div>
-                       
-                       
+            
                         <button type="submit" class="bg-black text-white px-4 py-2 rounded-lg">Submit</button>
                     </form>
                 @else

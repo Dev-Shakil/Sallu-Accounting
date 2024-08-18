@@ -9,7 +9,7 @@ class Supplier extends Model
 {
   
     protected $table = 'supplier';
-    protected $fillable = ['name', 'phone'];
+    protected $fillable = ['name', 'phone','opening_balance'];
     
 }
 ?>

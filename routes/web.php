@@ -225,6 +225,10 @@ Route::post('/search_ticket', [TicketController::class, 'searchTicket'])->name('
 Route::get('/get_agent_supplier', [TicketController::class, 'getAgentSupplier'])->name('get_agent_supplier');
 Route::get('/get-last-id', [TicketController::class, 'getlastid'])->name('get-last-id');
 
+Route::get('/refund_ticket_report/view', function () {
+    return app(TicketRefundController::class)->index();
+})->name('refund_ticket_report.view');
+Route::post('/refund_ticket_report_result', [TicketRefundController::class, 'report'])->name('refund_ticket_report_result');
 
 Route::post('/receive_only', [TicketController::class, 'receiveAmount'])->name('receive_only');
 Route::get('/deportee/index', function (Request $request) {
