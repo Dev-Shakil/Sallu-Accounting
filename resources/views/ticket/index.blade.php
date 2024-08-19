@@ -487,7 +487,7 @@
 
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="sector" class="w-[50%]">Sector</label>
-                        <input type="text" id="sector"
+                        <input type="text" id="sector_single"
                             class="bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                             name="sector">
                     </div>
@@ -1457,6 +1457,7 @@
         document.addEventListener('DOMContentLoaded', function() {
            
             var sectorInput = document.getElementById('sector');
+            var sectorInputSingle = document.getElementById('sector_single');
     
             sectorInput.addEventListener('input', function() {
                 var inputValue = this.value.toUpperCase();
@@ -1472,6 +1473,28 @@
             });
 
             sectorInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Backspace') {
+                    var currentValue = this.value;
+                    if (currentValue.slice(-1) === '-') {
+                        this.value = currentValue.slice(0, -2); // Remove the character before the hyphen
+                        event.preventDefault();
+                    }
+                }
+            });
+            sectorInputSingle.addEventListener('input', function() {
+                var inputValue = this.value.toUpperCase();
+                var formattedValue = inputValue.replace(/-/g, ''); // Remove existing hyphens
+                var newValue = '';
+                for (var i = 0; i < formattedValue.length; i++) {
+                    newValue += formattedValue[i];
+                    if ((i + 1) % 3 === 0 && i + 1 !== formattedValue.length) {
+                        newValue += '-';
+                    }
+                }
+                this.value = newValue;
+            });
+
+            sectorInputSingle.addEventListener('keydown', function(event) {
                 if (event.key === 'Backspace') {
                     var currentValue = this.value;
                     if (currentValue.slice(-1) === '-') {
