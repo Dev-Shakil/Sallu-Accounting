@@ -25,87 +25,13 @@ background: #555; /* Or any other color you prefer */
         </h2>
     </x-slot> --}}
 
-    {{-- <div class="py-12 bg-green-500">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('agent.view') }}" class="bg-blue-500 text-gray-800 font-bold py-3 px-4 rounded">
-                        Agent
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('supplier.view') }}" class="text-gray-800">Supplier</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('order.view') }}" class="text-gray-800">Place Order</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('type.view') }}" class="text-gray-800">Types</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('report.view') }}" class="text-gray-800">Report</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <button type="button" class="btn btn-info">
-                        <a href="{{ route('ticket.view') }}" class="text-gray-800">Ticket</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    
     <div class="grid grid-cols-3 md:grid-cols-5  gap-y-3 gap-x-4">
         <a href={{route('ticket.view')}} class="text-white text-center bg-[#84857C] font-bold py-3 px-4 rounded hover:no-underline">
           New Ticket Invoice
         </a>
         <a href={{route('order.view')}} class="hover:no-underline text-center text-white bg-[#4E4E4E] font-bold py-3 px-4 rounded">
-          New Invoice Type
+          Service Invoice Type
         </a>
         <a href={{route('receive.index')}} class="text-white text-center  bg-[#6A764D] font-bold py-3 px-4 rounded hover:no-underline">
           Receive
@@ -129,8 +55,8 @@ background: #555; /* Or any other color you prefer */
         <a href={{route('bank_book.view')}} class="text-center hover:no-underline text-white bg-[#84857C] font-bold py-3 px-4 rounded">
           Bank Book Report
         </a>
-        <a href={{route('stuff_details.view')}} class="text-center hover:no-underline text-white bg-[#A58A4C] font-bold py-3 px-4 rounded">
-          HR
+        <a href={{route('expanditure.view')}} class="text-center hover:no-underline text-white bg-[#A58A4C] font-bold py-3 px-4 rounded">
+          Expanditure
         </a>
         <a href={{route('sales_ticket')}} class="text-center hover:no-underline text-white bg-[#344d0e] font-bold py-3 px-4 rounded">
           Sales Report
