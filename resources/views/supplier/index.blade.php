@@ -57,10 +57,9 @@
                             <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
                             <textarea id="description" name="description" class="mt-1 p-2 w-full border " placeholder="Enter a description" ></textarea>
                         </div>
-            
                         <div class="mb-4">
-                            <label for="opening_balance" class="block text-sm font-medium text-gray-700">Opening Balance:</label>
-                            <input type="number" id="opening_balance" name="opening_balance" class="mt-1 p-2 w-full border " placeholder="Enter Opening Balance">
+                            <label for="opening_balance" class="block text-sm font-bold text-gray-700">Opening Balance:</label>
+                            <input type="number" id="opening_balance" name="opening_balance" class="mt-1 p-2 w-full border-2 border-red-600" placeholder="Enter Opening Balance">
                         </div>
                     </div>
         
