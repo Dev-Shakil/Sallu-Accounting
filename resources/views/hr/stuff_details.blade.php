@@ -68,7 +68,7 @@
                 </div>
                 <div class="flex items-center">
                     <label for="salary" class="w-1/2  mr-4">Salary</label>
-                    <input type="number" id="salary" required name="salary"
+                    <input type="number" id="salary" name="salary"
                         class="rounded-md border border-gray-400 px-4 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="flex items-start">

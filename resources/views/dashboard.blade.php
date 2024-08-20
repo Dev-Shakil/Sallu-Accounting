@@ -168,41 +168,34 @@ background: #555; /* Or any other color you prefer */
           </div>
         </div>
 
-        <div class="mt-2 rounded-lg bg-white shadow-lg">
-          <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
-              Total Cash In Bank: <span style="color: rgb(0 149 158 / 1);">{{$total_amount}}</span>
-          </h2>
-                  <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
-            <table class="  my-5 text-sm text-black border table table-hover" >
-              <thead>
-                <tr class="border-b bg-[#7CB0B2]">
-                  
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
-
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
-
-                </tr>
-              </thead>
-              <tbody class="">
-
-                @foreach($transactions as $bank)
-                  <tr class="border-b hover:bg-gray-50">
-                    
-                    <td class="px-4 py-2 text-gray-700">{{$bank->name}}</td>
-
-                    <td class="px-4 py-2 text-gray-700">{{$bank->description}}</td>
-                 
-                    <td class="px-4 py-2 text-gray-700">{{$bank->amount}}</td>
-
-                  </tr>
-                @endforeach
-              
-              </tbody>
-            </table>
-          </div>
-        </div>
-
+        @if(!session('employee'))
+            <div class="mt-2 rounded-lg bg-white shadow-lg">
+                <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
+                    Total Cash In Bank: <span style="color: rgb(0 149 158 / 1);">{{$total_amount}}</span>
+                </h2>
+                <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
+                    <table class="my-5 text-sm text-black border table table-hover">
+                        <thead>
+                            <tr class="border-b bg-[#7CB0B2]">
+                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
+                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
+                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($transactions as $bank)
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-2 text-gray-700">{{$bank->name}}</td>
+                                    <td class="px-4 py-2 text-gray-700">{{$bank->description}}</td>
+                                    <td class="px-4 py-2 text-gray-700">{{$bank->amount}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+    
         <div class="mt-2 rounded-lg bg-white shadow-lg">
           <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
               Total Receivables: <span style="color: rgb(0 149 158 / 1);">{{$total_receive}}</span>

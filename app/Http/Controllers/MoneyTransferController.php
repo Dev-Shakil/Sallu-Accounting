@@ -203,6 +203,7 @@ class MoneyTransferController extends Controller
    
     public function add_expenditure_towards(Request $request){
         // Create a new Expenditure instance
+        // dd($request->all());
         $expenditure = new Expenditure();
         $expenditure->name = $request->name;
         $expenditure->description = $request->description;
@@ -218,27 +219,41 @@ class MoneyTransferController extends Controller
         }
     }
 
-    public function addExpenditureMain( Request $request){
-        if(Auth::user()){
-            // dd($request->all());
-            $expenditureMain = new ExpenditureMain();
-            $expenditureMain->company_name = $request->branch;
-            $expenditureMain->date = $request->transaction_date;
-            $expenditureMain->receive_from = $request->account_type;
-            $expenditureMain->from_account = $request->from_account;
-            $expenditureMain->toward = $request->towards;
-            $expenditureMain->amount = $request->amount;
-            $expenditureMain->method = $request->method;
-            $expenditureMain->remark = $request->remarks;
-            $expenditureMain->user = Auth::id();
-
-            if ($expenditureMain->save()){
-                return redirect()->back()->with("success", "Expenditure added successfully");
-            } else {
-                return redirect()->back()->with("error", "Failed to add expenditure");
+    public function addExpenditureMain(Request $request) {
+        if(Auth::user()) {
+            $method = Transaction::find($request->method);
+    
+            if($method->amount < $request->amount) {
+                return redirect()->back()->with("error", "Insufficient balance");
             }
-        }
-        else{
+    
+            DB::beginTransaction();
+    
+            try {
+                $expenditureMain = new ExpenditureMain();
+                $expenditureMain->company_name = $request->branch;
+                $expenditureMain->date = $request->transaction_date;
+                $expenditureMain->receive_from = $request->account_type;
+                $expenditureMain->from_account = $request->from_account;
+                $expenditureMain->toward = $request->towards;
+                $expenditureMain->amount = $request->amount;
+                $expenditureMain->method = $request->method;
+                $expenditureMain->remark = $request->remarks;
+                $expenditureMain->user = Auth::id();
+    
+                $method->amount -= $request->amount;
+    
+                $expenditureMain->save();
+                $method->save();
+    
+                DB::commit();
+                return redirect()->back()->with("success", "Expenditure added successfully");
+    
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->back()->with("error", "Failed to add expenditure: " . $e->getMessage());
+            }
+        } else {
             return view('welcome');
         }
     }
