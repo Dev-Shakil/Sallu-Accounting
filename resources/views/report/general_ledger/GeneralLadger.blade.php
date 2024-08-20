@@ -29,7 +29,7 @@
   </style> --}}
 </head>
 
-<body class="flex">
+<body class="flex bg-white">
   
   <main class="flex-1 mx-auto max-w-7xl px-10" style="width: 90%">
   
@@ -71,16 +71,22 @@
             <tbody class="divide-y-2">
               
               {!! $html !!}
+              <tr>
+                <td colspan="4">Total</td>
+                <td><b>{{ $debit }}</b></td>
+                <td><b>{{ $credit }}</b></td>
+                <td><b>{{ $balance }}</b></td>
+            </tr>
             </tbody>
             
-            <tfoot class="border-t border-gray-300 px-4">
+            {{-- <tfoot class="border-t border-gray-300 px-4">
               <tr>
                   <td colspan="4">Total</td>
                   <td><b>{{ $debit }}</b></td>
                   <td><b>{{ $credit }}</b></td>
                   <td><b>{{ $balance }}</b></td>
               </tr>
-          </tfoot>
+          </tfoot> --}}
           </table>
    </div>
 
