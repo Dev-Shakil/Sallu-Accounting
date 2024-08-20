@@ -486,45 +486,91 @@
                         </p>
                         <ul id="dropdown-sales_report" class="hidden divide-y-2 text-white bg-black rounded-lg">
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('sales_ticket')" :active="request()->routeIs('sales_ticket')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Sales Report(Ticket)') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Report(Ticket)') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('sales_ticket')" :active="request()->routeIs('sales_ticket')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Report(Ticket)') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('sales_visa')" :active="request()->routeIs('sales_visa')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Sales Report(Visa)') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Report(Visa)') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('sales_visa')" :active="request()->routeIs('sales_visa')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Report(Visa)') }}
+                                    </x-nav-link>
+                                @endif
+                            </li>
+                            
+                            <li class="text-white font-semibold">
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Executive Report') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('sales_exicutive_stuff')" :active="request()->routeIs('sales_exicutive_stuff')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Executive Report') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('sales_exicutive_stuff')" :active="request()->routeIs('sales_exicutive_stuff')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Sales Exicutive Report') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Analysis Report') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('sales_analysis')" :active="request()->routeIs('sales_analysis')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Sales Analysis Report') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
-                            <li class="text-white font-semibold">
-                                <x-nav-link :href="route('sales_analysis')" :active="request()->routeIs('sales_analysis')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Sales Analysis Report') }}
-                                </x-nav-link>
-                            </li>
+                            
                             <li class="text-white font-semibold">
                                 <x-nav-link :href="route('refund_ticket_report.view')" :active="request()->routeIs('refund_ticket_report.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -668,46 +714,73 @@
                                     {{ __('General Ledger') }}
                                 </x-nav-link>
                             </li>
-                            {{-- <li class="text-white font-semibold flex items-center">
-                                <x-nav-link :href="route('refund_ticket.view')" :active="request()->routeIs('refund_ticket.view')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Group Wise Tril Balance') }}
-                                </x-nav-link>
-                            </li> --}}
+                       
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('trialbalance.view')" :active="request()->routeIs('trialbalance.view')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Trial Balance') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline " title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Trial Balance') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('trialbalance.view')" :active="request()->routeIs('trialbalance.view')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Trial Balance') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
+                            
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('profit_loss.view')" :active="request()->routeIs('profit_loss.view')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Profit Loss Statement') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline " title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Profit Loss Statement') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('profit_loss.view')" :active="request()->routeIs('profit_loss.view')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Profit Loss Statement') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
+                            
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('income_statement.index')" :active="request()->routeIs('income_statement.index')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Income Statement') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Income Statement') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('income_statement.index')" :active="request()->routeIs('income_statement.index')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Income Statement') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
+                            
                             <li class="text-white font-semibold">
                                 <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -750,17 +823,28 @@
                                     {{ __('Daily Statement') }}
                                 </x-nav-link>
                             </li>
-                            
                             <li class="text-white font-semibold">
-                                <x-nav-link :href="route('profitreport.view')" :active="request()->routeIs('profitreport.view')">
-                                    <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                    {{ __('Profit Report') }}
-                                </x-nav-link>
+                                @if(session('employee'))
+                                    <div class="flex items-center cursor-not-allowed w-full h-12 px-3 rounded text-sm text-white font-light no-underline" title="Not permitted">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Profit Report') }}
+                                    </div>
+                                @else
+                                    <x-nav-link :href="route('profitreport.view')" :active="request()->routeIs('profitreport.view')">
+                                        <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                        </svg>
+                                        {{ __('Profit Report') }}
+                                    </x-nav-link>
+                                @endif
                             </li>
+                            
                            
                            
                         </ul>
