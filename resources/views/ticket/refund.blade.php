@@ -122,7 +122,9 @@
                         <th class="px-4 py-2 ">Refund Date</th>
                         <th class="px-4 py-2 ">Passenger Name</th>
                         <th class="px-4 py-2 ">Ticket No</th>
+                        <th class="px-4 py-2 ">Refund Agent</th>
                         <th class="px-4 py-2 ">Refund Agent Fare</th>
+                        <th class="px-4 py-2 ">Refund Supplier</th>
                         <th class="px-4 py-2 ">Refund Supplier Fare</th>
                         <th class="px-4 py-2 ">Refund Profit</th>
 
@@ -135,7 +137,9 @@
                             <td class="px-4 py-2 ">{{ $refund->date }}</td>
                             <td class="px-4 py-2 ">{{ $refund->passenger_name }}</td>
                             <td class="px-4 py-2 ">{{ $refund->ticket_no }}</td>
+                            <td class="px-4 py-2 ">{{ $refund->agent }}</td>
                             <td class="px-4 py-2 ">{{ $refund->now_agent_fere }}</td>
+                            <td class="px-4 py-2 ">{{ $refund->supplier }}</td>
                             <td class="px-4 py-2 ">{{ $refund->now_supplier_fare }}</td>
                             <td class="px-4 py-2 ">{{ $refund->refund_profit }}</td>
                             {{-- <td class="px-4 py-2 ">

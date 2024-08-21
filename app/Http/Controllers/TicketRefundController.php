@@ -94,6 +94,17 @@ class TicketRefundController extends Controller
             'refunds' => $refunds,
          
         ])->render();
+        $html = ViewFacade::make('report/refund_ticket/index', [
+              
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'showProfit' => $showProfit,
+            'showSupplier' => $showSupplier,
+            'showAgent' => $showAgent,
+           
+            'refunds' => $refunds,
+         
+        ])->render();
         
         return response()->json(['html' => $html]);
 

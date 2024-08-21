@@ -56,9 +56,16 @@
           </div>
       </form>
     </div>
+    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+       
+        <button id="printButton" class="text-white bg-red-600
+         font-bold text-md py-2 px-4">Print</button>
+      
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
+      </div>
 
     <div class="reportdiv mt-5" id="reportdiv">
-
+        
     </div>
 
 
@@ -93,5 +100,20 @@
         });
 
         
+    </script>
+      <script>
+        // Function to print the content of the reportdiv
+        function printReport() {
+            var printContents = document.getElementById("reportdiv").innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    
+        // Add event listener to the "Print" button
+        document.querySelector("#printButton").addEventListener("click", function() {
+            printReport();
+        });
     </script>
 </x-app-layout>

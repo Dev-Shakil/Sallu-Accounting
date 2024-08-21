@@ -34,7 +34,7 @@
 </head>
 
 <body class="flex">
-  
+ 
   <main class="flex-1 mx-auto max-w-7xl px-10" style="width: 90%">
   
    <div class="">
@@ -52,6 +52,7 @@
                 </div>
             </div>
         </div>
+        
         <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
         
             <thead>

@@ -79,7 +79,7 @@
                             Date</label>
                         <input type="date" id="invoice_date"
                             class=" bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="invoice_date" value="<?php echo date('Y-m-d'); ?>">
+                            name="invoice_date" value="<?php echo date('Y-m-d') ?>">
                     </div>
                     <div class="w-full px-4 mb-2 flex items-center">
                         <label for="flight_date" class="w-[50%]">Flight Date</label>
@@ -365,7 +365,7 @@
         <div class="alert alert-warning">
             Don't have permission to entry
         </div>
-    @endif;
+    @endif
     @if(in_array('entry', $permissionsArray))
         <form class="w-full p-6" id="ticket_form_single" action="{{ route('addsingleticket.store') }}" method="POST">
             @csrf
@@ -669,7 +669,7 @@
         <div class="alert alert-warning">
             Don't have permission to entry
         </div>
-    @endif;
+    @endif
     </div>
 
 
