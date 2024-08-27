@@ -1475,18 +1475,153 @@ class ReportController extends Controller
             
             $methodName = $transaction ? $transaction->name : null;
             $receive_voucher->method = $methodName;
+            $id = $receive_voucher->agent_supplier_id;
+            $opening_balance = 0;
             if ($receive_voucher->receive_from == 'agent') {
+
                 $agent = Agent::where([
                     ['id', $receive_voucher->agent_supplier_id]
                 ])->first();
+
+                $tickets = Ticket::where([['agent', $id],  ['is_active', 1]]);
+
+                $tickets = $tickets->where('user', Auth::id());
+                $refund = Refund::where('user', Auth::id());
+
+                $receiver = Receiver::where([
+                    ['receive_from', '=', 'agent'],
+                    ['agent_supplier_id', '=', $id],
+                    ['user', Auth::id()]
+                ]);
+    
+                $refund = $refund->where([
+                    ['agent', $id],
+                    ['user', Auth::id()]
+                ]);
+    
+                $paymenter = Payment::where([
+                    ['receive_from', '=', 'agent'],
+                    ['agent_supplier_id', '=', $id],
+                    ['user', Auth::id()]
+                ]);
+                
+                $void_ticket = VoidTicket::where([['user', Auth::id()], ['agent', $id]]);
+                $reissue = ReissueTicket::where([['agent', $id], ['user', Auth::id()]]);
+                $order = Order::where('user', Auth::id())
+                    ->where('agent', $id);
+
+                
+                $tickets = $tickets->get();
+                $order = $order->get();
+                $receiver = $receiver->get();
+                $paymenter = $paymenter->get();
+                $void_ticket = $void_ticket->get();
+                $reissue = $reissue->get();
+                $refund = $refund->get();
+
+                $mergedCollection = $tickets->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
+                $opening_balance = Agent::where('id', $id)->value('opening_balance');
+
+                foreach ($mergedCollection as $collection){
+                    // dd($collection);
+                    if ($collection->getTable() == 'order'){
+                        $opening_balance += $collection->contact_amount;
+                    }
+                    if ($collection->getTable() == 'tickets'){
+                        $opening_balance += $collection->agent_price;
+                    }
+                    if ($collection->getTable() == 'payment'){
+                        $opening_balance += $collection->amount;
+                    }
+                    if ($collection->getTable() == 'receive'){
+                        $opening_balance -= $collection->amount;
+                    }
+                    if ($collection->getTable() == 'reissue'){
+                        $opening_balance += $collection->now_agent_debit;
+                    }
+                    if ($collection->getTable() == 'refund'){
+                        $opening_balance -= $collection->now_agent_fere;
+                    }
+                    if ($collection->getTable() == 'voidTicket'){
+                        $opening_balance += $collection->now_agent_fere;
+                    }
+                    
+                }
+                // dd($opening_balance);
+
             } else {
                 $agent = Supplier::where([
                     ['id', $receive_voucher->agent_supplier_id]
                 ])->first();
+                $tickets = Ticket::where([['supplier', $id],  ['is_active', 1]]);
+
+                $tickets = $tickets->where('user', Auth::id());
+                $refund = Refund::where('user', Auth::id());
+
+                $receiver = Receiver::where([
+                    ['receive_from', '=', 'supplier'],
+                    ['agent_supplier_id', '=', $id],
+                    ['user', Auth::id()]
+                ]);
+    
+                $refund = $refund->where([
+                    ['supplier', $id],
+                    ['user', Auth::id()]
+                ]);
+    
+                $paymenter = Payment::where([
+                    ['receive_from', '=', 'supplier'],
+                    ['agent_supplier_id', '=', $id],
+                    ['user', Auth::id()]
+                ]);
+                
+                $void_ticket = VoidTicket::where([['user', Auth::id()], ['supplier', $id]]);
+                $reissue = ReissueTicket::where([['supplier', $id], ['user', Auth::id()]]);
+                $order = Order::where('user', Auth::id())
+                    ->where('supplier', $id);
+
+                
+                $tickets = $tickets->get();
+                $order = $order->get();
+                $receiver = $receiver->get();
+                $paymenter = $paymenter->get();
+                $void_ticket = $void_ticket->get();
+                $reissue = $reissue->get();
+                $refund = $refund->get();
+
+                $mergedCollection = $tickets->concat($receiver)->concat($paymenter)->concat($void_ticket)->concat($reissue)->concat($refund)->concat($order);
+                $opening_balance = Supplier::where('id', $id)->value('opening_balance');
+
+                foreach ($mergedCollection as $collection){
+                    // dd($collection);
+                    if ($collection->getTable() == 'order') {
+                        $opening_balance += $collection->payable_amount;
+                    }
+                    if ($collection->getTable() == 'tickets') {
+                        $opening_balance += $collection->supplier_price;
+                    }
+                    if ($collection->getTable() == 'payment') {
+                        $opening_balance -= $collection->amount;
+                        //  dd($opening_balance);
+                    }
+                    if ($collection->getTable() == 'receive') {
+                        $opening_balance += $collection->amount;
+                    }
+                    if ($collection->getTable() == 'reissue') {
+                        $opening_balance += $collection->now_supplier_fare;
+                    }
+                    if ($collection->getTable() == 'refund') {
+                        $opening_balance += $collection->now_supplier_fare;
+                    }
+                    if ($collection->getTable() == 'voidTicket') {
+                        $opening_balance += $collection->now_supplier_fare;
+                    }
+                    
+                }
             }
             // dd($agent);
     
-            return view('report.receive.voucher', compact('receive_voucher', 'agent'));
+            return view('report.receive.voucher', compact('receive_voucher', 'agent', 'opening_balance'));
         }
         else{
             return view('welcome');

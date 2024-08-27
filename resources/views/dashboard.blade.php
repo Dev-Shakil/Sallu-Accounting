@@ -1,7 +1,7 @@
 <x-app-layout>
   <style>
     ::-webkit-scrollbar {
-width: 5px; /* Adjust this value to your preference */
+width: 15px; /* Adjust this value to your preference */
 }
 
 /* Track */
@@ -120,9 +120,9 @@ background: #555; /* Or any other color you prefer */
           </table>
         </div>
       </div> --}}
-      <div class="grid gap-4 grid-cols-2">
+      <div class="grid gap-4 grid-cols-2 mt-2">
         <div class="mt-2 rounded-lg bg-white shadow-lg">
-          <h2 class="px-2 py-1 text-xl  text-black border-b border-gray-200 font-semibold">Flight Alert</h2>
+          <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">Flight Alert</h2>
           <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
             <table class="  my-5 text-sm text-black border table table-hover" >
               <thead>
@@ -170,8 +170,8 @@ background: #555; /* Or any other color you prefer */
 
         @if(!session('employee'))
             <div class="mt-2 rounded-lg bg-white shadow-lg">
-                <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
-                    Total Cash In Bank: <span style="color: rgb(0 149 158 / 1);">{{$total_amount}}</span>
+                <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
+                    Total Cash In Bank: <span style="color: blue;">{{$total_amount}}</span>
                 </h2>
                 <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
                     <table class="my-5 text-sm text-black border table table-hover">
@@ -197,8 +197,8 @@ background: #555; /* Or any other color you prefer */
         @endif
     
         <div class="mt-2 rounded-lg bg-white shadow-lg">
-          <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
-              Total Receivables: <span style="color: rgb(0 149 158 / 1);">{{$total_receive}}</span>
+          <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
+              Total Receivables: <span style="color: blue;">{{$total_receive}}</span>
           </h2>
                   <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
             <table class="  my-5 text-sm text-black border table table-hover" >
@@ -236,8 +236,8 @@ background: #555; /* Or any other color you prefer */
         </div>
         
         <div class="mt-2 rounded-lg bg-white shadow-lg">
-          <h2 class="px-2 py-1 text-xl text-black border-b border-gray-200 font-semibold">
-              Total Payables: <span style="color: rgb(0 149 158 / 1);">{{$total_pay}}</span>
+          <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
+              Total Payables: <span style="color: blue;">{{$total_pay}}</span>
           </h2>
                   <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
             <table class="  my-5 text-sm text-black border table table-hover" >
