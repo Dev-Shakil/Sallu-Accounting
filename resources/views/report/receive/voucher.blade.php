@@ -10,8 +10,8 @@
         <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
-                <div>
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/>
+                <div class='w-[370px]'>
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
                     <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
@@ -187,12 +187,12 @@
             class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-5 pt-7">
 
             <div class="flex justify-between items-center pb-2">
-                <img class="" src="logo.jpeg" alt="Company Logo" height="150px" width="180px" />
-                <div>
-                    <h3 class="company-name font-bold text-3xl ">Sallu Air Service</h3>
-                    <p class="company-address text-lg font-medium">291, Fakirapool, Motijheel, Dhaka</p>
-                    <p class="company-phone text-lg font-medium">Tel : 39420394023</p>
-                    <p class="company-email text-lg font-medium">Email : salluairservice@gmail.com</p>
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/>
+                <div class="w-[370px]">
+                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
