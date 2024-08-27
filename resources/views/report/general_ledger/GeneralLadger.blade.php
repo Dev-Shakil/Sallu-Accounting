@@ -42,7 +42,7 @@
             </div>
             <div class="flex items-center">
                
-                <div class="mb-8">
+                <div class="mb-8 max-w-[380px]">
                     <h2 class="font-bold text-xl">{{Auth::user()->name}}</h2>
                     <p>{{Auth::user()->company_address}}</p>
                 </div>

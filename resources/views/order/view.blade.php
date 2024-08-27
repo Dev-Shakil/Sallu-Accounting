@@ -14,7 +14,7 @@
            <div class="flex justify-between items-center py-5">
                <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/></div>
                
-               <div>
+               <div class="w-[370px]">
                 <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                 <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
                 <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
