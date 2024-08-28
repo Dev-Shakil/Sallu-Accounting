@@ -2,20 +2,19 @@
 
     <div
         class="buttons justify-end flex gap-3 shadow-2xl py-2 border-2 border-stale-300 px-4 max-w-[1060px] mt-5 mx-auto">
-        
-        <button id="printBtn" class="text-white bg-red-600 font-bold text-md py-1 px-4">Print</button>
-        <button onclick="goBack()" class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Go Back</button>
+        <button class="text-white bg-amber-800 font-bold text-md py-1 px-4">Send</button>
+        <button id="printBtn" class="text-white bg-stone-700 font-bold text-md py-1 px-4">Print</button>
+        <button class="text-white bg-sky-900 font-bold text-md py-1 px-4 ">Download</button>
     </div>
-    <div id="printSection" class="">
-        <div class="flex-1 mt-3 mx-auto max-w-[1100px] bg-white shadow-3xl border-gray-200 px-3 py-2 pb-7">
+    <div id="printSection" class="bg-white py-10">
+        <div class="flex-1 mt-3 mx-auto max-w-[1060px] bg-white shadow-3xl border-gray-200 px-6 py-2 pb-10">
 
             <div class="flex justify-between items-center pb-2">
-                <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>
-                <div class="w-[350px]">
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/>
+                <div class='w-[370px]'>
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
                     <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
@@ -23,15 +22,14 @@
             <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Customer Copy)</h1>
             <div class="flex justify-between items-center">
                 <div>
-                    <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
+                    <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[360px]">
+                <div class="flex flex-col gap-y-1">
                     <h3 class="font-bold text-xl">Client Details</h3>
-                    <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
-                    <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
-                    <p class="text-lg"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
-                    <p class="text-lg"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
+                    <p class="text-lg">Client Name : {{ $agent->name }}</p>
+                    <p class="text-lg">Email : {{ $agent->email }}</p>
+                    <p class="text-lg">Mob : {{ $agent->phone }}</p>
                 </div>
             </div>
             <table class="w-full my-3 border-y border-black">
@@ -166,13 +164,9 @@
                 <div class="flex  flex-col gap-y-2 w-[35%]">
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Current Amount</p>
-                        <td>
-                            @if($receive_voucher->receive_from === 'agent')
-                                {{ number_format($opening_balance + $receive_voucher->amount, 0, '.', ',') }}
-                            @elseif($receive_voucher->receive_from === 'supplier')
-                                {{ number_format($opening_balance - $receive_voucher->amount, 0, '.', ',') }}
-                            @endif
-                        </td>
+                        <p>
+                            <td>{{ number_format($receive_voucher->previous_amount, 0, '.', ',') }}</td>
+                        </p>
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3 font-bold">
                         <p>Received Amount</p>
@@ -180,24 +174,24 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $opening_balance}}</p>
+                        <p>{{ $receive_voucher->current_amount }}</p>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between mt-[80px] mb-2">
+            <div class="flex justify-between mt-[80px]">
                 <p class="border-t border-gray-400 border-dashed px-4">Authority Signature</p>
                 <p class="border-t border-gray-400 border-dashed px-4">Customer Signature</p>
             </div>
         </div>
         <div
-            class="flex-1 mx-auto max-w-[1100px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-3 py-3 pt-5">
+            class="flex-1 mx-auto max-w-[1060px] bg-white shadow-3xl border-t border-dashed border-gray-400 px-6 py-5 pt-7">
 
             <div class="flex justify-between items-center pb-2">
-                <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>
-                <div class="w-[350px]">
+                <img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="220px" height="200px"/>
+                <div class="w-[370px]">
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-phone text-lg font-medium">Tel : {{Auth::user()->mobile_no}}</p>
                     <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
@@ -205,15 +199,14 @@
             <h1 class="text-2xl font-bold text-center my-3">Money Receipt (Office Copy)</h1>
             <div class="flex justify-between items-center">
                 <div>
-                    <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
+                    <div><span class="font-semibold">Date</span> : 14-09-2024</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[360px]">
+                <div class="flex flex-col gap-y-1">
                     <h3 class="font-bold text-xl">Client Details</h3>
-                    <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
-                    <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
-                    <p class="text-lg"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
-                    <p class="text-lg"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
+                    <p class="text-lg">Client Name : {{ $agent->name }}</p>
+                    <p class="text-lg">Email : {{ $agent->email }}</p>
+                    <p class="text-lg">Mob : {{ $agent->phone }}</p>
                 </div>
             </div>
             <table class="w-full my-3 border-y border-black">
@@ -243,13 +236,9 @@
                 <div class="flex  flex-col gap-y-2 w-[35%]">
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Current Amount</p>
-                        <td>
-                            @if($receive_voucher->receive_from === 'agent')
-                                {{ number_format($opening_balance + $receive_voucher->amount, 0, '.', ',') }}
-                            @elseif($receive_voucher->receive_from === 'supplier')
-                                {{ number_format($opening_balance - $receive_voucher->amount, 0, '.', ',') }}
-                            @endif
-                        </td>
+                        <p>
+                            <td>{{ number_format($receive_voucher->previous_amount, 0, '.', ',') }}</td>
+                        </p>
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3 font-bold">
                         <p>Received Amount</p>
@@ -257,7 +246,7 @@
                     </div>
                     <div class="flex justify-between bg-gray-100 text-md px-3">
                         <p>Balance Due</p>
-                        <p>{{ $opening_balance}}</p>
+                        <p>{{ $receive_voucher->current_amount}}</p>
                     </div>
                 </div>
             </div>
