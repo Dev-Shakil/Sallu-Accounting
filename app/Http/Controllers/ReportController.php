@@ -1462,6 +1462,7 @@ class ReportController extends Controller
         }
        
     }
+    
     public function receive_voucher(Request $request, $id)
     {
         if(Auth::user()){
@@ -1628,7 +1629,6 @@ class ReportController extends Controller
         }
      
     }
-    
     public function payment_report_info_1(Request $request)
     {
 
@@ -2282,6 +2282,8 @@ class ReportController extends Controller
     //         return view('welcome');
     //     }
     // }
+    
+
     public function due_reminder()
     {
         if (Auth::user()) {
