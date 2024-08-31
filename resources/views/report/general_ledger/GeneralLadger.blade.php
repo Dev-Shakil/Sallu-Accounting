@@ -31,7 +31,7 @@
 
 <body class="flex bg-white">
   
-  <main class="flex-1 mx-auto max-w-7xl px-10" style="width: 90%">
+  <main class="flex-1 mx-auto max-w-7xl px-2" style="width: 97%">
   
    <div class="">
         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>

@@ -14,7 +14,6 @@
                 <div class="w-[350px]">
                     <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
                     <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
                     <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
                     <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
@@ -26,7 +25,7 @@
                     <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[360px]">
+                <div class="flex flex-col gap-y-1 max-w-[390px]">
                     <h3 class="font-bold text-xl">Client Details</h3>
                     <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
                     <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
@@ -208,7 +207,7 @@
                     <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[360px]">
+                <div class="flex flex-col gap-y-1 max-w-[390px]">
                     <h3 class="font-bold text-xl">Client Details</h3>
                     <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
                     <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
