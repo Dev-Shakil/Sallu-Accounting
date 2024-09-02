@@ -4,28 +4,30 @@
         <form id="reportForm" action="{{ route('stuff.report', ['id' => $id]) }}" method="POST">
 
           @csrf
-          <div class="flex items-center">
+          <div class="flex items-center gap-3">
             
             
        
-            <div class="form-group col-md-6">
-                <label for="month" class="w-1/2 pr-4 ">For the month of:</label>
-                <select id="month" name="month" class="w-3/4 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                  <option value="">Choose Month</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                </select>
-                <input type="number" id="year" name="year" class="w-1/4 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Year">
+            <div class="w-fit flex items-center">
+                <div class="flex flex-col">
+                    <label for="month" class="">For the month of:</label>
+                    <select id="month" name="month" class="w-[100px] px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    <option value="">Choose Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class=""><input type="number" id="year" name="year" class=" px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Year"></div>
                 <input type="hidden" id="id" name="emp_id" value="{{$id}}" readonly>
                 
             </div>
@@ -38,9 +40,7 @@
     </div>
 
     <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-        <button class="text-white bg-pink-600 font-bold text-md py-2 px-4">Send</button>
-        <button id="printButton" class="text-white bg-blue-700 font-bold text-md py-2 px-4">Print</button>
-        <button class="text-white bg-green-600 font-bold text-md py-2 px-4 ">ADD NEW INVOICE</button>
+        <button id="printButton" class="text-white bg-red-700 font-bold text-md py-2 px-4">Print</button>
         <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
     </div> 
 

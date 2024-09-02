@@ -213,79 +213,79 @@
         </div>
     </section>
     <div class="bg-gray-200 py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[85%] mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl font-bold text-center mb-8">
                 Featured Solutions of Travel Agency Accounting Software
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
                 <!-- Feature 1 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/visa.png" alt="Track Cash Flows" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/visa.png" alt="Track Cash Flows" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Ticket Invoice</p>
                 </div>
                 <!-- Feature 2 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/visa.png" alt="Expense Management" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/visa.png" alt="Expense Management" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Visa Invoice</p>
                 </div>
                 <!-- Feature 3 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/receive.png" alt="Multi-Payment Support" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/receive.png" alt="Multi-Payment Support" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Receive</p>
                 </div>
                 <!-- Feature 4 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/payment.png" alt="Accounting Solutions" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/payment.png" alt="Accounting Solutions" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Payment</p>
                 </div>
                 <!-- Feature 5 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/gl.png" alt="Loyalty Discounts" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/gl.png" alt="Loyalty Discounts" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">General ledger</p>
                 </div>
                 <!-- Feature 6 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/due.png" alt="Mobile Access" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/due.png" alt="Mobile Access" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Due Remainder</p>
                 </div>
                 <!-- Feature 7 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/stuff.png" alt="Customer Management" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/stuff.png" alt="Customer Management" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Stuff Report</p>
                 </div>
                 <!-- Feature 8 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/expanditure.png" alt="Reporting And Analytics" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/expanditure.png" alt="Reporting And Analytics" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Expanditure</p>
                 </div>
                 <!-- Feature 9 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/users.png" alt="User Roles And Permissions" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/users.png" alt="User Roles And Permissions" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">User Roles And Permissions</p>
                 </div>
                 <!-- Feature 10 -->
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/print.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/print.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Invoice Print</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/sale.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/sale.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Sales Analisys Report</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/proloss.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/proloss.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Profit / Loss Statement</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/sale.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/sale.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Sales Report</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/refund.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/refund.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Refund</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/trial_balance.png" alt="Data Backup" class="mx-auto mb-4 w-16 h-16">
+                    <img src="./image/trial_balance.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Trial Balance</p>
                 </div>
                 
