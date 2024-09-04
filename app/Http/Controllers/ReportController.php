@@ -3068,6 +3068,10 @@ class ReportController extends Controller
         $agent = $request->input('agent') ?? null;
         $supplier = $request->input('supplier') ?? null;
 
+
+        $flight_date = $request->input('flight_date') ?? null;
+        $issue_date = $request->input('issue_date') ?? null;
+
         $show_profit = $request->input('show_profit') ?? null;
         $show_supplier = $request->input('show_supplier') ?? null;
         $show_agent = $request->input('show_agent') ?? null;
@@ -3075,12 +3079,22 @@ class ReportController extends Controller
         $start_date = $request->input('start_date') ?? null;
         $end_date = $request->input('end_date') ?? null;
 
+
+        $flight_date = $request->input('flight_date') ?? null;
+        $issue_date = $request->input('issue_date') ?? null;
+
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
 
         if ($end_date) {
             $end_date = (new DateTime($end_date))->format('Y-m-d');
+        }
+        if ($flight_date) {
+            $flight_date = (new DateTime($flight_date))->format('Y-m-d');
+        }
+        if ($issue_date) {
+            $issue_date = (new DateTime($issue_date))->format('Y-m-d');
         }
 
         $user = Auth::id();
@@ -3098,6 +3112,12 @@ class ReportController extends Controller
 
         if ($supplier !== null) {
             $query->where('supplier', $supplier);
+        }
+        if ($flight_date !== null) {
+            $query->where('flight_date', $flight_date);
+        }
+        if ($issue_date !== null) {
+            $query->where('invoice_date', $issue_date);
         }
 
         if ($start_date !== null && $end_date !== null) {

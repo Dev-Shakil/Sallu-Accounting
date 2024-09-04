@@ -3,7 +3,7 @@
         {{-- <h3>fsdsdf</h3> --}}
         <form id="reportForm" action="{{ route('seles_report_ticket') }}" method="POST">
           @csrf
-          <div class="flex items-center pt-3">
+          <div class="flex flex-wrap items-center pt-3">
             
               <div class=" form-group flex items-center gap-2 col-md-2">
                   <label for="agent" class="text-[14px] text-[#22262e]">Agent</label>
@@ -33,6 +33,19 @@
                   <label for="end_date" class="text-[14px] text-[#22262e]">To</label>
                   <div class="input-group date" style="width: 100%">
                       <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
+                  </div>      
+              </div>
+
+              <div class="form-group col-md-2 flex items-center gap-2">
+                  <label for="issue_date" class="text-[14px] text-[#22262e]">Issue Date</label>
+                  <div class="input-group date" style="width: 100%">
+                      <input type="text" class="form-control datepicker" name="issue_date" id="issue_date" placeholder="Issue Date" />
+                  </div>      
+              </div>
+              <div class="form-group col-md-2 flex items-center gap-2">
+                  <label for="flight_date" class="text-[14px] text-[#22262e]">Flight Date</label>
+                  <div class="input-group date" style="width: 100%">
+                      <input type="text" class="form-control datepicker" name="flight_date" id="flight_date" placeholder="End Date" />
                   </div>      
               </div>
               <div class="form-group px-6 flex items-center ">
