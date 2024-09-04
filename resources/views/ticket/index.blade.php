@@ -1174,7 +1174,7 @@
                 $('#aitticket_single').val(ait_single);
                 $('#aitticket_amount_single').val(ait_amount);
                 $('#gds_payment_single').val(gds_payment);
-                $('#supplier_price').val(gds_payment);
+                $('#supplier_price_single').val(gds_payment);
 
             });
 
