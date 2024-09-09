@@ -102,7 +102,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         // Update the reportdiv with the response
-                        $('#reportdiv').html(response);
+                        $('#reportdiv').html(response.html);
                     },
                     error: function (error) {
                         console.log(error);

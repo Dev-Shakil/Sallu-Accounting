@@ -45,7 +45,7 @@
                         <label class="form-check-label font-semibold text-blue-700 text-[14px] text-[#22262e]" for="inlineCheckbox2">Supplier</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
+                      <input class="form-check-input" checked type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
                       <label class="form-check-label font-semibold text-pink-800 text-[14px] text-[#22262e]" for="inlineCheckbox3">Agent</label>
                     </div>
                 </div>
