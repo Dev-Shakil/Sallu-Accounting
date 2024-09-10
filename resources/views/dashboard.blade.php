@@ -65,7 +65,7 @@ background: #555; /* Or any other color you prefer */
           Deu Reminder
         </a>
         <a href={{route('sales_exicutive_stuff')}} class="text-center hover:no-underline text-white bg-[#4f595d] font-bold py-3 px-4 rounded">
-          Sales Exicutive Report
+         Staff Sales Report
         </a>
         <a href={{route('dailystate.view')}} class="text-center hover:no-underline text-white bg-[#7a4b2b] font-bold py-3 px-4 rounded">
           Day Book

@@ -26,7 +26,7 @@
     
 </head>
 
-<body class="bg-gray-50 antialiased">
+<body class="bg-[#F0EFEF] antialiased">
     @include('layouts.navigation')
 
     <!-- Barra lateral -->

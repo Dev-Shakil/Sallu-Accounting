@@ -5,16 +5,16 @@
           @csrf
           <div class="flex flex-wrap items-center pt-3">
             
-              <div class=" form-group flex items-center gap-2 col-md-2">
+              <div class=" form-group flex items-center gap-2 col-md-3">
                   <label for="agent" class="text-[14px] text-[#22262e]">Agent</label>
-                  <select class="form-control select2" name="agent" id="agent" placeholder="Select agent">
+                  <select class="form-control select2 " name="agent" id="agent" placeholder="Select agent">
                       <option value="">Select Agent</option>
                       @foreach($agents as $agent)
                           <option value="{{ $agent->id }}">{{ $agent->name }}</option>
                       @endforeach
                   </select>
               </div>
-              <div class="col-md-2 form-group flex items-center gap-2">
+              <div class="col-md-3 form-group flex items-center gap-2">
                   <label for="supplier" class="text-[14px] text-[#22262e]">Supplier</label>
                   <select class="form-control select2" name="supplier" id="supplier">
                       <option value="">Select Supplier</option>
@@ -23,48 +23,55 @@
                       @endforeach
                   </select>
               </div>
-              <div class="form-group col-md-2 flex items-center gap-2">
-                  <label for="start_date" class="text-[14px] text-[#22262e]">From</label>
-                  <div class="input-group date" style="width: 100%">
+              <div class="flex gap-7 w-fit col-md-4">
+              <div class="form-group w-[100%] flex items-center">
+                  <label for="start_date" class="text-[14px] text-[#22262e] mr-3 w-[20%]">From</label>
+                  <div class="input-group date" class="w-[50%]">
                       <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
                   </div>      
               </div>
-              <div class="form-group col-md-2 flex items-center gap-2">
-                  <label for="end_date" class="text-[14px] text-[#22262e]">To</label>
-                  <div class="input-group date" style="width: 100%">
+              <div class="form-group w-[100%] flex items-center">
+                  <label for="end_date" class="text-[14px] text-[#22262e] mr-3 w-[20%]">To</label>
+                  <div class="input-group date" class="w-[50%]">
                       <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
                   </div>      
               </div>
-
-              <div class="form-group col-md-2 flex items-center gap-2">
-                  <label for="issue_date" class="text-[14px] text-[#22262e]">Issue Date</label>
-                  <div class="input-group date" style="width: 100%">
-                      <input type="text" class="form-control datepicker" name="issue_date" id="issue_date" placeholder="Issue Date" />
+            </div>
+                
+              <div class="form-group col-md-1 flex items-center gap-2">
+                      
+              </div>
+              <div class="flex gap-4 col-md-6 ">
+              <div class="form-group flex w-1/2 items-center gap-2 ">
+                  <label for="issue_date" class="text-[14px] text-[#22262e] w-[150px]">Flight Date From</label>
+                  <div class="input-group date" class="w-[70%]">
+                      <input type="text" class="form-control datepicker w-[150px]" name="issue_date" id="issue_date" placeholder="Issue Date" />
                   </div>      
               </div>
-              <div class="form-group col-md-2 flex items-center gap-2">
-                  <label for="flight_date" class="text-[14px] text-[#22262e]">Flight Date</label>
-                  <div class="input-group date" style="width: 100%">
-                      <input type="text" class="form-control datepicker" name="flight_date" id="flight_date" placeholder="End Date" />
+              <div class="form-group flex items-center w-1/2 gap-2">
+                  <label for="flight_date" class="text-[14px] text-[#22262e] w-[150px]">Flight Date To</label>
+                  <div class="input-group date" class="w-[70%]">
+                      <input type="text" class="form-control datepicker w-[150px]" name="flight_date" id="flight_date" placeholder="End Date" />
                   </div>      
               </div>
+            </div>
               <div class="form-group px-6 flex items-center ">
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="profit" name="show_profit">
-                      <label class="form-check-label font-semibold text-green-600 text-[14px] text-[#22262e]" for="inlineCheckbox1">Profit</label>
+                      <label class="form-check-label font-bold text-[18px] text-[#741f1c]" for="inlineCheckbox1">Profit</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="supplier" name="show_supplier">
-                      <label class="form-check-label font-semibold text-blue-700 text-[14px] text-[#22262e]" for="inlineCheckbox2">Supplier</label>
+                      <label class="form-check-label font-bold  text-[18px] text-[#1c7258]" for="inlineCheckbox2">Supplier</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
-                    <label class="form-check-label font-semibold text-pink-800 text-[14px] text-[#22262e]" for="inlineCheckbox3">Agent</label>
+                    <label class="form-check-label font-bold  text-[18px] text-[#239292]" for="inlineCheckbox3">Agent</label>
                   </div>
               </div>
               
               <div class="flex items-center mb-2">
-                  <button type="submit" class="bg-black border-blue-500 text-white py-1 px-5 rounded-lg ">Submit</button>
+                  <button type="submit" class="bg-black border-blue-500 text-white px-7 text-[17px] py-2 ">Submit</button>
               </div>
           </div>
       </form>

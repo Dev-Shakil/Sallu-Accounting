@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="bg-white shadow-lg px-3 rounded-lg">
+    <div class="bg-white shadow-lg py-3 px-3 rounded-lg">
         <form id="reportForm" action="{{ route('general_ledger_report') }}" method="POST">
             @csrf
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 ">
                 <div class="grid grid-cols-4 w-full gap-x-5 items-center py-2">
 
                     <div class=" flex gap-4 ">
@@ -23,16 +23,16 @@
                             <option value="">Select One</option>
                         </select>
                     </div>
-                    <div class="flex gap-4 ml-6">
+                    <div class="flex gap-4 ml-2">
                         <label for="start_date" class='font-semibold text-[14px] text-[#22262e]'>From</label>
-                        <div class="w-[75%] date">
+                        <div class="w-[55%] date">
                             <input type="text" class="form-control datepicker" name="start_date" id="start_date"
                                 placeholder="Start Date" />
                         </div>
                     </div>
                     <div class="flex gap-4">
                         <label for="end_date" class='font-semibold text-[14px] text-[#22262e]'>To</label>
-                        <div class="w-[75%] date" >
+                        <div class="w-[55%] date" >
                             <input type="text" class="form-control datepicker" name="end_date" id="end_date"
                                 placeholder="End Date" />
                         </div>
@@ -48,7 +48,7 @@
         </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         
