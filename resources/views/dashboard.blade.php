@@ -1,5 +1,5 @@
 <x-app-layout>
-  <style>
+  {{-- <style>
     ::-webkit-scrollbar {
 width: 15px; /* Adjust this value to your preference */
 }
@@ -18,7 +18,7 @@ background: #7CB0B2; /* Or any other color you prefer */
 ::-webkit-scrollbar-thumb:hover {
 background: #555; /* Or any other color you prefer */
 }
-  </style>
+  </style> --}}
     {{-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -121,52 +121,7 @@ background: #555; /* Or any other color you prefer */
         </div>
       </div> --}}
       <div class="grid gap-4 grid-cols-2 mt-2">
-        <div class="mt-2 rounded-lg bg-white shadow-lg">
-          <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">Flight Alert</h2>
-          <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
-            <table class="  my-5 text-sm text-black border table table-hover" >
-              <thead>
-                <tr class="border-b bg-[#7CB0B2]">
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Invoice Date</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Ticket No</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Airline</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Passenger</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Flight Date</th>
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Agent</th>
-  
-                  {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th> --}}
-                  <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Price</th>
-  
-                  {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Price</th> --}}
-                
-                </tr>
-              </thead>
-              <tbody>
-  
-                @foreach($closetickets as $ticket)
-                <tr class="border-b hover:bg-gray-50">
-                  <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}</td>
-                  <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_code}}/{{$ticket->ticket_no}}</td>
-                  <td class="px-4 py-2 text-gray-700">{{$ticket->airline_name}}/{{$ticket->airline_code}}</td>
-  
-                  <td class="px-4 py-2 text-gray-700">{{$ticket->passenger}}</td>
-  
-                  <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}</td>
-                  <td class="px-4 py-2 text-gray-700">{{$ticket->agent}}</td>
-  
-                  {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier}}</td> --}}
-                  <td class="px-4 py-2 text-gray-700">{{$ticket->agent_price}}</td>
-                  {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier_price}}</td> --}}
-  
-                
-                
-                </tr>
-                @endforeach
-              
-              </tbody>
-            </table>
-          </div>
-        </div>
+        
 
         @if(!session('employee'))
             <div class="mt-2 rounded-lg bg-white shadow-lg">
@@ -274,6 +229,52 @@ background: #555; /* Or any other color you prefer */
           </div>
         </div>
         
+      </div>
+      <div class="mt-2 rounded-lg bg-white shadow-lg">
+        <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">Flight Alert</h2>
+        <div class="bg-white p-2 overflow-y-scroll h-[400px] overflow-hidden">
+          <table class="  my-5 text-sm text-black border table table-hover" >
+            <thead>
+              <tr class="border-b bg-[#7CB0B2]">
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Invoice Date</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Ticket No</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Airline</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Passenger</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Flight Date</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Agent</th>
+
+                {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th> --}}
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Price</th>
+
+                {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier Price</th> --}}
+              
+              </tr>
+            </thead>
+            <tbody>
+
+              @foreach($closetickets as $ticket)
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_code}}/{{$ticket->ticket_no}}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->airline_name}}/{{$ticket->airline_code}}</td>
+
+                <td class="px-4 py-2 text-gray-700">{{$ticket->passenger}}</td>
+
+                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->agent}}</td>
+
+                {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier}}</td> --}}
+                <td class="px-4 py-2 text-gray-700">{{$ticket->agent_price}}</td>
+                {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier_price}}</td> --}}
+
+              
+              
+              </tr>
+              @endforeach
+            
+            </tbody>
+          </table>
+        </div>
       </div>
       <script type="text/javascript">
         $('#flight_table').DataTable();
