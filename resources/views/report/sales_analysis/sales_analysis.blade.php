@@ -41,8 +41,8 @@ foreach($tableData as $row) {
 
 <body class="flex ">
   
-  <main class="mx-auto w-full ">
-    <div class=" px-7 py-3 shadow-2xl">
+  <main class="mx-auto w-full shadow-xl">
+    <div class=" px-7 py-3">
       <h2 class="text-center text-3xl my-2">SALLU AIR SERVICE</h2>
       <h2 class="text-center font-bold text-xl my-2 underline">Profit Report</h2>
       <div class="flex items-center w-[35%] mx-auto justify-between mb-2">
@@ -61,9 +61,9 @@ foreach($tableData as $row) {
       </div>
 
       <div>
-        <table class="table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-sm my-1">
+        <table class="table-auto w-[100%] mx-auto border-2 border-gray-400 devide-2 text-md my-1">
             <thead>
-                <tr class="border-y-2 border-black bg-cyan-700">
+                <tr class="border-y-2 border-black bg-[#00959E]">
                     <th class="text-start">SL</th>
                     <th class="text-start">Trans. Date</th>
                     <th class="text-start">Sale Amount</th>
@@ -73,9 +73,9 @@ foreach($tableData as $row) {
                     <th class="text-start">Payment Amount</th>
                 </tr>
             </thead>
-            <tbody class="divide-y-2">
+            <tbody class="">
                 @foreach($tableData as $index => $row)
-                <tr class="text-black ">
+                <tr class="text-black border-t border-2 border-gray-400">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $row['date'] }}</td>
                     <td>{{ $row['salestotalAmount'] }}</td>
@@ -85,7 +85,7 @@ foreach($tableData as $row) {
                     <td>{{ $row['paymenttotalAmount'] }}</td>
                 </tr>
                 @endforeach
-                <tr class="text-black font-bold">
+                <tr class="border-2 border-black text-black font-bold">
                     <td>Total Amount</td>
                     <td></td> <!-- No date for total -->
                     <td>{{ $totalSales }}</td>

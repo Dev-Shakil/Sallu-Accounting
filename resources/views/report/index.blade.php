@@ -54,7 +54,7 @@
                 </div>
                 
                 <div class="col-md-2">
-                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg">Submit</button>
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white">Submit</button>
                 </div>
             </div>
         </form>

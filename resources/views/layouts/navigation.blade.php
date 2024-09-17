@@ -33,13 +33,11 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <span id="clock" class="text-xl  text-white"></span>
                 </div>
             </div>
-
+            <h3 class="text-white text-2xl">Wellcome To Travel Management System</h3>
             <!-- Settings Dropdown -->
             {{-- <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -76,7 +74,7 @@
             <div x-data="{ open: false }" class="hidden  sm:flex sm:items-center tracking-wider sm:gap-10 sm:ms-6">
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open" class="text-white font-semibold text-xl flex items-center focus:outline-none">
-                        <span>{{Auth::user()->name }}</span>
+                        <span class="text-2xl">{{Auth::user()->name }}</span>
                         
                     </button>
             
@@ -202,5 +200,19 @@
         });
     });
 });
+function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        
+        document.getElementById('clock').textContent = timeString;
+    }
 
+    // Update clock every second
+    setInterval(updateClock, 1000);
+
+    // Initialize clock on page load
+    updateClock();
 </script>

@@ -132,9 +132,9 @@ background: #555; /* Or any other color you prefer */
                     <table class="my-5 text-sm text-black border table table-hover">
                         <thead>
                             <tr class="border-b bg-[#7CB0B2]">
-                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
-                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
-                                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
+                                <th class="w-6/12 px-4 py-1 text-left text-gray-700 font-medium">Bank</th>
+                                <th class="w-4/12 px-4 py-1 text-left text-gray-700 font-medium">Description</th>
+                                <th class="w-2/12 px-4 py-1 text-left text-gray-700 font-medium">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -226,6 +226,33 @@ background: #555; /* Or any other color you prefer */
               
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="mt-2 rounded-lg bg-white shadow-lg">
+          <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
+              Sales (Current Billing): <span style="color: blue;">{{$total_pay}}</span>
+          </h2>
+          <div class="bg-white p-2 h-[400px]">
+            <div class="grid grid-cols-2 gap-2">
+              <div class=" h-[185px] rounded-lg flex items-center flex-col">
+                <div class="font-semibold bg-[#7CB0B2] w-full text-center">Total Sales Ticket </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">100000 </div>
+                
+              </div>
+              <div class=" h-[185px] rounded-lg flex items-center flex-col ">
+                <div class="font-semibold bg-[#7CB0B2] w-full text-center">Today's Sales Ticket </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+              </div>
+              <div class=" h-[185px] rounded-lg flex items-center flex-col ">
+                <div class="font-semibold bg-[#7CB0B2] w-full text-center">Total Sales Visa </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+              </div>
+              <div class=" h-[185px] rounded-lg flex flex-col items-center ">
+                <div class="font-semibold bg-[#7CB0B2] w-full text-center ">Today's Sales Visa </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+              </div>
+              
+            </div>
           </div>
         </div>
         

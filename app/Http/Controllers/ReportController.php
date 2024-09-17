@@ -3400,7 +3400,7 @@ class ReportController extends Controller
                 </div>
                 <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
-                <tr class="border-y-2 border-black bg-cyan-700 text-white ">
+                <tr class="border-y border-black bg-[#00959E] text-black ">
                     <th class="text-start">Booking Date</th>
                     <th class="text-start">Invoice No</th>
                    
@@ -3438,6 +3438,7 @@ class ReportController extends Controller
         $totalAgentAmount = 0;
         $totalSupplierAmount = 0;
         $totalProfit = 0;
+        $totalVisa = 0;
 
         foreach ($alldata as $data) {
             // Fetch related data
@@ -3457,7 +3458,7 @@ class ReportController extends Controller
             }
 
             // Build table row
-            $htmlTable .= '<tr class="py-4 border-gray-300 border-y">
+            $htmlTable .= '<tr class="py-4 border-gray-300 border-t">
                             <td class="py-2 pl-2">' . (new DateTime($data->date))->format('d-m-Y') . '</td>
                             <td class="py-2">' . $data->invoice . '</td>
                             <td class="py-2">' . $type . '</td>
@@ -3485,8 +3486,8 @@ class ReportController extends Controller
         }
 
         // Append the totals row
-        $htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
-                        <td class="py-2 pl-2" colspan="' . ($show_agent != null ? '7' : '5') . '">Total</td>';
+        $htmlTable .= '<tr class="py-4 border-black border-t font-bold">
+                        <td class="py-2 pl-2" colspan="' . ($show_agent != null ? '7' : '5') . '">Total :' .$alldata->count().'</td>';
         if ($show_agent != null) {
             $htmlTable .= '
                         <td class="py-2">' . $totalAgentAmount . '</td>';
@@ -3612,7 +3613,7 @@ class ReportController extends Controller
                 </div>
                 <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
-                <tr class="border-y-2 border-black bg-cyan-700 text-white">
+                <tr class="border-y-2 border-black bg-[#00959E] text-black">
                     <th class="text-start">Date</th>
                     <th class="text-start">Ticket No</th>
                     <th class="text-start">Passenger Name</th>
@@ -3663,7 +3664,7 @@ class ReportController extends Controller
                 </div>
                 <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
-                <tr class="border-y-2 border-black bg-cyan-700 text-white">
+                <tr class="border-y-2 border-black bg-[#00959E] text-black">
                     <th class="text-start">Date</th>
                     <th class="text-start">Ticket No</th>
                     <th class="text-start">Passenger Name</th>
@@ -3717,7 +3718,7 @@ class ReportController extends Controller
                 </div>
                 <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
                 <thead>
-                <tr class="border-y-2 border-black bg-cyan-700 text-white">
+                <tr class="border-y-2 border-black bg-[#00959E] text-black">
                     <th class="text-start">Date</th>
                     <th class="text-start">Ticket No</th>
                     <th class="text-start">Passenger Name</th>
@@ -3775,7 +3776,7 @@ class ReportController extends Controller
             </div>
             <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
             <thead>
-            <tr class="border-y-2 border-black bg-cyan-700 text-white">
+            <tr class="border-y-2 border-black bg-[#00959E] text-black">
                 <th class="text-start"> Date</th>
                 <th class="text-start">Ticket No</th>
                 <th class="text-start">Passenger Name</th>

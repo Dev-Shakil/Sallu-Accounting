@@ -46,7 +46,7 @@
     </div>
     <table class="table-auto w-full shadow-2xl">
         <thead>
-          <tr class="bg-[#0E7490] text-white">
+          <tr class="bg-[#0E7490] text-black">
             <th class="px-4 text-left">SL</th>
             <th class="px-4 text-left">Date</th>
             <th class="px-4 text-left">Account Name</th>

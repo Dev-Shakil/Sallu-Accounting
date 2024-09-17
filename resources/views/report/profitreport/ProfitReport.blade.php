@@ -29,7 +29,7 @@
 <body class="flex ">
   
   <main class="mx-auto w-full ">
-    <div class=" px-7 py-3 shadow-2xl">
+    <div class=" px-7 py-3 bg-white shadow-2xl">
       <h2 class="text-center text-3xl my-2">{{Auth::user()->name}}</h2>
         <p class="text-center text-xl my-2">{{Auth::user()->company_address}}</p>
       <h2 class="text-center font-bold text-xl my-2 underline">Profit Report</h2>
@@ -50,7 +50,7 @@
     
     <table class="table-auto w-full shadow-2xl">
         <thead>
-          <tr class="bg-[#0E7490] text-white">
+          <tr class="bg-[#0E7490] text-black">
             <th class="px-4 text-left">SL</th>
             <th class="px-4 text-left">Service Name</th>
             <th class="px-4 text-left">Number Of Sales</th>
@@ -59,7 +59,7 @@
             <th class="px-4 text-center">Profit</th>
           </tr>
         </thead>
-        <tbody id="data" class="divide-y divide-gray-400">
+        <tbody id="data" class="">
           @php
             $count = $buying = $selling = $total = 0;
           @endphp
@@ -70,7 +70,7 @@
               $selling += $data['selling_price'];
               $total += $data['profit'];
             @endphp
-            <tr>
+            <tr class="border-t-2 border-gray-400">
               <td class="px-4 py-1">{{$index + 1}}</td>
               <td class="px-4 py-1">{{$data['name']}}</td>
               <td class="px-4 py-1">{{$data['count']}}</td>
@@ -81,7 +81,7 @@
             </tr>
           @endforeach
 
-          <tr class="bold-row">
+          <tr class="bold-row border-t-2 border-gray-600">
             <td class="px-2 py-1"></td>
             <td class="px-2 py-1">Total</td>
             <td class="px-2 py-1">{{ $count }}</td>

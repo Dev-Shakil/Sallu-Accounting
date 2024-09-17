@@ -3,25 +3,25 @@
         {{-- <h3>fsdsdf</h3> --}}
         <form id="reportForm" action="{{ route('bank_book_report') }}" method="POST">
           @csrf
-          <div class="flex items-center">
+          <div class="flex items-center px-4 py-3 gap-4">
             
             
        
-            <div class="form-group col-md-2">
-                <label for="start_date">Start Date</label>
+            <div class="flex ">
+                <label for="start_date" class="w-[100px]">Start Date</label>
                 <div class="input-group date" style="width: 100%">
                     <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
                 </div>      
             </div>
-            <div class="form-group col-md-2">
-                <label for="end_date">End Date</label>
+            <div class="flex">
+                <label for="end_date" class="w-[100px]">End Date</label>
                 <div class="input-group date" style="width: 100%">
                     <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
                 </div>      
             </div>
-            <div class="form-group col-md-2">
+            <div class="flex gap-3">
                 <label for="end_date">Method</label>
-                <div class="input-group date" style="width: 100%">
+                <div class=" w-[250px]">
                     <select class="form-control select2" name="method" id="method">
                         <option value="">Select Bank</option>
 
@@ -35,14 +35,14 @@
             
             
             <div class="flex items-center">
-                <button type="submit" class="bg-black border-blue-500 text-white py-2 px-5 rounded-lg ">Submit</button>
+                <button type="submit" class="bg-black border-blue-500 text-white py-2 ml-3 px-6 ">Submit</button>
             </div>
           </div>
       </form>
     </div>
 
     
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         

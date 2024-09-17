@@ -36,7 +36,7 @@
     <div class="flex mb-10">
     <table class="table-auto w-full ">
         <thead>
-          <tr class="bg-[#0E7490] text-white flex justify-between">
+          <tr class="bg-[#0E7490] text-black flex justify-between">
             <th class="px-4 py-2 text-left">Particular</th>
             <th class="px-4 py-2 text-left">Amount</th>
            

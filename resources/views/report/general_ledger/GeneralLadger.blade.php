@@ -31,7 +31,7 @@
 
 <body class="flex bg-white">
   
-  <main class="flex-1 mx-auto max-w-7xl px-2" style="width: 97%">
+  <main class="flex-1 mx-auto max-w-7xl px-2 shadow-lg bg-white py-2" style="width: 97%">
   
    <div class="">
         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
+        <table class="table-auto w-full border-t-2 table-stripe devide-2 text-sm my-1">
         
             <thead>
               <tr class="border-y-2 border-black">
@@ -71,7 +71,7 @@
             <tbody class="divide-y-2">
               
               {!! $html !!}
-              <tr>
+              <tr class="border-t border-black">
                 <td colspan="4">Total</td>
                 <td><b>{{ $debit }}</b></td>
                 <td><b>{{ $credit }}</b></td>

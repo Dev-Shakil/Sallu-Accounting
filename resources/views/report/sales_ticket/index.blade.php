@@ -77,14 +77,14 @@
       </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         
         <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
     </div> 
 
-    <div class="reportdiv mt-5" id="reportdiv">
+    <div class="reportdiv mt-5 shadow-lg bg-white " id="reportdiv">
 
     </div>
 

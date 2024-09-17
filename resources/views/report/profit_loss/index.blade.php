@@ -21,15 +21,15 @@
             </div>
             
             
-            <div class="flex items-center ml-6">
-                <button type="submit" class="bg-black border-blue-500 text-white py-2 px-5 rounded-lg ">Submit</button>
+            <div class="flex items-center ml-8">
+                <button type="submit" class="bg-black border-blue-500 text-white py-2 px-5 ">Submit</button>
             </div>
           </div>
       </form>
     </div>
 
     
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         

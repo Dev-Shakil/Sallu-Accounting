@@ -38,26 +38,26 @@
                 <div class="form-group px-6 flex items-center ">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="profit" name="show_profit">
-                        <label class="form-check-label font-semibold text-green-600 text-[14px] text-[#22262e]" for="inlineCheckbox1">Profit</label>
+                        <label class="form-check-label text-green-600 text-[16px] font-bold" for="inlineCheckbox1">Profit</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="supplier" name="show_supplier">
-                        <label class="form-check-label font-semibold text-blue-700 text-[14px] text-[#22262e]" for="inlineCheckbox2">Supplier</label>
+                        <label class="form-check-label text-blue-700 text-[16px] font-bold" for="inlineCheckbox2">Supplier</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" checked type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
-                      <label class="form-check-label font-semibold text-pink-800 text-[14px] text-[#22262e]" for="inlineCheckbox3">Agent</label>
+                      <label class="form-check-label text-pink-800 text-[16px] font-bold" for="inlineCheckbox3">Agent</label>
                     </div>
                 </div>
                 
                 <div class="flex items-center mb-2">
-                    <button type="submit" class="bg-black border-blue-500 text-white py-1 px-5 rounded-lg ">Submit</button>
+                    <button type="submit" class="bg-black border-blue-500 text-lg  text-white py-2 px-6">Submit</button>
                 </div>
             </div>
       </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         

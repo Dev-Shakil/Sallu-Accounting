@@ -20,7 +20,7 @@
       box-sizing: border-box;
     }
     body{
-      background-color: #1F2937;
+      background-color: #F0EFEF;
     }
     .background{
       width: 430px;
@@ -56,7 +56,7 @@
     form{
       height: 520px;
       width: 400px;
-      background-color: rgba(255,255,255,0.13);
+      background-color: #00959F;
       position: absolute;
       transform: translate(-50%,-50%);
       top: 60%;
@@ -84,7 +84,7 @@
     label{
       display: block;
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500;
     }
     input{
@@ -99,7 +99,7 @@
       font-weight: 300;
     }
     ::placeholder{
-      color: #e5e5e5;
+      color: white;
     }
     button{
       margin-top: 20px;
@@ -130,6 +130,13 @@
     }
     .social .fb{
     margin-left: 25px;
+    color:black;
+    background-color: white;
+    }
+    .social .go{
+    margin-left: 25px;
+    color:black;
+    background-color: white;
     }
     .social i{
     margin-right: 4px;
