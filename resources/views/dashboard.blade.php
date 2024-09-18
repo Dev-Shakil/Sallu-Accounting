@@ -236,20 +236,20 @@ background: #555; /* Or any other color you prefer */
             <div class="grid grid-cols-2 gap-2">
               <div class=" h-[185px] rounded-lg flex items-center flex-col">
                 <div class="font-semibold bg-[#7CB0B2] w-full text-center">Total Sales Ticket </div>
-                <div class="font-bold text-lg text-blue-800 mt-10">100000 </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">{{$total_month_sales_ticket}}</div>
                 
               </div>
               <div class=" h-[185px] rounded-lg flex items-center flex-col ">
                 <div class="font-semibold bg-[#7CB0B2] w-full text-center">Today's Sales Ticket </div>
-                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">{{$total_today_sales_ticket}}</div>
               </div>
               <div class=" h-[185px] rounded-lg flex items-center flex-col ">
                 <div class="font-semibold bg-[#7CB0B2] w-full text-center">Total Sales Visa </div>
-                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">{{$total_month_sales_visa}} </div>
               </div>
               <div class=" h-[185px] rounded-lg flex flex-col items-center ">
                 <div class="font-semibold bg-[#7CB0B2] w-full text-center ">Today's Sales Visa </div>
-                <div class="font-bold text-lg text-blue-800 mt-10">10000 </div>
+                <div class="font-bold text-lg text-blue-800 mt-10">{{$total_today_sales_visa}} </div>
               </div>
               
             </div>
