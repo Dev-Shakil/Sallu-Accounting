@@ -247,6 +247,7 @@ Route::get('/layout.app', function () {
     return view('layout.app',compact('user'));
 })->middleware(['auth', 'verified'])->name('layout.app');
 
+Route::post('/check-result', [TicketController::class, 'checkResult']);
 
 Route::get('agent/view', function () {
     return app(AgentController::class)->index();
@@ -386,6 +387,9 @@ Route::get('/receive_form', [ReceivePaymentController::class, 'receive_index'])-
 Route::get('/report/view', function () {
     return app(ReportController::class)->index();
 })->name('report.view');
+
+Route::get('/flight_ticket', [ReportController::class, 'flight_ticket'])->name('flight_ticket');
+Route::post('/flight_report_ticket', [ReportController::class, 'flight_report_ticket'])->name('flight_report_ticket');
 
 Route::get('/ticket_seles_report', [ReportController::class, 'ticket_seles_report'])->name('ticket_seles_report');
 // Route::get('/general-ledger', [GeneralLedgerController::class, 'general_ledger'])->name('general_ledger');

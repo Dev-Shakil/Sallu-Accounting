@@ -228,7 +228,7 @@ background: #555; /* Or any other color you prefer */
             </table>
           </div>
         </div>
-        <div class="mt-2 rounded-lg bg-white shadow-lg">
+        {{-- <div class="mt-2 rounded-lg bg-white shadow-lg">
           <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
               Sales (Current Billing): <span style="color: blue;">{{$total_pay}}</span>
           </h2>
@@ -254,7 +254,47 @@ background: #555; /* Or any other color you prefer */
               
             </div>
           </div>
+        </div> --}}
+        <div class=" rounded-lg bg-gradient-to-br from-gray-50 to-white shadow-xl">
+          <h2 class="px-5 bg-gradient-to-r from-blue-100 to-gray-200 py-3 text-2xl text-blue-900 border-b border-gray-300 font-semibold rounded-t-lg">
+            Sales (Current Billing): <span style="color: #2563EB;">{{ $total_pay }}</span>
+          </h2>
+          
+          <div class="bg-white h-[400px]">
+           
+            <div class="container mx-auto py-6">
+              <div class="grid grid-cols-2 text-center border-gray-300">
+                
+                <!-- 20000+ Graduates Students -->
+                <div class="flex h-[170px] flex-col items-center  border-r justify-center border-b border-gray-300">
+                  <h2 class="text-teal-600 text-4xl font-extrabold"> {{ $total_month_sales_ticket }}</h2>
+                  <p class="text-gray-700 text-lg font-semibold">Total Sales Ticket</p>
+                </div>
+                
+                <!-- 350+ Employees & Academics -->
+                <div class="flex h-[170px] flex-col items-center border-b justify-center border-gray-300">
+                  <h2 class="text-red-500 text-4xl font-extrabold">{{ $total_today_sales_ticket }}</h2>
+                  <p class="text-gray-700 text-lg font-semibold">Today Sales Ticket</p>
+                </div>
+                
+                <!-- 25+ Programmes -->
+                <div class="flex h-[170px] flex-col items-center border-r justify-center border-gray-300">
+                  <h2 class="text-orange-500 text-4xl font-extrabold">{{ $total_month_sales_visa }}</h2>
+                  <p class="text-gray-700 text-lg font-semibold">Total Sales Visa</p>
+                </div>
+                
+                <!-- 3000+ Students Per Year Admission -->
+                <div class="flex h-[170px] flex-col items-center justify-center">
+                  <h2 class="text-purple-600 text-4xl font-extrabold">{{ $total_today_sales_visa }}</h2>
+                  <p class="text-gray-700 text-lg font-semibold">Today Sales Visa</p>
+                </div>
+            
+              </div>
+            </div>
+          </div>
         </div>
+        
+        
         
       </div>
       <div class="mt-2 rounded-lg bg-white shadow-lg">

@@ -3,11 +3,11 @@
         {{-- <h3>fsdsdf</h3> --}}
         <form id="reportForm" action="{{ route('sector_city_report') }}" method="POST">
           @csrf
-          <div class="flex items-center">
+          <div class="flex items-center gap-3">
             
-            <div class="form-group col-md-2">
+            <div class="flex gap-3 w-2/12 ">
                 <label for="start_date">Start From</label>
-                <div class="input-group date" style="width: 100%">
+                <div class="input-group w-[70%] date" >
                     <select id="start_from" name="start_from" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
                         <option value="">Select City</option>
                         @foreach($cities as $city)
@@ -16,9 +16,9 @@
                     </select>
                 </div>      
             </div>
-            <div class="form-group col-md-2">
+            <div class="flex gap-3 w-2/12">
                 <label for="start_date">End To</label>
-                <div class="input-group date" style="width: 100%">
+                <div class="input-group w-[70%] date" >
                     <select id="end_to" name="end_to" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
                         <option value="">Select City</option>
                         @foreach($cities2 as $city)
@@ -28,15 +28,15 @@
                 </div>      
             </div>
        
-            <div class="form-group col-md-2">
+            <div class="flex gap-3 w-2/12">
                 <label for="start_date">Start Date</label>
-                <div class="input-group date" style="width: 100%">
+                <div class="input-group w-[60%] date" >
                     <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
                 </div>      
             </div>
-            <div class="form-group col-md-2">
+            <div class="flex gap-3 w-2/12">
                 <label for="end_date">End Date</label>
-                <div class="input-group date" style="width: 100%">
+                <div class="input-group w-[60%] date" >
                     <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
                 </div>      
             </div>
@@ -49,7 +49,7 @@
       </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         

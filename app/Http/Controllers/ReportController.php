@@ -4657,7 +4657,7 @@ class ReportController extends Controller
                     $total_agent_price += $data->agent_price;
                     $total_supplier_price += $data->supplier_price;
                     $total_profit += $data->profit;
-                    $total_balance += $data->agent_new_amount;
+                    $total_balance += $data->agent_price;
                 }
                 $htmlTable .= '<tr>
                             <td class="py-2">' . (new DateTime($data->invoice_date))->format('d-m-Y') . '</td>
@@ -4681,7 +4681,7 @@ class ReportController extends Controller
                                     <td class="text-center">' . $data->profit . '</td>';
                 }
                 $htmlTable .= '
-                            <td class="py-2 text-center">' . $data->agent_new_amount . '</td>
+                            <td class="py-2 text-center">' . $data->agent_price . '</td>
                         </tr>';
             }
             $htmlTable .= '<tr class="w-100 py-2" style="background:white; "><td><b>Total Ticket: ' . $count . '</b></td>
@@ -4897,7 +4897,108 @@ class ReportController extends Controller
             return view('welcome'); 
         }
     }
+    public function flight_report_ticket(Request $request)
+    {
+        // dd($request->all());
+        if(Auth::user()){
+            
+        $agent = $request->input('agent') ?? null;
+        $supplier = $request->input('supplier') ?? null;
 
+        $show_profit = $request->input('show_profit') ?? null;
+        $show_supplier = $request->input('show_supplier') ?? null;
+        $show_agent = $request->input('show_agent') ?? null;
+
+        $start_date = $request->input('start_date') ?? null;
+        $end_date = $request->input('end_date') ?? null;
+
+        $issue_date = $request->input('issue_date') ?? null;
+        $flight_date = $request->input('flight_date') ?? null;
+
+        if ($start_date) {
+            $start_date = (new DateTime($start_date))->format('Y-m-d');
+        }
+        if ($end_date) {
+            $end_date = (new DateTime($end_date))->format('Y-m-d');
+        } else {
+            $end_date = now()->format('Y-m-d');
+        }
+
+        if ($issue_date) {
+            $issue_date = (new DateTime($issue_date))->format('Y-m-d');
+        }
+        if ($flight_date) {
+            $flight_date = (new DateTime($flight_date))->format('Y-m-d');
+        }else {
+            $flight_date = now()->format('Y-m-d');
+        }
+        
+
+        $user = Auth::id();
+
+        $query = DB::table('tickets')
+        ->select('tickets.*')  // Select all ticket fields
+        ->where([
+            ['is_active', 1],
+            ['is_delete', 0],
+            ['user', $user],
+        ]);
+
+        if ($agent !== null) {
+            $query->where('agent', $agent);
+        }
+
+        if ($supplier !== null) {
+            $query->where('supplier', $supplier);
+        }
+
+        if ($start_date && $end_date) {
+            $query->whereBetween('invoice_date', [$start_date, $end_date]);
+        } elseif ($start_date) {
+            $query->where('invoice_date', '>=', $start_date);
+        } elseif ($end_date) {
+            $query->where('invoice_date', '<=', $end_date);
+        }
+
+        if ($issue_date && $flight_date) {
+            $query->whereBetween('flight_date', [$issue_date, $flight_date]);
+        } elseif ($issue_date) {
+            $query->where('flight_date', '>=', $issue_date);
+        } elseif ($flight_date) {
+            $query->where('flight_date', '<=', $flight_date);
+        }
+
+        // Retrieve the tickets
+        $tickets = $query->get();
+
+    
+        $groupedTickets = [];
+
+        foreach ($tickets as $ticket) {
+            $groupedTickets[$ticket->agent][] = $ticket;  // Group tickets by agent
+        }
+
+        // dd(Auth::user()->name);
+        // dd($groupedTickets);
+        $html = ViewFacade::make('report.flight_ticket.report', [
+              
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'show_agent' => true,
+            'show_supplier' => $show_supplier,
+            'show_profit' => $show_profit,
+            'alldata' => $groupedTickets,
+           
+          
+        ])->render();
+        
+        return response()->json(['html' => $html]);
+
+        }
+        else{
+            return view('welcome');
+        }
+    }
     public function dailystate_report(Request $request){
         if(Auth::user()){
             $date = $request->input('date') ?? null;
@@ -5294,5 +5395,20 @@ class ReportController extends Controller
         else{
             return view('welcome');
         }
+    }
+    public function flight_ticket()
+    {
+        if(Auth::user()){
+            $user = Auth::id();
+            $suppliers = Supplier::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+            $agents = Agent::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+            $types = Type::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+            $orders = Order::where([['is_delete', 0], ['is_active', 1], ['user', $user]])->get();
+            return view('report.flight_ticket.index', compact('suppliers', 'agents', 'types'));
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
 }

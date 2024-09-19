@@ -78,7 +78,7 @@
                         <label for="invoice_date" class="block w-[50%]">Invoice
                             Date</label>
                         <input type="date" id="invoice_date"
-                            class=" bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required
+                            class=" bg-white border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
                             name="invoice_date" value="<?php echo date('Y-m-d') ?>">
                     </div>
                     <div class="w-full px-4 mb-2 flex items-center">
@@ -97,7 +97,7 @@
                             {{-- <input type="text" id="airlines_name"
                                 class="bg-white w-[73%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                                 name="airlines_name"> --}}
-                                <select id="airlines_name" class="select2 bg-white w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name" required>
+                                <select id="airlines_name" class="select2 bg-white w-[73%] border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1" name="airlines_name">
                                     <option>Select Airline</option>
                                     @foreach ($airlines as $airline)
                                         <option value="{{ $airline->Full}}">{{ $airline->Full }}</option>
@@ -105,7 +105,7 @@
                                 </select>
                                 
                             <input type="text" id="airlines_code"
-                                class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1" required
+                                class="bg-white w-[23%] border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-1"
                                 name="airlines_code">
                         </div>
                     </div>
@@ -226,7 +226,7 @@
                         <div class="w-full flex gap-x-2">
                         <input type="text" id="supplier_price"
                             class="bg-white border border-gray-300 md:w-[82%] text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="supplier_price" required>
+                            name="supplier_price">
                             <button id="group_ait" class="bg-[#00959E] font-bold w-[16%] text-white text-sm rounded-xl flex justify-center items-center p-1"><span class="text-lg">+</span> AIT</button>
                         </div>
                     </div>
@@ -1200,44 +1200,18 @@
             });
             //  end here
 
+
+
             function manipulateString(inputString, variable) {
                 if (variable >= 0 && variable <= 100) {
                     var lastTwoChars = inputString.slice(-2);
                     var result = inputString.slice(0, -2) + (parseInt(lastTwoChars) + variable);
-
-                    // Send AJAX request to check if the result already exists on the server
-                    $.ajax({
-                        url: '/check-result',  // The URL for the server-side route
-                        type: 'POST',          // The request type
-                        data: {
-                            result: result,    // Send the generated result to the server
-                            _token: $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-                        },
-                        success: function(response) {
-                            if (response.exists) {
-                                alert('Duplicate ticket numbers: ' + result);
-                                if (response.duplicates.length > 0) {
-                                    alert('Duplicate ticket numbers: ', response.duplicates);
-                                } else {
-                                    console.log('No duplicates found.');
-                                }
-                            } else {
-                                console.log('The result is unique: ' + result);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX request failed: ' + error);
-                        }
-                    });
-
                     return result;
                 } else {
-                    console.error('Invalid variable. It should be between 0 and 100.');
+                    console.error('Invalid variable. It should be between 0 and 9.');
                     return null;
                 }
             }
-
-
             
             $('#number_of_tickets').on('change', function(event) {
                 var number_of_tickets = parseInt($('#number_of_tickets').val());
@@ -1396,9 +1370,58 @@
                 agent_price_1 && sector &&
                 supplier_price && invoice_no && pnr && person && classOpt )
                 {
-                    var csrfToken = "{{ csrf_token() }}";
+                  var csrfToken = "{{ csrf_token() }}";
                  
-                    var formData = $("#ticket_form").serialize();
+                //   var dataToSend = {
+                //             passenger_name,
+                //             agent,
+                //             supplier,
+                //             invoice_no,
+                //             pnr,
+                //             invoice_date,
+                //             flight_date,
+                //             flight_no,
+                //             airlines_name,
+                //             ticket_code,
+                //             ticket_no,
+                //             airlines_code,
+                //             number_of_tickets,
+                //             agent_price_1,
+                //             supplier_price,
+                //             sector,
+                //             stuff,
+                //             discount,
+                //             csrfToken,
+                //             remark,
+                //             person,
+                //             classOpt ,
+                //             class_code ,
+                //             return_date,
+                //             ait,
+                //             aitticket
+                //   };
+                var formData = $("#ticket_form").serialize();
+                    // console.log(formData);
+                    // $.ajax({
+                    //         url: '/addsingleticket', // Use the correct route name
+                    //         type: 'POST',
+                    //         contentType: 'application/json',
+                    //         headers: {
+                    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    //         },
+                    //         data: JSON.stringify(formData),
+                    //         success: function(data) {
+                    //             // Handle the success response data as needed
+                    //             alert('Ticket added successfully');
+                    //             window.location.reload();
+                    //         },
+
+                    //         error: function(jqXHR, textStatus, errorThrown) {
+                    //             // Handle errors here
+                    //             console.error('Error:', errorThrown);
+                    //         }
+                    // });
+
                     $.ajax({
                         url: '/addsingleticket', // Use the correct route name
                         type: 'POST',

@@ -33,8 +33,12 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="space-x-8 sm:-my-px sm:ms-10 sm:flex items-center">
                     <span id="clock" class="text-xl  text-white"></span>
+                    
+                        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
                 </div>
             </div>
             <h3 class="text-white text-2xl">Wellcome To Travel Management System</h3>
