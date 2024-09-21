@@ -10,7 +10,7 @@
 </div>
 <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
     <thead>
-        <tr class="border-y-2 border-black bg-cyan-700 text-white">
+        <tr class="border-y-2 border-black bg-[#00959E] py-[10px] h-[30px] text-[18px] text-white">
             <th class="text-start">Booking Date</th>
             <th class="text-start">Ticket No</th>
             <th class="text-start">Passenger Name</th>
@@ -19,7 +19,7 @@
             <th class="text-start">Airlines</th>
 
             @if($show_agent)
-                <th class="text-start">Agent</th>
+                
                 <th class="text-start">Agent Price</th>
             @endif
 
@@ -77,7 +77,7 @@
                     $per_agent_count++;
                 @endphp
 
-                <tr>
+                <tr class="border-b border-gray-400">
                     <td class="py-2 pl-2">{{ (new DateTime($data->invoice_date))->format('d-m-Y') }}</td>
                     <td class="py-2">{{ $data->ticket_no }}</td>
                     <td class="py-2">{{ $data->passenger }}</td>
@@ -86,28 +86,28 @@
                     <td class="py-2">{{ $data->airline_name }}</td>
 
                     @if ($show_agent)
-                        <td class="text-start py-2">{{ $agent }}</td>
-                        <td class="text-start py-2">{{ $data->agent_price }}</td>
+                        {{-- <td class="text-start py-2">{{ $agent }}</td> --}}
+                        <td class="text-center py-2">{{ $data->agent_price }}</td>
                     @endif
 
                     @if ($show_supplier)
                         <td class="text-start py-2">{{ $supplier }}</td>
-                        <td class="text-start py-2">{{ $data->supplier_price }}</td>
+                        <td class="text-center py-2">{{ $data->supplier_price }}</td>
                     @endif
 
                     @if ($show_profit)
-                        <td class="text-start py-2">{{ $data->profit }}</td>
+                        <td class="text-center py-2">{{ $data->profit }}</td>
                     @endif
 
-                    <td class="py-2">{{ $agent_total_price }}</td>  <!-- Display balance for each ticket -->
+                    <td class="py-2 text-center">{{ $agent_total_price }}</td>  <!-- Display balance for each ticket -->
                 </tr>
             @endforeach
 
             {{-- Agent totals --}}
-            <tr class="bg-gray-300">
+            <tr class="">
                 <td colspan="5" class="text-right font-bold">Agent Total - {{$per_agent_count}}</td>
                 <td class="text-right font-bold"></td>
-                <td></td>
+                {{-- <td></td> --}}
                 <td></td>
                
                 
@@ -123,7 +123,7 @@
         @endforeach
 
         {{-- Global totals --}}
-        <tr class="bg-dark-600">
+        <tr class="">
             <td class="text-start py-2"><b>Total - {{ $count }}</b></td>
             <td></td>
             <td></td>
@@ -133,7 +133,7 @@
             {{-- <td></td> --}}
             
             @if ($show_agent)
-                <td></td>
+                {{-- <td></td> --}}
                 <td class="text-start py-2"><b>{{ $total_agent_price }}</b></td>
             @endif
 

@@ -5,7 +5,7 @@
           @csrf
           <div class="flex flex-wrap items-center pt-3">
             
-              <div class=" form-group flex items-center gap-2 col-md-3">
+              <div class="col-md-3 form-group flex items-center gap-2">
                   <label for="agent" class="text-[14px] text-[#22262e]">Agent</label>
                   <select class="form-control select2 " name="agent" id="agent" placeholder="Select agent">
                       <option value="">Select Agent</option>
@@ -14,7 +14,7 @@
                       @endforeach
                   </select>
               </div>
-              <div class="col-md-3 form-group flex items-center gap-2">
+              {{-- <div class="col-md-3 form-group flex items-center gap-2">
                   <label for="supplier" class="text-[14px] text-[#22262e]">Supplier</label>
                   <select class="form-control select2" name="supplier" id="supplier">
                       <option value="">Select Supplier</option>
@@ -22,25 +22,9 @@
                           <option value="{{$supplier->id}}">{{$supplier->name}}</option>
                       @endforeach
                   </select>
-              </div>
-              <div class="flex gap-7 w-fit col-md-4">
-              <div class="form-group w-[100%] flex items-center">
-                  <label for="start_date" class="text-[14px] text-[#22262e] mr-3 w-[20%]">From</label>
-                  <div class="input-group date" class="w-[50%]">
-                      <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="Start Date" />
-                  </div>      
-              </div>
-              <div class="form-group w-[100%] flex items-center">
-                  <label for="end_date" class="text-[14px] text-[#22262e] mr-3 w-[20%]">To</label>
-                  <div class="input-group date" class="w-[50%]">
-                      <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
-                  </div>      
-              </div>
-            </div>
+              </div> --}}
                 
-              <div class="form-group col-md-1 flex items-center gap-2">
-                      
-              </div>
+             
               <div class="flex gap-4 col-md-6 ">
               <div class="form-group flex w-1/2 items-center gap-2 ">
                   <label for="issue_date" class="text-[14px] text-[#22262e] w-[150px]">Flight Date From</label>
@@ -55,7 +39,7 @@
                   </div>      
               </div>
             </div>
-              <div class="form-group px-6 flex items-center ">
+              {{-- <div class="form-group px-6 flex items-center ">
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="profit" name="show_profit">
                       <label class="form-check-label font-bold text-[18px] text-[#741f1c]" for="inlineCheckbox1">Profit</label>
@@ -68,7 +52,7 @@
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
                     <label class="form-check-label font-bold  text-[18px] text-[#239292]" for="inlineCheckbox3">Agent</label>
                   </div>
-              </div>
+              </div> --}}
               
               <div class="flex items-center mb-2">
                   <button type="submit" class="bg-black border-blue-500 text-white px-7 text-[17px] py-2 ">Submit</button>
@@ -77,7 +61,7 @@
       </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         
