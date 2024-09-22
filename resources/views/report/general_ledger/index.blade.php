@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="bg-white shadow-lg py-3 px-3 rounded-lg">
-        <form id="reportForm" action="{{ route('general_ledger_report') }}" method="POST">
+        <form autocomplete="off" id="reportForm" action="{{ route('general_ledger_report') }}" method="POST">
             @csrf
             <div class="flex gap-x-4 items-center">
                 <div class="flex gap-x-5 items-center py-2">

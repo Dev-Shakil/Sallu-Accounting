@@ -34,7 +34,7 @@
                     <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
                 </form> --}}
                 <div class="text-center font-bold text-xl mb-8">Add New Employee</div>
-            <form class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post">
+            <form autocomplete="off" class="grid grid-cols-1 gap-4"  action="{{ route('addstuff.store') }}" method="post">
                 @csrf
                 <div class="flex items-center">
                     <label for="employeeName" class="w-1/2  mr-4">Employee Name <stong class="text-red-600 text-2xl">*</strong></label>

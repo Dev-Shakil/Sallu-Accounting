@@ -15,7 +15,7 @@
         <h1 class="mb-4 text-3xl font-bold w-[100%] mx-auto lg:w-[75%]">Ticket Void Invoicing</h1>
     
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
-            <form action="{{ route('ticket_void') }}" method="post">
+            <form autocomplete="off" action="{{ route('ticket_void') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
                 <div class="mb-4 flex items-center gap-6">
                     <label for="ticket" class="w-[15%] block text-md font-semibold text-black ">Ticket Search:</label>

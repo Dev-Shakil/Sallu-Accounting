@@ -16,7 +16,7 @@
             <h1 class="mb-4 font-semibold w-[90%] md:w-[60%] mx-auto text-lg">Add Airlines</h1>
 
             <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
-                <form action="/addairline" method="POST">
+                <form action="/addairline" method="POST" autocomplete="off">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                         <div class="mb-4">

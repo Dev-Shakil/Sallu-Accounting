@@ -24,7 +24,7 @@
     
             <div class="addagent">
                 @if(in_array('entry', $permissionsArray))
-                <form action="/transaction_add" method="post" class="flex gap-4 items-center shadow-lg p-3 rounded-sm bg-white mb-3" >
+                <form autocomplete="off" action="/transaction_add" method="post" class="flex gap-4 items-center shadow-lg p-3 rounded-sm bg-white mb-3" >
                     
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="grid grid-cols-2 w-[80%] gap-x-5">

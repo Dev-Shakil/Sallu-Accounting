@@ -33,7 +33,7 @@
         Invoicing
     </h2>
     @if(in_array('entry', $permissionsArray))
-        <form action="/addorder" method="POST" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
+        <form action="/addorder" method="POST" autocomplete="off" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
             @csrf
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">

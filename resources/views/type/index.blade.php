@@ -24,7 +24,7 @@
 
         <div class="addagent w-[100%] lg:w-[60%] mx-auto bg-white p-5 shadow-lg rounded-lg">
             @if(in_array('entry', $permissionsArray))
-            <form action="/addtype" method="post" class="flex gap-14 items-center">
+            <form autocomplete="off" action="/addtype" method="post" class="flex gap-14 items-center">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
                 <div class="row w-full">
                     <div class="form-group col">

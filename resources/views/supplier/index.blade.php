@@ -29,7 +29,7 @@
         
             <div class="bg-white shadow-md rounded-lg w-[100%] lg:w-[60%] p-6 mb-8">
                 @if(in_array('entry', $permissionsArray))
-                <form action="/addsupplier" method="post">
+                <form autocomplete="off" action="/addsupplier" method="post">
                     @csrf <!-- Add this line to include CSRF protection in Laravel -->
                     <div class="grid grid-cols-2 gap-4">
                         <div class="mb-4">

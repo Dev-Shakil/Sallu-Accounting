@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container-fluid bg-white shadow-lg p-4 rounded-lg flex-wrap">
         {{-- <h3>fsdsdf</h3> --}}
-        <form id="reportForm" action="{{ route('sales_report_visa') }}" method="POST">
+        <form autocomplete="off" id="reportForm" action="{{ route('sales_report_visa') }}" method="POST">
             @csrf
             <div class="flex items-center pt-3">
               

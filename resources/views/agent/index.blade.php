@@ -31,7 +31,7 @@
             <h1 class="mb-4 text-3xl w-[60%] mx-auto font-bold">Add Agent</h1>
             <div class="addagent w-[90%] md:w-[60%] p-7 mx-auto bg-white shadow-lg rounded-lg">
                 @if(in_array('entry', $permissionsArray))
-                    <form action="/addagent" method="POST">
+                    <form action="/addagent" method="POST" autocomplete="off">
                         @csrf <!-- Add this line to include CSRF protection in Laravel -->
                         <div class="grid grid-cols-1 md:grid-cols-2 md:gap-10">
                             <div class="mb-4">

@@ -153,7 +153,7 @@
                     <button type="submit" class="px-8 py-2 bg-black rounded-xl text-white">Submit</button>
                 </form> --}}
                 <div class="text-center font-bold text-xl mb-8">Pay Employee Salary</div>
-                <form class="grid grid-cols-2 gap-x-6 gap-y-2" action="{{ route('salary.store') }}" method="post">
+                <form class="grid grid-cols-2 gap-x-6 gap-y-2" action="{{ route('salary.store') }}" autocomplete="off" method="post">
                     @csrf
                     <div class="flex items-center">
                       <label for="ref_no" class="w-1/2 pr-4 ">Ref. No.:</label>

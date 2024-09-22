@@ -6,7 +6,7 @@
         {{-- @php
             dd($agent->description);
         @endphp --}}
-        <form action="{{ route('agent.update', ['id' => $agent->id]) }}" method="post">
+        <form action="{{ route('agent.update', ['id' => $agent->id]) }}" method="post" autocomplete="off">
             @csrf <!-- Add this line to include CSRF protection in Laravel -->
             <div class="grid grid-cols-2 gap-4">
                 <div class="mb-4">

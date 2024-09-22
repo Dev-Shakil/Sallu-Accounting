@@ -50,7 +50,7 @@
    
     <div id="container" class="border-t bg-white border-gray-2  flex-col justify-center items-center rounded-lg flex shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
         @if(in_array('entry', $permissionsArray))
-        <form class="w-full p-6" id="ticket_form">
+        <form autocomplete="off" class="w-full p-6" id="ticket_form">
                 @csrf
                 <div class="grid grid-cols-2 w-full gap-3">
                 

@@ -497,6 +497,10 @@ Route::get('company_profile/view', function () {
     return app(SettingsController::class)->edit_company_profile();
 })->name('company_profile.view');
 
+Route::get('expenditure/report', [MoneyTransferController::class, 'expenditure_report'])->name('expenditure.report');
+Route::post('expenditure/report/result', [MoneyTransferController::class, 'expenditure_report_result'])->name('expenditure_report_result');
+Route::delete('/delete-expenditure-main/{id}', [MoneyTransferController::class, 'destroyExpenditureMain'])->name('delete_expenditure_main');
+
 Route::get('/bank_book', [ReportController::class, 'bank_book'])->name('bank_book.view');
 Route::get('/cash_book', [ReportController::class, 'cash_book'])->name('cash_book.view');
 Route::post('/bank_book_report', [ReportController::class, 'bank_book_report'])->name('bank_book_report');

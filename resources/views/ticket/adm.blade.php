@@ -16,7 +16,7 @@
     </h2>
     <div class="flex bg-gray-50 flex-col justify-center items-center p-6 rounded-lg shadow-lg lg:w-3/4 w-full mx-auto my-2">
       
-    <form action="{{ route('adm_entry') }}" method="post" class="w-full">
+    <form autocomplete="off" action="{{ route('adm_entry') }}" method="post" class="w-full">
         @csrf
         <div class="flex flex-wrap xl:gap-x-7 lg:gap-x-2 md:gap-x-2 sm:gap-x-0 -mx-4 mb-4">
             <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">

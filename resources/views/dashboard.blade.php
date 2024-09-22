@@ -146,6 +146,14 @@ background: #555; /* Or any other color you prefer */
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-4 py-2 text-gray-700 text-md font-semibold">Total</td>
+                                    <td class="px-4 py-2 text-gray-700"></td>
+                                    <td class="px-4 py-2 text-gray-700 text-md font-semibold">{{$total_amount}}</td>
+                                </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

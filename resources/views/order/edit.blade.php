@@ -11,7 +11,7 @@
     <div >
         
         <h3 class="font-bold text-2xl py-3">Order Details Update</h3>
-        <form action="{{ route('order.update', ['id' => $order->id]) }}" method="POST" id="editorder" class="w-[80%] p-5 bg-white shadow-lg">
+        <form action="{{ route('order.update', ['id' => $order->id]) }}" autocomplete="off" method="POST" id="editorder" class="w-[80%] p-5 bg-white shadow-lg">
             @csrf
             
             <input type="hidden" name="id" value="{{ $order->id }}" />

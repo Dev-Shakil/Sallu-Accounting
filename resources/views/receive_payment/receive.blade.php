@@ -13,7 +13,7 @@
 
             <div class="flex-col py-3 border-gray-400 w-full" style="" id="receive">
                 <div class="text-xl font-bold text-gray-700 mb-4">Receive Details</div>
-                <form action="{{ route('submit.receive') }}" id="submit_form_receive" method="post" class="w-[100%]">
+                <form autocomplete="off" action="{{ route('submit.receive') }}" id="submit_form_receive" method="post" class="w-[100%]">
                     @csrf
                     <div
                         class="shadow-2xl border-t border-gray-200 mt-4 bg-white w-[100%] md:w-[80%] rounded-lg px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-x-28">

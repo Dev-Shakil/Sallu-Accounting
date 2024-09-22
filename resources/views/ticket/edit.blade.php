@@ -6,7 +6,7 @@ Ticket Invoicing
 </h2>
 <div class="flex flex-col justify-center items-center p-6 rounded-lg shadow-md lg:w-3/4 w-full mx-auto my-2">
 
-<form class="w-full" id="ticket_form" action="{{ route('ticket.update') }}" method="POST">
+<form autocomplete="off" class="w-full" id="ticket_form" action="{{ route('ticket.update') }}" method="POST">
 
       @csrf
 

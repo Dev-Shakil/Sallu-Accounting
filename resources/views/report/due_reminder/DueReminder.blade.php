@@ -18,7 +18,7 @@
           </div>
           <div class="" id="searchbar">
               <label for="customer" class="text-black font-semibold text-xl">Customer Name</label>
-              <form action="{{ route('due_reminder_specific') }}" method="GET">
+              <form autocomplete="off" action="{{ route('due_reminder_specific') }}" method="GET">
                 <div class="flex gap-4 mt-2">
                     <select id="supplierSelect" name="supplierName" id="agent_supplier_id" class="lg:w-[60%] w-[80%] border rounded-md p-2 h-9 text-black bg-gray-200">
                         <option value="" selected disabled>Select Customer</option>

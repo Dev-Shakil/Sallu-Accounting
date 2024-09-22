@@ -152,6 +152,49 @@
 </div>
 
 
+        {{-- <div class="allagents mt-8 shadow-lg bg-white rounded-lg">
+            <table class="table table-striped table-hover no-wrap w-full" id="agenttable">
+                <thead class="bg-[#7CB0B2]">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Date</th>
+                        <th class="px-4 py-2 text-left">Type</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Amount</th>
+                        <th class="px-4 py-2 text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm divide-y divide-gray-400">
+                        <tr>
+                            
+                            <td class="px-4 py-2">21-03-2024</td>
+                            <td class="px-4 py-2"> Office Rent </td>
+                            <td class="px-4 py-2">Jane Alam</td>
+                            <td class="px-4 py-2">70000</td>
+                            <td class="px-4 py-2">Delete</td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td class="px-4 py-2">21-03-2024</td>
+                            <td class="px-4 py-2"> Office Rent </td>
+                            <td class="px-4 py-2">Jane Alam</td>
+                            <td class="px-4 py-2">70000</td>
+                            <td class="px-4 py-2">Delete</td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td class="px-4 py-2">21-03-2024</td>
+                            <td class="px-4 py-2"> Office Rent </td>
+                            <td class="px-4 py-2">Jane Alam</td>
+                            <td class="px-4 py-2">70000</td>
+                            <td class="px-4 py-2">Delete</td>
+                            
+                        </tr>
+                        
+                </tbody>
+            </table>
+        </div> --}}
         <div class=" mt-8 shadow-lg bg-white rounded-lg">
             <table class="table table-striped table-hover no-wrap w-full" id="agenttable">
                 <thead class="bg-[#7CB0B2]">
@@ -173,42 +216,37 @@
                             <td class="px-4 py-2"> {{$index + 1}} </td>
                             <td class="px-4 py-2">{{$expan->date}}</td>
                             <td class="px-4 py-2">{{$expan->receive_from}}</td>
-                            <td class="px-4 py-2">
-                                @foreach ($employees as $index => $emp)
-                                    @if($emp->id == $expan->from_account)
-                                        {{$emp->name}}
-                                    @endif
-                                @endforeach
-                            </td>
+                            <td class="px-4 py-2"> @foreach ($employees as $index => $emp)
+                                @if($emp->id == $expan->from_account)
+                                     {{$emp->name}}
+                                
+                                @endif
+                            @endforeach</td>
                             <td class="px-4 py-2">
                                 @foreach ($expenditures as $index => $ex)
                                     @if($ex->id == $expan->toward)
-                                        {{$ex->name}}
+                                         {{$ex->name}}
+                                    
                                     @endif
                                 @endforeach
-                            </td>
+                                </td>
                             <td class="px-4 py-2">{{$expan->amount}}</td>
                             <td class="px-4 py-2">
                                 @foreach ($transactions as $index => $tran)
-                                    @if($tran->id == $expan->method)
-                                        {{$tran->name}}
-                                    @endif
-                                @endforeach
-                            </td>
+                                @if($tran->id == $expan->method)
+                                     {{$tran->name}}
+                                
+                                @endif
+                            @endforeach</td>
                             <td class="px-4 py-2">{{$expan->remark}}</td>
                             <td class="px-4 py-2">
-                                <form action="{{ route('delete_expenditure_main', ['id' => $expan->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this expenditure?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-2 py-1 rounded-md">
-                                        <i class="text-xl fa fa-trash-o fa-fw"></i>
-                                    </button>
-                                </form>
+                                {{-- <a href="{{ route('moneytransfer.edit', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-eye fa-fw"></i></a>
+                                <a href="{{ route('moneytransfer.delete', ['id' => $transfer->id]) }}" class=" px-2 py-1 rounded-md"><i class="text-xl fa fa-trash-o fa-fw"></i></a> --}}
                             </td>
-                        </tr>
+                        <tr>
                     @endforeach
+                       
                 </tbody>
-                
             </table>
         </div>
       </main>

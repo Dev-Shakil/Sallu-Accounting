@@ -4,7 +4,7 @@
         {{-- @php
             dd($supplier->description);
         @endphp --}}
-        <form action="{{ route('supplier.update', ['id' => $supplier->id]) }}" method="post">
+        <form autocomplete="off" action="{{ route('supplier.update', ['id' => $supplier->id]) }}" method="post">
             @csrf <!-- Add this line to include CSRF protection in Laravel -->
             <div class="grid grid-cols-2 gap-4">
                 <div class="mb-4">

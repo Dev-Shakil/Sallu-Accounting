@@ -15,7 +15,7 @@
         <h1 class="mb-4 text-3xl font-bold w-[100%] mx-auto lg:w-[75%]">Ticket Refund Invoicing</h1>
     
         <div class="bg-white shadow-md rounded-lg w-[100%] mx-auto lg:w-[75%] p-6 mb-8">
-            <form action="{{ route('refund_ticket_entry') }}" method="post">
+            <form autocomplete="off" action="{{ route('refund_ticket_entry') }}" method="post">
                 @csrf <!-- Add this line to include CSRF protection in Laravel -->
                 
                 <div class="grid grid-cols-2 gap-x-14">

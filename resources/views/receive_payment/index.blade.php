@@ -26,7 +26,7 @@
         <div class="w-[85%] mx-auto flex justify-center items-center ">
             <div class=" flex-col py-3  border-gray-400 w-full" id="payment">
                 <div class="text-xl font-bold text-gray-700 mb-2">Payment Details</div>
-                <form action="{{ route('submit.payment') }}" id="submit_form_payment" method="post" class="w-[100%]">
+                <form autocomplete="off" action="{{ route('submit.payment') }}" id="submit_form_payment" method="post" class="w-[100%]">
                     @csrf
                     <div
                         class="shadow-2xl border-t border-gray-200 mt-4 bg-white w-[100%] md:w-[80%] rounded-lg px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-x-28">

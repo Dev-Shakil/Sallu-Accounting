@@ -5,7 +5,7 @@
         {{-- @php
             dd($transaction->description);
         @endphp --}}
-        <form action="{{ route('transaction.update', ['id' => $transaction->id]) }}" method="post">
+        <form autocomplete="off" action="{{ route('transaction.update', ['id' => $transaction->id]) }}" method="post">
             @csrf <!-- Add this line to include CSRF protection in Laravel -->
             <div class="row">
                 <div class="form-group col">
