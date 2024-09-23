@@ -632,7 +632,7 @@
                                     {{ __('Reissue Report') }}
                                 </x-nav-link>
                             </li>
-                            <li class="text-white font-semibold">
+                            {{-- <li class="text-white font-semibold">
                                 <x-nav-link :href="route('ticket.view')" :active="request()->routeIs('ticket.view')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -641,7 +641,7 @@
                                     </svg>
                                     {{ __('Deportee Report') }}
                                 </x-nav-link>
-                            </li>
+                            </li> --}}
                             <li class="text-white font-semibold">
                                 <x-nav-link :href="route('deportee.index')" :active="request()->routeIs('deportee.index')">
                                     <svg class="w-6 h-6 mr-3 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none"

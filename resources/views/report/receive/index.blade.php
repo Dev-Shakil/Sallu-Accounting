@@ -23,7 +23,7 @@
                 </div>
                 <div class="">
                     <label for="method">Transaction Method</label><br>
-                    <select id="method" name="method" class="border rounded-md px-2 h-9 text-black bg-gray-200">
+                    <select id="method" name="method" class="select2 border rounded-md px-2 h-9 text-black bg-gray-200">
                         <option value="">Select Payment Method</option>
                         @foreach($methods as $method)
                             <option value="{{ $method->id }}">{{ $method->name }}</option>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="w-[300px]">
                     <label for="method">Customer Name</label><br>
-                    <select id="customer" name="customer" class="w-[100%] border rounded-md px-2 h-9 text-black bg-gray-200">
+                    <select id="customer" name="customer" class="select2 border rounded-md px-2 h-9 text-black bg-gray-200">
                         <option value="">Select Customer</option>
                         @foreach($agents as $agent)
                             <option value="{{ $agent->getTable() }}_{{ $agent->id }}">{{ $agent->name }}</option>
@@ -50,7 +50,7 @@
         </form>
     </div>
 
-    <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
+    <div class="buttons justify-end flex gap-3 p-5 ">
         
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         <button class="text-white bg-black font-bold text-md py-2 px-4">GO BACK</button>
