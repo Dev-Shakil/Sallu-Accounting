@@ -75,56 +75,12 @@ background: #555; /* Or any other color you prefer */
         </a>
         
       </div>
-      {{-- <div class="grid grid-cols-2">
-        <div class="bg-white p-2 shadow-lg mt-2">
-          <table class=" my-5 text-sm text-black border  overflow-hidden table table-hover" id="flight_table">
-            <thead>
-              <tr class="border-b bg-[#7CB0B2]">
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Invoice Date</th>
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Ticket No</th>
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Airline</th>
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Passenger</th>
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Flight Date</th>
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Agent</th>
-
-                
-                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Price</th>
-
-              
-              
-              </tr>
-            </thead>
-            <tbody>
-
-              @foreach($closetickets as $ticket)
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}</td>
-                <td class="px-4 py-2 text-gray-700">{{$ticket->ticket_code}}/{{$ticket->ticket_no}}</td>
-                <td class="px-4 py-2 text-gray-700">{{$ticket->airline_name}}/{{$ticket->airline_code}}</td>
-
-                <td class="px-4 py-2 text-gray-700">{{$ticket->passenger}}</td>
-
-                <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}</td>
-                <td class="px-4 py-2 text-gray-700">{{$ticket->agent}}</td>
-
-               
-                <td class="px-4 py-2 text-gray-700">{{$ticket->agent_price}}</td>
-             
-
-              
-              
-              </tr>
-              @endforeach
-            
-            </tbody>
-          </table>
-        </div>
-      </div> --}}
+     
       <div class="grid gap-4 grid-cols-2 mt-2">
         
 
         @if(!session('employee'))
-            <div class="mt-2 rounded-lg bg-white shadow-lg">
+            <div class="mt-2 rounded-lg bg-white shadow-lg   animate__wobble">
                 <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
                     Total Cash In Bank: <span style="color: blue;">{{$total_amount}}</span>
                 </h2>
@@ -159,7 +115,7 @@ background: #555; /* Or any other color you prefer */
             </div>
         @endif
     
-        <div class="mt-2 rounded-lg bg-white shadow-lg">
+        <div class="mt-2 rounded-lg bg-white shadow-lg   animate__bounce">
           <h2 class="px-3 bg-gray-200 py-2 text-xl text-black border-b border-gray-200 font-semibold">
               Total Receivables: <span style="color: blue;">{{$total_receive}}</span>
           </h2>

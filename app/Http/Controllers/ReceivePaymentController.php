@@ -78,9 +78,15 @@ class ReceivePaymentController extends Controller
         $payment->method = $request->paymentMethod;
 
         $transaction = Transaction::where('id', $request->paymentMethod)->first();
-        $newAmount = $transaction->amount - $request->paymentAmount;
-        $transaction->amount = $newAmount;
-        $transaction->save();
+        if($transaction->amount >= $request->paymentAmount){
+            $newAmount = $transaction->amount - $request->paymentAmount;
+            $transaction->amount = $newAmount;
+            $transaction->save();
+        }
+        else{
+            return response()->json(['message' => 'Unsufficent Balance', 'success' => false]);
+        }
+      
 
         // Build the model class name dynamically
         $modelClassName = ucfirst($tableName);

@@ -287,7 +287,9 @@ class GeneralLedgerController extends Controller
                 $acountname = Agent::where('id', $id)->value('name');
     
                 $opening_balance = Agent::where('id', $id)->value('opening_balance');
-    
+
+                $activeTransactionMethods = Transaction::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
+                // dd($activeTransactionMethods);
                 $balance =  $opening_balance_debit + $opening_balance;
                 $debit = 0;
                 $credit = 0;
@@ -356,9 +358,10 @@ class GeneralLedgerController extends Controller
                                                     <td class="w-[11%]"> {$item->invoice} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
                                                     <td class="w-[28%]">
-                                                        Remarks:  {$item->remark} <br>
-                                                        <b>Receive</b>
+                                                        Remarks: {{ $item->remark }} <br>
+                                                        <b>Receive from {{$activeTransactionMethods[$item->method]}}</b>
                                                     </td>
+
                                                     <td class="w-[12%] totaldebit"></td>
                                                     <td class="w-[12%] totalcredit">{$item->amount}</td>
                                                     <td class="w-[12%] totaltotal">{$currentAmount}</td>
@@ -379,7 +382,7 @@ class GeneralLedgerController extends Controller
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
-                                                        <b>Payment<b>
+                                                        <b>Payment by {{$activeTransactionMethods[$item->method]}}<b>
                                                     </td>
                                                     <td class="w-[12%] totaldebit">{$item->amount}</td>
                                                     <td class="w-[12%] totalcredit"></td>

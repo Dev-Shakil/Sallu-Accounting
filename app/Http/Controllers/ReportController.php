@@ -1831,6 +1831,7 @@ class ReportController extends Controller
             list($tableName, $customerid) = explode('_', $request->customer);
         }
 
+        // dd($tableName, $customerid);
         if ($start_date) {
             $start_date = (new DateTime($start_date))->format('Y-m-d');
         }
@@ -2985,7 +2986,7 @@ class ReportController extends Controller
         // dd($alldata);
         $htmlTable = '';
 
-        $htmlTable = '
+        $htmlTable = '<div class="bg-white shadow-lg p-2">
         <h2 class="text-center font-bold text-3xl my-2">Segment Report </h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
@@ -3046,7 +3047,7 @@ class ReportController extends Controller
                         </tr>';
 
         // Close the HTML table
-        $htmlTable .= '</tbody></table>';
+        $htmlTable .= '</tbody></table></div>';
 
 
 

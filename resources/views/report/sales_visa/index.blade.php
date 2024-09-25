@@ -23,6 +23,15 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2 form-group flex items-center gap-2">
+                    <label for="type" class="text-[14px] text-[#22262e]">Type</label>
+                    <select class="form-control select2" name="type" id="type">
+                        <option value="">Select Type</option>
+                        @foreach($types as $type)
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group col-md-2 flex items-center gap-2">
                     <label for="start_date" class="text-[14px] text-[#22262e]">From</label>
                     <div class="input-group date" style="width: 100%">

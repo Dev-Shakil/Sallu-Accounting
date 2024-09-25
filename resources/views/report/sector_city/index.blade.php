@@ -8,7 +8,7 @@
             <div class="flex gap-3 w-2/12 ">
                 <label for="start_date">Start From</label>
                 <div class="input-group w-[70%] date" >
-                    <select id="start_from" name="start_from" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
+                    <select id="start_from" name="start_from" class="select2 text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
                         <option value="">Select City</option>
                         @foreach($cities as $city)
                             <option value="{{ $city }}">{{ $city }}</option>
@@ -19,7 +19,7 @@
             <div class="flex gap-3 w-2/12">
                 <label for="start_date">End To</label>
                 <div class="input-group w-[70%] date" >
-                    <select id="end_to" name="end_to" class=" text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
+                    <select id="end_to" name="end_to" class="select2 text-gray-900 text-sm bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-1" required>
                         <option value="">Select City</option>
                         @foreach($cities2 as $city)
                             <option value="{{ $city }}">{{ $city }}</option>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>TripCount || An Accounts Software for Agencys</title>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -71,7 +72,7 @@
                 <button
                     class="border-2 border-gray-300 text-gray-300 py-2 px-5 hover:bg-gray-300 duration-300 hover:text-gray-900 font-semibold text-lg mt-5 rounded-lg">Contact</button>
             </div>
-            <div class=" md:w-[48%] w-[100%] flex items-center justify-center">
+            <div class=" md:w-[48%] w-[100%] flex items-center justify-center animate__animated animate__bounce">
                 <img src={{ url('/image/bg-1.png') }} alt="banner" class="md:w-[60%] md:h-[60%] w-[60%] h-[60%] " />
             </div>
         </div>
@@ -273,7 +274,7 @@
                     <p class="text-lg font-semibold">Sales Analisys Report</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
-                    <img src="./image/proloss.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
+                    <img src="./image/bar-graph.png" alt="Data Backup" class="mx-auto mb-1 w-16 h-16">
                     <p class="text-lg font-semibold">Profit / Loss Statement</p>
                 </div>
                 <div class="text-center bg-white p-4 rounded-md">
