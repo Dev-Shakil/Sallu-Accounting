@@ -20,12 +20,6 @@
                 {{ session('success') }}
             </div>
         @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
 
     </div>
     <div class="mb-2">
@@ -39,7 +33,7 @@
         Invoicing
     </h2>
     @if(in_array('entry', $permissionsArray))
-        <form action="/addorder" method="POST" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
+        <form action="/addorder" method="POST" autocomplete="off" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
             @csrf
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
@@ -91,7 +85,7 @@
                     <label for="agent" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Client
                         Name</label>
 
-                    <select name="agent" id="agent" required
+                    <select name="agent" id="agent"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500  focus:border-blue-500 block w-auto p-1 select2">
                         <option value="">Select Client</option>
                         @foreach ($agents as $agent)
@@ -103,14 +97,11 @@
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="seller" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
 
-                    <select name="supplier" id="supplier" required
+                    <select name="supplier" id="supplier"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
                         <option value="">Select Supplier</option>
                         @foreach ($suppliers as $supplier)
-                            <option value="supplier_{{ $supplier->id }}">{{ $supplier->name }} {{ $supplier->company }}</option>
-                        @endforeach
-                        @foreach ($agents as $agent)
-                            <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -429,9 +420,33 @@
                                         class="fa fa-pencil fa-fw"></i> </a>
                                     @endif
                                     @if(in_array('delete', $permissionsArray))
-                                    <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
+                                    {{-- <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
                                         data-toggle="modal" data-target="#confirmDeleteModal"><i
-                                            class="fa fa-trash-o fa-fw"></i></a>
+                                            class="fa fa-trash-o fa-fw"></i></a> --}}
+                                            <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink" data-toggle="modal" data-target="#confirmDeleteModal">
+                                                <i class="fa fa-trash-o fa-fw"></i>
+                                            </a>
+                                            
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete this order?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            <button type="button" id="confirmDeleteButton" class="btn btn-danger">Delete</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     @endif
                                     @if(in_array('view', $permissionsArray))
                                             <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
@@ -467,31 +482,7 @@
             </div>
         </div>
 
-                <!-- Confirm Delete Modal -->
-        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete this order?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
-
-    
 
     <script type="text/javascript">
          var addnew = document.getElementById('addnew');
@@ -501,38 +492,26 @@
         addnew.addEventListener('click', function() {
             toggleVisibility();
         });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Your code here
+        //     document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
+        //         event.preventDefault(); // Prevents the default link behavior (navigating to the href)
+
+        //         var isConfirmed = confirm('Are you sure you want to delete this order?');
+        //         // If user confirms, navigate to the delete route
+        //         if (isConfirmed) {
+        //             window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
+        //         }
+        //     });
+        // });
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Your code here
-            document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevents the default link behavior (navigating to the href)
-
-                var isConfirmed = confirm('Are you sure you want to delete this order?');
-                // If user confirms, navigate to the delete route
-                if (isConfirmed) {
+            
+                document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+                    
                     window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
-                }
-            });
+                });
         });
-
-                // Capture the delete link and pass it to the modal's delete button
-        $(document).on('click', '#deleteOrderLink', function (e) {
-            e.preventDefault(); // Prevent default link action
-
-            // Get the delete link
-            var deleteUrl = $(this).attr('href');
-
-            // When the delete button in the modal is clicked
-            $('#confirmDeleteButton').on('click', function () {
-                // Redirect to the delete route
-                window.location.href = deleteUrl;
-            });
-
-            // Show the modal (this should already work if you have Bootstrap properly initialized)
-            $('#confirmDeleteModal').modal('show');
-        });
-
-
-
         function toggleVisibility() {
             if (addorder.style.display === 'none') {
                 addorder.style.display = 'block';

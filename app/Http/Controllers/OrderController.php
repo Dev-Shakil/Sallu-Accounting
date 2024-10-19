@@ -33,44 +33,178 @@ class OrderController extends Controller
        
     }
 
+
+    public function orderExists($type, $passport_no)
+    {
+        // Check if an order with the same type and passport number exists
+        return Order::where('type', $type)
+                    ->where('passport_no', 'LIKE', "%{$passport_no}%")
+                    ->exists();
+    }
+    
+    // public function store(Request $request)
+    // {
+    //     if (Auth::user()) {
+    //         // dd($request->all());
+    //         try {
+    //             // Access request data directly without validation
+    //             $data = $request->all();
+    //             $condition = false;
+
+    //             foreach ($data['passport_no'] as $passport) {
+    //                 // Retrieve orders with the same type
+    //                 $orders = Order::where('type', $data['type'])->get();
+
+    //                 // Loop through the orders and check if any contain the current passport number
+    //                 foreach ($orders as $order) {
+    //                     $db_passports = explode(',', $order->passport_no); // Split the stored passport numbers
+    //                     if (in_array($passport, $db_passports)) {
+    //                         $condition = true;
+    //                         break; // Exit loop if a match is found
+    //                     }
+    //                 }
+    //             }
+
+    //             if ($condition) {
+    //                 return redirect()->route('order.view')->with('error', 'An order with the same type and passport number already exists.');
+    //             }
+
+                
+                
+    //             DB::beginTransaction();
+    
+
+    //             $who = $data['supplier'];
+    //             $parts = explode('_', $who);
+
+    //             $type = $parts[0]; // "supplier"
+    //             $who_id = $parts[1];   // "81"
+
+    //             // Create new order
+    //             $order = new Order();
+    //             $order->name = implode(',', $data['name']); // Concatenate multiple names into a single string
+    //             $order->date = $data['date'];
+    //             $order->type = $data['type'];
+    //             $order->agent = $data['agent'];
+    //             $order->passport_no = implode(',', $data['passport_no']); // Concatenate multiple passport numbers
+    //             $order->contact_amount = $data['contact_amount'];
+    //             $order->payable_amount = $data['payable_amount'];
+    //             $order->country = $data['country'];
+    //             if($type == 'supplier'){
+    //                 $order->supplier = $who_id;
+    //             }
+    //             $order->who = $data['supplier'];
+    //             $order->remark = $data['remark'];
+    //             $order->invoice = $data['invoice'];
+    
+    //             // Calculate profit
+    //             if ($request->has('other_expense')) {
+    //                 $profit = $request->contact_amount - ($request->payable_amount + $request->other_expense);
+    //             } else {
+    //                 $profit = $request->contact_amount - $request->payable_amount;
+    //             }
+    //             $order->profit = $profit;
+    
+    //             // Get current user ID
+    //             $data['user'] = Auth::id();
+    //             $order->user = $data['user'];
+    
+    //             // Update agent's amount
+    //             $agent = Agent::find($data['agent']);
+    //             $agent_prev_amount = $agent->amount;
+    //             $agent_new_amount = floatval($agent->amount) + floatval($request->contact_amount);
+    
+    //             $data['agent_prev_amount'] = $agent_prev_amount;
+    //             $data['agent_new_amount'] = $agent_new_amount;
+    
+    //             $order->agent_previous_amount = $agent_prev_amount;
+    //             $order->agent_new_amount = $agent_new_amount;
+    
+    //             $agent->amount += $request->contact_amount;
+    //             $agent->save();
+    
+    //             // Update supplier's amount
+    //             $supplier = Supplier::find($data['supplier']);
+    //             $supplier_prev_amount = $supplier->amount;
+    //             $supplier_new_amount = floatval($supplier->amount) + floatval($request->payable_amount);
+    
+    //             $data['supplier_prev_amount'] = $supplier_prev_amount;
+    //             $data['supplier_new_amount'] = $supplier_new_amount;
+    
+    //             $order->supplier_previous_amount = $data['supplier_prev_amount'];
+    //             $order->supplier_new_amount = $data['supplier_new_amount'];
+    
+    //             $supplier->amount += $request->payable_amount;
+    //             $supplier->save();
+    
+    //             // Save the order
+    //             $isdone = $order->save();
+    //             if ($isdone) {
+    //                 DB::commit(); // Commit the transaction if saving is successful
+    //                 return redirect()->route('order.view')->with('success', 'Order added successfully');
+    //             }
+    //         } catch (\Throwable $e) {
+    //             DB::rollBack(); // Roll back the transaction if an exception occurs
+    //             return redirect()->route('order.view')->with('error', $e->getMessage());
+    //         }
+    //     } else {
+    //         return view('welcome');
+    //     }
+    // }
+
+    // chatgpt
     public function store(Request $request)
     {
-        // dd("d");
-        // dd($request->all());
-        if(Auth::user()){
+        if (Auth::user()) {
+            // dd($request->all());
             try {
-                $validatedData = $request->validate([
-                    'date' => 'required|date',
-                    'type' => 'required|integer|exists:type,id',
-                    'agent' => 'required|integer|exists:agent,id',
-                    'seller' => 'nullable|string|max:255',
-                    'phone' => 'nullable|string|max:15',
-                    // 'name' => 'required|string|max:255',
-                    'name.*' => 'required|string|max:255',
-                    // 'passport_no' => 'required|string|max:255',
-                    'passport_no.*' => 'required|string|max:255',
-                    'contact_amount' => 'required|numeric',
-                    'payable_amount' => 'required|numeric',
-                    'other_expense' => 'nullable|numeric',
-                    'country' => 'required|string',
-                    'supplier' => 'required|exists:supplier,id',
-                    'remark' => 'nullable|string',
-                    'invoice' => 'required|string|max:255',
-                ]);
+                // Access request data directly without validation
+                $data = $request->all();
+                $condition = false;
+
+                foreach ($data['passport_no'] as $passport) {
+                    // Retrieve orders with the same type
+                    $orders = Order::where('type', $data['type'])->get();
+
+                    // Loop through the orders and check if any contain the current passport number
+                    foreach ($orders as $order) {
+                        $db_passports = explode(',', $order->passport_no); // Split the stored passport numbers
+                        if (in_array($passport, $db_passports)) {
+                            $condition = true;
+                            break; // Exit loop if a match is found
+                        }
+                    }
+                }
+
+                if ($condition) {
+                    return redirect()->route('order.view')->with('error', 'An order with the same type and passport number already exists.');
+                }
+
                 DB::beginTransaction();
+
+                $who = $data['supplier'];
+                $parts = explode('_', $who);
+
+                $type = $parts[0]; // "supplier"
+                $who_id = $parts[1]; // "81"
+
+                // Create new order
                 $order = new Order();
-                $order->name = implode(',', $validatedData['name']); // Concatenate multiple names into a single string
-                $order->date = $validatedData['date'];
-                $order->type = $validatedData['type'];
-                $order->agent = $validatedData['agent'];
-                $order->passport_no = implode(',', $validatedData['passport_no']); // Concatenate multiple passport numbers
-                $order->contact_amount = $validatedData['contact_amount'];
-                $order->payable_amount = $validatedData['payable_amount'];
-                $order->country = $validatedData['country'];
-                $order->supplier = $validatedData['supplier'];
-                $order->remark = $validatedData['remark'];
-                $order->invoice = $validatedData['invoice'];
-            
+                $order->name = implode(',', $data['name']); // Concatenate multiple names into a single string
+                $order->date = $data['date'];
+                $order->type = $data['type'];
+                $order->agent = $data['agent'];
+                $order->passport_no = implode(',', $data['passport_no']); // Concatenate multiple passport numbers
+                $order->contact_amount = $data['contact_amount'];
+                $order->payable_amount = $data['payable_amount'];
+                $order->country = $data['country'];
+                if ($type == 'supplier') {
+                    $order->supplier = $who_id;
+                }
+                $order->who = $data['supplier'];
+                $order->remark = $data['remark'];
+                $order->invoice = $data['invoice'];
+
                 // Calculate profit
                 if ($request->has('other_expense')) {
                     $profit = $request->contact_amount - ($request->payable_amount + $request->other_expense);
@@ -78,41 +212,52 @@ class OrderController extends Controller
                     $profit = $request->contact_amount - $request->payable_amount;
                 }
                 $order->profit = $profit;
-            
+
                 // Get current user ID
-                $validatedData['user'] = Auth::id();
-                $order->user = $validatedData['user'];
-            
+                $data['user'] = Auth::id();
+                $order->user = $data['user'];
+
                 // Update agent's amount
-                $agent = Agent::find($validatedData['agent']);
-    
+                $agent = Agent::find($data['agent']);
+                if (!$agent) {
+                    return redirect()->route('order.view')->with('error', 'Agent not found');
+                }
                 $agent_prev_amount = $agent->amount;
                 $agent_new_amount = floatval($agent->amount) + floatval($request->contact_amount);
-    
-                $validatedData['agent_prev_amount'] = $agent_prev_amount;
-                $validatedData['agent_new_amount'] = $agent_new_amount;
-    
+
+                $data['agent_prev_amount'] = $agent_prev_amount;
+                $data['agent_new_amount'] = $agent_new_amount;
+
                 $order->agent_previous_amount = $agent_prev_amount;
                 $order->agent_new_amount = $agent_new_amount;
-    
+
                 $agent->amount += $request->contact_amount;
                 $agent->save();
-            
+
                 // Update supplier's amount
-                $supplier = Supplier::find($validatedData['supplier']);
+                // $supplier = Supplier::find($who_id);
+                 // Check if the supplier exists
+                if($type == 'supplier') {                   
+                    $supplier = Supplier::find($who_id);
+                }
+                else{
+                    $supplier = Agent::find($who_id);
+                }
+                if (!$supplier) {
+                    return redirect()->route('order.view')->with('error', 'Supplier not found');
+                }
                 $supplier_prev_amount = $supplier->amount;
                 $supplier_new_amount = floatval($supplier->amount) + floatval($request->payable_amount);
-    
-                $validatedData['supplier_prev_amount'] = $supplier_prev_amount;
-                $validatedData['supplier_new_amount'] = $supplier_new_amount;
-    
-                $order->supplier_previous_amount = $validatedData['supplier_prev_amount'];
-                $order->supplier_new_amount = $validatedData['supplier_new_amount'];
-    
+
+                $data['supplier_prev_amount'] = $supplier_prev_amount;
+                $data['supplier_new_amount'] = $supplier_new_amount;
+
+                $order->supplier_previous_amount = $data['supplier_prev_amount'];
+                $order->supplier_new_amount = $data['supplier_new_amount'];
+
                 $supplier->amount += $request->payable_amount;
                 $supplier->save();
-            
-                // dd($order, $validatedData, $order->save());
+
                 // Save the order
                 $isdone = $order->save();
                 if ($isdone) {
@@ -123,23 +268,125 @@ class OrderController extends Controller
                 DB::rollBack(); // Roll back the transaction if an exception occurs
                 return redirect()->route('order.view')->with('error', $e->getMessage());
             }
-            
-        }
-        else{
+        } else {
             return view('welcome');
         }
     }
 
+    
+    // public function store_multiple(Request $request)
+    // {
+    //     // dd("d", $request->all());
+    //     if(Auth::user()){
+    //         try {
+    //             DB::beginTransaction();
+    //             $passengerCount = count($request->passenger);
+                
+    //             for ($i = 0; $i < $passengerCount; $i++) {
+    //                 if ($this->orderExists($request->invoice_type, $request->passport[$i])) {
+    //                     return redirect()->route('order.view')
+    //                         ->with('error', 'An order with the same type and passport number ' . $request->passport[$i] . ' already exists.');
+    //                 }
+                    
+    //                 $who = $request->supplier;
+    //                 $parts = explode('_', $who);
+
+    //                 $type = $parts[0]; // "supplier"
+    //                 $who_id = $parts[1]; // "81"
+
+    //                 $order = new Order();
+    //                 $order->name = $request->passenger[$i]; // Assuming $request->passenger is an array
+    //                 $order->date = $request->invoice_date;
+    //                 $order->type = $request->invoice_type;
+    //                 $order->agent = $request->agent;
+    //                 $order->passport_no = $request->passport[$i]; // Assuming $request->passport is an array
+    //                 $order->contact_amount = $request->agent_price;
+    //                 $order->payable_amount = $request->supplier_price;
+    //                 $order->country = $request->country;
+    //                 if ($type == 'supplier') {
+    //                     $order->supplier = $who_id;
+    //                 }
+    //                 $order->who = $request->supplier;
+    //                 $order->remark = $request->remark;
+    //                 $order->invoice = $request->invoice_no;
+                
+    //                 // Calculate profit
+    //                 if ($request->has('other_expense')) {
+    //                     $profit = $request->agent_price - ($request->supplier_price + $request->other_expense);
+    //                 } else {
+    //                     $profit = $request->agent_price - $request->supplier_price;
+    //                 }
+    //                 $order->profit = $profit;
+    //                 $order->user = Auth::id();
+              
+                    
+    //                 // dd("sa", $order);
+    
+    //                 // Update agent's amount
+    //                 $agent = Agent::find($request->agent);
+        
+    //                 $agent_prev_amount = $agent->amount;
+    //                 $agent_new_amount = floatval($agent->amount) + floatval($request->agent_price);
+        
+    //                 $order->agent_previous_amount = $agent_prev_amount;
+    //                 $order->agent_new_amount = $agent_new_amount;
+        
+    //                 $agent->amount += $request->agent_price;
+    //                 $agent->save();
+                    
+    //                 // Update supplier's amount
+    //                 $supplier = Supplier::find($request->supplier);
+    
+    //                 $supplier_prev_amount = $supplier->amount;
+    //                 $supplier_new_amount = floatval($supplier->amount) + floatval($request->supplier_price);
+    
+    //                 $order->supplier_previous_amount = $supplier_prev_amount;
+    //                 $order->supplier_new_amount = $supplier_new_amount;
+    
+    //                 $supplier->amount += $request->supplier_price;
+    //                 $supplier->save();
+    //                 // dd($order->save(), $request->all());
+    //                 $isdone = $order->save();
+    //             }
+    
+            
+    //             if ($isdone) {
+    //                 DB::commit(); // Commit the transaction if saving is successful
+    //                 return redirect()->route('order.view')->with('success', 'Order added successfully');
+    //             }
+    //         } catch (\Throwable $e) {
+    //             DB::rollBack(); // Roll back the transaction if an exception occurs
+    //             return redirect()->route('order.view')->with('error', $e->getMessage());
+    //         }
+            
+    //     }
+    //     else{
+    //         return view('welcome');
+    //     }
+
+    //     // $validatedData['user'] = Auth::id();
+    //     // Order::create($validatedData);
+    // }
+
     public function store_multiple(Request $request)
     {
-        // dd("d", $request->all());
-        if(Auth::user()){
+        if (Auth::user()) {
             try {
                 DB::beginTransaction();
                 $passengerCount = count($request->passenger);
                 
                 for ($i = 0; $i < $passengerCount; $i++) {
+                    if ($this->orderExists($request->invoice_type, $request->passport[$i])) {
+                        return redirect()->route('order.view')
+                            ->with('error', 'An order with the same type and passport number ' . $request->passport[$i] . ' already exists.');
+                    }
                     
+                    $who = $request->supplier;
+                    $parts = explode('_', $who);
+
+                    $type = $parts[0]; // "supplier"
+                    $who_id = $parts[1]; // "81"
+
                     $order = new Order();
                     $order->name = $request->passenger[$i]; // Assuming $request->passenger is an array
                     $order->date = $request->invoice_date;
@@ -149,7 +396,10 @@ class OrderController extends Controller
                     $order->contact_amount = $request->agent_price;
                     $order->payable_amount = $request->supplier_price;
                     $order->country = $request->country;
-                    $order->supplier = $request->supplier;
+                    if ($type == 'supplier') {
+                        $order->supplier = $who_id;
+                    }
+                    $order->who = $request->supplier;
                     $order->remark = $request->remark;
                     $order->invoice = $request->invoice_no;
                 
@@ -161,12 +411,12 @@ class OrderController extends Controller
                     }
                     $order->profit = $profit;
                     $order->user = Auth::id();
-              
-                    
-                    // dd("sa", $order);
-    
+            
                     // Update agent's amount
                     $agent = Agent::find($request->agent);
+                    if (!$agent) {
+                        return redirect()->route('order.view')->with('error', 'Agent not found.');
+                    }
         
                     $agent_prev_amount = $agent->amount;
                     $agent_new_amount = floatval($agent->amount) + floatval($request->agent_price);
@@ -178,21 +428,30 @@ class OrderController extends Controller
                     $agent->save();
                     
                     // Update supplier's amount
-                    $supplier = Supplier::find($request->supplier);
-    
+                    // $supplier = Supplier::find($who_id);
+                     // Check if the supplier exists
+                    if($type == 'supplier') {                   
+                        $supplier = Supplier::find($who_id);
+                    }
+                    else{
+                        $supplier = Agent::find($who_id);
+                    }
+                    if (!$supplier) {
+                        return redirect()->route('order.view')->with('error', 'Supplier not found.');
+                    }
+        
                     $supplier_prev_amount = $supplier->amount;
                     $supplier_new_amount = floatval($supplier->amount) + floatval($request->supplier_price);
-    
+        
                     $order->supplier_previous_amount = $supplier_prev_amount;
                     $order->supplier_new_amount = $supplier_new_amount;
-    
+        
                     $supplier->amount += $request->supplier_price;
                     $supplier->save();
-                    // dd($order->save(), $request->all());
+
                     $isdone = $order->save();
                 }
-    
-            
+
                 if ($isdone) {
                     DB::commit(); // Commit the transaction if saving is successful
                     return redirect()->route('order.view')->with('success', 'Order added successfully');
@@ -201,15 +460,12 @@ class OrderController extends Controller
                 DB::rollBack(); // Roll back the transaction if an exception occurs
                 return redirect()->route('order.view')->with('error', $e->getMessage());
             }
-            
-        }
-        else{
+        } else {
             return view('welcome');
         }
-
-        // $validatedData['user'] = Auth::id();
-        // Order::create($validatedData);
     }
+
+
     public function getlastid(){
       if(Auth::user()){
         try {
@@ -245,6 +501,7 @@ class OrderController extends Controller
         return view('welcome');
       }
     }
+
     public function edit($id)
     {
         if(Auth::user()){
@@ -343,35 +600,41 @@ class OrderController extends Controller
                 DB::beginTransaction();
             
                 try {
+                    // Fetch the order and check if it exists
                     $order = Order::findOrFail($id);
-                    $order->is_delete = 1;
-            
-                    $agent = Agent::findOrFail($order->agent);
-                    $agent->amount -= $order->contact_amount;
-            
-                    $supplier = Supplier::findOrFail($order->supplier);
-                    $supplier->amount -= $order->payable_amount;
-            
-                    $flag = $agent->save() && $supplier->save();
-            
-                    if ($flag) {
-                        $order->save();
-                        DB::commit(); // Commit the transaction if everything is successful
-                        return redirect()->route('order.view')->with('success', 'Order deleted successfully');
+                    $order->is_delete = 1; // Soft delete (or change this based on your deletion logic)
+                
+                    // Update the agent's amount
+                    $agent = Agent::find($order->agent);
+                    if ($agent) {
+                        $agent->amount -= $order->contact_amount;
+                        $agent->save();
+                    }
+                
+                    // Update the supplier's amount
+                    $supplier = Supplier::find($order->supplier);
+                    if ($supplier) {
+                        $supplier->amount -= $order->payable_amount;
+                        $supplier->save();
+                    }
+                
+                    // Save the order after marking it as deleted
+                    if ($order->save()) {
+                        DB::commit(); // Commit the transaction
+                        return redirect()->route('order.view')->with('success', "Order #{$order->id} deleted successfully");
                     } else {
-                        DB::rollBack(); // Rollback the transaction if any operation fails
+                        DB::rollBack(); // Rollback the transaction if saving the order fails
                         return redirect()->route('order.view')->with('error', 'Order deletion failed');
                     }
                 } catch (\Exception $e) {
                     DB::rollBack(); // Rollback the transaction in case of any exception
-                    return redirect()->route('order.view')->with('error', 'Order deletion failed');
+                    return redirect()->route('order.view')->with('error', 'Order deletion failed: ' . $e->getMessage());
                 }
-            }
-            else{
+            } else {
                 return view('welcome');
             }
-            
         }
+
 }
 
 ?>

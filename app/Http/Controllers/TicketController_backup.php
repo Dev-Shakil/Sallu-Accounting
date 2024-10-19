@@ -76,6 +76,35 @@ class TicketController extends Controller
         return true;
     }
 
+    public function checkResult(Request $request) {
+        $result = $request->input('result');
+    
+        // Get all ticket numbers for the authenticated user
+        $allticketno = Ticket::where([
+            ['user', Auth::id()],
+            ['is_delete', 0], 
+            ['is_active', 1]
+        ])->pluck('ticket_no')->toArray();
+    
+        // Check if the 'result' exists in the ticket numbers
+        $exists = in_array($result, $allticketno);
+    
+        if ($exists) {
+            // Find duplicate ticket numbers if 'result' is present
+            $duplicateTicketNos = array_keys(array_count_values($allticketno), 2); // Finds duplicates
+        } else {
+            $duplicateTicketNos = [];
+        }
+    
+        // Return JSON response with the result and duplicates
+        return response()->json([
+            'exists' => $exists,
+            'duplicates' => $exists ? $duplicateTicketNos : []
+        ]);
+    }
+    
+    
+
     public function store(Request $request)
     {
         if(Auth::user()){
