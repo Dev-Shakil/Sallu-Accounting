@@ -1,3 +1,4 @@
+{{--// arnab file--}}
 <x-app-layout>
     <style type="text/css">
         .select2-selection--single{
@@ -50,7 +51,7 @@
    
     <div id="container" class="border-t bg-white border-gray-2  flex-col justify-center items-center rounded-lg flex shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
         @if(in_array('entry', $permissionsArray))
-        <form autocomplete="off" class="w-full p-6" id="ticket_form">
+        <form class="w-full p-6" id="ticket_form">
                 @csrf
                 <div class="grid grid-cols-2 w-full gap-3">
                 
@@ -207,6 +208,9 @@
                             <option value="">Select Supplier</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
+                            @endforeach
+                            @foreach ($agents as $agent)
+                                <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -506,6 +510,9 @@
                             <option value="">Select Supplier</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
+                            @endforeach
+                            @foreach ($agents as $agent)
+                                <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
                             @endforeach
                         </select>
                     </div>
