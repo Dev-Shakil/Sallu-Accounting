@@ -273,6 +273,7 @@ background: #555; /* Or any other color you prefer */
                 <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Passenger</th>
                 <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Flight Date</th>
                 <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Agent</th>
+                <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Supplier</th>
 
                 {{-- <th class="w-1/6 px-4 py-2 text-left text-gray-700 font-medium">Supplier</th> --}}
                 <th class="w-1/6 px-4 py-1 text-left text-gray-700 font-medium">Price</th>
@@ -293,6 +294,7 @@ background: #555; /* Or any other color you prefer */
 
                 <td class="px-4 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}</td>
                 <td class="px-4 py-2 text-gray-700">{{$ticket->agent}}</td>
+                <td class="px-4 py-2 text-gray-700">{{$ticket->supplier}}</td>
 
                 {{-- <td class="px-4 py-2 text-gray-700">{{$ticket->supplier}}</td> --}}
                 <td class="px-4 py-2 text-gray-700">{{$ticket->agent_price}}</td>
