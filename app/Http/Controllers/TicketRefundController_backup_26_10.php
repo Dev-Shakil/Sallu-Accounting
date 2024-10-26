@@ -19,29 +19,9 @@ class TicketRefundController extends Controller
         if(Auth::user()){
             $user = Auth::id();
             $suppliers = Supplier::where([['is_delete',0],['is_active',1],['user',$user]])->get();
-            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get(); 
-            
-            $query = Refund::where([
-                ['refund.user', '=', Auth::id()],
-            ])
-            ->leftJoin('tickets', function ($join) {
-                $join->on('refund.ticket_no', '=', 'tickets.ticket_no');
-            })
-            ->leftJoin('supplier', function ($join) {
-                $join->on('refund.supplier', '=', 'supplier.id');
-            })
-            ->leftJoin('agent', function ($join) {
-                $join->on('refund.agent', '=', 'agent.id');
-            });
-            // Optionally select specific columns to avoid ambiguity
-            $query->select('refund.*', 'tickets.passenger', 'agent.name as agent_name', 'supplier.name as supplier_name');
-            
-            // Add additional filters or selects based on your needs
-            $refunds = $query->get();
-
-
+            $agents = Agent::where([['is_delete',0],['is_active',1],['user',$user]])->get();
            
-            return view('report/refund_ticket/index', compact('suppliers', 'agents', 'refunds'));
+            return view('report/refund_ticket/index', compact('suppliers', 'agents'));
         }
         else{
             return view('welcome');
@@ -71,27 +51,19 @@ class TicketRefundController extends Controller
             }
 
          // Building the query
-         $query = Refund::query();
-
-         // Conditionally add the agent condition if $agent is provided
-         if (!empty($agent)) {
-             $query->where('refund.agent', '=', $agent);
-         }
-         
-         // Conditionally add the supplier condition if $supplier is provided
-         if (!empty($supplier)) {
-             $query->where('refund.supplier', '=', $supplier);
-         }
-         
-         $query->leftJoin('tickets', function ($join) {
-                 $join->on('refund.ticket_no', '=', 'tickets.ticket_no');
-             })
-             ->leftJoin('supplier', function ($join) {
-                 $join->on('refund.supplier', '=', 'supplier.id');
-             })
-             ->leftJoin('agent', function ($join) {
-                 $join->on('refund.agent', '=', 'agent.id');
-             });
+         $query = Refund::where([
+            ['refund.agent', '=', $agent],
+            ['refund.supplier', '=', $supplier],
+        ])
+        ->leftJoin('tickets', function ($join) {
+            $join->on('refund.ticket_no', '=', 'tickets.ticket_no');
+        })
+        ->leftJoin('supplier', function ($join) {
+            $join->on('refund.supplier', '=', 'supplier.id');
+        })
+        ->leftJoin('agent', function ($join) {
+            $join->on('refund.agent', '=', 'agent.id');
+        });
         
         // Date filtering
         if ($startDate && $endDate) {
@@ -122,17 +94,17 @@ class TicketRefundController extends Controller
             'refunds' => $refunds,
          
         ])->render();
-        // $html = ViewFacade::make('report/refund_ticket/index', [
+        $html = ViewFacade::make('report/refund_ticket/index', [
               
-        //     'start_date' => $startDate,
-        //     'end_date' => $endDate,
-        //     'showProfit' => $showProfit,
-        //     'showSupplier' => $showSupplier,
-        //     'showAgent' => $showAgent,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'showProfit' => $showProfit,
+            'showSupplier' => $showSupplier,
+            'showAgent' => $showAgent,
            
-        //     'refunds' => $refunds,
+            'refunds' => $refunds,
          
-        // ])->render();
+        ])->render();
         
         return response()->json(['html' => $html]);
 

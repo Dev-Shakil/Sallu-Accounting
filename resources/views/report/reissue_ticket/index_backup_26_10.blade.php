@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="container-fluid bg-white shadow-lg p-4 rounded-lg">
         {{-- <h3>fsdsdf</h3> --}}
-        <form id="reportForm" action="{{ route('refund_ticket_report_result') }}" method="POST">
+        <form autocomplete="off" id="reportForm" action="{{ route('reissue_ticket_report') }}" method="POST">
           @csrf
           <div class="flex items-center">
             
               <div class=" form-group col-md-2">
                   <label for="agent">Agent</label>
-                  <select class="form-control select2" name="agent" id="agent" placeholder="Select agent" >
+                  <select class="form-control select2" name="agent" id="agent" placeholder="Select agent">
                       <option value="">Select Agent</option>
                       @foreach($agents as $agent)
                           <option value="{{ $agent->id }}">{{ $agent->name }}</option>
@@ -16,7 +16,7 @@
               </div>
               <div class="col-md-2 form-group">
                   <label for="supplier">Supplier</label>
-                  <select class="form-control select2" name="supplier" id="supplier" >
+                  <select class="form-control select2" name="supplier" id="supplier">
                       <option value="">Select Supplier</option>
                       @foreach($suppliers as $supplier)
                           <option value="{{$supplier->id}}">{{$supplier->name}}</option>
@@ -57,61 +57,13 @@
       </form>
     </div>
     <div class="buttons justify-end flex gap-3 shadow-lg p-5 ">
-       
-        <button id="printButton" class="text-white bg-red-600
-         font-bold text-md py-2 px-4">Print</button>
-      
-        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick="goBack()">GO BACK</button>
-      </div>
-
-    <div class="reportdiv mt-5" id="reportdiv">
-        <table class="table-auto w-full border-y-2 table-stripe devide-2 text-sm my-1">
         
-            <thead>
-              <tr class="border-y-2 border-black">
-                <th class="text-start">Date</th>
-                {{-- <th class="text-start">Invoice No</th> --}}
-                <th class="text-start">Ticket No</th>
-                <th class="text-start pl-6">Passenger</th>
-                {{-- @if (true) --}}
-                    <th class="text-start">Agent</th>
-                    <th class="text-start pl-6">Agent Price</th>
-                {{-- @endif --}}
-                {{-- @if ($showSupplier != null)
-                    <th class="text-start">Supplier</th>
-                    <th class="text-start pl-6">Supplier Price</th>
-                @endif
-                @if ($showProfit != null)
-                    <th class="text-start pl-6">Profit</th>
-                @endif
-                 --}}
-              </tr>
-            </thead>
-          
-            
-            <tbody class="divide-y-2">
-                @foreach ($refunds as $refund)
-                <tr>
-                    <td>{{(new DateTime( $refund->date ))->format('d-m-Y') }}</td>
-                    <td>{{ $refund->ticket_no }}</td>
-                    <td class="pl-6">{{ $refund->passenger }}</td>
-                    {{-- @if ($true) --}}
-                        <td>{{ $refund->agent_name }}</td>
-                        <td class="pl-6">{{ $refund->now_agent_fere }}</td>
-                    {{-- @endif --}}
-                    {{-- @if ($showSupplier)
-                        <td>{{ $refund->supplier_name }}</td>
-                        <td class="pl-6">{{ $refund->now_supplier_fare }}</td>
-                    @endif
-                    @if ($showProfit)
-                        <td class="pl-6">{{ $refund->refund_profit }}</td>
-                    @endif --}}
-                </tr>
-                @endforeach
-            </tbody>
-          
-          </table>
-   
+        <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
+        
+        <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
+    </div> 
+    <div class="reportdiv mt-5" id="reportdiv">
+
     </div>
 
 
@@ -135,8 +87,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         // Update the reportdiv with the response
-                        // console.log(response.html);
-                        $('#reportdiv').html(response.html);
+                        $('#reportdiv').html(response);
                     },
                     error: function (error) {
                         console.log(error);
@@ -147,7 +98,7 @@
 
         
     </script>
-      <script>
+    <script>
         // Function to print the content of the reportdiv
         function printReport() {
             var printContents = document.getElementById("reportdiv").innerHTML;

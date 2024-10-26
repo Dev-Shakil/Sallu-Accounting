@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container-fluid bg-white shadow-lg p-4 rounded-lg">
         {{-- <h3>fsdsdf</h3> --}}
-        <form autocomplete="off" id="reportForm" action="{{ route('reissue_ticket_report') }}" method="POST">
+        <form id="reportForm" action="{{ route('reissue_ticket_report') }}" method="POST">
           @csrf
           <div class="flex items-center">
             
@@ -63,8 +63,38 @@
         <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
     </div> 
     <div class="reportdiv mt-5" id="reportdiv">
-
+        <table class="table-auto w-full bordered shadow-xl bg-white border-black text-sm my-1">
+            <thead>
+                <tr class="border-y-2 border-black bg-cyan-700 text-white">
+                    <th class="text-start">Date</th>
+                    <th class="text-start">Ticket No</th>
+                    <th class="text-start">Passenger Name</th>
+                    <th class="text-start">Flight Date</th>
+                    <th class="text-start">Sector</th>
+                    <th class="text-start">Airlines</th>
+                    <th class="text-start">Agent</th>
+                    <th class="text-start">Agent Fare</th>
+                    <th class="text-start">Net Markup (Void)</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y-2">
+                @foreach ($query as $data)
+                    <tr>
+                        <td class="px-2 pl-2">{{ (new DateTime($data->date))->format('d-m-Y') }}</td>
+                        <td class="py-2">{{ $data->ticket_code }}-{{ $data->ticket_no }}</td>
+                        <td class="py-2">{{ $data->passenger }}</td>
+                        <td class="py-2">{{ (new DateTime($data->flight_date))->format('d-m-Y') }}</td>
+                        <td class="py-2">{{ $data->sector }}</td>
+                        <td class="py-2">{{ $data->airline_name }}</td>
+                        <td class="py-2">{{ $data->agent_name }}</td>
+                        <td class="py-2">{{ $data->now_agent_fere }}</td>
+                        <td class="py-2">{{ $data->reissue_profit }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+    
 
 
     {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
@@ -87,7 +117,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         // Update the reportdiv with the response
-                        $('#reportdiv').html(response);
+                        $('#reportdiv').html(response.html);
                     },
                     error: function (error) {
                         console.log(error);

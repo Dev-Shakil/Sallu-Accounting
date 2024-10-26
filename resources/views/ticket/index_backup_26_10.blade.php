@@ -1,4 +1,6 @@
+
 <x-app-layout>
+    
     <style type="text/css">
         .select2-selection--single{
             height:32px !important;
@@ -50,7 +52,7 @@
    
     <div id="container" class="border-t bg-white border-gray-2  flex-col justify-center items-center rounded-lg flex shadow-md xl:w-3/4 lg:w-4/4 w-full mx-auto my-2">
         @if(in_array('entry', $permissionsArray))
-        <form class="w-full p-6" id="ticket_form">
+        <form autocomplete="off" class="w-full p-6" id="ticket_form">
                 @csrf
                 <div class="grid grid-cols-2 w-full gap-3">
                 
@@ -207,9 +209,6 @@
                             <option value="">Select Supplier</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
-                            @endforeach
-                            @foreach ($agents as $agent)
-                                <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -509,9 +508,6 @@
                             <option value="">Select Supplier</option>
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
-                            @endforeach
-                            @foreach ($agents as $agent)
-                                <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -1349,9 +1345,7 @@
                             i + '"></td>';
                         tableHtml += '<td>' + agent_price_1 + '</td>';
                         tableHtml += '<td>' + supplier_price + '</td>';
-                        tableHtml += '<td>' + '<input type="text" name="invoice_no[]" id="invoice_no' + i +
-                            '" value="' + manipulateString(invoice_no, i) + '"></td>';
-                        tableHtml += '<td>' +  + '</td>';
+                        tableHtml += '<td>' + invoice_no + '</td>';
                         // Add more cells as needed
                         tableHtml += '</tr>';
                     }
@@ -1363,7 +1357,7 @@
                         '">';
                     tableHtml += '<input type="hidden" name="invoice_date" value="' + invoice_date + '">';
                     tableHtml += '<input type="hidden" name="flight_date" value="' + flight_date + '">';
-                    // tableHtml += '<input type="hidden" name="invoice_no" value="' + invoice_no + '">';
+                    tableHtml += '<input type="hidden" name="invoice_no" value="' + invoice_no + '">';
                     tableHtml += '<input type="hidden" name="flight_no" value="' + flight_no + '">';
                     tableHtml += '<input type="hidden" name="return_date" value="' + return_date + '">';
                     tableHtml += '<input type="hidden" name="class" value="' + classOpt + '">';

@@ -1,5 +1,7 @@
+{{-- @php
+    dd($refunds);   
+@endphp --}}
 
-{{-- 
 <!doctype html>
 <html>
 
@@ -59,10 +61,10 @@
                 {{-- <th class="text-start">Invoice No</th> --}}
                 <th class="text-start">Ticket No</th>
                 <th class="text-start pl-6">Passenger</th>
-                {{-- @if (true) --}}
+                @if ($showAgent != null)
                     <th class="text-start">Agent</th>
                     <th class="text-start pl-6">Agent Price</th>
-                {{-- @endif --}}
+                @endif
                 @if ($showSupplier != null)
                     <th class="text-start">Supplier</th>
                     <th class="text-start pl-6">Supplier Price</th>
@@ -81,10 +83,10 @@
                     <td>{{(new DateTime( $refund->date ))->format('d-m-Y') }}</td>
                     <td>{{ $refund->ticket_no }}</td>
                     <td class="pl-6">{{ $refund->passenger }}</td>
-                    {{-- @if ($true) --}}
+                    @if ($showAgent)
                         <td>{{ $refund->agent_name }}</td>
                         <td class="pl-6">{{ $refund->now_agent_fere }}</td>
-                    {{-- @endif --}}
+                    @endif
                     @if ($showSupplier)
                         <td>{{ $refund->supplier_name }}</td>
                         <td class="pl-6">{{ $refund->now_supplier_fare }}</td>
@@ -95,11 +97,18 @@
                 </tr>
                 @endforeach
             </tbody>
-          
+            {{-- <tfoot>
+              <tr>
+                  <td colspan="4">Total</td>
+                  <td><b>{{ $debit + $opening_balance_debit }}</b></td>
+                  <td><b>{{ $credit + $opening_balance_credit }}</b></td>
+                  <td><b>{{ $balance }}</b></td>
+              </tr>
+            </tfoot> --}}
           </table>
    </div>
 
-{{-- 
+
   </main>
   <script type="text/javascript">
     function dropdown() {
@@ -114,4 +123,4 @@
   </script>
 </body>
 
-</html> --}}
+</html>
