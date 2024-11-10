@@ -11,11 +11,11 @@
 
             <div class="flex justify-between items-center pb-2">
                 <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>
-                <div class="w-[350px]">
-                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
+                <div class="w-[400px]">
+                    <h3 class="company-name font-bold text-2xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-md font-medium">Address : {{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-md font-medium">Mob : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-md font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
@@ -25,12 +25,12 @@
                     <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[390px]">
+                <div class="flex flex-col gap-y-1 w-[400px]">
                     <h3 class="font-bold text-xl">Client Details</h3>
-                    <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
-                    <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
-                    <p class="text-lg"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
-                    <p class="text-lg"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
+                    <p class="text-md"><span class="font-semibold">Name</span> : {{ $agent->name }}</p>
+                    <p class="text-md"><span class="font-semibold">Address :</span> {{ $agent->address }}</p>
+                    <p class="text-md"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
+                    <p class="text-md"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
                 </div>
             </div>
             <table class="w-full my-3 border-y border-black">
@@ -193,11 +193,11 @@
 
             <div class="flex justify-between items-center pb-2">
                 <div class=""><img src="{{ url(Auth::user()->company_logo) }}" alt="logo" width="200px" height="220px"/></div>
-                <div class="w-[350px]">
-                    <h3 class="company-name font-bold text-3xl ">{{Auth::user()->name}}</h3>
-                    <p class="company-address text-lg font-medium">{{Auth::user()->company_address}}</p>
-                    <p class="company-phone text-lg font-medium">Mob : {{Auth::user()->mobile_no}}</p>
-                    <p class="company-email text-lg font-medium">Email : {{Auth::user()->email}}</p>
+                <div class="w-[400px]">
+                    <h3 class="company-name font-bold text-2xl ">{{Auth::user()->name}}</h3>
+                    <p class="company-address text-md font-medium">{{Auth::user()->company_address}}</p>
+                    <p class="company-phone text-md font-medium">Mob : {{Auth::user()->mobile_no}}</p>
+                    <p class="company-email text-md font-medium">Email : {{Auth::user()->email}}</p>
                 </div>
             </div>
             <hr class="h-[2px] bg-gray-600" />
@@ -207,12 +207,12 @@
                     <div><span class="font-semibold">Date</span> : {{ (new DateTime($receive_voucher->date))->format('d-m-Y') }}</div>
                     <div><span class="font-semibold">Receipt No</span> : {{ $receive_voucher->invoice }}</div>
                 </div>
-                <div class="flex flex-col gap-y-1 max-w-[390px]">
+                <div class="flex flex-col gap-y-1 w-[400px]">
                     <h3 class="font-bold text-xl">Client Details</h3>
-                    <p class="text-lg"><span class="font-semibold">Client Name</span> : {{ $agent->name }}</p>
-                    <p class="text-lg"><span class="font-semibold">Client Address :</span> {{ $agent->address }}</p>
-                    <p class="text-lg"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
-                    <p class="text-lg"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
+                    <p class="text-md"><span class="font-semibold">Name</span> : {{ $agent->name }}</p>
+                    <p class="text-md"><span class="font-semibold">Address :</span> {{ $agent->address }}</p>
+                    <p class="text-md"><span class="font-semibold">Email :</span> {{ $agent->email }}</p>
+                    <p class="text-md"><span class="font-semibold">Mob :</span> {{ $agent->phone }}</p>
                 </div>
             </div>
             <table class="w-full my-3 border-y border-black">
