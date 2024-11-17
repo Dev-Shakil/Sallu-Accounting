@@ -9,101 +9,6 @@
     </div>
 </div>
 
-{{-- <table class="table-auto w-full  bordered shadow-xl bg-white border-black text-sm my-1">
-    <thead>
-        <tr class="border-y-2 border-black bg-cyan-700 text-white">
-            <th class="text-start">Booking Date</th>
-            <th class="text-start">Ticket No</th>
-            <th class="text-start">Passenger Name</th>
-            <th class="text-start">Flight Date</th>
-            <th class="text-start">Sector</th>
-            <th class="text-start">Airlines</th>
-
-            
-                <th class="text-start">Agent</th>
-                <th class="text-start">Agent Price</th>
-            
-
-            @if($show_supplier)
-                <th class="text-start">Supplier</th>
-                <th class="text-start">Supplier Price</th>
-            @endif
-
-            @if($show_profit)
-                <th class="text-start">Net Markup</th>
-            @endif
-
-            <th class="text-start">Balance Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php
-            $total_agent_price = $total_supplier_price = $total_profit = $count = 0;
-        @endphp
-        @foreach ($alldata as $data)
-            @php
-                $agent = \App\Models\Agent::where('id', $data->agent)->value('name');
-                $supplier = \App\Models\Supplier::where('id', $data->supplier)->value('name');
-
-                $total_agent_price += $data->agent_price;
-                $total_supplier_price += $data->supplier_price;
-                $total_profit += $data->profit;
-                
-                $count++;
-            @endphp
-
-            <tr>
-                <td class="py-2 pl-2">{{ (new DateTime($data->invoice_date))->format('d-m-Y') }}</td>
-                <td class="py-2">{{ $data->ticket_no }}</td>
-                <td class="py-2">{{ $data->passenger }}</td>
-                <td class="py-2">{{ (new DateTime($data->flight_date))->format('d-m-Y') }}</td>
-                <td class="py-2">{{ $data->sector }}</td>
-                <td class="py-2">{{ $data->airline_name }}</td>
-
-                
-                    <td class="text-start py-2">{{ $agent }}</td>
-                    <td class="text-start py-2">{{ $data->agent_price }}</td>
-                
-
-                @if ($show_supplier)
-                    <td class="text-start py-2">{{ $supplier }}</td>
-                    <td class="text-start py-2">{{ $data->supplier_price }}</td>
-                @endif
-
-                @if ($show_profit)
-                    <td class="text-start py-2">{{ $data->profit }}</td>
-                @endif
-
-                <td class="py-2">{{ $total_agent_price }}</td>
-            </tr>
-        @endforeach
-
-        <tr class="bg-dark-600 border-t-2 border-gray-500">
-            <td class="text-start py-2"><b>Total - {{ $count }}</b></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            
-                <td></td>
-                <td class="text-start py-2"><b>{{ $total_agent_price }}</b></td>
-            
-
-            @if ($show_supplier)
-                <td></td>
-                <td class="text-start py-2"><b>{{ $total_supplier_price }}</b></td>
-            @endif
-
-            @if ($show_profit)
-                <td class="text-start py-2"><b>{{ $total_profit }}</b></td>
-            @endif
-
-            <td class="text-start py-2"><b>{{ $total_agent_price }}</b></td>
-        </tr>
-    </tbody>
-</table> --}}
 <table class="table-auto w-full shadow-xl bg-white text-sm my-1">
     <thead>
         <tr class="border-t border-b border-gray-300 bg-[#00959E] text-black">
@@ -135,42 +40,80 @@
         @php
             $total_agent_price = $total_supplier_price = $total_profit = $count = 0;
         @endphp
-        @foreach ($alldata as $data)
+        
+        {{-- @foreach ($alldata as $agentId => $tickets)
             @php
-                $agent = \App\Models\Agent::where('id', $data->agent)->value('name');
-                $supplier = \App\Models\Supplier::where('id', $data->supplier)->value('name');
-
-                $total_agent_price += $data->agent_price;
-                $total_supplier_price += $data->supplier_price;
-                $total_profit += $data->profit;
-                $count++;
+                // Retrieve agent name by agent ID
+                $agentName = \App\Models\Agent::find($agentId)->name ?? 'Unknown';
             @endphp
 
-            <tr class="border-t border-gray-300">
-                <td class="py-2 pl-2">{{ (new DateTime($data->invoice_date))->format('d-m-Y') }}</td>
-                <td class="py-2">{{ $data->ticket_no }}</td>
-                <td class="py-2">{{ $data->passenger }}</td>
-                <td class="py-2">{{ (new DateTime($data->flight_date))->format('d-m-Y') }}</td>
-                <td class="py-2">{{ $data->sector }}</td>
-                <td class="py-2">{{ $data->airline_name }}</td>
+            <tr>
+                <td colspan="8" class="font-bold">{{ $agentName }}</td> <!-- Display the agent's name -->
+            </tr>
 
-                {{-- @if ($show_agent) --}}
-                    <td class="py-2">{{ $agent }}</td>
-                    <td class="py-2">{{ $data->agent_price }}</td>
-                {{-- @endif --}}
+            @foreach ($tickets as $ticket)
+                <tr class="border-t border-gray-300">
+                    <td class="py-2 pl-2">{{ (new DateTime($ticket->invoice_date))->format('d-m-Y') }}</td>
+                    <td class="py-2">{{ $ticket->ticket_no }}</td>
+                    <td class="py-2">{{ $ticket->passenger }}</td>
+                    <td class="py-2">{{ (new DateTime($ticket->flight_date))->format('d-m-Y') }}</td>
+                    <td class="py-2">{{ $ticket->sector }}</td>
+                    <td class="py-2">{{ $ticket->airline_name }}</td>
+
+                    @if ($show_agent)
+                        <td class="py-2">{{ $agentName }}</td>
+                        <td class="py-2">{{ $ticket->agent_price }}</td>
+                    @endif
+
+                    @if ($show_supplier)
+                        <td class="py-2">{{ $ticket->supplier_name }}</td>
+                        <td class="py-2">{{ $ticket->supplier_price }}</td>
+                    @endif
+
+                    @if ($show_profit)
+                        <td class="py-2">{{ $ticket->profit }}</td>
+                    @endif
+
+                    <td class="py-2">{{ $ticket->agent_price }}</td>
+                </tr>
+            @endforeach
+        @endforeach --}}
+
+        @foreach ($alldata as $ticket)
+                
+            @php
+                $total_agent_price += $ticket->agent_price;
+                $total_supplier_price += $ticket->supplier_price;
+                $total_profit += $ticket->profit;
+                $count++;
+            @endphp
+            <tr class="border-t border-gray-300">
+                <td class="py-2 px-4">{{ (new \DateTime($ticket->invoice_date))->format('d-m-Y') }}</td>
+                <td class="py-2 px-4">{{ $ticket->ticket_no }}</td>
+                <td class="py-2 px-4">{{ $ticket->passenger }}</td>
+                <td class="py-2 px-4">{{ (new \DateTime($ticket->flight_date))->format('d-m-Y') }}</td>
+                <td class="py-2 px-4">{{ $ticket->sector }}</td>
+                <td class="py-2 px-4">{{ $ticket->airline_name }}</td>
+
+                @if ($show_agent)
+                    <td class="py-2 px-4">{{ $ticket->agent_name }}</td>
+                    <td class="py-2 px-4">{{ $ticket->agent_price }}</td>
+                @endif
 
                 @if ($show_supplier)
-                    <td class="py-2">{{ $supplier }}</td>
-                    <td class="py-2">{{ $data->supplier_price }}</td>
+                    <td class="py-2 px-4">{{ $ticket->supplier_name }}</td>
+                    <td class="py-2 px-4">{{ $ticket->supplier_price }}</td>
                 @endif
 
                 @if ($show_profit)
-                    <td class="py-2">{{ $data->profit }}</td>
+                    <td class="py-2 px-4">{{ $ticket->profit }}</td>
                 @endif
+                <td class="py-2 px-4">{{ $total_agent_price }}</td>
 
-                <td class="py-2">{{ $total_agent_price }}</td>
             </tr>
         @endforeach
+
+
 
         <tr class="bg-dark-600 border-t border-black">
             <td class="text-start py-2"><b>Total - {{ $count }}</b></td>

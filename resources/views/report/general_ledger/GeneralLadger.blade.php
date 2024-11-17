@@ -72,7 +72,9 @@
               
               {!! $html !!}
               <tr class="border-t border-black">
-                <td colspan="4">Total</td>
+                <td colspan="3"><b>Tickets: {{ $total_ticket }}</b></td>
+                <td><b>Total</b></td>
+                
                 <td><b>{{ $debit }}</b></td>
                 <td><b>{{ $credit }}</b></td>
                 <td><b>{{ $balance }}</b></td>

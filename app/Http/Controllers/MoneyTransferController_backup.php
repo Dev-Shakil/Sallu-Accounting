@@ -10,6 +10,9 @@ use App\Models\Transaction;
 use App\Models\MoneyTransfer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use \Carbon\Carbon;
+use Illuminate\Support\Facades\View as ViewFacade;
+
 
 use DateTime;
 
@@ -257,4 +260,128 @@ class MoneyTransferController extends Controller
             return view('welcome');
         }
     }
+
+    public function expenditure_report()
+    {
+        if(Auth::user()){
+
+            $expenditures = Expenditure::where([
+                ['user', Auth::id()],
+            ])->get();
+
+            return view('report.expenditure.index', compact('expenditures'));
+        }
+        else{
+            return view('welcome');
+        }
+       
+    }
+
+   
+
+    public function expenditure_report_result(Request $request)
+    {
+        if (Auth::user()) {
+
+            // dd($request->all());
+            // Get the start and end dates from the request
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            $towards = $request->input('towards');
+
+            // Fetch expenditures based on the filters
+            $query = ExpenditureMain::query();
+
+            // Convert the dates to MySQL format (Y-m-d)
+            // Convert the dates from 'MM/DD/YYYY' to MySQL 'Y-m-d' format and handle errors
+            if ($startDate) {
+                $startDate = (new DateTime($startDate))->format('Y-m-d');
+            }
+            if ($endDate) {
+                $endDate = (new DateTime($endDate))->format('Y-m-d');
+            }
+
+            // Handle date filtering
+            if ($startDate && $endDate) {
+                // Filter records between startDate and endDate
+                $query->whereDate('date', '>=', $startDate)
+                    ->whereDate('date', '<=', $endDate);
+            } elseif ($startDate) {
+                // Filter records from startDate onwards
+                $query->whereDate('date', '>=', $startDate);
+            } elseif ($endDate) {
+                // Filter records up to endDate
+                $query->whereDate('date', '<=', $endDate);
+            }
+
+            // Handle 'toward' filter
+            if ($towards) {
+                $query->where('toward', $towards);
+            }
+
+            // Retrieve expenditures
+            $expenditures = $query->get();
+
+            // Map expenditures with the correct 'toward' and 'method' values
+            foreach ($expenditures as $expenditure) {
+                $expenditure->toward = Expenditure::where('id', $expenditure->toward)->value('name');
+                $expenditure->method = Transaction::find($expenditure->method)->value('name');
+            }
+
+            // Render the view and return as JSON
+            $html = ViewFacade::make('report.expenditure.report_result', [
+                'startdate' => $startDate,
+                'enddate' => $endDate,
+                'expenditures' => $expenditures
+            ])->render();
+
+            return response()->json(['html' => $html]);
+        } else {
+            return view('welcome');
+        }
+    }
+
+    public function destroyExpenditureMain($id)
+    {
+        if(Auth::user()) {
+            DB::beginTransaction();
+    
+            try {
+                // Find the expenditure by ID
+                $expenditureMain = ExpenditureMain::find($id);
+    
+                if (!$expenditureMain) {
+                    return redirect()->back()->with("error", "Expenditure not found");
+                }
+                if ($expenditureMain->user != Auth::id()) {
+                    return redirect()->back()->with("error", "Unauthorized action");
+                }
+    
+                $method = Transaction::find($expenditureMain->method);
+    
+                if (!$method) {
+                    return redirect()->back()->with("error", "Transaction method not found");
+                }
+    
+                $method->amount += $expenditureMain->amount;
+    
+                $expenditureMain->delete();
+    
+                // Save the updated method
+                $method->save();
+    
+                DB::commit();
+                return redirect()->back()->with("success", "Expenditure deleted and balance restored successfully");
+    
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()->back()->with("error", "Failed to delete expenditure: " . $e->getMessage());
+            }
+        } else {
+            return view('welcome');
+        }
+    }
+    
+
+
 }
