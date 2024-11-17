@@ -42,18 +42,8 @@
                       
               </div>
               <div class="flex gap-4 col-md-6 ">
-              <div class="form-group flex w-1/2 items-center gap-2 ">
-                  <label for="issue_date" class="text-[14px] text-[#22262e] w-[150px]">Flight Date From</label>
-                  <div class="input-group date" class="w-[70%]">
-                      <input type="text" class="form-control datepicker w-[150px]" name="issue_date" id="issue_date" placeholder="Issue Date" />
-                  </div>      
-              </div>
-              <div class="form-group flex items-center w-1/2 gap-2">
-                  <label for="flight_date" class="text-[14px] text-[#22262e] w-[150px]">Flight Date To</label>
-                  <div class="input-group date" class="w-[70%]">
-                      <input type="text" class="form-control datepicker w-[150px]" name="flight_date" id="flight_date" placeholder="End Date" />
-                  </div>      
-              </div>
+              
+              
             </div>
               <div class="form-group px-6 flex items-center ">
                   <div class="form-check form-check-inline">
@@ -65,7 +55,7 @@
                       <label class="form-check-label font-bold  text-[18px] text-[#1c7258]" for="inlineCheckbox2">Supplier</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="agent" name="show_agent" checked>
                     <label class="form-check-label font-bold  text-[18px] text-[#239292]" for="inlineCheckbox3">Agent</label>
                   </div>
               </div>

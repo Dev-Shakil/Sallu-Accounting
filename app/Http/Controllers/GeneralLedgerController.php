@@ -285,11 +285,11 @@ class GeneralLedgerController extends Controller
                 $balance =  $opening_balance_debit + $opening_balance;
                 $debit = 0;
                 $credit = 0;
-
+                $total_ticket = 0;
                 foreach ($sortedCollection as $index => $item) {
                     // dd($item->getTable());
                     if ($item->getTable() == "tickets") {
-
+                        $total_ticket++;
                         if (is_null($item->supplier) && $item->who === 'agent_' . $id) {
                                   // Handle logic specific to Ticket model
                                   $balance -= $item->supplier_price;
@@ -403,12 +403,12 @@ class GeneralLedgerController extends Controller
                                                  <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
+                                                    <td class="w-[15%]"> </td>
                                                     <td class="w-[28%]">
-                                                        Remarks: {{ $item->remark }} <br>
+                                                        Remarks: { $item->remark } <br>
+                                                        <!-- Received from:  -->
 
-
-                                                        <!-- <b>Receive from {{$activeTransactionMethods[$item->method]}}</b> -->
+                                                        <b>Received by {$activeTransactionMethods[$item->method]}</b>
                                                     </td>
 
                                                     <td class="w-[12%] totaldebit"></td>
@@ -428,10 +428,10 @@ class GeneralLedgerController extends Controller
                                                  <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
-                                                        <b>Payment by {{$activeTransactionMethods[$item->method]}}<b>
+                                                        <b>Payment by {$activeTransactionMethods[$item->method]}<b>
                                                     </td>
                                                     <td class="w-[12%] totaldebit">{$item->amount}</td>
                                                     <td class="w-[12%] totalcredit"></td>
@@ -607,6 +607,7 @@ class GeneralLedgerController extends Controller
                     'opening_balance_debit' => $opening_balance_debit,
                     'opening_balance_credit' => $opening_balance_credit,
                     'opening_balance' => $opening_balance,
+                    'total_ticket' => $total_ticket,
                     // $opening_balance_debit = $opening_balance_credit = $opening_balance = 0;
 
                    
@@ -830,6 +831,7 @@ class GeneralLedgerController extends Controller
                 $balance =  $opening_balance_debit + $opening_balance;
                 $debit = 0;
                 $credit = 0;
+                $total_ticket = 0;
                 // dd($mergedCollection);
     
                 $supplierName = Supplier::where('id', $id)->value('name');
@@ -844,7 +846,7 @@ class GeneralLedgerController extends Controller
                         $balance += $item->supplier_price;
                         $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
-                        
+                        $total_ticket++;
                         $html .= <<<HTML
                                                     <tr>
                                                         <td class="w-[10%]"> $item->invoice_date </td>
@@ -902,10 +904,10 @@ class GeneralLedgerController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
-                                                        <b>Receive from {{$activeTransactionMethods[$item->method]}}</b>
+                                                        <b>Receive from {$activeTransactionMethods[$item->method]}</b>
 
                                                     </td>
                                                     <td class="w-[12%] totaldebit"></td>
@@ -924,10 +926,10 @@ class GeneralLedgerController extends Controller
                                                 <tr>
                                                     <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
-                                                        <b>Payment by {{$activeTransactionMethods[$item->method]}}</b>
+                                                        <b>Payment by {$activeTransactionMethods[$item->method]}</b>
 
                                                     </td>
                                                     <td class="w-[12%] totaldebit">{$item->amount}</td>
@@ -1024,6 +1026,7 @@ class GeneralLedgerController extends Controller
                     'opening_balance_debit' => $opening_balance_debit,
                     'opening_balance_credit' => $opening_balance_credit,
                     'opening_balance' => $opening_balance,
+                    'total_ticket' => $total_ticket,
                    
                 ])->render();
                 return response()->json(['html' => $htmlpart]);
