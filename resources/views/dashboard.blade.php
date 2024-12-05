@@ -43,8 +43,8 @@ background: #555; /* Or any other color you prefer */
         <a href={{route('profit_loss.view')}} class="text-white bg-[#6A764D] font-bold py-3 px-4 rounded hover:no-underline text-center">
           Profit & Loss
         </a>
-        <a href={{route('refund_ticket')}} class="text-center hover:no-underline text-white bg-[#576335] font-bold py-3 px-4 rounded">
-          Refund
+        <a href={{route('flight_ticket')}} class="text-center hover:no-underline text-white bg-[#576335] font-bold py-3 px-4 rounded">
+          Flight Report
         </a>
         <a href={{route('general_ledger')}}  class="text-white bg-[#7a4b2b] font-bold py-3 px-4 rounded text-center hover:no-underline">
           General Ledger

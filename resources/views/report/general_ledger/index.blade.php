@@ -50,7 +50,9 @@
     </div>
 
     <div class="buttons justify-end flex gap-3 p-5">
-        
+
+        <button onclick="downloadReport()" class="text-white bg-blue-600 font-bold text-md py-2 px-4">Download Report</button>
+
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
         
         <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
@@ -62,6 +64,12 @@
     </div>
 
     {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
+    <!-- Load html2canvas and jsPDF libraries before the function -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+
+
     <script>
         $(document).ready(function() {
             $("#agent_supplier").change(function() {
@@ -92,8 +100,12 @@
                 });
             }
             $('.datepicker').datepicker({
-                autoclose: true
+                autoclose: true,
+                format: "mm/dd/yyyy", // Customize date format
+                todayHighlight: true, // Highlight today
+               
             });
+
 
             $('.select2').select2();
 
@@ -117,6 +129,7 @@
             });
         });
     </script>
+
     <script>
         // Function to print the content of the reportdiv
         function printReport() {
@@ -131,6 +144,37 @@
         document.querySelector("#printButton").addEventListener("click", function() {
             printReport();
         });
+
+        function downloadReport() {
+            var { jsPDF } = window.jspdf; // Correctly access jsPDF
+            var reportDiv = document.getElementById("reportdiv");
+
+            html2canvas(reportDiv).then((canvas) => {
+                var imgData = canvas.toDataURL("image/png");
+                var pdf = new jsPDF("p", "mm", "a4"); // Use jsPDF correctly here
+                var imgWidth = 190; // width in PDF
+                var pageHeight = pdf.internal.pageSize.height;
+                var imgHeight = (canvas.height * imgWidth) / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                // If the content is longer than one page
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                pdf.save("report.pdf");
+            });
+        }
+
+
+
     </script>
 
     <style>

@@ -545,13 +545,21 @@ Route::post('/admin/login', [AdminController::class, 'adminLogin']);
 // });
 require __DIR__.'/auth.php';
 
+// Route::get('expanditure/view', function () {
+//     return app(MoneyTransferController::class)->expanditure_index();
+// })->name('expanditure.view');
+// Route::post('/add-expenditure-towards', [MoneyTransferController::class, 'add_expenditure_towards'])
+//     ->name('add_expenditure_towards');
+// Route::post('/add_expenditure_main', [MoneyTransferController::class, 'addExpenditureMain'])->name('add_expenditure_main');
 Route::get('expanditure/view', function () {
     return app(MoneyTransferController::class)->expanditure_index();
 })->name('expanditure.view');
 Route::post('/add-expenditure-towards', [MoneyTransferController::class, 'add_expenditure_towards'])
     ->name('add_expenditure_towards');
 Route::post('/add_expenditure_main', [MoneyTransferController::class, 'addExpenditureMain'])->name('add_expenditure_main');
-
+Route::get('expenditure/report', [MoneyTransferController::class, 'expenditure_report'])->name('expenditure.report');
+Route::post('expenditure/report/result', [MoneyTransferController::class, 'expenditure_report_result'])->name('expenditure_report_result');
+Route::delete('/delete-expenditure-main/{id}', [MoneyTransferController::class, 'destroyExpenditureMain'])->name('delete_expenditure_main');
 
 use App\Http\Controllers\Admin\UserApprovalController;
 

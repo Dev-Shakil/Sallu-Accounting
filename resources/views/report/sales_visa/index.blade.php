@@ -44,6 +44,9 @@
                         <input type="text" class="form-control datepicker" name="end_date" id="end_date" placeholder="End Date" />
                     </div>      
                 </div>
+                
+            </div>
+            <div class="flex items-center pt-3">
                 <div class="form-group px-6 flex items-center ">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="profit" name="show_profit">
