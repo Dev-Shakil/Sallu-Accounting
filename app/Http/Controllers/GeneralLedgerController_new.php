@@ -150,100 +150,7 @@ class GeneralLedgerController extends Controller
             }
             
             if($agentSupplier === 'agent'){
-                //   // Fetch the opening balance for the given agent from the Agent table
-                // $opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
-                
-                // // Initialize balance variables
-                // $opening_balance_debit = 0;
-                // $opening_balance_credit = 0;
-                // $final_opening_balance = 0;
-                // if ($startDate) {
-                //    // Sum up the relevant amounts until the start date
-
-                //      // Query for tickets where the agent is the actual agent
-                //     $until_start_date_tickets_agent = Ticket::where('agent', $agentSupplierId)
-                //     ->where('is_delete', 0)
-                //     ->where('is_active', 1)
-                //     ->where('user', Auth::id())
-                //     ->where('date', '<', $startDate)
-                //     ->sum('agent_price');  // Sum of 'agent_price' for the actual agent
-
-                //     // Query for tickets where the agent is acting as a supplier (based on 'who' field)
-                //     $until_start_date_tickets_supplier = Ticket::where('who', 'agent_' . $agentSupplierId)
-                //         ->where('is_delete', 0)
-                //         ->where('is_active', 1)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('supplier_price');  // Sum of 'supplier_price' when the agent is the supplier
-
-                //     // Query for orders where the agent is the actual agent
-                //     $until_start_date_orders_agent = Order::where('agent', $agentSupplierId)
-                //         ->where('is_delete', 0)
-                //         ->where('is_active', 1)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('contact_amount');  // Sum of 'contact_amount' for the actual agent
-
-                //     // Query for orders where the agent is acting as a supplier (based on 'who' field)
-                //     $until_start_date_orders_supplier = Order::where('who', 'agent_' . $agentSupplierId)
-                //         ->where('is_delete', 0)
-                //         ->where('is_active', 1)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('payable_amount');  // Sum of 'payable_amount' when the agent is the supplier
-
-                //     // Payments: Subtract amount from the Payment table
-                //     $until_start_date_payments = Payment::where('receive_from', 'agent')
-                //         ->where('agent_supplier_id', $agentSupplierId)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('amount'); // Sum of 'amount' in the payments
-
-                //     // Receives: Subtract amount from the Receive table
-                //     $until_start_date_receives = Receiver::where('receive_from', 'agent')
-                //         ->where('agent_supplier_id', $agentSupplierId)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('amount'); // Sum of 'amount' in the receives
-
-                //     // Reissues: Add now_agent_fere from the ReissueTicket table
-                //     $until_start_date_reissues = ReissueTicket::where('agent', $agentSupplierId)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('now_agent_fere'); // Sum of 'now_agent_fere' in the reissue tickets
-
-                //     // Refunds: Subtract now_agent_fere from the Refund table
-                //     $until_start_date_refunds = Refund::where('agent', $agentSupplierId)
-                //         ->where('user', Auth::id())
-                //         ->where('date', '<', $startDate)
-                //         ->sum('now_agent_fere'); // Sum of 'now_agent_fere' in the refunds
-
-                //     // Void Tickets: Add now_agent_fere from the VoidTicket table
-                //     $until_start_date_void_tickets = VoidTicket::where('user', Auth::id())
-                //         ->where('agent', $agentSupplierId)
-                //         ->where('date', '<', $startDate)
-                //         ->sum('now_agent_fere'); // Sum of 'now_agent_fere' in the void tickets
-
-                //     // Calculate the opening balance up until the start date
-                //     $opening_balance_debit = $until_start_date_tickets_agent + $until_start_date_orders_agent + $until_start_date_reissues + $until_start_date_void_tickets + $until_start_date_payments;
-                //     $opening_balance_credit = $until_start_date_tickets_supplier + $until_start_date_receives + $until_start_date_refunds + $until_start_date_orders_supplier;
-
-                //     // Final opening balance calculation: debit balance minus credit balance
-                //     $final_opening_balance = $opening_balance + $opening_balance_debit - $opening_balance_credit;
-
-                //     // Now you have the final opening balance
-                // } else {
-                //     // If no start date is provided, the balance is simply the agent's opening balance
-                //     if(is_null($opening_balance)){
-                //         $final_opening_balance = 0;
-                //     }
-                //     else{
-                //         $final_opening_balance = $opening_balance;
-                //     }
-                // }
-
-                // $final_opening_balance = $this->calculateOpeningBalance($agentSupplierId, $startDate);
-
+           
                 // Agent-related data retrieval
                 $tickets = DB::table('tickets')
                 ->where(function ($query) use ($agentSupplierId) {
@@ -291,35 +198,7 @@ class GeneralLedgerController extends Controller
                 ->where('agent', $agentSupplierId)
                 ->where('user', Auth::id());
 
-                // Apply date filters if both start and end dates are provided
-                // if ($startDate && $endDate) {
-                //     $tickets = $tickets->whereBetween('date', [$startDate, $endDate]);
-                //     $orders = $orders->whereBetween('date', [$startDate, $endDate]);
-                //     $receive = $receive->whereBetween('date', [$startDate, $endDate]);
-                //     $payment = $payment->whereBetween('date', [$startDate, $endDate]);
-                //     $refund = $refund->whereBetween('date', [$startDate, $endDate]);
-                //     $void_ticket = $void_ticket->whereBetween('date', [$startDate, $endDate]);
-                //     $reissue = $reissue->whereBetween('date', [$startDate, $endDate]);
-                // } elseif ($startDate) {
-                //     // Apply filter if only start date is provided
-                //     $tickets = $tickets->where('date', '>=', $startDate);
-                //     $orders = $orders->where('date', '>=', $startDate);
-                //     $receive = $receive->where('date', '>=', $startDate);
-                //     $payment = $payment->where('date', '>=', $startDate);
-                //     $refund = $refund->where('date', '>=', $startDate);
-                //     $void_ticket = $void_ticket->where('date', '>=', $startDate);
-                //     $reissue = $reissue->where('date', '>=', $startDate);
-                // } elseif ($endDate) {
-                //     // Apply filter if only end date is provided
-                //     $tickets = $tickets->where('date', '<=', $endDate);
-                //     $orders = $orders->where('date', '<=', $endDate);
-                //     $receive = $receive->where('date', '<=', $endDate);
-                //     $payment = $payment->where('date', '<=', $endDate);
-                //     $refund = $refund->where('date', '<=', $endDate);
-                //     $void_ticket = $void_ticket->where('date', '<=', $endDate);
-                //     $reissue = $reissue->where('date', '<=', $endDate);
-                // }
-
+              
                 // Use get() to fetch the data, and then apply map()
                 $tickets = $tickets->get()->map(function ($item) {
                 $item->table_name = 'tickets';  // Add a table_name property
@@ -347,7 +226,7 @@ class GeneralLedgerController extends Controller
                 });
 
                 $void_ticket = $void_ticket->get()->map(function ($item) {
-                $item->table_name = 'voidticket';  // Add a table_name property
+                $item->table_name = 'voidTicket';  // Add a table_name property
                 return $item;
                 });
 
@@ -356,18 +235,7 @@ class GeneralLedgerController extends Controller
                 return $item;
                 });
 
-                // // Merge all collections into one collection
-                // $mergedCollection = $tickets->merge($orders)
-                //             ->merge($receive)
-                //             ->merge($payment)
-                //             ->merge($refund)
-                //             ->merge($void_ticket)
-                //             ->merge($reissue);
-
-                // // Sort the merged collection by date
-                // $sortedCollection = $mergedCollection->sortBy('date')->values();
-
-
+              
                 $mergedCollection = $tickets->merge($orders)
                     ->merge($receive)
                     ->merge($payment)
@@ -831,7 +699,7 @@ class GeneralLedgerController extends Controller
                    });
    
                    $void_ticket = $void_ticket->get()->map(function ($item) {
-                   $item->table_name = 'voidticket';  // Add a table_name property
+                   $item->table_name = 'voidTicket';  // Add a table_name property
                    return $item;
                    });
    
@@ -839,17 +707,7 @@ class GeneralLedgerController extends Controller
                    $item->table_name = 'reissue';  // Add a table_name property
                    return $item;
                    });
-   
-                //    // Merge all collections into one collection
-                //    $mergedCollection = $tickets->merge($orders)
-                //                ->merge($receive)
-                //                ->merge($payment)
-                //                ->merge($refund)
-                //                ->merge($void_ticket)
-                //                ->merge($reissue);
-   
-                //    // Sort the merged collection by date
-                //    $sortedCollection = $mergedCollection->sortBy('date')->values();
+     
    
                     $mergedCollection = $tickets->merge($orders)
                         ->merge($receive)
