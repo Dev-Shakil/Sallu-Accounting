@@ -33,7 +33,7 @@
   
   <main class="flex-1 mx-auto max-w-7xl px-2 shadow-lg bg-white py-2" style="width: 97%">
   
-   <div class="">
+   <div class="container">
         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
@@ -48,27 +48,27 @@
                 </div>
             </div>
         </div>
-        <table class="table-auto w-full border-t-2 table-stripe devide-2 text-sm my-1">
-        
-            <thead>
+        <table class="table-auto w-full table-stripe  text-sm px-1 my-1 border-collapse border [&_th,&_td]:px-4 [&_th,&_td]:py-2 ">
+          {{-- --}}
+            <thead class="">
               <tr class="border-y-2 border-black">
                 <th class="text-start">Date</th>
-                <th class="text-start">Invoice No</th>
                 <th class="text-start">Ticket No</th>
+                <th class="text-start">Flight Date</th>
                 <th class="text-start pl-6">Details</th>
                 <th class="">Debit</th>
                 <th class="">Credit</th>
                 <th class="">Balance</th>
               </tr>
             </thead>
-            <thead class="mt-4">
+            <thead class="mt-4 ">
               <tr class="border-b border-black">
                 <td class="py-2" colspan="4"><b>Opening balance</b></td>
                 <td class="py-2"><b> </b></td>
                 <td class="py-2"><b> </b></td>
                 <td class="py-2" style="margin-top: 20px;"><b>{{  $opening_balance }}</b></td></tr>
             </thead>
-            <tbody class="divide-y-2">
+            <tbody class="divide-y-2 ">
               
               {!! $html !!}
               <tr class="border-t border-black">

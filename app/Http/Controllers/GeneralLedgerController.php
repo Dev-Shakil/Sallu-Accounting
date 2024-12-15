@@ -237,33 +237,76 @@ class GeneralLedgerController extends Controller
                 });
 
            
-                $mergedCollection = $tickets->merge($orders)
-                    ->merge($receive)
-                    ->merge($payment)
-                    ->merge($refund)
-                    ->merge($void_ticket)
-                    ->merge($reissue);
+                // $mergedCollection = $tickets->merge($orders)
+                //     ->merge($receive)
+                //     ->merge($payment)
+                //     ->merge($refund)
+                //     ->merge($void_ticket)
+                //     ->merge($reissue);
 
-                $normalizedCollection = $mergedCollection->map(function ($item) {
-                    try {
-                        $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
-                    } catch (\Exception $e) {
-                        $item->date = null; // Handle invalid dates
-                    }
-                    return $item;
-                });
+                // $normalizedCollection = $mergedCollection->map(function ($item) {
+                //     try {
+                //         $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
+                //     } catch (\Exception $e) {
+                //         $item->date = null; // Handle invalid dates
+                //     }
+                //     return $item;
+                // });
+                
                                 
-                $sortedCollection = $normalizedCollection
-                ->sortBy(function ($item) {
-                    if ($item->date) {
-                        return $item->date->timestamp; // Use `date` if available
-                    } elseif ($item->created_at) {
-                        return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
-                    } else {
-                        return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
-                    }
-                })
-                ->values(); // Re-index the collection
+                // $sortedCollection = $normalizedCollection
+                // ->sortBy(function ($item) {
+                //     if ($item->date) {
+                //         return $item->date->timestamp; // Use `date` if available
+                //     } elseif ($item->created_at) {
+                //         return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
+                //     } else {
+                //         return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
+                //     }
+                // })
+                // ->values(); // Re-index the collection
+             
+// Merge all collections into a single collection
+$mergedCollection = $tickets->merge($orders)
+    ->merge($receive)
+    ->merge($payment)
+    ->merge($refund)
+    ->merge($void_ticket)
+    ->merge($reissue);
+
+// Normalize the `date` field, ensuring only the date part is kept
+$normalizedCollection = $mergedCollection->map(function ($item) {
+    try {
+        if (isset($item->date)) {
+            // Parse the date and normalize to `YYYY-MM-DD` format
+            $item->date = Carbon::parse($item->date)->toDateString();
+        } else {
+            $item->date = null; // Set null if no date is present
+        }
+    } catch (\Exception $e) {
+        $item->date = null; // Handle invalid dates
+    }
+    return $item;
+});
+
+// Sort the collection by `date` or `created_at`
+$sortedCollection = $normalizedCollection
+    ->sortBy(function ($item) {
+        if ($item->date) {
+            // Parse `date` (as a string) and return its timestamp
+            return Carbon::parse($item->date)->timestamp;
+        } elseif ($item->created_at) {
+            // Parse `created_at` as a fallback and return its timestamp
+            return Carbon::parse($item->created_at)->timestamp;
+        } else {
+            // Push items without `date` or `created_at` to the end
+            return PHP_INT_MAX;
+        }
+    })
+    ->values(); // Re-index the collection
+
+// Output the sorted collection or perform further operations
+
 
                 $final_opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
                
@@ -297,13 +340,13 @@ class GeneralLedgerController extends Controller
                                   if($item->reissued_new_ticket == 1){
                                       $html .= <<<HTML
                                           <tr>
-                                              <td class="w-[10%]"> $item->invoice_date </td>
-                                              <td class="w-[11%]"> $item->invoice </td>
-                                              <td class="w-[15%]"> {$ticket->ticket_code}/{$item->ticket_no} </td>
+                                          <td class="w-[10%]"> $item->invoice_date <br><small><strong>$item->invoice</strong></small></td>
+                                          <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+
+                                          <td class="w-[11%]"> $item->flight_date </td>
                                               <td class="w-[28%] pr-3">
-                                                  PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                                  PAX NAME: <span class=""> $item->passenger </span><br>
                                                   PNR:  $item->pnr ,  $item->sector <br>
-                                                  FLIGHT DATE:  $item->flight_date <br>
                                                   $item->airline_code -  $item->airline_name <br>
                                                   Remarks:  $item->remark 
                                               </td>
@@ -319,14 +362,14 @@ class GeneralLedgerController extends Controller
                                       
                                       $html .= <<<HTML
                                                                   <tr>
-                                                                      <td class="w-[10%]"> $item->invoice_date </td>
-                                                                      <td class="w-[11%]"> $item->invoice </td>
-                                                                      <td class="w-[15%]"> {$item->ticket_no} </td>
+                                                                  <td class="w-[10%]"> $item->invoice_date <br><small><strong>$item->invoice</strong></small></td>
+                                                                  <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+
+                                                                  <td class="w-[11%]"> $item->flight_date </td>
                                                                       <td class="w-[28%] pr-3">
-                                                                          PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                                                          PAX NAME: <span class=""> $item->passenger </span><br>
                                                                           PNR:  $item->pnr ,  $item->sector <br>
-                                                                          FLIGHT DATE:  $item->flight_date <br>
-                                                                          $item->airline_code -  $item->airline_name <br>
+                                                                                                  $item->airline_code -  $item->airline_name <br>
                                                                           Remarks:  Reissue
                                                                       </td>
                                                                       
@@ -349,13 +392,13 @@ class GeneralLedgerController extends Controller
                             if($item->reissued_new_ticket == 1){
                                 $html .= <<<HTML
                                     <tr>
-                                        <td class="w-[10%]"> $item->invoice_date </td>
-                                        <td class="w-[11%]"> $item->invoice </td>
-                                        <td class="w-[15%]"> {$ticket->ticket_code}/{$item->ticket_no} </td>
+                                    <td class="w-[10%]"> $item->invoice_date <br><small><strong>$item->invoice</strong></small></td>
+                                    <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+
+                                    <td class="w-[11%]"> $item->flight_date </td>
                                         <td class="w-[28%] pr-3">
-                                            PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                            PAX NAME: <span class=""> $item->passenger </span><br>
                                             PNR:  $item->pnr ,  $item->sector <br>
-                                            FLIGHT DATE:  $item->flight_date <br>
                                             $item->airline_code -  $item->airline_name <br>
                                             Remarks:  $item->remark 
                                         </td>
@@ -369,14 +412,14 @@ class GeneralLedgerController extends Controller
                             else{
                                 $html .= <<<HTML
                                                             <tr>
-                                                                <td class="w-[10%]"> $item->invoice_date </td>
-                                                                <td class="w-[11%]"> $item->invoice </td>
-                                                                <td class="w-[15%]"> {$item->ticket_no} </td>
+                                                                <td class="w-[10%]"> $item->invoice_date <br><small><strong>$item->invoice</strong></small></td>
+                                                                <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+
+                                                                <td class="w-[11%]"> $item->flight_date </td>
                                                                 <td class="w-[28%] pr-3">
-                                                                    PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                                                    PAX NAME: <span class=""> $item->passenger </span><br>
                                                                     PNR:  $item->pnr ,  $item->sector <br>
-                                                                    FLIGHT DATE:  $item->flight_date <br>
-                                                                    $item->airline_code -  $item->airline_name <br>
+                                                                                      $item->airline_code -  $item->airline_name <br>
                                                                     Remarks:  Reissue
                                                                 </td>
                                                                 
@@ -400,13 +443,13 @@ class GeneralLedgerController extends Controller
                                         : 'Deleted Method';
                         $html .= <<<HTML
                         <tr>
-                            <td class="w-[10%]"> {$item->date} </td>
-                            <td class="w-[11%]"> {$item->invoice} </td>
+                            <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                            <td class="w-[11%]">  </td>
                             <td class="w-[15%]"> </td>
                             <td class="w-[28%]">
                                 Remarks: {$item->remark} <br>
                                
-                                <b>Received by {$methodDisplay}</b>
+                                Received by {$methodDisplay}
                             </td>
                             <td class="w-[12%] totaldebit"></td>
                             <td class="w-[12%] totalcredit">{$item->amount}</td>
@@ -423,8 +466,8 @@ class GeneralLedgerController extends Controller
     
                         $html .= <<<HTML
                                                  <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
+                                                 <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                                                 <td class="w-[11%]">  </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -449,19 +492,22 @@ class GeneralLedgerController extends Controller
                       
                         $html .= <<<HTML
                         <tr>
-                            <td class="w-[10%]"> {$item->date} </td>
-                            <td class="w-[11%]"> {$item->invoice} </td>
-                            <td class="w-[15%]"> {$ticket->airline_code}/{$ticket->ticket_no} </td>
+                       
                         HTML;
                         
                         if ($ticket) {
                             $html .= <<<HTML
-                            <td class="w-[28%]">
-                                <b>Reissue</b> to Customer: $agentname,  
-                                {$item->invoice}<br> Ticket No: {$ticket->airline_code}/{$ticket->ticket_no}, <br>
-                                Sector: {$ticket->sector},<br> on {$item->date} <b> PAX Name: {$ticket->passenger}</b>
-                            </td>
-                        HTML;
+                            
+                                <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+
+                                <td class="w-[11%]"> {$ticket->airline_code}-{$ticket->ticket_no} </td>
+                                <td class="w-[15%]"> {$ticket->flight_date} </td>
+                                <td class="w-[28%]">
+                                    <b>Reissue</b> to Customer: $agentname,  
+                                    {$item->invoice}<br> Ticket No: {$ticket->airline_code}/{$ticket->ticket_no}, <br>
+                                    Sector: {$ticket->sector},<br> on {$item->date} <b> PAX Name: {$ticket->passenger}</b>
+                                </td>
+                            HTML;
                         } else {
                             $html .= '<td class="w-[28%]"></td>';
                         }
@@ -484,13 +530,11 @@ class GeneralLedgerController extends Controller
                         if ($ticket) {
                             $html .= <<<HTML
                                 <tr>
-                                    <td class="w-[10%]"> {$item->date} </td>
-                                    <td class="w-[11%]"> {$ticket->invoice} </td>
-                                    <td class="w-[15%]"> {$ticket->airline_code}/{$ticket->ticket_no} </td>
+                                <td class="w-[10%]"> $item->date <br><small><strong>$ticket->invoice</strong></small></td>
+                                <td class="w-[11%]"> {$ticket->ticket_code}/{$ticket->ticket_no}  </td>
+                                    <td class="w-[15%]"> {$ticket->flight_date} </td>
                                     <td class="w-[28%]">
-                                        <!-- Remarks:  Refund
-                                        Agent New Amount: {$item->now_agent_fere}
-                                        Agent Previous Amount: {$item->prev_agent_amount} -->
+                                        
                                         <b>Refund</b> to Customer : $agentname ,  
                                         {$ticket->invoice}<br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
                                         Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
@@ -530,9 +574,9 @@ class GeneralLedgerController extends Controller
                             $typeneme = Type::where('id', $item->type)->value('name');
                             $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$typeneme} </td>
+                                                <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                                                <td class="w-[11%]"> {$typeneme} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Passenger: {$item->name} <br>
                                                         Passport: {$item->passport_no}<br>
@@ -555,9 +599,9 @@ class GeneralLedgerController extends Controller
                             $typeneme = Type::where('id', $item->type)->value('name');
                             $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$typeneme} </td>
+                                                <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                                                    <td class="w-[11%]"> {$typeneme} </td>
+                                                    <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Passenger: {$item->name} <br>
                                                         Passport: {$item->passport_no}<br>
@@ -585,12 +629,12 @@ class GeneralLedgerController extends Controller
                         if ($ticket) {
                             $html .= <<<HTML
                                  <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$ticket->invoice} </td>
-                                                    <td class="w-[15%]"> {$ticket->ticket_code}-{$ticket->ticket_no} </td>
+                                                    <td class="w-[10%]"> $item->date <br><small><strong>$ticket->invoice</strong></small></td>
+                                                    <td class="w-[11%]"> {$ticket->ticket_code}-{$ticket->ticket_no} </td>
+                                                    <td class="w-[15%]"> {$ticket->flight_date} </td>
                                                     <td class="w-[28%]">
                                                         <b>Void</b> to Customer : $agentname ,  
-                                                        {$ticket->invoice}<br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
+                                                        <br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
                                                         Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b>
                                                         <b>Remarks</b>:  {$ticket->remark}
                                                     </td>
@@ -728,44 +772,74 @@ class GeneralLedgerController extends Controller
                    return $item;
                    });
    
-                //    // Merge all collections into one collection
-                //    $mergedCollection = $tickets->merge($orders)
-                //                ->merge($receive)
-                //                ->merge($payment)
-                //                ->merge($refund)
-                //                ->merge($void_ticket)
-                //                ->merge($reissue);
    
-                //    // Sort the merged collection by date
-                //    $sortedCollection = $mergedCollection->sortBy('date')->values();
-   
-                    $mergedCollection = $tickets->merge($orders)
-                        ->merge($receive)
-                        ->merge($payment)
-                        ->merge($refund)
-                        ->merge($void_ticket)
-                        ->merge($reissue);
+                    // $mergedCollection = $tickets->merge($orders)
+                    //     ->merge($receive)
+                    //     ->merge($payment)
+                    //     ->merge($refund)
+                    //     ->merge($void_ticket)
+                    //     ->merge($reissue);
 
-                    $normalizedCollection = $mergedCollection->map(function ($item) {
-                        try {
-                            $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
-                        } catch (\Exception $e) {
-                            $item->date = null; // Handle invalid dates
-                        }
-                        return $item;
-                    });
+                    // $normalizedCollection = $mergedCollection->map(function ($item) {
+                    //     try {
+                    //         $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
+                    //     } catch (\Exception $e) {
+                    //         $item->date = null; // Handle invalid dates
+                    //     }
+                    //     return $item;
+                    // });
                                     
-                    $sortedCollection = $normalizedCollection
-                    ->sortBy(function ($item) {
-                        if ($item->date) {
-                            return $item->date->timestamp; // Use `date` if available
-                        } elseif ($item->created_at) {
-                            return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
-                        } else {
-                            return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
-                        }
-                    })
-                    ->values(); // Re-index the collection
+                    // $sortedCollection = $normalizedCollection
+                    // ->sortBy(function ($item) {
+                    //     if ($item->date) {
+                    //         return $item->date->timestamp; // Use `date` if available
+                    //     } elseif ($item->created_at) {
+                    //         return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
+                    //     } else {
+                    //         return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
+                    //     }
+                    // })
+                    // ->values(); // Re-index the collection
+                    
+// Merge all collections into a single collection
+$mergedCollection = $tickets->merge($orders)
+->merge($receive)
+->merge($payment)
+->merge($refund)
+->merge($void_ticket)
+->merge($reissue);
+
+// Normalize the `date` field, ensuring only the date part is kept
+$normalizedCollection = $mergedCollection->map(function ($item) {
+try {
+    if (isset($item->date)) {
+        // Parse the date and normalize to `YYYY-MM-DD` format
+        $item->date = Carbon::parse($item->date)->toDateString();
+    } else {
+        $item->date = null; // Set null if no date is present
+    }
+} catch (\Exception $e) {
+    $item->date = null; // Handle invalid dates
+}
+return $item;
+});
+
+// Sort the collection by `date` or `created_at`
+$sortedCollection = $normalizedCollection
+->sortBy(function ($item) {
+    if ($item->date) {
+        // Parse `date` (as a string) and return its timestamp
+        return Carbon::parse($item->date)->timestamp;
+    } elseif ($item->created_at) {
+        // Parse `created_at` as a fallback and return its timestamp
+        return Carbon::parse($item->created_at)->timestamp;
+    } else {
+        // Push items without `date` or `created_at` to the end
+        return PHP_INT_MAX;
+    }
+})
+->values(); // Re-index the collection
+
 
                     $final_opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
                 
@@ -798,13 +872,14 @@ class GeneralLedgerController extends Controller
                         $total_ticket++;
                         $html .= <<<HTML
                                                     <tr>
-                                                        <td class="w-[10%]"> $item->invoice_date </td>
-                                                        <td class="w-[11%]"> $item->invoice </td>
-                                                        <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
+                                                        <td class="w-[10%]"> $item->invoice_date <br><small><strong>$item->invoice</strong></small></td>
+                                                        <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+
+                                                        <td class="w-[11%]"> $item->flight_date </td>
                                                         <td class="w-[28%] pr-3">
-                                                            PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
+                                                            PAX NAME: <span class=""> $item->passenger </span><br>
                                                             PNR:  $item->pnr ,  $item->sector <br>
-                                                            FLIGHT DATE:  $item->flight_date <br>
+                                                           
                                                             $item->airline_code -  $item->airline_name <br>
                                                             Remarks:  $item->remark 
                                                         </td>
@@ -824,22 +899,21 @@ class GeneralLedgerController extends Controller
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $invoiceshow = isset($item->invoice) && !empty($item->invoice) ? $item->invoice : '';
                         // dd($ticket, $item);
-                        $html .= <<<HTML
-                        <tr>
-                            <td class="w-[10%]"> {$item->date} </td>
-                            <td class="w-[11%]"> {$invoiceshow} </td>
-                        
-                        HTML;
+                       
                         
                         if ($ticket) {
+                            // dd($ticket->invoice);
                             $html .= <<<HTML
-                            <td class="w-[15%]"> {$ticket->airline_code}/{$ticket->ticket_no} </td>
+                              <td class="w-[10%]"> $item->date <br><small><strong>$ticket->invoice</strong></small></td>
+                              <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+                              <td class="w-[11%]"> $ticket->flight_date </td>
+                            
                             <td class="w-[28%]">
                                 <b>Refund</b> to Customer: $agentname,  
                                 {$invoiceshow}<br> 
                                 Ticket No: {$ticket->airline_code}/{$ticket->ticket_no}, <br>
                                 Sector: {$ticket->sector}, <br> 
-                                on {$item->date} <b>PAX Name: {$ticket->passenger}</b><br>
+                                on {$item->date} PAX Name: {$ticket->passenger}<br>
                             </td>
                         HTML;
                         } else {
@@ -859,7 +933,8 @@ class GeneralLedgerController extends Controller
                             <td class="w-[12%] totaltotal">{$currentAmount}</td>
                         </tr>
                         HTML;
-                        } elseif ($item->table_name == "receive") {
+                        } 
+                        elseif ($item->table_name == "receive") {
                         // dd($item);
                         $balance += $item->amount;
                         $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
@@ -867,8 +942,8 @@ class GeneralLedgerController extends Controller
                         // $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                                                    <td class="w-[11%]">  </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -880,7 +955,8 @@ class GeneralLedgerController extends Controller
                                                     <td class="w-[12%] totaltotal">{$currentAmount}</td>
                                                 </tr>
                                                 HTML;
-                    } elseif ($item->table_name == "payment") {
+                        }
+                        elseif ($item->table_name == "payment") {
     
                         $balance -= $item->amount;
                         $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
@@ -888,11 +964,9 @@ class GeneralLedgerController extends Controller
     
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> 
-                                                    
-                                                     </td>
+                                                    <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                                                    <td class="w-[11%]">  </td>
+                                                    <td class="w-[15%]"> </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
                                                         <b>Payment by {$activeTransactionMethods[$item->method]}</b>
@@ -911,24 +985,42 @@ class GeneralLedgerController extends Controller
                         $currentAmount = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $credit += $item->now_supplier_fare;
+                        $invoiceshow = isset($item->invoice) && !empty($item->invoice) ? $item->invoice : '';
 
+                        if ($ticket) {
+                            $html .= <<<HTML
+                              <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
+                              <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
+                              <td class="w-[11%]"> $ticket->flight_date </td>
+                            
+                              <td class="w-[28%]">
+                                
+                                <b>Reissue</b> to Customer : $supplierName ,  
+                                {$item->invoice}<br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
+                                Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br/>
+                              </td>
+                        HTML;
+                        } else {
+                            $html .= <<<HTML
+                            <td class="w-[10%]"> $item->date</td>
+
+                            <td class="w-[15%]">Deleted Ticket </td>
+                            <td></td>
+                            <td class="w-[28%]">
+                                <b>Refund</b> to Customer: $supplierName,  
+                                {$invoiceshow}<br> 
+                                Deleted Ticket
+                            </td>
+                        HTML;
+                        }
 
                         $html .= <<<HTML
-                                                <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
-                                                    <td class="w-[15%]"> {$ticket->airline_code}/{$ticket->ticket_no} </td>
-                                                    <td class="w-[28%]">
-                                                         
-                                                        <b>Reissue</b> to Customer : $supplierName ,  
-                                                        {$item->invoice}<br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
-                                                        Sector :{$ticket->sector} ,<br> on {$item->date} <b> PAX Name : {$ticket->passenger}</b><br/>
-                                                    </td>
-                                                    <td class="w-[12%] totaldebit"></td>
-                                                    <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
-                                                    <td class="w-[12%] totaltotal">{$currentAmount}</td>
-                                                </tr>
-                                                HTML;
+                                    
+                                        <td class="w-[12%] totaldebit"></td>
+                                        <td class="w-[12%] totalcredit">{$item->now_supplier_fare}</td>
+                                        <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                                    </tr>
+                                    HTML;
                     } elseif ($item->table_name == "voidTicket") {
                         // dd($item);
                         // $currentAmount = $item->now_supplier_amount;
@@ -943,9 +1035,10 @@ class GeneralLedgerController extends Controller
                             // If ticket is available, show additional ticket information
                             $html .= <<<HTML
                                 <tr >
-                                    <td class="w-[10%]"> {$item->date} </td>
-                                    <td class="w-[11%]">  </td>
+                                    <td class="w-[10%]"> $item->date <br><small><strong>$ticket->invoice</strong></small></td>
+                                
                                     <td class="w-[15%]"> {$ticket->ticket_code}/{$ticket->ticket_no} </td>
+                                    <td class="w-[11%]"> {$ticket->flight_date} </td>
                                     <td class="w-[28%]">
                                         <b>Void</b> to Customer : $supplierName ,  
                                         <br> Ticket No : {$ticket->airline_code}/{$ticket->ticket_no}, <br>
@@ -979,16 +1072,15 @@ class GeneralLedgerController extends Controller
                         $credit += $item->payable_amount;
     
                         $typeneme = Type::where('id', $item->type)->value('name');
-                        $html .= <<<HTML
+                            $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
-                                                    <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> $item->date <br><small><strong>$item->invoice</strong></small></td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
+                                                    <td class="w-[11%]">  </td>
                                                     <td class="w-[28%]">
-                                                        
                                                         Passenger: {$item->name} <br>
                                                         Passport: {$item->passport_no}<br>
-                                                        Remarks:  {$item->remark} <br>
+                                                        Remarks:  {$item->remark}
                                                     </td>
                                                     <td class="w-[12%] totaldebit"></td>
                                                     <td class="w-[12%] totalcredit">{$item->payable_amount}</td>
