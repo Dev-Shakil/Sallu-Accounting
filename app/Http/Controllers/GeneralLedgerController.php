@@ -190,7 +190,7 @@ class GeneralLedgerController extends Controller
                 ->where('user', Auth::id());
 
                 // Void Tickets
-                $void_ticket = DB::table('voidticket')
+                $void_ticket = DB::table('voidTicket')
                 ->where('user', Auth::id())
                 ->where('agent', $agentSupplierId);
 
@@ -681,7 +681,7 @@ class GeneralLedgerController extends Controller
                    ->where('user', Auth::id());
    
                    // Void Tickets
-                   $void_ticket = DB::table('voidticket')
+                   $void_ticket = DB::table('voidTicket')
                    ->where('user', Auth::id())
                    ->where('supplier', $agentSupplierId);
    
