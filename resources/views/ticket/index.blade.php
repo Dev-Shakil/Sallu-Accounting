@@ -704,6 +704,21 @@
         <tbody>
 
             @foreach ($tickets as $ticket)
+                @php
+                    $suppliername = '';
+            
+                    if ($ticket->who !== null) {
+                        if (strpos($ticket->who, 'agent_') === 0) {
+                            $who_id = str_replace('agent_', '', $ticket->who);
+                            $suppliername = $agentsID[$who_id] ?? 'Unknown Agent';
+                        } else {
+                            // dd( $ticket);
+                            $suppliername = $suppliersID[$ticket->supplier] ?? 'Unknown Supplier';
+                        }
+                    } else {
+                        $suppliername = $suppliersID[$ticket->supplier] ?? 'Unknown Supplier';
+                    }
+                @endphp
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-2 py-2 text-gray-700">{{ (new DateTime($ticket->invoice_date))->format('d/m/Y') }}
                     </td>
@@ -715,9 +730,9 @@
                     <td class="px-2 py-2 text-gray-700">{{ (new DateTime($ticket->flight_date))->format('d/m/Y') }}
                     </td>
                     <td class="px-2 py-2 text-gray-700">{{ $ticket->airline_code }}-{{ $ticket->airline_name }}</td>
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->agent }}</td>
+                    <td class="px-2 py-2 text-gray-700">{{ $agentsID[$ticket->agent] }}</td>
 
-                    <td class="px-2 py-2 text-gray-700">{{ $ticket->supplier }}<br></td>
+                    <td class="px-2 py-2 text-gray-700">{{ $suppliername }}<br></td>
                     <td class="px-2 py-2 text-center text-gray-700">{{ $ticket->agent_price }}</td>
                     <td class="px-2 py-2 text-center text-gray-700">{{ $ticket->supplier_price }}</td>
 

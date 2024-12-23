@@ -298,6 +298,12 @@
                                 {{ $supplier->name }}
                             </option>
                         @endforeach
+                        @foreach ($agents as $agent)
+                            <option value="agent_{{ $agent->id }}" 
+                                @if($order->who == "agent_{$agent->id}") selected @endif>
+                                {{ $agent->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>

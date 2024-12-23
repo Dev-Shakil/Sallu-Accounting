@@ -29,14 +29,12 @@ class TicketController extends Controller
             $tickets = Ticket::where([['is_delete',0],['is_active',1],['user', $user]])->get();
             $airlines = Airline::get();
     
-            foreach($tickets as $order){
-               
-                $order->agent = Agent::where('id', $order->agent)->value('name');
-                $order->supplier = Supplier::where('id', $order->supplier)->value('name');
-            }
+            $suppliersID = Supplier::pluck('name', 'id');
+            $agentsID = Agent::pluck('name', 'id');
             // dd($orders);
             // dd($suppliers);
-            return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets','airlines'));
+            // dd($tickets);
+            return view('ticket/index', compact('suppliers', 'agents', 'types', 'tickets','airlines', 'suppliersID', 'agentsID'));
         }
         else{
             return view('welcome');
@@ -102,155 +100,6 @@ class TicketController extends Controller
             'duplicates' => $exists ? $duplicateTicketNos : []
         ]);
     }
-    
-   
-
-    // public function store(Request $request)
-    // {
-    //     if (Auth::user()) {
-    //         // dd($request->all());
-    //         $ticketNoKeys = array_keys($request['ticket_no']);
-    //         $passengerNameKeys = array_keys($request['passenger_name']);
-    //         $invoiceNumberKeys = array_keys($request['invoice_no']);
-    //         $user = Auth::id();
-
-    //         $flag = false;
-
-    //         // Check if the keys in "passenger_name" are the same as in "ticket_no" and if they have values
-    //         if ($ticketNoKeys === $passengerNameKeys && $this->allValuesExist($request['passenger_name']) && $ticketNoKeys  === $invoiceNumberKeys) {
-    //             $count = 0;
-
-    //             try {
-    //                 // Start a database transaction
-    //                 DB::beginTransaction();
-                    
-    //                 foreach ($request['ticket_no'] as $index => $ticketNumber) {
-    //                     $who = $request['supplier'];
-                    
-    //                     // Check if the supplier string contains an underscore
-    //                     if (strpos($who, '_') !== false) {
-    //                         $parts = explode('_', $who);
-                    
-    //                         // Ensure both parts exist after explode
-    //                         if (count($parts) >= 2) {
-    //                             $type = $parts[0]; // "supplier" or "agent"
-    //                             $who_id = $parts[1]; // The ID value
-    //                         } else {
-    //                             return redirect()->back()->with('error', 'Invalid supplier format.');
-    //                         }
-    //                     } else {
-    //                         // If no underscore, treat it as a supplier ID
-    //                         $type = 'supplier'; // Default type is supplier
-    //                         $who_id = $who; // Directly use the supplier value as ID
-    //                     }
-                    
-    //                     // Continue with ticket creation after validation
-    //                     $ticket = new Ticket();
-    //                     $ticket->flight_date = $request['flight_date'];
-    //                     $ticket->return = $request['return_date'];
-    //                     $ticket->class = $request['class'];
-    //                     $ticket->class_code = $request['class_code'];
-    //                     $ticket->person = $request['person'];
-    //                     $ticket->invoice_date = $request['invoice_date'];
-    //                     $ticket->date = $request['invoice_date'];
-    //                     $ticket->invoice = $request['invoice_no'][$index];
-    //                     $ticket->ticket_no = $ticketNumber;
-    //                     $ticket->sector = $request['sector'];
-    //                     $ticket->stuff = $request['stuff'];
-    //                     $sectorParts = explode('-', $request['sector']);
-    //                     $ticket->s_from = $sectorParts[0];
-    //                     $ticket->e_to = end($sectorParts);
-    //                     $ticket->passenger = $request['passenger_name'][$index];
-    //                     $ticket->airline_name = $request['airlines_name'];
-    //                     $ticket->airline_code = $request['airlines_code'];
-    //                     $ticket->pnr = $request['pnr'];
-    //                     $ticket->ticket_code = $request['ticket_code'];
-    //                     $ticket->agent = $request['agent'];
-                    
-    //                     // Set supplier or agent based on the type
-    //                     if ($type === 'supplier') {
-    //                         $ticket->supplier = $who_id;
-    //                     }
-    //                     $ticket->who = $request['supplier'];
-    //                     $ticket->agent_price = $request['agent_price'];
-    //                     $ticket->supplier_price = $request['supplier_price'];
-    //                     $ticket->flight_no = $request['flight_no'];
-    //                     $ticket->remark = $request['remark'];
-    //                     $ticket->profit = floatval($request['agent_price']) - floatval($request['supplier_price']);
-    //                     $ticket->user = $user;
-    //                     $ticket->ait = $request['ait'];
-                    
-    //                     // Perform checks for agent and supplier as before
-                    
-    //                     // Check if the agent exists
-    //                     $agent_acc = Agent::find($request['agent']);
-    //                     if (!$agent_acc) {
-    //                         return redirect()->back()->with('error', 'Agent not found.');
-    //                     }
-    //                     $agent_previous_amount = $agent_acc->amount;
-    //                     $agent_new_amount = floatval($agent_previous_amount) + floatval($request['agent_price']);
-    //                     $agent_acc->amount = $agent_new_amount;
-    //                     $agent_acc->save();
-
-    //                     $ticket->agent_previous_amount = $agent_previous_amount;
-    //                     $ticket->agent_new_amount = $agent_new_amount;
-
-    //                     // Check if the supplier exists
-    //                     if($type == 'supplier') {                   
-    //                         $supplier = Supplier::find($who_id);
-    //                     }
-    //                     else{
-    //                         $supplier = Agent::find($who_id);
-    //                     }
-
-    //                     // $supplier = Supplier::find($who_id);
-    //                     if (!$supplier) {
-    //                         return redirect()->back()->with('error', 'Supplier not found.');
-    //                     }
-    //                     $supplier_prev_amount = $supplier->amount;
-    //                     $supplier_new_amount = floatval($supplier_prev_amount) + floatval($request['supplier_price']);
-    //                     $supplier->amount = $supplier_new_amount;
-    //                     $supplier->save();
-
-    //                     $ticket->supplier_prev_amount = $supplier_prev_amount;
-    //                     $ticket->supplier_new_amount = $supplier_new_amount;
-
-    //                     // Save the ticket
-    //                     $flag = $ticket->save();
-    //                 }
-                                    
-                                    
-
-    //                 if ($flag) {
-    //                     if ($request['ait']) {
-    //                         $ait = new AIT();
-    //                         $ait->ticket_invoice = $request['invoice_no'];
-    //                         $ait->ait_amount = $request['ait'];
-    //                         $ait->total_amount = $request['ait'] * $count;
-    //                         $ait->sector = $request['sector'];
-    //                         $ait->user = $user;
-    //                         $ait->airline_name = $request['airlines_name'];
-    //                         $ait->save();
-    //                     }
-
-    //                     // Commit the transaction
-    //                     DB::commit();
-    //                     return redirect()->route('ticket.view')->with('success', 'Tickets added successfully.');
-    //                 } else {
-    //                     return redirect()->route('ticket.view')->with('error', 'Something went wrong.');
-    //                 }
-    //             } catch (\Exception $e) {
-    //                 // Something went wrong, rollback the transaction
-    //                 DB::rollBack();
-    //                 return redirect()->back()->with('error', 'Error adding tickets: ' . $e->getMessage());
-    //             }
-    //         } else {
-    //             return redirect()->back()->with('error', 'Mismatch between passenger names and ticket numbers.');
-    //         }
-    //     } else {
-    //         return view('welcome');
-    //     }
-    // }
     
     public function store(Request $request)
     {
@@ -390,143 +239,6 @@ class TicketController extends Controller
     }
 
 
-    
-    // public function store_single(Request $request)
-    // {
-    //     // dd($request->all());
-    //     if(Auth::user()){
-    //         $user = Auth::id();
-
-       
-    //         try {
-               
-    //             DB::beginTransaction();
-    //             // dd($request->all());
-
-    //             $who = $request['supplier'];
-    //             $parts = explode('_', $who);
-
-    //             $type = $parts[0]; // "supplier"
-    //             $who_id = $parts[1]; // "81"
-
-    //                 $ticket = new Ticket();
-    //                 $ticket->flight_date = $request['flight_date'];
-    //                 $ticket->return = $request['return_date'];
-    //                 $ticket->class = $request['class'];
-    //                 $ticket->class_code = $request['class_code'];
-    //                 $ticket->person = $request['person'];
-    //                 $ticket->invoice_date = $request['invoice_date'];
-    //                 $ticket->date = $request['invoice_date'];
-    //                 $ticket->invoice = $request['invoice_no'];
-    //                 $ticket->ticket_no = $request['ticket_no'];
-    //                 $ticket->sector = $request['sector'];
-    //                 // Split the sector into parts
-    //                 $sector = $request['sector'];
-    //                 $parts = explode('-', $sector);
-
-    //                 // Extract the first and last parts
-    //                 $firstPart = $parts[0];
-    //                 $lastPart = end($parts);
-
-    //                 $ticket->s_from = $firstPart;
-    //                 $ticket->e_to = $lastPart;
-
-    //                 $ticket->stuff = $request['stuff'];
-    //                 $ticket->passenger = $request['passenger_name'];
-    //                 $ticket->airline_name = $request['airlines_name'];
-    //                 $ticket->airline_code = $request['airlines_code'];
-    //                 $ticket->pnr = $request['pnr'];
-
-    //                 $ticket->ticket_code = $request['ticket_code'];
-    //                 $ticket->agent = $request['agent'];
-    //                 if ($type === 'supplier') {
-    //                     $ticket->supplier = $who_id;
-    //                 }
-    //                 $ticket->who = $request['supplier'];
-    //                 $ticket->agent_price = $request['agent_price'];
-    //                 $ticket->supplier_price = $request['supplier_price'];
-    //                 $ticket->flight_no = $request['flight_no'];
-    //                 $ticket->remark = $request['remark'];
-    //                 $ticket->discount = $request['discount'];
-    //                 $profit = floatval($request['agent_price']) - floatval($request['supplier_price']);
-    //                 $ticket->profit = $profit;
-    //                 $ticket->user = $user;
-    //                 $ticket->ait = $request['ait'];
-    //                 // dd($ticket);
-
-    //                 $agent_acc = Agent::find($request['agent']);
-    //                 $agent_previous_amount = $agent_acc->amount;
-    //                 $agent_new_amount = floatval($agent_previous_amount) + floatval($request['agent_price']);
-    //                 $agent_acc->amount = $agent_new_amount;
-
-    //                    // Check if the supplier exists
-    //                    if($type == 'supplier') {                   
-    //                     $supplier_acc = Supplier::find($who_id);
-    //                     }
-    //                     else{
-    //                         $supplier_acc = Agent::find($who_id);
-    //                     }
-
-    //                 // $supplier_acc = Supplier::find($request['supplier']);
-    //                 $supplier_prev_amount = $supplier_acc->amount;
-    //                 $supplier_new_amount = floatval($supplier_prev_amount) + floatval($request['supplier_price']);
-    //                 $supplier_acc->amount = $supplier_new_amount;
-                
-
-    //                 $ticket->agent_previous_amount = $agent_previous_amount;
-    //                 $ticket->agent_new_amount = $agent_new_amount;
-    //                 $ticket->supplier_prev_amount = $supplier_prev_amount;
-    //                 $ticket->supplier_new_amount = $supplier_new_amount;
-
-    //                 // dd($ticket);
-    //                 // $flag = false;
-    //                 // $flag = $ticket->save();
-
-    //                 // var_dump($flag);
-                 
-    //                 if($ticket->save())
-    //                 {
-                    
-    //                     $agent_acc->save();
-    //                     $supplier_acc->save();
-
-    //                     // dd($ticket->save() && $supplier_acc->save() && $agent_acc->save());
-    //                     if($request['ait']){
-    //                         // dd("ko");
-    //                         $ait = new AIT();
-    //                         $ait->ticket_invoice = $request['invoice_no'];
-    //                         $ait->ait_amount = $request['ait_amount'];
-    //                         $ait->total_amount = $request['ait'];
-    //                         $ait->sector = $request['sector'];
-    //                         $ait->user = $user;
-    //                         $ait->airline_name = $request['airlines_name'];
-
-    //                         $ait->save();
-    //                     }
-    //                     // dd($ticket->save() && $supplier_acc->save() && $agent_acc->save(), $request['ait']);
-
-    //                     // Commit the transaction
-    //                     DB::commit();
-    //                     return redirect()->route('ticket.view')->with('success', 'Tickets added successfully');
-    //                 }
-    //                 else{
-    //                     return redirect()->route('ticket.view')->with('error', 'Something went wrong');
-    //                 }
-                
-    //         }
-    //         catch (\Exception $e) {
-    //             // Something went wrong, rollback the transaction
-    //             DB::rollBack();
-            
-    //             // Log the error or handle it as needed
-    //             return redirect()->back()->with('error', 'Error adding tickets: ' . $e->getMessage());
-    //         }
-    //     }
-    //     else{
-    //         return view('welcome');
-    //     }
-    
-    // }
 
    
     public function store_single(Request $request)
@@ -673,11 +385,34 @@ class TicketController extends Controller
         if (Auth::user()) {
             DB::beginTransaction();
             try {
+                // dd($request->all());
                 if ($request['ticket_id'] != null) {
+
+                      // Get supplier value
+                    $who = $request['supplier'];
+                    $who_id = '';
+                    // Check if the value contains "agent_"
+                    if (strpos($who, 'agent_') === 0) {
+                        // This is an agent
+                        $type = 'agent';
+                        $who_id = str_replace('agent_', '', $who);
+                    } else {
+                        // This is a supplier
+                        $type = 'supplier';
+                        $who_id = $who;
+                    }
                     $ticket = Ticket::findOrFail($request['ticket_id']); 
+
+
                     $ticket->agent = $request['agent'];
-                    $ticket->supplier = $request['supplier'];
-                    $ticket->invoice_date = $request['invoice_date'];
+                    // Assign supplier or agent based on type
+                    if ($type == 'supplier') {
+                        $ticket->supplier = $who_id; // Ensure $who_id is a valid integer
+                    } else {
+                        $ticket->supplier = null; // Use null instead of an empty string
+                    }
+                    
+                    $ticket->who = $request['supplier']; // Store original who value (agent or supplier)                    $ticket->invoice_date = $request['invoice_date'];
                     $ticket->stuff = $request['stuff'];
                     $ticket->flight_date = $request['flight_date'];
                     $ticket->sector = $request['sector'];
@@ -696,7 +431,14 @@ class TicketController extends Controller
                     $ticket->profit = $profit;
 
                     $agent = Agent::where('id', $request['agent'])->first();
-                    $supplier = Supplier::where('id', $request['supplier'])->first();
+
+                    // Update supplier or agent based on type
+                    // dd($who_id, $type);
+                    if ($type === 'supplier') {
+                        $supplier = Supplier::where('id', $request['supplier'])->first();
+                    } else {
+                        $supplier = Agent::where('id', $who_id)->first();
+                    }
 
                     $agent->amount -= $request['prev_agent_price'];
                     $agent->amount += $request['agent_price'];

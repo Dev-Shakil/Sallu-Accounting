@@ -411,38 +411,45 @@
                                 @endforeach
                             </td>
                             <td class="text-sm w-[150px]">
-                                @foreach ($suppliers as $supplier)
-                                    @if ($order->supplier == $supplier->id)
-                                        {{ $supplier->name }} <span class="">{{ $supplier->company }}</span>
+                                @if (isset($order->who) && Str::startsWith($order->who, 'agent_'))
+                                    @php
+                                        $agentId = intval(explode('_', $order->who)[1]); // Extract the agent ID from 'agent_14'
+                                        $agent = $agents->firstWhere('id', $agentId); // Find the agent from the collection
+                                    @endphp
+                                    @if ($agent)
+                                        {{ $agent->name }}
                                     @endif
-                                @endforeach
+                                @else
+                                    @foreach ($suppliers as $supplier)
+                                        @if ($order->supplier == $supplier->id)
+                                            {{ $supplier->name }} <span class="">{{ $supplier->company }}</span>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>{{ $order->contact_amount }}</td>
                             <td>{{ $order->payable_amount }}</td>
                             <td>{{ $order->remark }}</td>
-
-
                             <td>
                                 <section class="flex gap-2 text-lg">
                                     @if(in_array('edit', $permissionsArray))
-                                     <a href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i
-                                        class="fa fa-pencil fa-fw"></i> </a>
+                                        <a href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i class="fa fa-pencil fa-fw"></i> </a>
                                     @endif
                                     @if(in_array('delete', $permissionsArray))
-                                    <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
-                                        data-toggle="modal" data-target="#confirmDeleteModal"><i
-                                            class="fa fa-trash-o fa-fw"></i></a>
+                                        <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
+                                            data-toggle="modal" data-target="#confirmDeleteModal"><i class="fa fa-trash-o fa-fw"></i></a>
                                     @endif
                                     @if(in_array('view', $permissionsArray))
-                                            <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
-                                                class=" hover:text-green-700 mr-1">
-                                                <i class="fa fa-eye fa-fw text-xl"></i>
-                                            </a>
+                                        <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
+                                            class=" hover:text-green-700 mr-1">
+                                            <i class="fa fa-eye fa-fw text-xl"></i>
+                                        </a>
                                     @endif
                                 </section>
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
 

@@ -86,14 +86,21 @@ Ticket Invoicing
         <div class="w-full md:w-[48%] px-4 mb-2 flex items-center">
           <label for="supplier" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
           
-          <select name="supplier" id="supplier" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block max-w-[60%]  p-1 select2" required>
+          <select name="supplier" id="supplier" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block max-w-[60%] p-1 select2" required>
             <option value="">Select Supplier</option>
             @foreach($suppliers as $supplier)
                 <option value="{{ $supplier->id }}" @if($ticket->supplier == $supplier->id) selected @endif>
                     {{ $supplier->name }}
                 </option>
             @endforeach
-         </select>
+        
+            @foreach($agents as $agent)
+                <option value="agent_{{ $agent->id }}" 
+                    @if($ticket->who == "agent_{$agent->id}") selected @endif>
+                    {{ $agent->name }}
+                </option>
+            @endforeach
+          </select>
         
       </div>
     </div>
