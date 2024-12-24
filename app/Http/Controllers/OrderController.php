@@ -317,84 +317,93 @@ class OrderController extends Controller
 
 
     public function update(Request $request, $id)
-{
-    if (Auth::user()) {
-        $order = Order::findOrFail($id); // Fetch the current order
+    {
+        if (Auth::user()) {
+            $order = Order::findOrFail($id); // Fetch the current order
 
-        $data = $request->all();
+            $data = $request->all();
 
-        // Check if the passport number or type has been changed
-        $originalPassport = $order->passport_no;
-        $originalType = $order->type;
+            // Check if the passport number or type has been changed
+            $originalPassport = $order->passport_no;
+            $originalType = $order->type;
 
-        $newPassport = $request->input('passport_no');
-        $newType = $request->input('type');
+            $newPassport = $request->input('passport_no');
+            $newType = $request->input('type');
 
-        // Ensure newPassport is an array or a single string
-        if (!is_array($newPassport)) {
-            $newPassport = explode(',', $newPassport); // Convert to an array if it's a string
-        }
+            // Ensure newPassport is an array or a single string
+            if (!is_array($newPassport)) {
+                $newPassport = explode(',', $newPassport); // Convert to an array if it's a string
+            }
 
-        if ($originalPassport !== implode(',', $newPassport) || $originalType !== $newType) {
-            // Perform duplicate check only if passport or type has changed
-            foreach ($newPassport as $passport) {
-                $duplicate = Order::where('type', $newType)
-                    ->where('id', '!=', $id) // Exclude the current order
-                    ->whereRaw("FIND_IN_SET(?, passport_no)", [$passport]) // Check in the comma-separated list
-                    ->exists();
+            if ($originalPassport !== implode(',', $newPassport) || $originalType !== $newType) {
+                // Perform duplicate check only if passport or type has changed
+                foreach ($newPassport as $passport) {
+                    $duplicate = Order::where('type', $newType)
+                        ->where('id', '!=', $id) // Exclude the current order
+                        ->whereRaw("FIND_IN_SET(?, passport_no)", [$passport]) // Check in the comma-separated list
+                        ->exists();
 
-                if ($duplicate) {
-                    return redirect()->route('order.view')->with('error', 'An order with the same type and passport number already exists.');
+                    if ($duplicate) {
+                        return redirect()->route('order.view')->with('error', 'An order with the same type and passport number already exists.');
+                    }
                 }
             }
-        }
 
-        // Update the order
-        $who = $request->input('supplier');
-        $parts = explode('_', $who);
+            // Update the order
+            $who = $request->input('supplier');
+            $parts = explode('_', $who);
 
-        $type = $parts[0]; // "supplier"
-        $who_id = $parts[1]; // "81"
+            if(count($parts) < 2){
+                $type = 'supplier';
+                $who_id = $parts[0];
+            }
+            else{
+                $type = $parts[0]; // "supplier"
+                $who_id = $parts[1]; // "81"
+        
+            }
+            // dd($type, $who_id);           // Debug and check the input and its parts count
 
-        $order->name = $request->input('name');
-        $order->date = (new DateTime($request->input('date')))->format('Y-m-d');
-        $order->type = $newType;
-        $order->agent = $request->input('agent');
-        $order->passport_no = implode(',', $newPassport); // Store as a comma-separated string
-        $order->contact_amount = $request->input('contact_amount');
-        $order->payable_amount = $request->input('payable_amount');
-        $order->country = $request->input('country');
+        
+            $order->name = $request->input('name');
+            $order->date = (new DateTime($request->input('date')))->format('Y-m-d');
+            $order->type = $newType;
+            $order->agent = $request->input('agent');
+            $order->passport_no = implode(',', $newPassport); // Store as a comma-separated string
+            $order->contact_amount = $request->input('contact_amount');
+            $order->payable_amount = $request->input('payable_amount');
+            $order->country = $request->input('country');
 
-        if ($type == 'supplier') {
-            $order->supplier = $who_id;
-        }
-        else{
-            $order->supplier = null;
+            if ($type == 'supplier') {
+                $order->supplier = $who_id;
+            }
+            else{
+                $order->supplier = null;
 
-        }
+            }
 
-        $order->who = $request->input('supplier');
-        $order->remark = $request->input('remark');
-        $order->invoice = $request->input('invoice');
+            $order->who = $request->input('supplier');
+            $order->remark = $request->input('remark');
+            $order->invoice = $request->input('invoice');
 
-        if ($request->has('other_expense')) {
-            $profit = $request->input('contact_amount') - ($request->input('payable_amount') + $request->input('other_expense'));
+            if ($request->has('other_expense')) {
+                $profit = $request->input('contact_amount') - ($request->input('payable_amount') + $request->input('other_expense'));
+            } else {
+                $profit = $request->input('contact_amount') - $request->input('payable_amount');
+            }
+
+            $order->profit = $profit;
+            $order->user = Auth::id();
+
+            if ($order->save()) {
+                return redirect()->route('order.view')->with('success', 'Order updated successfully');
+            } else {
+                return redirect()->route('order.view')->with('error', 'Order update failed');
+            }
         } else {
-            $profit = $request->input('contact_amount') - $request->input('payable_amount');
+            return view('welcome');
         }
-
-        $order->profit = $profit;
-        $order->user = Auth::id();
-
-        if ($order->save()) {
-            return redirect()->route('order.view')->with('success', 'Order updated successfully');
-        } else {
-            return redirect()->route('order.view')->with('error', 'Order update failed');
-        }
-    } else {
-        return view('welcome');
     }
-}
         public function view($id){
             if(Auth::user()){
                 $order = Order::findOrFail($id); 
