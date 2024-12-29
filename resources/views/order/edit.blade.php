@@ -75,14 +75,14 @@
                         Name</label>
                     <input type="text" id="name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                        name="name" value={{$order->name}}>
+                        name="name" value="{{$order->name}}">
                 </div>
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="passport_no" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Passport No</label>
                     
                         <input type="text" maxlength="9" id="passport_no"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
-                            name="passport_no" value={{$order->passport_no}}>
+                            name="passport_no" value="{{$order->passport_no}}">
                 </div>
             </div>
             
