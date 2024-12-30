@@ -2126,271 +2126,11 @@ class ReportController extends Controller
         }
 
     }
-    // public function due_reminder()
-    // {
-    //     if (Auth::user()) {
-    //         $userId = Auth::id();
-
-    //         // Fetch all active and non-deleted agents and suppliers
-    //         $agents = Agent::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-
-    //         $suppliers = Supplier::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-
-    //         $latestTransactions = [];
-
-    //         // Get latest transactions for agents
-    //         foreach ($agents as $agent) {
-    //             $latestReceive = Receiver::where('agent_supplier_id', $agent->id)
-    //                 ->where('receive_from', 'agent')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestPayment = Payment::where('agent_supplier_id', $agent->id)
-    //                 ->where('receive_from', 'agent')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestTransactions[] = [
-    //                 'entity' => $agent,
-    //                 'latest_receive' => $latestReceive,
-    //                 'latest_payment' => $latestPayment,
-    //                 'type' => 'agent'
-    //             ];
-    //         }
-
-    //         // Get latest transactions for suppliers
-    //         foreach ($suppliers as $supplier) {
-    //             $latestReceive = Receiver::where('agent_supplier_id', $supplier->id)
-    //                 ->where('receive_from', 'supplier')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestPayment = Payment::where('agent_supplier_id', $supplier->id)
-    //                 ->where('receive_from', 'supplier')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestTransactions[] = [
-    //                 'entity' => $supplier,
-    //                 'latest_receive' => $latestReceive,
-    //                 'latest_payment' => $latestPayment,
-    //                 'type' => 'supplier'
-    //             ];
-    //         }
-
-    //         // Prepare transactions with names and other details
-    //         $filteredTransactionsWithNames = [];
-    //         foreach ($latestTransactions as $transaction) {
-    //             $entity = $transaction['entity'];
-    //             $type = $transaction['type'];
-    //             $receiveFrom = $type == 'agent' ? 'agent' : 'supplier';
-    //             $latestReceive = $transaction['latest_receive'];
-    //             $latestPayment = $transaction['latest_payment'];
-
-    //             if($type === 'agent'){
-    //                 $due_amount = Agent::where('id', $entity->id)->value('amount');
-    //             }
-    //             else{
-    //                 $due_amount = Supplier::where('id', $entity->id)->value('amount');
-    //             }
-    //             $transactionDetails = [
-    //                 'agent_supplier_id' => $entity->id,
-    //                 'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $receiveFrom . '</span>)',
-    //                 'agent_supplier_email' => $entity->email,
-    //                 'agent_supplier_phone' => $entity->phone,
-    //                 'agent_supplier_company' => $entity->company,
-    //                 'due_amount' => $due_amount,
-    //                 'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-    //                 'amount' => $latestReceive ? $latestReceive->amount : ($latestPayment ? $latestPayment->amount : null)
-    //             ];
-
-    //             $filteredTransactionsWithNames[] = $transactionDetails;
-    //         }
-
-    //         return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
-    //     } else {
-    //         return view('welcome');
-    //     }
-    // }
     
 
-    
-    // public function due_reminder()
-    // {
-    //     if (Auth::user()) {
-    //         $userId = Auth::id();
-    
-    //         // Fetch all active and non-deleted agents and suppliers
-    //         $agents = Agent::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-    
-    //         $suppliers = Supplier::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-    
-    //         $filteredTransactionsWithNames = [];
-    
-    //         // Function to process transactions
-    //         function processTransactions($entities, $type) {
-    //             $transactions = [];
-    
-    //             foreach ($entities as $entity) {
-    //                 $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
-    //                     ->where('receive_from', $type)
-    //                     ->orderBy('created_at', 'desc')
-    //                     ->first();
-    
-    //                 $latestPayment = Payment::where('agent_supplier_id', $entity->id)
-    //                     ->where('receive_from', $type)
-    //                     ->orderBy('created_at', 'desc')
-    //                     ->first();
-    
-                   
-    //                 $id = $entity->id;
-    //                 if($entity->getTable() == 'agent'){
-    //                     $openingBalance = $entity->opening_balance;
-    //                 }
-    //                 else{
-    //                     $openingBalance = -$entity->opening_balance;
-    //                 }
-                    
-    //                 if ($type === 'agent')
-    //                 {
-    //                     $orders = Order::where([['agent', $id], ['user', Auth::id()]])->get();
-    //                     $tickets = Ticket::where([['agent', $id], ['is_active', 1], ['user', Auth::id()]])->get();
-    //                     $refunds = Refund::where('user', Auth::id())->where('agent', $id)->get();
-    //                     $receivers = Receiver::where([
-    //                         ['receive_from', '=', 'agent'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-    //                     $payments = Payment::where([
-    //                         ['receive_from', '=', 'agent'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-    //                     $void_tickets = VoidTicket::where([['user', Auth::id()], ['agent', $id]])->get();
-    //                     $reissues = ReissueTicket::where([['agent', $id], ['user', Auth::id()]])->get();
-    //                 } else {
-    //                     $orders = Order::where('user', Auth::id())
-    //                         ->where('supplier', $id)
-    //                         ->get();
-                        
-    //                     $tickets = Ticket::where([
-    //                         ['supplier', $id],
-    //                         ['is_active', 1],
-    //                         ['is_delete', 0],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $refunds = Refund::where('user', Auth::id())
-    //                         ->where('supplier', $id)
-    //                         ->get();
-                        
-    //                     $receivers = Receiver::where([
-    //                         ['receive_from', '=', 'supplier'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $payments = Payment::where([
-    //                         ['receive_from', '=', 'supplier'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $void_tickets = VoidTicket::where([
-    //                         ['user', Auth::id()],
-    //                         ['supplier', $id]
-    //                     ])->get();
-                        
-    //                     $reissues = ReissueTicket::where([
-    //                         ['supplier', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                      
-    //                 }
-    
-    //                 // Concatenate all collections into a single collection
-    //                 $concatenatedCollection = $orders
-    //                     ->concat($tickets)
-    //                     ->concat($refunds)
-    //                     ->concat($receivers)
-    //                     ->concat($payments)
-    //                     ->concat($void_tickets)
-    //                     ->concat($reissues);
-    
-    //                 $due_amount = $openingBalance;
-    //                 $amountTracking = []; // Array to track amounts per table
-    //                 // dd($concatenatedCollection);
-    //                 foreach ($concatenatedCollection as $singlecollection) {
-    //                     // dd($singlecollection);
-    //                     $table = $singlecollection->getTable();
-    //                     $amount = 0;
-    
-    //                     if ($table == 'order') {
-    //                         $amount = $type === 'agent' ? $singlecollection->contact_amount : -$singlecollection->payable_amount;
-    //                     } elseif ($table == 'tickets') {
-    //                         $amount = $type === 'agent' ? $singlecollection->agent_price : -$singlecollection->supplier_price;
-    //                     } elseif ($table == 'reissue') {
-    //                         $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-    //                     } elseif ($table == 'refund') {
-    //                         $amount = $type === 'agent' ? -$singlecollection->now_agent_fere : $singlecollection->now_supplier_fare;
-    //                     } elseif ($table == 'receive') {
-    //                         $amount = -$singlecollection->amount;
-    //                     } elseif ($table == 'payment') {
-    //                         $amount = $singlecollection->amount;
-    //                     } elseif ($table == 'voidTicket') {
-    //                         $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-    //                     }
-    
-    //                     $due_amount += $amount;
-    //                     $amountTracking[] = ['table' => $table, 'amount' => $amount];
-    //                 }
-    
-    //                 $transactions[] = [
-    //                     'agent_supplier_id' => $entity->id,
-    //                     'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
-    //                     'agent_supplier_email' => $entity->email,
-    //                     'agent_supplier_phone' => $entity->phone,
-    //                     'agent_supplier_company' => $entity->company,
-    //                     'due_amount' => $due_amount,
-    //                     'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-    //                     'amount' => $latestReceive ? $latestReceive->amount : ($latestPayment ? $latestPayment->amount : null),
-    //                     'amountTracking' => $amountTracking // Add tracking details to the output
-    //                 ];
-    //             }
-    
-    //             return $transactions;
-    //         }
-    
-    //         // Process agents and suppliers separately
-    //         $agentTransactions = processTransactions($agents, 'agent');
-    //         $supplierTransactions = processTransactions($suppliers, 'supplier');
-    
-    //         // Combine the transactions if needed
-    //         $filteredTransactionsWithNames = array_merge($agentTransactions, $supplierTransactions);
-    
-    //         return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
-    //     } else {
-    //         return view('welcome');
-    //     }
-    // }
+   
 
-    public function due_reminder()
+    public function due_reminder(Request $request)
     {
         if (Auth::user()) {
             $userId = Auth::id();
@@ -2410,166 +2150,111 @@ class ReportController extends Controller
     
             $filteredTransactionsWithNames = [];
     
-            // Function to process transactions
-            function processTransactions($entities, $type) {
-                $transactions = [];
+            // Process transactions for both agents and suppliers
+            $filteredTransactionsWithNames = array_merge(
+                $this->processTransactions($agents, 'agent', $request),
+                $this->processTransactions($suppliers, 'supplier', $request)
+            );
     
-                foreach ($entities as $entity) {
-                    $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
-                        ->where('receive_from', $type)
-                        ->orderBy('created_at', 'desc')
-                        ->first();
-    
-                    $latestPayment = Payment::where('agent_supplier_id', $entity->id)
-                        ->where('receive_from', $type)
-                        ->orderBy('created_at', 'desc')
-                        ->first();
-                    // dd($latestPayment);
-                   
-                    $id = $entity->id;
-                    if($entity->getTable() == 'agent'){
-                        $openingBalance = $entity->opening_balance;
-                    }
-                    else{
-                        $openingBalance = -$entity->opening_balance;
-                    }
-                    
-                    if ($type === 'agent')
-                    {
-                        $orders = Order::where([['agent', $id], ['user', Auth::id()]])->get();
-                        $tickets = Ticket::where([['agent', $id], ['is_active', 1], ['user', Auth::id()]])->get();
-                        $refunds = Refund::where('user', Auth::id())->where('agent', $id)->get();
-                        $receivers = Receiver::where([
-                            ['receive_from', '=', 'agent'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        $payments = Payment::where([
-                            ['receive_from', '=', 'agent'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        $void_tickets = VoidTicket::where([['user', Auth::id()], ['agent', $id]])->get();
-                        $reissues = ReissueTicket::where([['agent', $id], ['user', Auth::id()]])->get();
-                    } else {
-                        $orders = Order::where('user', Auth::id())
-                            ->where('supplier', $id)
-                            ->get();
-                        
-                        $tickets = Ticket::where([
-                            ['supplier', $id],
-                            ['is_active', 1],
-                            ['is_delete', 0],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $refunds = Refund::where('user', Auth::id())
-                            ->where('supplier', $id)
-                            ->get();
-                        
-                        $receivers = Receiver::where([
-                            ['receive_from', '=', 'supplier'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $payments = Payment::where([
-                            ['receive_from', '=', 'supplier'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $void_tickets = VoidTicket::where([
-                            ['user', Auth::id()],
-                            ['supplier', $id]
-                        ])->get();
-                        
-                        $reissues = ReissueTicket::where([
-                            ['supplier', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                      
-                    }
-    
-                    // Concatenate all collections into a single collection
-                    $concatenatedCollection = $orders
-                        ->concat($tickets)
-                        ->concat($refunds)
-                        ->concat($receivers)
-                        ->concat($payments)
-                        ->concat($void_tickets)
-                        ->concat($reissues);
-    
-                    $due_amount = $openingBalance;
-                    $amountTracking = []; // Array to track amounts per table
-                    // dd($concatenatedCollection);
-                    foreach ($concatenatedCollection as $singlecollection) {
-                        // dd($singlecollection);
-                        $table = $singlecollection->getTable();
-                        $amount = 0;
-    
-                        if ($table == 'order') {
-                            $amount = $type === 'agent' ? $singlecollection->contact_amount : -$singlecollection->payable_amount;
-                        } elseif ($table == 'tickets') {
-                            $amount = $type === 'agent' ? $singlecollection->agent_price : -$singlecollection->supplier_price;
-                        } elseif ($table == 'reissue') {
-                            $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-                        } elseif ($table == 'refund') {
-                            $amount = $type === 'agent' ? -$singlecollection->now_agent_fere : $singlecollection->now_supplier_fare;
-                        } elseif ($table == 'receive') {
-                            $amount = -$singlecollection->amount;
-                        } elseif ($table == 'payment') {
-                            $amount = $singlecollection->amount;
-                        } elseif ($table == 'voidTicket') {
-                            $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-                        }
-    
-                        $due_amount += $amount;
-                        $amountTracking[] = ['table' => $table, 'amount' => $amount];
-                    }
-                            
-                    // Determine the latest transaction and its amount
-
-                    if ($latestReceive && $latestPayment) {
-                        $latestTransaction = $latestReceive->created_at > $latestPayment->created_at ? $latestReceive : $latestPayment;
-                        $amount = $latestTransaction->amount;
-                    } elseif ($latestReceive) {
-                        $amount = $latestReceive->amount;
-                    } elseif ($latestPayment) {
-                        $amount = $latestPayment->amount;
-                    } else {
-                        $amount = null;
-                    }
-    
-                    
-                    $transactions[] = [
-                        'agent_supplier_id' => $entity->id,
-                        'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
-                        'agent_supplier_email' => $entity->email,
-                        'agent_supplier_phone' => $entity->phone,
-                        'agent_supplier_company' => $entity->company,
-                        'due_amount' => $due_amount,
-                        'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-                        'amount' => $amount,
-                        'amountTracking' => $amountTracking // Add tracking details to the output
-                    ];
-                }
-    
-                return $transactions;
-            }
-    
-            // Process agents and suppliers separately
-            $agentTransactions = processTransactions($agents, 'agent');
-            $supplierTransactions = processTransactions($suppliers, 'supplier');
-    
-            // Combine the transactions if needed
-            $filteredTransactionsWithNames = array_merge($agentTransactions, $supplierTransactions);
-    
+            // dd($filteredTransactionsWithNames);
+            // Return the view with data (or JSON for API response)
             return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
         } else {
             return view('welcome');
         }
     }
+    
+    private function processTransactions($entities, $type, $request)
+    {
+        $transactions = [];
+        $generalLedgerController = new GeneralLedgerController();
+    
+        // dd($entities);
+        foreach ($entities as $entity) {
+            $id = $entity->id;
+    
+            $due_amount = 0;
+            // Clone or modify the request
+            $request->merge([
+                'agent_supplier' => $type,
+                'agent_supplier_id' => $id,
+            ]);
+    
+            // Call the general_ledger_report function
+            $response = $generalLedgerController->general_ledger_report($request);
+    
+            $responseData = $response->getData(); 
+                // dd($responseData);
+                $html = $responseData->html; // Replace `tableHtml` with the actual property containing the HTML
+                $dom = new DOMDocument();
+                @$dom->loadHTML($html);
+
+                // Get all <tr> elements
+                $rows = $dom->getElementsByTagName('tr');
+
+                // Get the last <tr>
+                $lastRow = $rows->item($rows->length - 1);
+
+                if ($lastRow) {
+                    // Get all <td> elements in the last row
+                    $tds = $lastRow->getElementsByTagName('td');
+
+                    // Get the last <td> in the last row
+                    $lastTd = $tds->item($tds->length - 1);
+
+                    $due_amount = $lastTd ? intval($lastTd->textContent) : 'N/A';
+                } else {
+
+                }
+            $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
+                ->where('receive_from', $type)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $latestPayment = Payment::where('agent_supplier_id', $entity->id)
+                ->where('receive_from', $type)
+                ->orderBy('created_at', 'desc')
+                ->first();
+    
+            // dd($responseData, $type, $entity);
+            // Ensure response data is valid
+            if (!$responseData) {
+                continue;
+            }
+    
+    
+            // Determine the latest transaction and its amount
+            $latestTransaction = null;
+            $amount = null;
+    
+           
+            if ($latestReceive && $latestPayment) {
+                $latestTransaction = $latestReceive->created_at > $latestPayment->created_at ? $latestReceive : $latestPayment;
+                $amount = $latestTransaction->amount;
+            } elseif ($latestReceive) {
+                $amount = $latestReceive->amount;
+            } elseif ($latestPayment) {
+                $amount = $latestPayment->amount;
+            } else {
+                $amount = null;
+            }
+
+    
+            $transactions[] = [
+                'agent_supplier_id' => $entity->id,
+                'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
+                'agent_supplier_email' => $entity->email,
+                'agent_supplier_phone' => $entity->phone,
+                'agent_supplier_company' => $entity->company,
+                'due_amount' => $due_amount,
+                'date' => $latestTransaction ? $latestTransaction['created_at'] : null,
+                'amount' => $amount,
+            ];
+        }
+    
+        return $transactions;
+    }
+    
     public function due_reminder_specific(Request $request)
     {
         if(Auth::user()){
