@@ -31,9 +31,9 @@
 
 <body class="flex bg-white">
   
-  <main class="flex-1 mx-auto max-w-7xl px-2 shadow-lg bg-white py-2" style="width: 97%">
+  <main class="flex-1 mx-auto shadow-lg bg-white py-2" style="width: 100%">
   
-   <div class="container">
+   <div class="px-2">
         <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
         <div class="flex items-center justify-between mb-2">
             <div class="text-lg">
@@ -55,7 +55,7 @@
                 <th class="text-start">Date</th>
                 <th class="text-start">Ticket No</th>
                 <th class="text-start">Flight Date</th>
-                <th class="text-start pl-6">Details</th>
+                <th class="text-start">Details</th>
                 <th class="">Debit</th>
                 <th class="">Credit</th>
                 <th class="">Balance</th>

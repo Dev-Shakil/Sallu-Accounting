@@ -17,7 +17,7 @@
       box-sizing: border-box;
     }
     body{
-      background-color: #1F2937;
+      background-color: #e0e3e7;
     }
     .background{
       width: 430px;
@@ -54,7 +54,7 @@
       margin-top:30px;
       height: 520px;
       width: 400px;
-      background-color: rgba(255,255,255,0.13);
+      background-color: #00959F;
       position: absolute;
       transform: translate(-50%,-50%);
       top: 50%;
@@ -105,7 +105,7 @@
       width: 100%;
       background-color: #ffffff;
       color: #080710;
-      padding: 15px 0;
+      padding: 10px 0;
       font-size: 18px;
       font-weight: 600;
       border-radius: 5px;
