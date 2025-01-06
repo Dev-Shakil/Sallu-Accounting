@@ -497,8 +497,9 @@ class ReportController extends Controller
                         if($item->reissued_new_ticket == 1){
                             $html .= <<<HTML
                                 <tr>
-                                    <td class="w-[10%]"> $item->invoice_date </td>
+                                    
                                     <td class="w-[11%]"> $item->invoice </td>
+                                    <td class="w-[10%]"> $item->invoice_date </td>
                                     <td class="w-[15%]"> {$ticket->ticket_code}/{$item->ticket_no} </td>
                                     <td class="w-[28%] pr-3">
                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -520,8 +521,9 @@ class ReportController extends Controller
                         
                         $html .= <<<HTML
                                                     <tr>
-                                                        <td class="w-[10%]"> $item->invoice_date </td>
+                                                        
                                                         <td class="w-[11%]"> $item->invoice </td>
+                                                        <td class="w-[10%]"> $item->invoice_date </td>
                                                         <td class="w-[15%]"> {$item->ticket_no} </td>
                                                         <td class="w-[28%] pr-3">
                                                             PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -546,8 +548,9 @@ class ReportController extends Controller
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -568,8 +571,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -594,8 +598,9 @@ class ReportController extends Controller
                       
                         $html .= <<<HTML
                         <tr>
-                            <td class="w-[10%]"> {$item->date} </td>
+                            
                             <td class="w-[11%]"> {$item->invoice} </td>
+                            <td class="w-[10%]"> {$item->date} </td>
                             <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                         HTML;
                         
@@ -630,8 +635,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <!-- Remarks:  Refund
@@ -657,8 +663,9 @@ class ReportController extends Controller
                         $typeneme = Type::where('id', $item->type)->value('name');
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
                                                     <td class="w-[28%]">
                                                         Passenger: {$item->name} <br>
@@ -684,8 +691,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <b>Void</b> to Customer : $agentname ,  
@@ -1028,8 +1036,9 @@ class ReportController extends Controller
                         
                         $html .= <<<HTML
                                                     <tr>
-                                                        <td class="w-[10%]"> $item->invoice_date </td>
+                                                        
                                                         <td class="w-[11%]"> $item->invoice </td>
+                                                        <td class="w-[10%]"> $item->invoice_date </td>
                                                         <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                         <td class="w-[28%] pr-3">
                                                             PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -1056,8 +1065,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <!-- Remarks:  Refund
@@ -1081,8 +1091,9 @@ class ReportController extends Controller
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -1102,8 +1113,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -1124,8 +1136,9 @@ class ReportController extends Controller
                         $credit += $item->now_supplier_fare;
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                          
@@ -1150,8 +1163,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <b>Void</b> to Customer : $supplierName ,  
@@ -1173,8 +1187,9 @@ class ReportController extends Controller
                         $typeneme = Type::where('id', $item->type)->value('name');
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                   
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
                                                     <td class="w-[28%]">
                                                         
@@ -1344,8 +1359,9 @@ class ReportController extends Controller
             $deleteUrl = url('/delete_receive', ['id' => $item->id]);
             $html .= <<<HTML
                             <tr class="">
-                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
+                                
                                 <td class="w-[11%] px-4 py-2 text-sm text-left"> $item->invoice </td>
+                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
                                 <td class="w-[15%] px-4 py-2 text-sm text-left"> $item->name </td>
                                 <td class="w-[28%] px-4 py-2 text-sm text-left">
                                   $item->method_name

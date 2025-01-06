@@ -69,6 +69,8 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
+
+
 // Route::get('/dashboard', function () {
    
         
@@ -139,12 +141,33 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //         // ->whereDate('updated_at', '=', $current_date)
 //         ->sum('amount');
 
+//     $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
+//     $endOfMonth = Carbon::now()->endOfMonth()->toDateString();
 
-//     // dd($receives, $payments, $current_date, $total_amount);
+//     $total_month_sales_ticket = Ticket::where('user', Auth::id())
+//         ->whereBetween('date', [$startOfMonth, $endOfMonth])
+//         ->sum('agent_price');
 
-//     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions', 'total_amount'));
+//     $total_today_sales_ticket = Ticket::where('user', Auth::id())
+//     ->where('date', '=', $current_date)
+//     ->sum('agent_price');
+    
+
+//     $total_month_sales_visa = Order::where('user', Auth::id())
+//         ->whereBetween('date', [$startOfMonth, $endOfMonth])
+//         ->sum('contact_amount');
+
+//     $total_today_sales_visa = Order::where('user', Auth::id())
+//     ->where('date', '=', $current_date)
+//     ->sum('contact_amount');
+    
+        
+
+//     // dd($total_month_sales_ticket, $total_today_sales_ticket);
+
+//     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions',
+//      'total_amount', 'total_month_sales_visa', 'total_today_sales_visa', 'total_month_sales_ticket', 'total_today_sales_ticket' ));
 // })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/dashboard', function () {
    
         
@@ -154,6 +177,8 @@ Route::get('/dashboard', function () {
 
     $closetickets = Ticket::where([
         ['user', Auth::id()],
+        ['is_delete', 0],
+        ['is_active', 1],
         ['flight_date', '>=', $start_date->format('Y-m-d')],
         ['flight_date', '<=', $end_date->format('Y-m-d')]
     ])->get();
@@ -242,6 +267,7 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions',
      'total_amount', 'total_month_sales_visa', 'total_today_sales_visa', 'total_month_sales_ticket', 'total_today_sales_ticket' ));
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/layout.app', function () {
     $user = Auth::user();
     return view('layout.app',compact('user'));
