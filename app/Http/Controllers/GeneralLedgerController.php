@@ -237,35 +237,6 @@ class GeneralLedgerController extends Controller
                 });
 
            
-                // $mergedCollection = $tickets->merge($orders)
-                //     ->merge($receive)
-                //     ->merge($payment)
-                //     ->merge($refund)
-                //     ->merge($void_ticket)
-                //     ->merge($reissue);
-
-                // $normalizedCollection = $mergedCollection->map(function ($item) {
-                //     try {
-                //         $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
-                //     } catch (\Exception $e) {
-                //         $item->date = null; // Handle invalid dates
-                //     }
-                //     return $item;
-                // });
-                
-                                
-                // $sortedCollection = $normalizedCollection
-                // ->sortBy(function ($item) {
-                //     if ($item->date) {
-                //         return $item->date->timestamp; // Use `date` if available
-                //     } elseif ($item->created_at) {
-                //         return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
-                //     } else {
-                //         return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
-                //     }
-                // })
-                // ->values(); // Re-index the collection
-             
 // Merge all collections into a single collection
 $mergedCollection = $tickets->merge($orders)
     ->merge($receive)
@@ -340,7 +311,7 @@ $sortedCollection = $normalizedCollection
                                   if($item->reissued_new_ticket == 1){
                                       $html .= <<<HTML
                                           <tr>
-                                          <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                            <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                           <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                           <td class="w-[11%]"> $item->flight_date </td>
@@ -362,7 +333,7 @@ $sortedCollection = $normalizedCollection
                                       
                                       $html .= <<<HTML
                                                                   <tr>
-                                                                  <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                                                                                          <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                                                   <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                                                   <td class="w-[11%]"> $item->flight_date </td>
@@ -392,7 +363,7 @@ $sortedCollection = $normalizedCollection
                             if($item->reissued_new_ticket == 1){
                                 $html .= <<<HTML
                                     <tr>
-                                    <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                        <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                     <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                     <td class="w-[11%]"> $item->flight_date </td>
@@ -412,7 +383,7 @@ $sortedCollection = $normalizedCollection
                             else{
                                 $html .= <<<HTML
                                                             <tr>
-                                                            <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                                                                                        <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                                                 <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                                                 <td class="w-[11%]"> $item->flight_date </td>
@@ -443,7 +414,7 @@ $sortedCollection = $normalizedCollection
                                         : 'Deleted Method';
                         $html .= <<<HTML
                         <tr>
-                        <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                            <td class="w-[10%]">$item->invoice  <br><small><strong>$item->date</strong></small></td>
                             <td class="w-[11%]">  </td>
                             <td class="w-[15%]"> </td>
                             <td class="w-[28%]">
@@ -466,7 +437,7 @@ $sortedCollection = $normalizedCollection
     
                         $html .= <<<HTML
                                                  <tr>
-                                                 <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                 <td class="w-[10%]">$item->invoice  <br><small><strong>$item->date</strong></small></td>
                                                  <td class="w-[11%]">  </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
@@ -498,7 +469,8 @@ $sortedCollection = $normalizedCollection
                         if ($ticket) {
                             $html .= <<<HTML
                             
-                            <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                <td class="w-[10%]"> $item->invoice<br><small><strong> $item->date </strong></small></td>
+
                                 <td class="w-[11%]"> {$ticket->airline_code}-{$ticket->ticket_no} </td>
                                 <td class="w-[15%]"> {$ticket->flight_date} </td>
                                 <td class="w-[28%]">
@@ -529,7 +501,7 @@ $sortedCollection = $normalizedCollection
                         if ($ticket) {
                             $html .= <<<HTML
                                 <tr>
-                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                <td class="w-[10%]">$ticket->invoice<br><small><strong> $item->date </strong></small></td>
                                 <td class="w-[11%]"> {$ticket->ticket_code}/{$ticket->ticket_no}  </td>
                                     <td class="w-[15%]"> {$ticket->flight_date} </td>
                                     <td class="w-[28%]">
@@ -573,7 +545,7 @@ $sortedCollection = $normalizedCollection
                             $typeneme = Type::where('id', $item->type)->value('name');
                             $html .= <<<HTML
                                                 <tr>
-                                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                <td class="w-[10%]">$item->invoice <br><small><strong> $item->date</strong></small></td>
                                                 <td class="w-[11%]"> {$typeneme} </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
@@ -598,7 +570,7 @@ $sortedCollection = $normalizedCollection
                             $typeneme = Type::where('id', $item->type)->value('name');
                             $html .= <<<HTML
                                                 <tr>
-                                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                <td class="w-[10%]">$item->invoice <br><small><strong>$item->date </strong></small></td>
                                                     <td class="w-[11%]"> {$typeneme} </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
@@ -628,7 +600,7 @@ $sortedCollection = $normalizedCollection
                         if ($ticket) {
                             $html .= <<<HTML
                                  <tr >
-                                 <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                    <td class="w-[10%]">$ticket->invoice <br><small><strong>$item->date </strong></small></td>
                                                     <td class="w-[11%]"> {$ticket->ticket_code}-{$ticket->ticket_no} </td>
                                                     <td class="w-[15%]"> {$ticket->flight_date} </td>
                                                     <td class="w-[28%]">
@@ -871,7 +843,7 @@ $sortedCollection = $normalizedCollection
                         $total_ticket++;
                         $html .= <<<HTML
                                                     <tr>
-                                                    <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                        <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                                         <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                                         <td class="w-[11%]"> $item->flight_date </td>
@@ -903,7 +875,7 @@ $sortedCollection = $normalizedCollection
                         if ($ticket) {
                             // dd($ticket->invoice);
                             $html .= <<<HTML
-                              <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                              <td class="w-[10%]">$ticket->invoice  <br><small><strong>$item->date</strong></small></td>
                               <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
                               <td class="w-[11%]"> $ticket->flight_date </td>
                             
@@ -941,7 +913,7 @@ $sortedCollection = $normalizedCollection
                         // $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                    <td class="w-[10%]">$item->invoice  <br><small><strong>$item->date</strong></small></td>
                                                     <td class="w-[11%]">  </td>
                                                     <td class="w-[15%]">  </td>
                                                     <td class="w-[28%]">
@@ -963,7 +935,7 @@ $sortedCollection = $normalizedCollection
     
                         $html .= <<<HTML
                                                 <tr>
-                                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                    <td class="w-[10%]">$item->invoice  <br><small><strong>$item->date</strong></small></td>
                                                     <td class="w-[11%]">  </td>
                                                     <td class="w-[15%]"> </td>
                                                     <td class="w-[28%]">
@@ -988,7 +960,7 @@ $sortedCollection = $normalizedCollection
 
                         if ($ticket) {
                             $html .= <<<HTML
-                              <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                              <td class="w-[10%]">$item->invoice  <br><small><strong>$item->date</strong></small></td>
                               <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
                               <td class="w-[11%]"> $ticket->flight_date </td>
                             
@@ -1034,7 +1006,7 @@ $sortedCollection = $normalizedCollection
                             // If ticket is available, show additional ticket information
                             $html .= <<<HTML
                                 <tr >
-                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                    <td class="w-[10%]">$ticket->invoice  <br><small><strong>$item->date</strong></small></td>
                                 
                                     <td class="w-[15%]"> {$ticket->ticket_code}/{$ticket->ticket_no} </td>
                                     <td class="w-[11%]"> {$ticket->flight_date} </td>
@@ -1073,7 +1045,7 @@ $sortedCollection = $normalizedCollection
                         $typeneme = Type::where('id', $item->type)->value('name');
                             $html .= <<<HTML
                                                 <tr>
-                                                <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                    <td class="w-[10%]">$item->invoice <br><small><strong> $item->date</strong></small></td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
                                                     <td class="w-[11%]">  </td>
                                                     <td class="w-[28%]">
