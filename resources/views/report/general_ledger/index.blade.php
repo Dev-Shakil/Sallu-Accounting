@@ -1,4 +1,13 @@
 <x-app-layout>
+    <style>
+        #reportdiv {
+            background-color: white !important;
+            box-shadow: none !important; /* Ensure no shadows are rendered */
+        }
+        * {
+            box-shadow: none !important;
+        }
+    </style>
     <div class="bg-white shadow-lg py-3 px-3 rounded-lg">
         <form autocomplete="off" id="reportForm" action="{{ route('general_ledger_report') }}" method="POST">
             @csrf
@@ -146,30 +155,34 @@
         });
 
         function downloadReport() {
-            var { jsPDF } = window.jspdf; // Correctly access jsPDF
+            var { jsPDF } = window.jspdf; // Access jsPDF
             var reportDiv = document.getElementById("reportdiv");
 
-            html2canvas(reportDiv).then((canvas) => {
-                var imgData = canvas.toDataURL("image/png");
-                var pdf = new jsPDF("p", "mm", "a4"); // Use jsPDF correctly here
-                var imgWidth = 190; // width in PDF
-                var pageHeight = pdf.internal.pageSize.height;
-                var imgHeight = (canvas.height * imgWidth) / canvas.width;
+            html2canvas(reportDiv, {
+                backgroundColor: "#ffffff", // Ensure a white background
+                scale: 2, // Increase resolution for better quality
+            }).then((canvas) => {
+                var imgData = canvas.toDataURL("image/png"); // Convert canvas to image
+                var pdf = new jsPDF("p", "mm", "a4"); // Initialize PDF
+                var imgWidth = 190; // Set image width for PDF
+                var pageHeight = pdf.internal.pageSize.height; // PDF page height
+                var imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate image height
                 var heightLeft = imgHeight;
                 var position = 0;
 
+                // Add the first page
                 pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
 
-                // If the content is longer than one page
-                while (heightLeft >= 0) {
+                // Add additional pages if content overflows
+                while (heightLeft > 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
                     pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
                 }
 
-                pdf.save("report.pdf");
+                pdf.save("report.pdf"); // Save the PDF
             });
         }
 
@@ -200,4 +213,5 @@
             }
         }
     </style>
+
 </x-app-layout>
