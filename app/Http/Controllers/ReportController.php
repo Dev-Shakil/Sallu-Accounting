@@ -2913,7 +2913,6 @@ class ReportController extends Controller
     }
 
 
-    
     public function sales_report_visa(Request $request)
     {
         if(Auth::user()){
@@ -3064,9 +3063,9 @@ class ReportController extends Controller
         }
 
       // Append the totals row
-$htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
-<td class="py-2 pl-2" colspan="' . ($show_agent != null ? '6' : '5') . '">Total</td>
-<td class="py-2">Total Visa : ' . $total_visa . '</td>';
+        $htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
+        <td class="py-2 pl-2" colspan="' . ($show_agent != null ? '6' : '5') . '">Total Visa : ' . $total_visa . '</td>
+        <td class="py-2"></td>';
 
         if ($show_agent != null) {
             $htmlTable .= '
