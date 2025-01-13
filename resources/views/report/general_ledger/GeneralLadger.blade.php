@@ -37,21 +37,21 @@
   <main class="flex-1 mx-auto text-sm bg-white py-2 w-full">
   
    <div class="px-2">
-        <h2 class="text-center font-semibold text-xl my-2">General Ledger</h2>
+        <h2 class="text-center font-semibold text-2xl my-2">General Ledger</h2>
         <div class="flex items-center justify-between mb-2">
-            <div class="text-md">
+            <div class="text-lg">
                 <h2 class="font-semibold">Account Name : {{$holdername}}</h2>
                 <p><span class="font-semibold">Period Date :</span> {{$start_date}} to {{$end_date}} </p>
             </div>
             <div class="flex items-center">
                
                 <div class="mb-8 max-w-[380px]">
-                    <h2 class="font-bold text-md">{{Auth::user()->name}}</h2>
+                    <h2 class="font-bold text-lg">{{Auth::user()->name}}</h2>
                     <p>{{Auth::user()->company_address}}</p>
                 </div>
             </div>
         </div>
-        <table class="table-auto w-full table-stripe  text-[11px] px-1 my-1 border-collapse border [&_th,&_td]:px-4 [&_th,&_td]:py-2 ">
+        <table class="table-auto w-full table-stripe  text-sm px-1 my-1 border-collapse border [&_th,&_td]:px-4 [&_th,&_td]:py-2 ">
           {{-- --}}
             <thead class="">
               <tr class="border-y-2 border-black">
