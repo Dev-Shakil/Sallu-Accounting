@@ -62,6 +62,13 @@
         const formattedDate = `${day}-${month}-${year}`;
     </script>
     <script>
+        var payment_form = "{{ route('payment.form') }}"; // Laravel generates the URL for the route
+
+        function goBack(){
+            window.location.href = payment_form;
+        }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get the "Print" button
             const printButton = document.getElementById('printBtn');

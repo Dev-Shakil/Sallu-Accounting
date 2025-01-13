@@ -278,7 +278,13 @@
                 });
             });
         </script>
+        <script>
+            var receive_form = "{{ route('receive.index') }}"; // Laravel generates the URL for the route
 
+            function goBack(){
+                window.location.href = receive_form;
+            }
+        </script>
         <style>
             @media print {
                 body * {

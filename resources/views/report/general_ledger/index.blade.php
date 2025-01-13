@@ -2,8 +2,10 @@
     <style>
         #reportdiv {
             background-color: white !important;
-            box-shadow: none !important; /* Ensure no shadows are rendered */
+            box-shadow: none !important;
+            /* Ensure no shadows are rendered */
         }
+
         * {
             box-shadow: none !important;
         }
@@ -41,7 +43,7 @@
                     </div>
                     <div class="w-[220px] flex gap-4">
                         <label for="end_date" class='font-semibold text-[14px] text-[#22262e]'>To</label>
-                        <div class="w-[100%] date" >
+                        <div class="w-[100%] date">
                             <input type="text" class="form-control datepicker" name="end_date" id="end_date"
                                 placeholder="End Date" />
                         </div>
@@ -55,18 +57,19 @@
                 </div>
             </div>
         </form>
-        
+
     </div>
 
     <div class="buttons justify-end flex gap-3 p-5">
 
-        <button onclick="downloadReport()" class="text-white bg-blue-600 font-bold text-md py-2 px-4">Download Report</button>
+        <button onclick="downloadReport()" class="text-white bg-blue-600 font-bold text-md py-2 px-4">Download
+            Report</button>
 
         <button id="printButton" class="text-white bg-red-600 font-bold text-md py-2 px-4">Print</button>
-        
+
         <button class="text-white bg-black font-bold text-md py-2 px-4" onclick='goBack()'>GO BACK</button>
-    </div> 
-    
+    </div>
+
     <div class="reportdiv " id="reportdiv">
 
     </div>
@@ -112,7 +115,7 @@
                 autoclose: true,
                 format: "mm/dd/yyyy", // Customize date format
                 todayHighlight: true, // Highlight today
-               
+
             });
 
 
@@ -147,44 +150,67 @@
             document.body.innerHTML = printContents;
             window.print();
             document.body.innerHTML = originalContents;
+            
         }
-    
-        // Add event listener to the "Print" button
-        document.querySelector("#printButton").addEventListener("click", function() {
-            printReport();
-        });
+//         function printReport() {
+//     // Get the content of the reportdiv, which includes a complete HTML structure
+//     var printContents = document.getElementById("reportdiv").innerHTML;
 
-        function downloadReport() {
-            var { jsPDF } = window.jspdf; // Access jsPDF
-            var reportDiv = document.getElementById("reportdiv");
+//     // Create a new window for printing
+//     var printWindow = window.open("", "_blank");
 
-            html2canvas(reportDiv, {
-                backgroundColor: "#ffffff", // Ensure a white background
-                scale: 2, // Increase resolution for better quality
-            }).then((canvas) => {
-                var imgData = canvas.toDataURL("image/png"); // Convert canvas to image
-                var pdf = new jsPDF("p", "mm", "a4"); // Initialize PDF
-                var imgWidth = 190; // Set image width for PDF
-                var pageHeight = pdf.internal.pageSize.height; // PDF page height
-                var imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate image height
-                var heightLeft = imgHeight;
-                var position = 0;
+//     // Write the entire content of the reportdiv (already containing the full HTML structure)
+//     printWindow.document.write(printContents);
 
-                // Add the first page
-                pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+//     // Close the document for rendering
+//     printWindow.document.close();
 
-                // Add additional pages if content overflows
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
+//     // Focus on the new window and trigger print
+//     printWindow.focus();
+//     printWindow.print();
 
-                pdf.save("report.pdf"); // Save the PDF
-            });
-        }
+//     // Close the print window after printing
+//     printWindow.onafterprint = () => {
+//         printWindow.close();
+//     };
+// }
+        
+    // Add event listener to the "Print" button
+    document.querySelector("#printButton").addEventListener("click", function() {
+    printReport();
+    });
+
+    function downloadReport() {
+    var { jsPDF } = window.jspdf; // Access jsPDF
+    var reportDiv = document.getElementById("reportdiv");
+
+    html2canvas(reportDiv, {
+    backgroundColor: "#ffffff", // Ensure a white background
+    scale: 2, // Increase resolution for better quality
+    }).then((canvas) => {
+    var imgData = canvas.toDataURL("image/png"); // Convert canvas to image
+    var pdf = new jsPDF("p", "mm", "a4"); // Initialize PDF
+    var imgWidth = 190; // Set image width for PDF
+    var pageHeight = pdf.internal.pageSize.height; // PDF page height
+    var imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate image height
+    var heightLeft = imgHeight;
+    var position = 0;
+
+    // Add the first page
+    pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Add additional pages if content overflows
+    while (heightLeft > 0) {
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+    }
+
+    pdf.save("report.pdf"); // Save the PDF
+    });
+    }
 
 
 
