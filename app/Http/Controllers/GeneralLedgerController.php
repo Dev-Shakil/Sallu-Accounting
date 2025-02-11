@@ -42,7 +42,7 @@ class GeneralLedgerController extends Controller
     }
 
 
-    public function separateTransactions($sortedTransactions, $startDate, $opening_balance, $endDate = null, $agentSupplier)
+    public function separateTransactions($sortedTransactions, $startDate, $opening_balance, $endDate = null, $agentSupplier, $agentSupplierId)
     {
         // dd('asda');
         $transactions_before_start = $sortedTransactions->filter(function($transaction) use ($startDate) {
@@ -67,16 +67,36 @@ class GeneralLedgerController extends Controller
 
         // dd($transactions_before_start, $transactions_from_start);
         if($agentSupplier === 'agent'){
+
+            // if (is_null($item->supplier) && $item->who === 'agent_' . $agentSupplierId) {
+                // if (is_null($item->supplier) && $item->who === 'agent_' . $agentSupplierId) {
+
             foreach($transactions_before_start as $transaction) {
                 // dd($transaction->table_name);
                 if($transaction->table_name == 'receive'){
                     $final_opening_balance -= $transaction->amount;
                 }
+                // else if($transaction->table_name == 'tickets'){
+                //     $final_opening_balance += $transaction->agent_price;
+                // }
                 else if($transaction->table_name == 'tickets'){
-                    $final_opening_balance += $transaction->agent_price;
+                    if(is_null($transaction->supplier) && $transaction->who === 'agent_'. $agentSupplierId){
+                        $final_opening_balance -= $transaction->supplier_price;
+                    }else{
+                        $final_opening_balance += $transaction->agent_price;
+                    }
                 }
+                // else if($transaction->table_name == 'order'){
+                //     $final_opening_balance += $transaction->contact_amount;
+                // }
                 else if($transaction->table_name == 'order'){
-                    $final_opening_balance += $transaction->contact_amount;
+                    if(is_null($transaction->supplier) && $transaction->who === 'agent_'. $agentSupplierId){
+                        $final_opening_balance -= $transaction->payable_amount;
+                    }
+                    else{
+                        $final_opening_balance += $transaction->contact_amount;
+                    }
+                    
                 }
                 else if($transaction->table_name == 'payment'){
                     $final_opening_balance += $transaction->amount;
@@ -236,54 +256,54 @@ class GeneralLedgerController extends Controller
                 return $item;
                 });
 
-           
-// Merge all collections into a single collection
-$mergedCollection = $tickets->merge($orders)
-    ->merge($receive)
-    ->merge($payment)
-    ->merge($refund)
-    ->merge($void_ticket)
-    ->merge($reissue);
+                        
+                // Merge all collections into a single collection
+                $mergedCollection = $tickets->merge($orders)
+                    ->merge($receive)
+                    ->merge($payment)
+                    ->merge($refund)
+                    ->merge($void_ticket)
+                    ->merge($reissue);
 
-// Normalize the `date` field, ensuring only the date part is kept
-$normalizedCollection = $mergedCollection->map(function ($item) {
-    try {
-        if (isset($item->date)) {
-            // Parse the date and normalize to `YYYY-MM-DD` format
-            $item->date = Carbon::parse($item->date)->toDateString();
-        } else {
-            $item->date = null; // Set null if no date is present
-        }
-    } catch (\Exception $e) {
-        $item->date = null; // Handle invalid dates
-    }
-    return $item;
-});
+                // Normalize the `date` field, ensuring only the date part is kept
+                $normalizedCollection = $mergedCollection->map(function ($item) {
+                    try {
+                        if (isset($item->date)) {
+                            // Parse the date and normalize to `YYYY-MM-DD` format
+                            $item->date = Carbon::parse($item->date)->toDateString();
+                        } else {
+                            $item->date = null; // Set null if no date is present
+                        }
+                    } catch (\Exception $e) {
+                        $item->date = null; // Handle invalid dates
+                    }
+                    return $item;
+                });
 
-// Sort the collection by `date` or `created_at`
-$sortedCollection = $normalizedCollection
-    ->sortBy(function ($item) {
-        if ($item->date) {
-            // Parse `date` (as a string) and return its timestamp
-            return Carbon::parse($item->date)->timestamp;
-        } elseif ($item->created_at) {
-            // Parse `created_at` as a fallback and return its timestamp
-            return Carbon::parse($item->created_at)->timestamp;
-        } else {
-            // Push items without `date` or `created_at` to the end
-            return PHP_INT_MAX;
-        }
-    })
-    ->values(); // Re-index the collection
+                // Sort the collection by `date` or `created_at`
+                $sortedCollection = $normalizedCollection
+                    ->sortBy(function ($item) {
+                        if ($item->date) {
+                            // Parse `date` (as a string) and return its timestamp
+                            return Carbon::parse($item->date)->timestamp;
+                        } elseif ($item->created_at) {
+                            // Parse `created_at` as a fallback and return its timestamp
+                            return Carbon::parse($item->created_at)->timestamp;
+                        } else {
+                            // Push items without `date` or `created_at` to the end
+                            return PHP_INT_MAX;
+                        }
+                    })
+                    ->values(); // Re-index the collection
 
-// Output the sorted collection or perform further operations
+                // Output the sorted collection or perform further operations
 
 
                 $final_opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
                
                 if ($startDate) {
                     ['final_opening_balance' => $final_opening_balance, 'from_start_date' => $sortedCollection] = 
-                        $this->separateTransactions($sortedCollection, $startDate, $final_opening_balance, $endDate, $agentSupplier);
+                        $this->separateTransactions($sortedCollection, $startDate, $final_opening_balance, $endDate, $agentSupplier, $agentSupplierId);
                     
                     // Now $final_opening_balance and $transactions_from_start can be used separately
                     // dd($final_opening_balance, $transactions_from_start);
@@ -311,7 +331,7 @@ $sortedCollection = $normalizedCollection
                                   if($item->reissued_new_ticket == 1){
                                       $html .= <<<HTML
                                           <tr>
-                                            <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
+                                                                                                  <td class="w-[10%]">$item->invoice  <br><small><strong>$item->invoice_date</strong></small></td>
                                           <td class="w-[15%]"> {$ticket->ticket_code}-{$item->ticket_no} </td>
 
                                           <td class="w-[11%]"> $item->flight_date </td>
@@ -743,73 +763,44 @@ $sortedCollection = $normalizedCollection
                    return $item;
                    });
    
-   
-                    // $mergedCollection = $tickets->merge($orders)
-                    //     ->merge($receive)
-                    //     ->merge($payment)
-                    //     ->merge($refund)
-                    //     ->merge($void_ticket)
-                    //     ->merge($reissue);
+                    // Merge all collections into a single collection
+                    $mergedCollection = $tickets->merge($orders)
+                    ->merge($receive)
+                    ->merge($payment)
+                    ->merge($refund)
+                    ->merge($void_ticket)
+                    ->merge($reissue);
 
-                    // $normalizedCollection = $mergedCollection->map(function ($item) {
-                    //     try {
-                    //         $item->date = isset($item->date) ? Carbon::parse($item->date) : null; // Parse date or set null
-                    //     } catch (\Exception $e) {
-                    //         $item->date = null; // Handle invalid dates
-                    //     }
-                    //     return $item;
-                    // });
-                                    
-                    // $sortedCollection = $normalizedCollection
-                    // ->sortBy(function ($item) {
-                    //     if ($item->date) {
-                    //         return $item->date->timestamp; // Use `date` if available
-                    //     } elseif ($item->created_at) {
-                    //         return Carbon::parse($item->created_at)->timestamp; // Use `created_at` as a fallback
-                    //     } else {
-                    //         return PHP_INT_MAX; // Push items with neither `date` nor `created_at` to the end
-                    //     }
-                    // })
-                    // ->values(); // Re-index the collection
-                    
-// Merge all collections into a single collection
-$mergedCollection = $tickets->merge($orders)
-->merge($receive)
-->merge($payment)
-->merge($refund)
-->merge($void_ticket)
-->merge($reissue);
+                    // Normalize the `date` field, ensuring only the date part is kept
+                    $normalizedCollection = $mergedCollection->map(function ($item) {
+                    try {
+                        if (isset($item->date)) {
+                            // Parse the date and normalize to `YYYY-MM-DD` format
+                            $item->date = Carbon::parse($item->date)->toDateString();
+                        } else {
+                            $item->date = null; // Set null if no date is present
+                        }
+                    } catch (\Exception $e) {
+                        $item->date = null; // Handle invalid dates
+                    }
+                    return $item;
+                    });
 
-// Normalize the `date` field, ensuring only the date part is kept
-$normalizedCollection = $mergedCollection->map(function ($item) {
-try {
-    if (isset($item->date)) {
-        // Parse the date and normalize to `YYYY-MM-DD` format
-        $item->date = Carbon::parse($item->date)->toDateString();
-    } else {
-        $item->date = null; // Set null if no date is present
-    }
-} catch (\Exception $e) {
-    $item->date = null; // Handle invalid dates
-}
-return $item;
-});
-
-// Sort the collection by `date` or `created_at`
-$sortedCollection = $normalizedCollection
-->sortBy(function ($item) {
-    if ($item->date) {
-        // Parse `date` (as a string) and return its timestamp
-        return Carbon::parse($item->date)->timestamp;
-    } elseif ($item->created_at) {
-        // Parse `created_at` as a fallback and return its timestamp
-        return Carbon::parse($item->created_at)->timestamp;
-    } else {
-        // Push items without `date` or `created_at` to the end
-        return PHP_INT_MAX;
-    }
-})
-->values(); // Re-index the collection
+                    // Sort the collection by `date` or `created_at`
+                    $sortedCollection = $normalizedCollection
+                    ->sortBy(function ($item) {
+                        if ($item->date) {
+                            // Parse `date` (as a string) and return its timestamp
+                            return Carbon::parse($item->date)->timestamp;
+                        } elseif ($item->created_at) {
+                            // Parse `created_at` as a fallback and return its timestamp
+                            return Carbon::parse($item->created_at)->timestamp;
+                        } else {
+                            // Push items without `date` or `created_at` to the end
+                            return PHP_INT_MAX;
+                        }
+                    })
+                    ->values(); // Re-index the collection
 
 
                     $final_opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
@@ -817,7 +808,7 @@ $sortedCollection = $normalizedCollection
                     // dd($startDate);
                     if ($startDate) {
                         ['final_opening_balance' => $final_opening_balance, 'from_start_date' => $sortedCollection] = 
-                            $this->separateTransactions($sortedCollection, $startDate, $final_opening_balance, $endDate, $agentSupplier);
+                            $this->separateTransactions($sortedCollection, $startDate, $final_opening_balance, $endDate, $agentSupplier, $agentSupplierId);
                         // dd($final_opening_balance, $sortedCollection);
                     }
                    $activeTransactionMethods = Transaction::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
