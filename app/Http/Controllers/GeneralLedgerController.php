@@ -16,6 +16,8 @@ use App\Models\ReissueTicket;
 use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Models\VoidTicket;
+use App\Models\Contract;
+
 use Illuminate\Support\Facades\Auth; // Add this line
 use DateTime;
 use Carbon\Carbon;
@@ -219,7 +221,47 @@ class GeneralLedgerController extends Controller
                 ->where('agent', $agentSupplierId)
                 ->where('user', Auth::id());
 
+                // wakala
+                $wakala = DB::table('wakala')
+                ->where('agent', $agentSupplierId)
+                ->where('user', Auth::id());
 
+                $wakala_agent_supplier = DB::table('wakala')
+                ->where('agent_supplier', '=', 'agent')
+                ->where('supplier', $agentSupplierId)
+                ->where('user', Auth::id());
+              
+                $contracts = DB::table('contracts')
+                ->where('agent', $agentSupplierId)
+                ->where('user', Auth::id())
+                ->get();
+
+                // 2. Get services for these contracts
+                $services = DB::table('contract_services')
+                ->whereIn('contract_id', $contracts->pluck('id'))
+                ->get()
+                ->groupBy('contract_id');
+
+                // 3. Get extra_types for these contracts
+                $extraTypes = DB::table('extra_types')
+                ->whereIn('contract_service_id', $contracts->pluck('id')) // Assuming extra_types has contract_id
+                ->get()
+                ->groupBy('contract_service_id');
+
+
+                // 4. Build the structured response 
+                $contract = $contracts->map(function ($contract) use ($services, $extraTypes) {
+                    return (object) [ // Convert to object
+                        'contract_id' => $contract->id,
+                        'date' => $contract->contract_date,
+                        'contract_data' => $contract,
+                        'services' => $services->get($contract->id, collect())->values(),
+                        'extra_types' => $extraTypes->get($contract->id, collect())->values(),
+                        'table_name' => 'contract'
+                    ];
+                });
+                
+                // dd($contract);
                 // Use get() to fetch the data, and then apply map()
                 $tickets = $tickets->get()->map(function ($item) {
                 $item->table_name = 'tickets';  // Add a table_name property
@@ -256,6 +298,16 @@ class GeneralLedgerController extends Controller
                 return $item;
                 });
 
+                $wakala = $wakala->get()->map(function ($item) {
+                $item->table_name = 'wakala';  // Add a table_name property
+                return $item;
+                });
+
+                $wakala_agent_supplier = $wakala_agent_supplier->get()->map(function ($item) {
+                $item->table_name = 'wakala_agent_supplier';  // Add a table_name property
+                return $item;
+                });
+
                         
                 // Merge all collections into a single collection
                 $mergedCollection = $tickets->merge($orders)
@@ -263,7 +315,10 @@ class GeneralLedgerController extends Controller
                     ->merge($payment)
                     ->merge($refund)
                     ->merge($void_ticket)
-                    ->merge($reissue);
+                    ->merge($reissue)
+                    ->merge($wakala)
+                    ->merge($wakala_agent_supplier)
+                    ->merge($contract);
 
                 // Normalize the `date` field, ensuring only the date part is kept
                 $normalizedCollection = $mergedCollection->map(function ($item) {
@@ -296,28 +351,25 @@ class GeneralLedgerController extends Controller
                     })
                     ->values(); // Re-index the collection
 
-                // Output the sorted collection or perform further operations
-
 
                 $final_opening_balance = Agent::where('id', $agentSupplierId)->value('opening_balance');
                
                 if ($startDate) {
                     ['final_opening_balance' => $final_opening_balance, 'from_start_date' => $sortedCollection] = 
                         $this->separateTransactions($sortedCollection, $startDate, $final_opening_balance, $endDate, $agentSupplier, $agentSupplierId);
-                    
-                    // Now $final_opening_balance and $transactions_from_start can be used separately
-                    // dd($final_opening_balance, $transactions_from_start);
+                   
                 }
                 
 
                 $activeTransactionMethods = Transaction::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
+                $activeTypes = Type::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
                 // dd($activeTransactionMethods);
                 $debit = 0;
                 $balance = $final_opening_balance;
                 $credit = 0;
                 $total_ticket = 0;
                 $html = '';
-
+                // dd($sortedCollection, $agentSupplierId, Auth::id());
                 foreach ($sortedCollection as $index => $item) {
                     // dd($item);
                     if ($item->table_name == "tickets") {
@@ -652,11 +704,202 @@ class GeneralLedgerController extends Controller
 
                         }
                         
-                       }
-    
-                    // if($index%2 == 0){
-    
-                    // }
+                    }
+                    elseif ($item->table_name == "contract") {
+                        $balance += $item->contract_data->total_amount;
+                        $currentAmount = $balance >= 0 ? $balance . ' DR' : abs($balance) . ' CR';
+                        $debit += $item->contract_data->total_amount;
+                    
+                        // Main contract row
+                        $html .= <<<HTML
+                            <tr class="bg-gray-200">
+                                <td class="w-[10%]">{$item->contract_data->invoice}<br><small><strong>{$item->date}</strong></small></td>
+                                <td class="w-[11%]"></td>
+                                <td class="w-[15%]"></td>
+                                <td class="w-[28%] px-2 py-1 text-sm">
+                                    <div class="space-y-1">
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Remarks:</span>
+                                            <span class="text-gray-800">{$item->contract_data->notes}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Passport:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->contract_data->passport_no}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Client:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->contract_data->name}</span>
+                                                <span class="text-gray-500 mx-1">/</span>
+                                                <span class="font-medium">{$item->contract_data->country}</span>
+                                                <span class="font-medium">{$item->contract_data->notes}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="w-[12%] totaldebit">{$item->contract_data->total_amount}</td>
+                                <td class="w-[12%] totalcredit"></td>
+                                <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                            </tr>
+                        HTML;
+                    
+                        // Services rows
+                        if (!empty($item->services)) {
+                            foreach ($item->services as $service) {
+                                $serviceName = $activeTypes[$service->service_type] ?? 'Unknown Service';
+                                $html .= <<<HTML
+                                    <tr class="bg-gray-100 text-sm">
+                                        <td class="w-[10%] pl-8 text-xs"><small>{$service->date}</small></td>
+                                        <td class="w-[11%] text-xs">{$serviceName}</td>
+                                        <td class="w-[15%]"></td>
+                                        <td class="w-[28%] px-2 py-1 text-xs">
+                                            <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs">
+                                                {$service->note}
+                                            </span>
+                                        </td>
+                                        <td class="w-[12%]"></td>
+                                        <td class="w-[12%]"></td>
+                                        <td class="w-[12%]"></td>
+                                    </tr>
+                                HTML;
+                            }
+                        }
+
+                        // Extra types rows
+                        if (!empty($item->extra_types)) {
+                            foreach ($item->extra_types as $extra) {
+                                $extraName = ucfirst($extra->extratype) ?? 'Unknown Extra Service';
+                                
+                                if ($extra->extratype == 'wakala') {
+                                    $date = $extra->wakala_date;
+                                    $details = "
+                                        <span class='text-gray-800 px-2 py-0.5 rounded text-xs'>
+                                            Visa No: {$extra->wakala_visa_no}<br> ID NO: {$extra->wakala_id_no}<br>
+                                            Sales By: {$extra->wakala_sales_by}<br>
+                                            Remarks: {$extra->note}
+                                        </span>
+                                    ";
+                                } else {
+                                    $date = $extra->ticket_invoice_date;
+                                    $details = "
+                                        <span class='text-gray-800 px-2 py-0.5 rounded text-xs'>
+                                            Flight Date: {$extra->ticket_travel_date}<br>
+                                            Sector: {$extra->ticket_sector} / Ticket Number: {$extra->ticket_number}<br>
+                                            Airline: {$extra->ticket_airline}<br>
+                                            Remarks: {$extra->note}
+                                        </span>
+                                    ";
+                                }
+
+                                $html .= <<<HTML
+                                    <tr class="bg-gray-100 text-sm">
+                                        <td class="w-[10%] pl-8 text-xs"><small>{$date}</small></td>
+                                        <td class="w-[11%] text-xs">{$extraName}</td>
+                                        <td class="w-[15%]"></td>
+                                        <td class="w-[28%] px-2 py-1 text-xs">
+                                            {$details}
+                                        </td>
+                                        <td class="w-[12%]"></td>
+                                        <td class="w-[12%]"></td>
+                                        <td class="w-[12%]"></td>
+                                    </tr>
+                                HTML;
+                            }
+                        }
+
+                    } 
+                    elseif ($item->table_name == "wakala") {
+                        $balance += $item->total_price;
+                        $currentAmount = $balance >= 0 ? $balance . ' DR' : abs($balance) . ' CR';
+                        $debit += $item->total_price;
+                    
+                        $html .= <<<HTML
+                            <tr>
+                                <td class="w-[10%]">{$item->invoice}<br><small><strong>{$item->date}</strong></small></td>
+                                <td class="w-[11%]"></td>
+                                <td class="w-[15%]">Quantity: {$item->quantity}</td>
+                                <td class="w-[28%] px-2 py-1 text-sm">
+                                    <div class="space-y-1">
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">ID NO:</span>
+                                            <span class="text-gray-800">{$item->id_no}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Visa:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->visa}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Country:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->country}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Currency Rate:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->multi_currency}</span>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Sales By:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->sales_by}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </td>
+                                <td class="w-[12%] totaldebit">{$item->total_price}</td>
+                                <td class="w-[12%] totalcredit"></td>
+                                <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                            </tr>
+                        HTML;
+                    
+                    } 
+                    elseif ($item->table_name == "wakala_agent_supplier") {
+                        $balance -= $item->selling_price;
+                        $currentAmount = $balance >= 0 ? $balance . ' DR' : abs($balance) . ' CR';
+                        $credit += $item->selling_price;
+                    
+                        $html .= <<<HTML
+                            <tr>
+                                <td class="w-[10%]">{$item->invoice}<br><small><strong>{$item->date}</strong></small></td>
+                                <td class="w-[11%]"></td>
+                                <td class="w-[15%]">Quantity: {$item->quantity}</td>
+                                <td class="w-[28%] px-2 py-1 text-sm">
+                                    <div class="space-y-1">
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">ID NO:</span>
+                                            <span class="text-gray-800">{$item->id_no}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Visa:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->visa}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Country:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->country}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Currency Rate:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->multi_currency}</span>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Sales By:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->sales_by}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </td>
+                                <td class="w-[12%] totaldebit"></td>
+                                <td class="w-[12%] totalcredit">{$item->selling_price}</td>
+                                <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                            </tr>
+                        HTML;
+                    
+                    } 
                 }
                 
                 $balance = $balance >= 0 ? $balance . ' DR' : $balance . ' CR';
@@ -724,8 +967,71 @@ class GeneralLedgerController extends Controller
                    $reissue = DB::table('reissue')
                    ->where('supplier', $agentSupplierId)
                    ->where('user', Auth::id());
+
+                    // wakala
+                    $wakala = DB::table('wakala')
+                    ->where('agent_supplier', '=', 'supplier')
+                    ->where('supplier', $agentSupplierId)
+                    ->where('user', Auth::id());
+
+                    $contracts = DB::table('contracts')
+                    // ->where('agent', $agentSupplierId)
+                    ->where('user', Auth::id())
+                    ->get();
+
+                     // 2. Get services for these contracts
+                    $services = DB::table('contract_services')
+                    ->where('agent_or_supplier', '=', 'supplier')
+                    ->where('supplier', $agentSupplierId)
+                    ->get()
+                    ->groupBy('contract_id');
+
+                    // 3. Get extra_types for these contracts
+                    $extraTypes = DB::table('extra_types')
+                    ->where('agent_supplier', '=', 'supplier')
+                    ->where('supplier', $agentSupplierId)
+                    ->get()
+                    ->groupBy('contract_service_id');
+
+                  // Get all contract IDs that have services
+                    $contractIdsWithServices = $services->keys()->toArray();
+
+                    // Get all contract IDs that have services with extra types
+                    $contractIdsWithExtraTypes = collect();
+                    foreach ($extraTypes as $contractServiceId => $extraTypeGroup) {
+                        // Find which contract this service belongs to
+                        foreach ($services as $contractId => $serviceGroup) {
+                            foreach ($serviceGroup as $service) {
+                                if ($service->id == $contractServiceId) {
+                                    $contractIdsWithExtraTypes->push($contractId);
+                                    break 2;
+                                }
+                            }
+                        }
+                    }
+
+                    // Merge and get unique contract IDs
+                    $filteredContractIds = array_unique(
+                        array_merge($contractIdsWithServices, $contractIdsWithExtraTypes->toArray())
+                    );
+
+                    // Now filter your original contracts
+                    $filteredContracts = $contracts->whereIn('id', $filteredContractIds);
+                    // dd($filteredContracts, $services, $extraTypes);
+
+                    // 4. Build the structured response 
+                    $contract = $filteredContracts->map(function ($contract) use ($services, $extraTypes) {
+                        return (object) [ // Convert to object
+                            'contract_id' => $contract->id,
+                            'date' => $contract->contract_date,
+                            'contract_data' => $contract,
+                            'services' => $services->get($contract->id, collect())->values(),
+                            'extra_types' => $extraTypes->get($contract->id, collect())->values(),
+                            'table_name' => 'contract'
+                        ];
+                    });
    
-                   
+                //    dd($contract);
    
                    // Use get() to fetch the data, and then apply map()
                    $tickets = $tickets->get()->map(function ($item) {
@@ -763,12 +1069,19 @@ class GeneralLedgerController extends Controller
                    return $item;
                    });
    
+                   $wakala = $wakala->get()->map(function ($item) {
+                   $item->table_name = 'wakala';  // Add a table_name property
+                   return $item;
+                   });
+   
                     // Merge all collections into a single collection
                     $mergedCollection = $tickets->merge($orders)
                     ->merge($receive)
                     ->merge($payment)
                     ->merge($refund)
                     ->merge($void_ticket)
+                    ->merge($contract)
+                    ->merge($wakala)
                     ->merge($reissue);
 
                     // Normalize the `date` field, ensuring only the date part is kept
@@ -812,7 +1125,8 @@ class GeneralLedgerController extends Controller
                         // dd($final_opening_balance, $sortedCollection);
                     }
                    $activeTransactionMethods = Transaction::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
-                   
+                   $activeTypes = Type::where([['is_active', 1],['is_delete',0],['user', Auth::id()]])->pluck('name', 'id')->toArray();
+
                 $debit = 0;
                 $balance = $final_opening_balance;
                 $credit = 0;
@@ -1050,6 +1364,156 @@ class GeneralLedgerController extends Controller
                                                 </tr>
                                                 HTML;
                     }
+                    elseif ($item->table_name == "contract") {
+                        $balance += $item->contract_data->total_amount;
+                        $currentAmount = $balance >= 0 ? $balance . ' DR' : abs($balance) . ' CR';
+                        $debit += $item->contract_data->total_amount;
+                    
+                        // Main contract row
+                        $html .= <<<HTML
+                            <tr class="bg-gray-200">
+                                <td class="w-[10%]">{$item->contract_data->invoice}<br><small><strong>{$item->date}</strong></small></td>
+                                <td class="w-[11%]"></td>
+                                <td class="w-[15%]"></td>
+                                <td class="w-[28%] px-2 py-1 text-sm">
+                                    <div class="space-y-1">
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Remarks:</span>
+                                            <span class="text-gray-800">{$item->contract_data->notes}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Passport:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->contract_data->passport_no}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Client:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->contract_data->name}</span>
+                                                <span class="text-gray-500 mx-1">/</span>
+                                                <span class="font-medium">{$item->contract_data->country}</span>
+                                                <span class="font-medium">{$item->contract_data->notes}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="w-[12%] totaldebit">{$item->contract_data->total_amount}</td>
+                                <td class="w-[12%] totalcredit"></td>
+                                <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                            </tr>
+                        HTML;
+                    
+                        // Services rows
+                        if (!empty($item->services)) {
+                            foreach ($item->services as $service) {
+                                $serviceName = $activeTypes[$service->service_type] ?? 'Unknown Service';
+                                $html .= <<<HTML
+                                    <tr class="bg-gray-100 text-sm">
+                                        <td class="pl-8"><small>{$service->date}</small></td>
+                                        <td class="pl-8"> {$serviceName}</td>
+                                        <td></td>
+                                        <td class="px-2 py-1 text-sm">
+                                            <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">
+                                                {$service->note}
+                                            </span>
+                                        </td>
+                                        <td></td>
+                                        <td class="text-right pr-4">{$service->allocated_amount}</td>
+                                        <td></td>
+                                    </tr>
+
+                                HTML;
+                            }
+                        }
+                    
+                        // Extra types rows
+                        if (!empty($item->extra_types)) {
+                            foreach ($item->extra_types as $extra) {
+                                $extraName = ucfirst($extra->extratype) ?? 'Unknown Extra Service';
+                                
+                                if ($extra->extratype == 'wakala') {
+                                    $date = $extra->wakala_date;
+                                    $details = "
+                                        <span class=' text-dark-800 px-2 py-0.5 rounded text-xs'>
+                                            Visa No: {$extra->wakala_visa_no}<br> ID NO: {$extra->wakala_id_no}<br>
+                                            Sales By: {$extra->wakala_sales_by}<br>
+                                            Remarks: {$extra->note}
+                                        </span>
+                                    ";
+                                } else {
+                                    $date = $extra->ticket_invoice_date;
+                                    $details = "
+                                        <span class=' text-dark-800 px-2 py-0.5 rounded text-xs'>
+                                            Flight Date: {$extra->ticket_travel_date}<br>
+                                            Sector: {$extra->ticket_sector} / Ticket Number: {$extra->ticket_number}<br>
+                                            Airline: {$extra->ticket_airline}<br>
+                                            Remarks: {$extra->note}
+                                        </span>
+                                    ";
+                                }
+                        
+                                $html .= <<<HTML
+                                    <tr class="bg-gray-100 text-sm">
+                                        <td class="pl-8"><small>{$date}</small></td>
+                                        <td class="pl-8">{$extraName}</td>
+                                        <td></td>
+                                        <td class="px-2 py-1 text-sm">
+                                            {$details}
+                                        </td>
+                                        <td></td>
+                                        <td class="text-right pr-4">{$extra->amount}</td>
+                                        <td></td>
+                                    </tr>
+
+                                HTML;
+                            }
+                        }
+                    }
+                    elseif ($item->table_name == "wakala") {
+                        $balance += (float) ($item->selling_price ?? 0);
+                        $currentAmount = $balance >= 0 ? $balance . ' DR' : abs($balance) . ' CR';
+                        $credit += (float) ($item->selling_price ?? 0);
+                    
+                        $html .= <<<HTML
+                            <tr>
+                                <td class="w-[10%]">{$item->invoice}<br><small><strong>{$item->date}</strong></small></td>
+                                <td class="w-[11%]"></td>
+                                <td class="w-[15%]">Quantity: {$item->quantity}</td>
+                                <td class="w-[28%] px-2 py-1 text-sm">
+                                    <div class="space-y-1">
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">ID NO:</span>
+                                            <span class="text-gray-800">{$item->id_no}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Visa:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->visa}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Country:</span>
+                                            <span class="text-gray-800 font-semibold">{$item->country}</span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Currency Rate:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->multi_currency}</span>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="font-medium text-gray-600 min-w-[70px]">Sales By:</span>
+                                            <span class="text-gray-800">
+                                                <span class="font-semibold">{$item->sales_by}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </td>
+                                <td class="w-[12%] totaldebit"></td>
+                                <td class="w-[12%] totalcredit">{$item->selling_price}</td>
+                                <td class="w-[12%] totaltotal">{$currentAmount}</td>
+                            </tr>
+                        HTML;
+                    
+                    } 
                 }
                 $balance = $balance >= 0 ? $balance . ' CR' : $balance . ' DR';
                 

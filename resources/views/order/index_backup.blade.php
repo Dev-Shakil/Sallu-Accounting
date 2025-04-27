@@ -20,6 +20,12 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
 
     </div>
     <div class="mb-2">
@@ -33,7 +39,7 @@
         Invoicing
     </h2>
     @if(in_array('entry', $permissionsArray))
-        <form action="/addorder" method="POST" autocomplete="off" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
+        <form action="/addorder" method="POST" id="addorder" class="w-[80%] p-5 bg-white shadow-lg" id="addorder">
             @csrf
             <div class="flex flex-wrap gap-x-10 -mx-4 mb-4">
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
@@ -85,7 +91,7 @@
                     <label for="agent" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Client
                         Name</label>
 
-                    <select name="agent" id="agent"
+                    <select name="agent" id="agent" required
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500  focus:border-blue-500 block w-auto p-1 select2">
                         <option value="">Select Client</option>
                         @foreach ($agents as $agent)
@@ -97,11 +103,14 @@
                 <div class="w-full md:w-[47%] px-4 mb-2 flex items-center">
                     <label for="seller" class="block w-full md:w-[40%]  text-gray-700 text-sm mb-2">Supplier</label>
 
-                    <select name="supplier" id="supplier"
+                    <select name="supplier" id="supplier" required
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block max-w-full select2 p-1">
                         <option value="">Select Supplier</option>
                         @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }} {{$supplier->company}}</option>
+                            <option value="supplier_{{ $supplier->id }}">{{ $supplier->name }} {{ $supplier->company }}</option>
+                        @endforeach
+                        @foreach ($agents as $agent)
+                            <option value="agent_{{ $agent->id }}">{{ $agent->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -402,62 +411,45 @@
                                 @endforeach
                             </td>
                             <td class="text-sm w-[150px]">
-                                @foreach ($suppliers as $supplier)
-                                    @if ($order->supplier == $supplier->id)
-                                        {{ $supplier->name }} <span class="">{{ $supplier->company }}</span>
+                                @if (isset($order->who) && Str::startsWith($order->who, 'agent_'))
+                                    @php
+                                        $agentId = intval(explode('_', $order->who)[1]); // Extract the agent ID from 'agent_14'
+                                        $agent = $agents->firstWhere('id', $agentId); // Find the agent from the collection
+                                    @endphp
+                                    @if ($agent)
+                                        {{ $agent->name }}
                                     @endif
-                                @endforeach
+                                @else
+                                    @foreach ($suppliers as $supplier)
+                                        @if ($order->supplier == $supplier->id)
+                                            {{ $supplier->name }} <span class="">{{ $supplier->company }}</span>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>{{ $order->contact_amount }}</td>
                             <td>{{ $order->payable_amount }}</td>
                             <td>{{ $order->remark }}</td>
-
-
                             <td>
                                 <section class="flex gap-2 text-lg">
                                     @if(in_array('edit', $permissionsArray))
-                                     <a href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i
-                                        class="fa fa-pencil fa-fw"></i> </a>
+                                        <a href="{{ route('order.edit', ['id' => encrypt($order->id)]) }}"><i class="fa fa-pencil fa-fw"></i> </a>
                                     @endif
                                     @if(in_array('delete', $permissionsArray))
-                                    {{-- <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
-                                        data-toggle="modal" data-target="#confirmDeleteModal"><i
-                                            class="fa fa-trash-o fa-fw"></i></a> --}}
-                                            <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink" data-toggle="modal" data-target="#confirmDeleteModal">
-                                                <i class="fa fa-trash-o fa-fw"></i>
-                                            </a>
-                                            
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Are you sure you want to delete this order?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="button" id="confirmDeleteButton" class="btn btn-danger">Delete</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <a href="{{ route('order.delete', ['id' => $order->id]) }}" id="deleteOrderLink"
+                                            data-toggle="modal" data-target="#confirmDeleteModal"><i class="fa fa-trash-o fa-fw"></i></a>
                                     @endif
                                     @if(in_array('view', $permissionsArray))
-                                            <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
-                                                class=" hover:text-green-700 mr-1">
-                                                <i class="fa fa-eye fa-fw text-xl"></i>
-                                            </a>
+                                        <a href="{{ route('order.viewInv', ['id' => $order->id]) }}"
+                                            class=" hover:text-green-700 mr-1">
+                                            <i class="fa fa-eye fa-fw text-xl"></i>
+                                        </a>
                                     @endif
                                 </section>
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
 
@@ -482,7 +474,31 @@
             </div>
         </div>
 
+                <!-- Confirm Delete Modal -->
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this order?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
+
+    
 
     <script type="text/javascript">
          var addnew = document.getElementById('addnew');
@@ -492,26 +508,38 @@
         addnew.addEventListener('click', function() {
             toggleVisibility();
         });
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     // Your code here
-        //     document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
-        //         event.preventDefault(); // Prevents the default link behavior (navigating to the href)
-
-        //         var isConfirmed = confirm('Are you sure you want to delete this order?');
-        //         // If user confirms, navigate to the delete route
-        //         if (isConfirmed) {
-        //             window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
-        //         }
-        //     });
-        // });
-
         document.addEventListener('DOMContentLoaded', function() {
-            
-                document.getElementById('confirmDeleteButton').addEventListener('click', function() {
-                    
+            // Your code here
+            document.getElementById('deleteOrderLink').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents the default link behavior (navigating to the href)
+
+                var isConfirmed = confirm('Are you sure you want to delete this order?');
+                // If user confirms, navigate to the delete route
+                if (isConfirmed) {
                     window.location.href = document.getElementById('deleteOrderLink').getAttribute('href');
-                });
+                }
+            });
         });
+
+                // Capture the delete link and pass it to the modal's delete button
+        $(document).on('click', '#deleteOrderLink', function (e) {
+            e.preventDefault(); // Prevent default link action
+
+            // Get the delete link
+            var deleteUrl = $(this).attr('href');
+
+            // When the delete button in the modal is clicked
+            $('#confirmDeleteButton').on('click', function () {
+                // Redirect to the delete route
+                window.location.href = deleteUrl;
+            });
+
+            // Show the modal (this should already work if you have Bootstrap properly initialized)
+            $('#confirmDeleteModal').modal('show');
+        });
+
+
+
         function toggleVisibility() {
             if (addorder.style.display === 'none') {
                 addorder.style.display = 'block';

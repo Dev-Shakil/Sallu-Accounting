@@ -23,6 +23,7 @@ use App\Http\Controllers\TicketRefundController;
 use App\Http\Controllers\UmrahController;
 use App\Http\Controllers\VoidController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContractController;
 
 use App\Models\Deportee;
 use App\Models\Ticket;
@@ -31,6 +32,7 @@ use App\Models\Supplier;
 use App\Models\Receiver;
 use App\Models\Payment;
 use App\Models\Transaction;
+// use App\Models\Contract;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,105 +71,6 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 
-
-
-// Route::get('/dashboard', function () {
-   
-        
-//     $current_date = new DateTime();
-//     $start_date = clone $current_date; // Today
-//     $end_date = $current_date->modify('+2 days'); // Next 4 days
-
-//     $closetickets = Ticket::where([
-//         ['user', Auth::id()],
-//         ['flight_date', '>=', $start_date->format('Y-m-d')],
-//         ['flight_date', '<=', $end_date->format('Y-m-d')]
-//     ])->get();
-
-//     foreach ($closetickets as $ticket){
-//         $ticket->agent = Agent::where('id', $ticket->agent)->value('name');
-//         $ticket->supplier = Supplier::where('id', $ticket->supplier)->value('name');
-//     }
-
-//     $current_date = Carbon::now()->toDateString();
-//     $total_receive = 0;
-//     $total_pay = 0;
-//     $total_amount = 0;
-
-//     $receives = Receiver::where([
-//         ['user', Auth::id()],
-//         ['date', '=', $current_date]
-//     ])
-//     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
-//     ->get();
-
-//     foreach ($receives as $receive){
-//         if($receive->receive_from == "agent"){
-//             $receive->name = Agent::where('id', $receive->agent_supplier_id)->value('name');
-//         }
-//         else{
-//             $receive->name = Supplier::where('id', $receive->agent_supplier_id)->value('name');
-//         }
-//         $receive->method = Transaction::where('id', $receive->method)->value('name');
-//         $total_receive += $receive->amount;
-//     }
-
-//     $payments = Payment::where([
-//         ['user', Auth::id()],
-//         ['date', '=', $current_date]
-//     ])
-//     ->orderBy('created_at', 'asc') // Change 'desc' to 'asc' if you need ascending order
-//     ->get();
-
-//     foreach ($payments as $payment){
-//         if($payment->receive_from == "agent"){
-//             $payment->name = Agent::where('id', $payment->agent_supplier_id)->value('name');
-//         }
-//         else{
-//             $payment->name = Supplier::where('id', $payment->agent_supplier_id)->value('name');
-//         }
-//         $payment->method = Transaction::where('id', $payment->method)->value('name');
-//         $total_pay += $payment->amount;
-//     }
-
-//     $current_date = Carbon::now()->toDateString();
-
-    
-//     $transactions = Transaction::where('user', Auth::id())
-//         // ->whereDate('updated_at', '=', $current_date)
-//         ->orderBy('id', 'asc') // Change 'desc' to 'asc' if you need ascending order
-//         ->get();
-//     $total_amount = Transaction::where('user', Auth::id())
-//         // ->whereDate('updated_at', '=', $current_date)
-//         ->sum('amount');
-
-//     $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
-//     $endOfMonth = Carbon::now()->endOfMonth()->toDateString();
-
-//     $total_month_sales_ticket = Ticket::where('user', Auth::id())
-//         ->whereBetween('date', [$startOfMonth, $endOfMonth])
-//         ->sum('agent_price');
-
-//     $total_today_sales_ticket = Ticket::where('user', Auth::id())
-//     ->where('date', '=', $current_date)
-//     ->sum('agent_price');
-    
-
-//     $total_month_sales_visa = Order::where('user', Auth::id())
-//         ->whereBetween('date', [$startOfMonth, $endOfMonth])
-//         ->sum('contact_amount');
-
-//     $total_today_sales_visa = Order::where('user', Auth::id())
-//     ->where('date', '=', $current_date)
-//     ->sum('contact_amount');
-    
-        
-
-//     // dd($total_month_sales_ticket, $total_today_sales_ticket);
-
-//     return view('dashboard', compact('closetickets', 'receives', 'payments', 'total_receive', 'total_pay', 'transactions',
-//      'total_amount', 'total_month_sales_visa', 'total_today_sales_visa', 'total_month_sales_ticket', 'total_today_sales_ticket' ));
-// })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard', function () {
    
         
@@ -268,6 +171,15 @@ Route::get('/dashboard', function () {
      'total_amount', 'total_month_sales_visa', 'total_today_sales_visa', 'total_month_sales_ticket', 'total_today_sales_ticket' ));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/contract', function(){
+    return app(ContractController::class)->index_new();
+})->name('contract');
+Route::get('/contracts_service/details/{id}', [ContractController::class, 'searchcontractservice']);
+Route::get('/contracts/create', [ContractController::class, 'create']);
+Route::post('/contracts/store', [ContractController::class, 'store'])->name('contracts.store');
+Route::post('/contracts/update', [ContractController::class, 'update'])->name('contracts.update');
+
+
 Route::get('/layout.app', function () {
     $user = Auth::user();
     return view('layout.app',compact('user'));
@@ -311,22 +223,6 @@ Route::get('/order/view/{id}', [OrderController::class, 'view'])->name('order.vi
 Route::post('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
 Route::get('/order/delete/{id}', [OrderController::class, 'delete'])->name('order.delete');
 
-// Route::get('/ticket/view', function () {
-//     return app(TicketController::class)->index();
-// })->name('ticket.view');
-// Route::post('/addticket', [TicketController::class, 'store'])->name('addticket.store');
-// Route::get('/ticket/edit/{id}', [TicketController::class, 'edit'])->name('ticket.edit');
-// Route::post('/ticket/update/{id}', [TicketController::class, 'update'])->name('ticket.update');
-// Route::get('/ticket/delete/{id}', [TicketController::class, 'delete'])->name('ticket.delete');
-
-// // Ticket Refund
-// Route::get('/refund_ticket/view', function () {
-//     return app(TicketRefundController::class)->index();
-// })->name('refund_ticket.view');
-// Route::post('/add_refund_ticket', [TicketRefundController::class, 'store'])->name('refund.store');
-// Route::get('/refund_ticket/edit/{id}', [TicketRefundController::class, 'edit'])->name('refund_ticket.edit');
-// Route::post('/refund_ticket/update/{id}', [TicketRefundController::class, 'update'])->name('refund_ticket.update');
-// Route::get('/refund_ticket/delete/{id}', [TicketRefundController::class, 'delete'])->name('refund_ticket.delete');
 
 Route::get('/ticket/view', function () {
     return app(TicketController::class)->index();
@@ -613,3 +509,7 @@ Route::any('/payment/index', [BkashTokenizePaymentController::class, 'payment_in
     Route::get('/bkash/refund/status', [App\Http\Controllers\BkashTokenizePaymentController::class,'refundStatus'])->name('bkash-refund-status');
 
 // });
+use App\Http\Controllers\WakalaController;
+Route::resource('wakalas', WakalaController::class)->middleware('auth');
+Route::get('/wakalas/datatable', [WakalaController::class, 'datatable'])->name('wakalas.datatable');
+Route::get('/wakalas/show/{wakala}', [WakalaController::class, 'show']);

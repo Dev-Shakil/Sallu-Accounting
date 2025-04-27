@@ -497,8 +497,9 @@ class ReportController extends Controller
                         if($item->reissued_new_ticket == 1){
                             $html .= <<<HTML
                                 <tr>
-                                    <td class="w-[10%]"> $item->invoice_date </td>
+                                    
                                     <td class="w-[11%]"> $item->invoice </td>
+                                    <td class="w-[10%]"> $item->invoice_date </td>
                                     <td class="w-[15%]"> {$ticket->ticket_code}/{$item->ticket_no} </td>
                                     <td class="w-[28%] pr-3">
                                         PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -520,8 +521,9 @@ class ReportController extends Controller
                         
                         $html .= <<<HTML
                                                     <tr>
-                                                        <td class="w-[10%]"> $item->invoice_date </td>
+                                                        
                                                         <td class="w-[11%]"> $item->invoice </td>
+                                                        <td class="w-[10%]"> $item->invoice_date </td>
                                                         <td class="w-[15%]"> {$item->ticket_no} </td>
                                                         <td class="w-[28%] pr-3">
                                                             PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -546,8 +548,9 @@ class ReportController extends Controller
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no}</td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -568,8 +571,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -594,8 +598,9 @@ class ReportController extends Controller
                       
                         $html .= <<<HTML
                         <tr>
-                            <td class="w-[10%]"> {$item->date} </td>
+                            
                             <td class="w-[11%]"> {$item->invoice} </td>
+                            <td class="w-[10%]"> {$item->date} </td>
                             <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                         HTML;
                         
@@ -630,8 +635,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <!-- Remarks:  Refund
@@ -657,8 +663,9 @@ class ReportController extends Controller
                         $typeneme = Type::where('id', $item->type)->value('name');
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
                                                     <td class="w-[28%]">
                                                         Passenger: {$item->name} <br>
@@ -684,8 +691,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}-{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <b>Void</b> to Customer : $agentname ,  
@@ -1028,8 +1036,9 @@ class ReportController extends Controller
                         
                         $html .= <<<HTML
                                                     <tr>
-                                                        <td class="w-[10%]"> $item->invoice_date </td>
+                                                        
                                                         <td class="w-[11%]"> $item->invoice </td>
+                                                        <td class="w-[10%]"> $item->invoice_date </td>
                                                         <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                         <td class="w-[28%] pr-3">
                                                             PAX NAME: <span class="font-semibold"> $item->passenger </span><br>
@@ -1056,8 +1065,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <!-- Remarks:  Refund
@@ -1081,8 +1091,9 @@ class ReportController extends Controller
                         $ticket = Ticket::where([['user', Auth::id()], ['ticket_no', $item->ticket_no]])->first();
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -1102,8 +1113,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         Remarks:  {$item->remark} <br>
@@ -1124,8 +1136,9 @@ class ReportController extends Controller
                         $credit += $item->now_supplier_fare;
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->airline_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                          
@@ -1150,8 +1163,9 @@ class ReportController extends Controller
     
                         $html .= <<<HTML
                                                 <tr >
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                    
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$item->ticket_code}/{$item->ticket_no} </td>
                                                     <td class="w-[28%]">
                                                         <b>Void</b> to Customer : $supplierName ,  
@@ -1173,8 +1187,9 @@ class ReportController extends Controller
                         $typeneme = Type::where('id', $item->type)->value('name');
                         $html .= <<<HTML
                                                 <tr>
-                                                    <td class="w-[10%]"> {$item->date} </td>
+                                                   
                                                     <td class="w-[11%]"> {$item->invoice} </td>
+                                                    <td class="w-[10%]"> {$item->date} </td>
                                                     <td class="w-[15%]"> {$typeneme} </td>
                                                     <td class="w-[28%]">
                                                         
@@ -1344,8 +1359,9 @@ class ReportController extends Controller
             $deleteUrl = url('/delete_receive', ['id' => $item->id]);
             $html .= <<<HTML
                             <tr class="">
-                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
+                                
                                 <td class="w-[11%] px-4 py-2 text-sm text-left"> $item->invoice </td>
+                                <td class="w-[10%] px-4 py-2 text-sm text-left"> $item->date </td>
                                 <td class="w-[15%] px-4 py-2 text-sm text-left"> $item->name </td>
                                 <td class="w-[28%] px-4 py-2 text-sm text-left">
                                   $item->method_name
@@ -2126,271 +2142,11 @@ class ReportController extends Controller
         }
 
     }
-    // public function due_reminder()
-    // {
-    //     if (Auth::user()) {
-    //         $userId = Auth::id();
-
-    //         // Fetch all active and non-deleted agents and suppliers
-    //         $agents = Agent::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-
-    //         $suppliers = Supplier::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-
-    //         $latestTransactions = [];
-
-    //         // Get latest transactions for agents
-    //         foreach ($agents as $agent) {
-    //             $latestReceive = Receiver::where('agent_supplier_id', $agent->id)
-    //                 ->where('receive_from', 'agent')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestPayment = Payment::where('agent_supplier_id', $agent->id)
-    //                 ->where('receive_from', 'agent')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestTransactions[] = [
-    //                 'entity' => $agent,
-    //                 'latest_receive' => $latestReceive,
-    //                 'latest_payment' => $latestPayment,
-    //                 'type' => 'agent'
-    //             ];
-    //         }
-
-    //         // Get latest transactions for suppliers
-    //         foreach ($suppliers as $supplier) {
-    //             $latestReceive = Receiver::where('agent_supplier_id', $supplier->id)
-    //                 ->where('receive_from', 'supplier')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestPayment = Payment::where('agent_supplier_id', $supplier->id)
-    //                 ->where('receive_from', 'supplier')
-    //                 ->orderBy('created_at', 'desc')
-    //                 ->first();
-
-    //             $latestTransactions[] = [
-    //                 'entity' => $supplier,
-    //                 'latest_receive' => $latestReceive,
-    //                 'latest_payment' => $latestPayment,
-    //                 'type' => 'supplier'
-    //             ];
-    //         }
-
-    //         // Prepare transactions with names and other details
-    //         $filteredTransactionsWithNames = [];
-    //         foreach ($latestTransactions as $transaction) {
-    //             $entity = $transaction['entity'];
-    //             $type = $transaction['type'];
-    //             $receiveFrom = $type == 'agent' ? 'agent' : 'supplier';
-    //             $latestReceive = $transaction['latest_receive'];
-    //             $latestPayment = $transaction['latest_payment'];
-
-    //             if($type === 'agent'){
-    //                 $due_amount = Agent::where('id', $entity->id)->value('amount');
-    //             }
-    //             else{
-    //                 $due_amount = Supplier::where('id', $entity->id)->value('amount');
-    //             }
-    //             $transactionDetails = [
-    //                 'agent_supplier_id' => $entity->id,
-    //                 'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $receiveFrom . '</span>)',
-    //                 'agent_supplier_email' => $entity->email,
-    //                 'agent_supplier_phone' => $entity->phone,
-    //                 'agent_supplier_company' => $entity->company,
-    //                 'due_amount' => $due_amount,
-    //                 'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-    //                 'amount' => $latestReceive ? $latestReceive->amount : ($latestPayment ? $latestPayment->amount : null)
-    //             ];
-
-    //             $filteredTransactionsWithNames[] = $transactionDetails;
-    //         }
-
-    //         return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
-    //     } else {
-    //         return view('welcome');
-    //     }
-    // }
     
 
-    
-    // public function due_reminder()
-    // {
-    //     if (Auth::user()) {
-    //         $userId = Auth::id();
-    
-    //         // Fetch all active and non-deleted agents and suppliers
-    //         $agents = Agent::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-    
-    //         $suppliers = Supplier::where([
-    //             ['is_delete', 0],
-    //             ['is_active', 1],
-    //             ['user', $userId]
-    //         ])->get();
-    
-    //         $filteredTransactionsWithNames = [];
-    
-    //         // Function to process transactions
-    //         function processTransactions($entities, $type) {
-    //             $transactions = [];
-    
-    //             foreach ($entities as $entity) {
-    //                 $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
-    //                     ->where('receive_from', $type)
-    //                     ->orderBy('created_at', 'desc')
-    //                     ->first();
-    
-    //                 $latestPayment = Payment::where('agent_supplier_id', $entity->id)
-    //                     ->where('receive_from', $type)
-    //                     ->orderBy('created_at', 'desc')
-    //                     ->first();
-    
-                   
-    //                 $id = $entity->id;
-    //                 if($entity->getTable() == 'agent'){
-    //                     $openingBalance = $entity->opening_balance;
-    //                 }
-    //                 else{
-    //                     $openingBalance = -$entity->opening_balance;
-    //                 }
-                    
-    //                 if ($type === 'agent')
-    //                 {
-    //                     $orders = Order::where([['agent', $id], ['user', Auth::id()]])->get();
-    //                     $tickets = Ticket::where([['agent', $id], ['is_active', 1], ['user', Auth::id()]])->get();
-    //                     $refunds = Refund::where('user', Auth::id())->where('agent', $id)->get();
-    //                     $receivers = Receiver::where([
-    //                         ['receive_from', '=', 'agent'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-    //                     $payments = Payment::where([
-    //                         ['receive_from', '=', 'agent'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-    //                     $void_tickets = VoidTicket::where([['user', Auth::id()], ['agent', $id]])->get();
-    //                     $reissues = ReissueTicket::where([['agent', $id], ['user', Auth::id()]])->get();
-    //                 } else {
-    //                     $orders = Order::where('user', Auth::id())
-    //                         ->where('supplier', $id)
-    //                         ->get();
-                        
-    //                     $tickets = Ticket::where([
-    //                         ['supplier', $id],
-    //                         ['is_active', 1],
-    //                         ['is_delete', 0],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $refunds = Refund::where('user', Auth::id())
-    //                         ->where('supplier', $id)
-    //                         ->get();
-                        
-    //                     $receivers = Receiver::where([
-    //                         ['receive_from', '=', 'supplier'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $payments = Payment::where([
-    //                         ['receive_from', '=', 'supplier'],
-    //                         ['agent_supplier_id', '=', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                        
-    //                     $void_tickets = VoidTicket::where([
-    //                         ['user', Auth::id()],
-    //                         ['supplier', $id]
-    //                     ])->get();
-                        
-    //                     $reissues = ReissueTicket::where([
-    //                         ['supplier', $id],
-    //                         ['user', Auth::id()]
-    //                     ])->get();
-                      
-    //                 }
-    
-    //                 // Concatenate all collections into a single collection
-    //                 $concatenatedCollection = $orders
-    //                     ->concat($tickets)
-    //                     ->concat($refunds)
-    //                     ->concat($receivers)
-    //                     ->concat($payments)
-    //                     ->concat($void_tickets)
-    //                     ->concat($reissues);
-    
-    //                 $due_amount = $openingBalance;
-    //                 $amountTracking = []; // Array to track amounts per table
-    //                 // dd($concatenatedCollection);
-    //                 foreach ($concatenatedCollection as $singlecollection) {
-    //                     // dd($singlecollection);
-    //                     $table = $singlecollection->getTable();
-    //                     $amount = 0;
-    
-    //                     if ($table == 'order') {
-    //                         $amount = $type === 'agent' ? $singlecollection->contact_amount : -$singlecollection->payable_amount;
-    //                     } elseif ($table == 'tickets') {
-    //                         $amount = $type === 'agent' ? $singlecollection->agent_price : -$singlecollection->supplier_price;
-    //                     } elseif ($table == 'reissue') {
-    //                         $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-    //                     } elseif ($table == 'refund') {
-    //                         $amount = $type === 'agent' ? -$singlecollection->now_agent_fere : $singlecollection->now_supplier_fare;
-    //                     } elseif ($table == 'receive') {
-    //                         $amount = -$singlecollection->amount;
-    //                     } elseif ($table == 'payment') {
-    //                         $amount = $singlecollection->amount;
-    //                     } elseif ($table == 'voidTicket') {
-    //                         $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-    //                     }
-    
-    //                     $due_amount += $amount;
-    //                     $amountTracking[] = ['table' => $table, 'amount' => $amount];
-    //                 }
-    
-    //                 $transactions[] = [
-    //                     'agent_supplier_id' => $entity->id,
-    //                     'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
-    //                     'agent_supplier_email' => $entity->email,
-    //                     'agent_supplier_phone' => $entity->phone,
-    //                     'agent_supplier_company' => $entity->company,
-    //                     'due_amount' => $due_amount,
-    //                     'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-    //                     'amount' => $latestReceive ? $latestReceive->amount : ($latestPayment ? $latestPayment->amount : null),
-    //                     'amountTracking' => $amountTracking // Add tracking details to the output
-    //                 ];
-    //             }
-    
-    //             return $transactions;
-    //         }
-    
-    //         // Process agents and suppliers separately
-    //         $agentTransactions = processTransactions($agents, 'agent');
-    //         $supplierTransactions = processTransactions($suppliers, 'supplier');
-    
-    //         // Combine the transactions if needed
-    //         $filteredTransactionsWithNames = array_merge($agentTransactions, $supplierTransactions);
-    
-    //         return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
-    //     } else {
-    //         return view('welcome');
-    //     }
-    // }
+   
 
-    public function due_reminder()
+    public function due_reminder(Request $request)
     {
         if (Auth::user()) {
             $userId = Auth::id();
@@ -2410,166 +2166,111 @@ class ReportController extends Controller
     
             $filteredTransactionsWithNames = [];
     
-            // Function to process transactions
-            function processTransactions($entities, $type) {
-                $transactions = [];
+            // Process transactions for both agents and suppliers
+            $filteredTransactionsWithNames = array_merge(
+                $this->processTransactions($agents, 'agent', $request),
+                $this->processTransactions($suppliers, 'supplier', $request)
+            );
     
-                foreach ($entities as $entity) {
-                    $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
-                        ->where('receive_from', $type)
-                        ->orderBy('created_at', 'desc')
-                        ->first();
-    
-                    $latestPayment = Payment::where('agent_supplier_id', $entity->id)
-                        ->where('receive_from', $type)
-                        ->orderBy('created_at', 'desc')
-                        ->first();
-                    // dd($latestPayment);
-                   
-                    $id = $entity->id;
-                    if($entity->getTable() == 'agent'){
-                        $openingBalance = $entity->opening_balance;
-                    }
-                    else{
-                        $openingBalance = -$entity->opening_balance;
-                    }
-                    
-                    if ($type === 'agent')
-                    {
-                        $orders = Order::where([['agent', $id], ['user', Auth::id()]])->get();
-                        $tickets = Ticket::where([['agent', $id], ['is_active', 1], ['user', Auth::id()]])->get();
-                        $refunds = Refund::where('user', Auth::id())->where('agent', $id)->get();
-                        $receivers = Receiver::where([
-                            ['receive_from', '=', 'agent'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        $payments = Payment::where([
-                            ['receive_from', '=', 'agent'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        $void_tickets = VoidTicket::where([['user', Auth::id()], ['agent', $id]])->get();
-                        $reissues = ReissueTicket::where([['agent', $id], ['user', Auth::id()]])->get();
-                    } else {
-                        $orders = Order::where('user', Auth::id())
-                            ->where('supplier', $id)
-                            ->get();
-                        
-                        $tickets = Ticket::where([
-                            ['supplier', $id],
-                            ['is_active', 1],
-                            ['is_delete', 0],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $refunds = Refund::where('user', Auth::id())
-                            ->where('supplier', $id)
-                            ->get();
-                        
-                        $receivers = Receiver::where([
-                            ['receive_from', '=', 'supplier'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $payments = Payment::where([
-                            ['receive_from', '=', 'supplier'],
-                            ['agent_supplier_id', '=', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                        
-                        $void_tickets = VoidTicket::where([
-                            ['user', Auth::id()],
-                            ['supplier', $id]
-                        ])->get();
-                        
-                        $reissues = ReissueTicket::where([
-                            ['supplier', $id],
-                            ['user', Auth::id()]
-                        ])->get();
-                      
-                    }
-    
-                    // Concatenate all collections into a single collection
-                    $concatenatedCollection = $orders
-                        ->concat($tickets)
-                        ->concat($refunds)
-                        ->concat($receivers)
-                        ->concat($payments)
-                        ->concat($void_tickets)
-                        ->concat($reissues);
-    
-                    $due_amount = $openingBalance;
-                    $amountTracking = []; // Array to track amounts per table
-                    // dd($concatenatedCollection);
-                    foreach ($concatenatedCollection as $singlecollection) {
-                        // dd($singlecollection);
-                        $table = $singlecollection->getTable();
-                        $amount = 0;
-    
-                        if ($table == 'order') {
-                            $amount = $type === 'agent' ? $singlecollection->contact_amount : -$singlecollection->payable_amount;
-                        } elseif ($table == 'tickets') {
-                            $amount = $type === 'agent' ? $singlecollection->agent_price : -$singlecollection->supplier_price;
-                        } elseif ($table == 'reissue') {
-                            $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-                        } elseif ($table == 'refund') {
-                            $amount = $type === 'agent' ? -$singlecollection->now_agent_fere : $singlecollection->now_supplier_fare;
-                        } elseif ($table == 'receive') {
-                            $amount = -$singlecollection->amount;
-                        } elseif ($table == 'payment') {
-                            $amount = $singlecollection->amount;
-                        } elseif ($table == 'voidTicket') {
-                            $amount = $type === 'agent' ? $singlecollection->now_agent_fere : -$singlecollection->now_supplier_fare;
-                        }
-    
-                        $due_amount += $amount;
-                        $amountTracking[] = ['table' => $table, 'amount' => $amount];
-                    }
-                            
-                    // Determine the latest transaction and its amount
-
-                    if ($latestReceive && $latestPayment) {
-                        $latestTransaction = $latestReceive->created_at > $latestPayment->created_at ? $latestReceive : $latestPayment;
-                        $amount = $latestTransaction->amount;
-                    } elseif ($latestReceive) {
-                        $amount = $latestReceive->amount;
-                    } elseif ($latestPayment) {
-                        $amount = $latestPayment->amount;
-                    } else {
-                        $amount = null;
-                    }
-    
-                    
-                    $transactions[] = [
-                        'agent_supplier_id' => $entity->id,
-                        'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
-                        'agent_supplier_email' => $entity->email,
-                        'agent_supplier_phone' => $entity->phone,
-                        'agent_supplier_company' => $entity->company,
-                        'due_amount' => $due_amount,
-                        'date' => $latestReceive ? $latestReceive->created_at : ($latestPayment ? $latestPayment->created_at : null),
-                        'amount' => $amount,
-                        'amountTracking' => $amountTracking // Add tracking details to the output
-                    ];
-                }
-    
-                return $transactions;
-            }
-    
-            // Process agents and suppliers separately
-            $agentTransactions = processTransactions($agents, 'agent');
-            $supplierTransactions = processTransactions($suppliers, 'supplier');
-    
-            // Combine the transactions if needed
-            $filteredTransactionsWithNames = array_merge($agentTransactions, $supplierTransactions);
-    
+            // dd($filteredTransactionsWithNames);
+            // Return the view with data (or JSON for API response)
             return view('report.due_reminder.DueReminder', compact('filteredTransactionsWithNames', 'agents', 'suppliers'));
         } else {
             return view('welcome');
         }
     }
+    
+    private function processTransactions($entities, $type, $request)
+    {
+        $transactions = [];
+        $generalLedgerController = new GeneralLedgerController();
+    
+        // dd($entities);
+        foreach ($entities as $entity) {
+            $id = $entity->id;
+    
+            $due_amount = 0;
+            // Clone or modify the request
+            $request->merge([
+                'agent_supplier' => $type,
+                'agent_supplier_id' => $id,
+            ]);
+    
+            // Call the general_ledger_report function
+            $response = $generalLedgerController->general_ledger_report($request);
+    
+            $responseData = $response->getData(); 
+                // dd($responseData);
+                $html = $responseData->html; // Replace `tableHtml` with the actual property containing the HTML
+                $dom = new DOMDocument();
+                @$dom->loadHTML($html);
+
+                // Get all <tr> elements
+                $rows = $dom->getElementsByTagName('tr');
+
+                // Get the last <tr>
+                $lastRow = $rows->item($rows->length - 1);
+
+                if ($lastRow) {
+                    // Get all <td> elements in the last row
+                    $tds = $lastRow->getElementsByTagName('td');
+
+                    // Get the last <td> in the last row
+                    $lastTd = $tds->item($tds->length - 1);
+
+                    $due_amount = $lastTd ? intval($lastTd->textContent) : 'N/A';
+                } else {
+
+                }
+            $latestReceive = Receiver::where('agent_supplier_id', $entity->id)
+                ->where('receive_from', $type)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $latestPayment = Payment::where('agent_supplier_id', $entity->id)
+                ->where('receive_from', $type)
+                ->orderBy('created_at', 'desc')
+                ->first();
+    
+            // dd($responseData, $type, $entity);
+            // Ensure response data is valid
+            if (!$responseData) {
+                continue;
+            }
+    
+    
+            // Determine the latest transaction and its amount
+            $latestTransaction = null;
+            $amount = null;
+    
+           
+            if ($latestReceive && $latestPayment) {
+                $latestTransaction = $latestReceive->created_at > $latestPayment->created_at ? $latestReceive : $latestPayment;
+                $amount = $latestTransaction->amount;
+            } elseif ($latestReceive) {
+                $amount = $latestReceive->amount;
+            } elseif ($latestPayment) {
+                $amount = $latestPayment->amount;
+            } else {
+                $amount = null;
+            }
+
+    
+            $transactions[] = [
+                'agent_supplier_id' => $entity->id,
+                'agent_supplier_name' => $entity->name . ' (<span style="color: red;">' . $type . '</span>)',
+                'agent_supplier_email' => $entity->email,
+                'agent_supplier_phone' => $entity->phone,
+                'agent_supplier_company' => $entity->company,
+                'due_amount' => $due_amount,
+                'date' => $latestTransaction ? $latestTransaction['created_at'] : null,
+                'amount' => $amount,
+            ];
+        }
+    
+        return $transactions;
+    }
+    
     public function due_reminder_specific(Request $request)
     {
         if(Auth::user()){
@@ -3017,143 +2718,44 @@ class ReportController extends Controller
 
     
    
-    // public function sales_report_ticket(Request $request)
-    // {
-    //     // dd($request->all());
-    //     if(Auth::user()){
-            
-    //     $agent = $request->input('agent') ?? null;
-    //     $supplier = $request->input('supplier') ?? null;
-
-    //     $show_profit = $request->input('show_profit') ?? null;
-    //     $show_supplier = $request->input('show_supplier') ?? null;
-    //     $show_agent = $request->input('show_agent') ?? null;
-
-    //     $start_date = $request->input('start_date') ?? null;
-    //     $end_date = $request->input('end_date') ?? null;
-
-    //     $issue_date = $request->input('issue_date') ?? null;
-    //     $flight_date = $request->input('flight_date') ?? null;
-
-    //     if ($start_date) {
-    //         $start_date = (new DateTime($start_date))->format('Y-m-d');
-    //     }
-    //     if ($end_date) {
-    //         $end_date = (new DateTime($end_date))->format('Y-m-d');
-    //     } else {
-    //         $end_date = now()->format('Y-m-d');
-    //     }
-
-    //     if ($issue_date) {
-    //         $issue_date = (new DateTime($issue_date))->format('Y-m-d');
-    //     }
-    //     if ($flight_date) {
-    //         $flight_date = (new DateTime($flight_date))->format('Y-m-d');
-    //     }else {
-    //         $flight_date = now()->format('Y-m-d');
-    //     }
-        
-
-    //     $user = Auth::id();
-
-    //     $query = DB::table('tickets')
-    //     ->select('tickets.*')  // Select all ticket fields
-    //     ->where([
-    //         ['is_active', 1],
-    //         ['is_delete', 0],
-    //         ['user', $user],
-    //     ]);
-
-    //     if ($agent !== null) {
-    //         $query->where('agent', $agent);
-    //     }
-
-    //     if ($supplier !== null) {
-    //         $query->where('supplier', $supplier);
-    //     }
-
-    //     if ($start_date && $end_date) {
-    //         $query->whereBetween('invoice_date', [$start_date, $end_date]);
-    //     } elseif ($start_date) {
-    //         $query->where('invoice_date', '>=', $start_date);
-    //     } elseif ($end_date) {
-    //         $query->where('invoice_date', '<=', $end_date);
-    //     }
-
-    //     if ($issue_date && $flight_date) {
-    //         $query->whereBetween('flight_date', [$issue_date, $flight_date]);
-    //     } elseif ($issue_date) {
-    //         $query->where('flight_date', '>=', $issue_date);
-    //     } elseif ($flight_date) {
-    //         $query->where('flight_date', '<=', $flight_date);
-    //     }
-
-    //     // Retrieve the tickets
-    //     $tickets = $query->get();
-
-    
-    //     $groupedTickets = [];
-
-    //     foreach ($tickets as $ticket) {
-    //         $groupedTickets[$ticket->agent][] = $ticket;  // Group tickets by agent
-    //     }
-
-    //     // dd(Auth::user()->name);
-    //     // dd($groupedTickets);
-    //     $html = ViewFacade::make('report.sales_ticket.report', [
-              
-    //         'start_date' => $start_date,
-    //         'end_date' => $end_date,
-    //         'show_agent' => true,
-    //         'show_supplier' => $show_supplier,
-    //         'show_profit' => $show_profit,
-    //         'alldata' => $groupedTickets,
-           
-          
-    //     ])->render();
-        
-    //     return response()->json(['html' => $html]);
-
-    //     }
-    //     else{
-    //         return view('welcome');
-    //     }
-    // }
+  
     public function sales_report_ticket(Request $request)
     {
         if (Auth::user()) {
+           
             // Get input data from the request
             $agent = $request->input('agent');
             $supplier = $request->input('supplier');
             $show_profit = $request->input('show_profit');
             $show_supplier = $request->input('show_supplier');
             $show_agent = $request->input('show_agent');
-        
-            // Using DateTime instead of Carbon
+            
+            // Using DateTime to handle dates
             $start_date = $request->input('start_date') ? (new \DateTime($request->input('start_date')))->format('Y-m-d') : null;
-            $end_date = $request->input('end_date') ? (new \DateTime($request->input('end_date')))->format('Y-m-d') : (new \DateTime())->format('Y-m-d');
+            $end_date = $request->input('end_date') ? (new \DateTime($request->input('end_date')))->format('Y-m-d') : null;
             $issue_date = $request->input('issue_date') ? (new \DateTime($request->input('issue_date')))->format('Y-m-d') : null;
-            $flight_date = $request->input('flight_date') ? (new \DateTime($request->input('flight_date')))->format('Y-m-d') : (new \DateTime())->format('Y-m-d');
-        
+            $flight_date = $request->input('flight_date') ? (new \DateTime($request->input('flight_date')))->format('Y-m-d') : null;
+            
             // Get the authenticated user's ID
             $user = Auth::id();
-        
+            
             // Initialize the query
             $query = DB::table('tickets')
-                ->select('tickets.*')
                 ->where([
                     ['is_active', 1],
                     ['is_delete', 0],
                     ['user', $user],
                 ]);
-        
+            
             // Apply filters to the query
-            if ($agent) {
+            if ($agent !== null) {
                 $query->where('agent', $agent);
             }
-            if ($supplier) {
+            if ($supplier !== null) {
                 $query->where('supplier', $supplier);
             }
+            
+            // Handle date range filters for invoice_date
             if ($start_date && $end_date) {
                 $query->whereBetween('invoice_date', [$start_date, $end_date]);
             } elseif ($start_date) {
@@ -3161,6 +2763,8 @@ class ReportController extends Controller
             } elseif ($end_date) {
                 $query->where('invoice_date', '<=', $end_date);
             }
+            
+            // Handle date range filters for flight_date
             if ($issue_date && $flight_date) {
                 $query->whereBetween('flight_date', [$issue_date, $flight_date]);
             } elseif ($issue_date) {
@@ -3168,9 +2772,17 @@ class ReportController extends Controller
             } elseif ($flight_date) {
                 $query->where('flight_date', '<=', $flight_date);
             }
-        
+            
+            // Debugging: Log the query for troubleshooting
+            // \Log::info('SQL Query:', ['query' => $query->toSql(), 'bindings' => $query->getBindings()]);
+            
             // Retrieve the tickets
             $tickets = $query->get();
+            
+            // Debugging: Dump the results (only for testing, remove in production)
+            // dd($tickets);
+            
+            
         
             foreach ($tickets as $ticket) {
                 $ticket->agent_name = Agent::where('id', $ticket->agent)->value('name');
@@ -3301,7 +2913,6 @@ class ReportController extends Controller
     }
 
 
-    
     public function sales_report_visa(Request $request)
     {
         if(Auth::user()){
@@ -3452,9 +3063,9 @@ class ReportController extends Controller
         }
 
       // Append the totals row
-$htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
-<td class="py-2 pl-2" colspan="' . ($show_agent != null ? '6' : '5') . '">Total</td>
-<td class="py-2">Total Visa : ' . $total_visa . '</td>';
+        $htmlTable .= '<tr class="py-4 border-gray-300 border-y font-bold">
+        <td class="py-2 pl-2" colspan="' . ($show_agent != null ? '6' : '5') . '">Total Visa : ' . $total_visa . '</td>
+        <td class="py-2"></td>';
 
         if ($show_agent != null) {
             $htmlTable .= '
